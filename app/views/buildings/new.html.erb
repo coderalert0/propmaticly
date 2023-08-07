@@ -1,0 +1,119 @@
+<!--begin::Form-->
+<form action="/buildings" method="post" class="form">
+  <!--begin::Card body-->
+  <div class="card-body border-top p-9">
+    <!--begin::Input group-->
+    <div class="row mb-6">
+      <!--begin::Label-->
+      <label class="col-lg-4 col-form-label required fw-semibold fs-6">Street Number</label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8">
+        <!--begin::Row-->
+        <div class="row">
+          <!--begin::Col-->
+          <div class="col-lg-6 fv-row">
+            <input type="text" name="street_number" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="Max" />
+          </div>
+          <!--end::Col-->
+        </div>
+        <!--end::Row-->
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+    <!--begin::Input group-->
+    <div class="row mb-6">
+      <!--begin::Label-->
+      <label class="col-lg-4 col-form-label required fw-semibold fs-6">Street Name</label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8 fv-row">
+        <input type="text" name="street_name" class="form-control form-control-lg form-control-solid" placeholder="Company name" value="Keenthemes" />
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+
+    <!--begin::Input group-->
+    <div class="row mb-6">
+      <!--begin::Label-->
+      <label class="col-lg-4 col-form-label fw-semibold fs-6">City</label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8 fv-row">
+        <input type="text" name="city" class="form-control form-control-lg form-control-solid" placeholder="Company website" value="keenthemes.com" />
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+
+    <!--begin::Input group-->
+    <div class="row mb-6">
+      <!--begin::Label-->
+      <label class="col-lg-4 col-form-label fw-semibold fs-6">Zip Code</label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8 fv-row">
+        <input type="text" name="zip_code" class="form-control form-control-lg form-control-solid" placeholder="Company website" value="keenthemes.com" />
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+
+    <!--begin::Input group-->
+    <div class="row mb-6">
+      <!--begin::Label-->
+      <label class="col-lg-4 col-form-label fw-semibold fs-6">Email Address</label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8 fv-row">
+        <input type="text" name="email_address" class="form-control form-control-lg form-control-solid" placeholder="Company website" value="keenthemes.com" />
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+
+    <!--begin::Input group-->
+    <div class="row mb-6">
+      <!--begin::Label-->
+      <label class="col-lg-4 col-form-label fw-semibold fs-6">
+        <span class="required">SMS</span>
+        <span class="ms-1" data-bs-toggle="tooltip" title="Phone number must be active">
+																<i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+															</span>
+      </label>
+      <!--end::Label-->
+      <!--begin::Col-->
+      <div class="col-lg-8 fv-row">
+        <input type="tel" name="sms" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="044 3276 454 935" />
+      </div>
+      <!--end::Col-->
+    </div>
+    <!--end::Input group-->
+
+    <!--begin::Input group-->
+    <div class="row mb-0">
+      <!--begin::Label-->
+      <label class="col-lg-4 col-form-label fw-semibold fs-6">Active</label>
+      <!--begin::Label-->
+      <!--begin::Label-->
+      <div class="col-lg-8 d-flex align-items-center">
+        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+          <input class="form-check-input w-45px h-30px" type="checkbox" id="allowmarketing" checked="checked" />
+          <label class="form-check-label" for="allowmarketing"></label>
+        </div>
+      </div>
+      <!--begin::Label-->
+    </div>
+    <!--end::Input group-->
+  </div>
+  <!--end::Card body-->
+  <!--begin::Actions-->
+  <div class="card-footer d-flex justify-content-end py-6 px-9">
+    <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
+    <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+  </div>
+  <!--end::Actions-->
+</form>
+<!--end::Form-->

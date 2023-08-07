@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :complaint do
     complaint_id { 'ABC123' }

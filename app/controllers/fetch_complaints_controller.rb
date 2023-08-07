@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FetchComplaintsController < ApplicationController
   def show
     Delayed::Job.enqueue FetchComplaintsJob.new
