@@ -9,6 +9,7 @@ class CreateBuildings < ActiveRecord::Migration[7.0]
       t.integer :zip_code
       t.string :email_address
       t.string :sms
+      t.references :portfolio, foreign_key: true
       t.timestamps
     end
   end
