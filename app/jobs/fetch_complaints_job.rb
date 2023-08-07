@@ -1,0 +1,10 @@
+require 'faraday'
+
+class FetchComplaintsJob < ApplicationJob
+  def perform
+    puts 'Fetching!'
+    response = Faraday.get 'https://data.cityofnewyork.us/resource/eabe-havv.json?date_entered=08/05/2023'
+    puts "Status => #{response.status}"
+    puts "Body => #{response.body}"
+  end
+end
