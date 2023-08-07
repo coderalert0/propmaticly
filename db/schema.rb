@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_07_015224) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_031921) do
+  create_table "complaints", force: :cascade do |t|
+    t.string "complaint_id"
+    t.string "filed_date"
+    t.string "description"
+    t.string "status"
+    t.string "category"
+    t.string "last_inspection_date"
+    t.string "last_inspection_result"
+    t.string "link"
+    t.integer "state", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
