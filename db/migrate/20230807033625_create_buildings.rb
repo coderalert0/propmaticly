@@ -5,8 +5,8 @@ class CreateBuildings < ActiveRecord::Migration[7.0]
       t.string :street_name
       t.string :subpremise
       t.string :city
-      t.string :state
-      t.integer :zip_code
+      t.string :administrative_area
+      t.string :postal_code
       t.string :email_address
       t.string :sms
       t.references :portfolio, foreign_key: true
