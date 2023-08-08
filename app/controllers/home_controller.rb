@@ -2,6 +2,6 @@
 
 class HomeController < ApplicationController
   def show
-    @portfolios = Portfolio.all
+    @portfolios = Portfolio.all.includes(:buildings)
   end
 end

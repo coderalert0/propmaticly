@@ -1,5 +1,5 @@
 <!--begin::Form-->
-<form action="/buildings" method="post" class="form">
+<form id="kt_modal_add_building_form" action="/buildings" method="post" class="form">
   <!--begin::Card body-->
   <div class="card-body border-top p-9">
     <!--begin::Input group-->
@@ -12,8 +12,8 @@
         <!--begin::Row-->
         <div class="row">
           <!--begin::Col-->
-          <div class="col-lg-6 fv-row">
-            <input type="text" name="name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="The Lombardi" />
+          <div class="col-lg-8-6 fv-row">
+            <input type="text" name="name" class="form-control form-control-lg form-control-solid" placeholder="The Lombardi" />
           </div>
           <!--end::Col-->
         </div>
@@ -33,8 +33,8 @@
         <!--begin::Row-->
         <div class="row">
           <!--begin::Col-->
-          <div class="col-lg-6 fv-row">
-            <input type="text" name="address1" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="280 Broadway" />
+          <div class="col-lg8-6 fv-row">
+            <input type="text" name="address1" class="form-control form-control-lg form-control-solid" placeholder="280 Broadway" />
           </div>
           <!--end::Col-->
         </div>
@@ -108,5 +108,6 @@
     <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
   </div>
   <!--end::Actions-->
+  <input type="hidden" name="portfolio_id" value="<%= @portfolio&.id %>">
 </form>
 <!--end::Form-->

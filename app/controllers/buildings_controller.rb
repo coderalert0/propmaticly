@@ -3,8 +3,11 @@
 require 'usps'
 
 class BuildingsController < ApplicationController
+  # load_resource, when cancancan installed
+  before_action :load_portfolio, only: %i[index new create]
+
   def index
-    @buildings = Building.all
+    @buildings = @portfolio.buildings
   end
 
   def new; end
@@ -17,11 +20,19 @@ class BuildingsController < ApplicationController
     begin
       response = req.send!
       address = response.get(address)
-      building = Building.new(name: building_params[:name], address1: address.address1, city: address.city, state: address.state, zip5: address.zip5,
-                              email_address: building_params[:email_address], sms: building_params[:sms], portfolio_id: 3)
-      redirect_to buildings_path, notice: 'Building added successfully!' if building.save!
-    rescue StandardError
-      puts 'error'
+
+      building = Building.new(name: building_params[:name],
+                              address1: address.address1,
+                              city: address.city,
+                              state: address.state,
+                              zip5: address.zip5,
+                              email_address: building_params[:email_address],
+                              sms: building_params[:sms],
+                              portfolio_id: building_params[:portfolio_id])
+
+      redirect_to portfolio_buildings_path(@portfolio), notice: 'Building added successfully!' if building.save!
+    rescue StandardError => e
+      puts e.inspect
     end
   end
 
@@ -31,7 +42,12 @@ class BuildingsController < ApplicationController
 
   private
 
+  def load_portfolio
+    # load_resource, when cancancan installed
+    @portfolio = Portfolio.find(params[:portfolio_id])
+  end
+
   def building_params
-    params.permit(:name, :address1, :city, :zip_code, :email_address, :sms)
+    params.permit(:portfolio_id, :name, :address1, :city, :zip_code, :email_address, :sms)
   end
 end
