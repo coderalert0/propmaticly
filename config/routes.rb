@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   root 'home#show'
 
   resource :fetch_complaints, only: :show
-  resources :portfolios
+  resources :portfolios do
+    resources :buildings
+  end
   resources :buildings
   resources :complaints
 end
