@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    invitations: 'users/invitations'
+  }
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
@@ -16,4 +19,5 @@ Rails.application.routes.draw do
   end
   resources :buildings
   resources :complaints
+  resources :users
 end

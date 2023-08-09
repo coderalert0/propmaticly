@@ -5,6 +5,7 @@ class PortfoliosController < ApplicationController
   def new; end
 
   def create
+    portfolio_params = portfolio_params.merge(organization: current_user.organization)
     portfolio = Portfolio.new(portfolio_params)
     return unless portfolio.save!
 

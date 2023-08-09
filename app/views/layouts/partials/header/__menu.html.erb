@@ -24,7 +24,7 @@
             menu-icon-gray-500
             menu-arrow-gray-500
             menu-bullet-gray-500
-            my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0
+            my-5 my-lg-0 align-items-stretch px-2 px-lg-0
         "
         id="kt_app_header_menu"
         data-kt-menu="true"
@@ -40,19 +40,28 @@
       </span>
       <!--end:Menu link-->
 
-      </div><!--end:Menu item--><!--begin:Menu item--><div data-kt-menu-placement="bottom-start" data-kt-menu-offset="-200,0"  class="menu-item menu-lg-down-accordion me-0 me-lg-2" >
-      <!--begin:Menu link-->
-      <span class="menu-link py-3" >
-        <span  class="menu-title" >
-          <%= link_to "Complaints", complaints_path %>
+      </div><!--end:Menu item-->
+
+      <!--begin:Menu item-->
+      <div class="menu-item menu-lg-down-accordion me-0 me-lg-2" >
+        <!--begin:Menu link-->
+        <span class="menu-link py-3" >
+          <span  class="menu-title" >
+            <%= link_to "Complaints", complaints_path %>
+          </span>
+          <span  class="menu-arrow d-lg-none" ></span>
         </span>
-        <span  class="menu-arrow d-lg-none" ></span></span>
-      <!--end:Menu link-->
-    </div>
+        <!--end:Menu link-->
+      </div>
       <!--end:Menu item-->
       <!--begin:Menu item-->
-      <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" >
-        <!--begin:Menu link--><span class="menu-link py-3" ><span  class="menu-title" >Users</span><span  class="menu-arrow d-lg-none" ></span></span>
+      <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" >
+        <!--begin:Menu link-->
+        <span class="menu-link py-3" >
+        <span  class="menu-title" >
+          <%= link_to "Users", users_path %>
+        </span>
+      </span>
         <!--end:Menu link-->
 
         </div>

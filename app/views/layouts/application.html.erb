@@ -15,7 +15,9 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Head-->
     <head><base href=""/>
         <title>Propmaticaly</title>
-        <meta charset="utf-8"/>
+      <%= javascript_importmap_tags %>
+
+      <meta charset="utf-8"/>
         <meta name="description" content=""/>
         <meta name="keywords" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -35,12 +37,13 @@ License: For each use you must have a valid license purchased only from above li
                             <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
                             <link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
                         <!--end::Global Stylesheets Bundle-->
-        <script>
+      <script>
             // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking)
             if (window.top != window.self) {
                 window.top.location.replace(window.self.location.href);
             }
         </script>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     </head>
     <!--end::Head-->
     <!--begin::Body-->

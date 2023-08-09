@@ -6,7 +6,7 @@ class CreatePortfolios < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :description
       t.string :email_address
-      t.string :sms
+      t.references :organization, foreign_key: true, null: false
       t.timestamps
     end
   end
