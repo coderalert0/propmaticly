@@ -6,7 +6,10 @@ class PortfoliosController < ApplicationController
 
   def create
     portfolio = Portfolio.new(portfolio_params)
-    redirect_to portfolio_buildings_path(portfolio), notice: 'Portfolio added successfully! Now you can add a building to the portfolio to monitor complaints' if portfolio.save!
+    return unless portfolio.save!
+
+    redirect_to portfolio_buildings_path(portfolio),
+                notice: 'Portfolio added successfully! Now you can add a building to the portfolio to monitor complaints'
   end
 
   def edit

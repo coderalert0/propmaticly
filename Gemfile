@@ -53,6 +53,7 @@ gem 'bootsnap', require: false
 gem 'cancancan'
 gem 'delayed_job_active_record'
 gem 'devise'
+gem 'devise_invitable'
 gem 'faraday'
 gem 'usps'
 
