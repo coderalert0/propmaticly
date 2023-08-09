@@ -30,7 +30,7 @@ class BuildingsController < ApplicationController
                               sms: building_params[:sms],
                               portfolio_id: building_params[:portfolio_id])
 
-      redirect_to portfolio_buildings_path(@portfolio), notice: 'Building added successfully!' if building.save!
+      redirect_to portfolio_buildings_path(@portfolio), notice: 'Building added successfully! We are now monitoring it for any complaints' if building.save!
     rescue StandardError => e
       puts e.inspect
     end

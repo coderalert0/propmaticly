@@ -1,5 +1,5 @@
 <!--begin::Form-->
-<form action="/portfolios" method="post" class="form">
+<%= form_for(portfolio, remote: true) do |f| %>
   <!--begin::Card body-->
   <div class="card-body border-top p-9">
     <!--begin::Input group-->
@@ -13,7 +13,7 @@
         <div class="row">
           <!--begin::Col-->
           <div class="col-lg-8-6 fv-row">
-            <input type="text" name="name" class="form-control form-control-lg form-control-solid" placeholder="Billionaires Row" />
+            <%= f.text_field :name, class: 'form-control form-control-lg form-control-solid', placeholder: 'Billionaires Row' %>
           </div>
           <!--end::Col-->
         </div>
@@ -29,7 +29,7 @@
       <!--end::Label-->
       <!--begin::Col-->
       <div class="col-lg-8 fv-row">
-        <input type="text" name="description" class="form-control form-control-lg form-control-solid" placeholder="57th Street between Columbus Circle and Park Avenue" />
+        <%= f.text_field :description, class: 'form-control form-control-lg form-control-solid', placeholder: '57th Street between Columbus Circle and Park Avenue' %>
       </div>
       <!--end::Col-->
     </div>
@@ -42,7 +42,7 @@
       <!--end::Label-->
       <!--begin::Col-->
       <div class="col-lg-8 fv-row">
-        <input type="text" name="email_address" class="form-control form-control-lg form-control-solid" placeholder="manager@billionairesrow.com" />
+        <%= f.email_field :email_address, class: 'form-control form-control-lg form-control-solid', placeholder: 'manager@billionairesrow.com' %>
       </div>
       <!--end::Col-->
     </div>
@@ -60,7 +60,7 @@
       <!--end::Label-->
       <!--begin::Col-->
       <div class="col-lg-8 fv-row">
-        <input type="tel" name="sms" class="form-control form-control-lg form-control-solid" placeholder="123" />
+        <%= f.text_field :sms, class: 'form-control form-control-lg form-control-solid', placeholder: '925-989-2700' %>
       </div>
       <!--end::Col-->
     </div>
@@ -73,5 +73,5 @@
     <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
   </div>
   <!--end::Actions-->
-</form>
+<% end %>
 <!--end::Form-->
