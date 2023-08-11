@@ -1,4 +1,3 @@
-<div data-controller="modal">
 <!--begin::Wrapper-->
 <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
   <!--begin::Wrapper container-->
@@ -88,7 +87,7 @@
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fs-7 w-125px py-4" data-kt-menu="true">
                         <!--begin::Menu item-->
                         <div class="menu-item px-3">
-                          <%= link_to 'Edit', '', { class: 'menu-link px-3', 'data-bs-toggle': "modal", 'data-bs-target': "#kt_modal_edit_user" } %>
+                          <%= link_to 'Edit', '', class: 'menu-link px-3', data: { turbo: true, turbo_frame: 'modal' } %>
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
@@ -119,4 +118,3 @@
   <!--end::Wrapper container-->
 </div>
 <!--end::Wrapper-->
-</div>

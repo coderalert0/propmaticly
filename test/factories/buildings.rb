@@ -7,8 +7,6 @@ FactoryBot.define do
     city { 'Surrey' }
     state { 'BC' }
     zip5 { 95_123 }
-    email_address { 'gary@surrey.com' }
-    sms { '604-582-9799' }
     portfolio
   end
 end

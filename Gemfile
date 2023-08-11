@@ -55,6 +55,7 @@ gem 'delayed_job_active_record'
 gem 'devise'
 gem 'devise_invitable'
 gem 'faraday'
+gem 'pry'
 gem 'usps'
 
 group :development, :test do

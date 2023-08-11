@@ -30,10 +30,10 @@
               <!--begin::Card title-->
               <div class="card-title">
                 <!--begin::Search-->
-                <div class="d-flex align-items-center position-relative my-1">
-                  <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
-                  <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Buildings" />
-                </div>
+<!--                <div class="d-flex align-items-center position-relative my-1">-->
+<!--                  <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>-->
+<!--                  <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Buildings" />-->
+<!--                </div>-->
                 <!--end::Search-->
               </div>
               <!--begin::Card title-->
@@ -42,7 +42,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                   <!--begin::Add customer-->
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_building">Add Building</button>
+                  <%= link_to 'Add Building', new_portfolio_building_path, class: 'btn btn-primary', data: { turbo: true, turbo_frame: 'modal' } %>
                   <!--end::Add customer-->
                 </div>
                 <!--end::Toolbar-->
@@ -66,8 +66,7 @@
                   <th class="min-w-125px">Building Name</th>
                   <th class="min-w-125px">Portfolio</th>
                   <th class="min-w-125px">Address</th>
-                  <th class="min-w-125px">Email Address</th>
-                  <th class="min-w-125px">SMS</th>
+                  <th class="min-w-125px">Contacts</th>
                 </tr>
                 </thead>
                 <tbody class="text-gray-600">
@@ -80,8 +79,6 @@
                     <td>
                       <a href="#" class="text-gray-600 text-hover-primary mb-1"><%= building.address1.titleize %>, <%= building.city.titleize %>, <%= building.state %></a>
                     </td>
-                    <td><%= building.email_address %></td>
-                    <td><%= building.sms %></td>
                     <td class="text-end">
                       <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                         <i class="ki-outline ki-down fs-5 ms-1"></i></a>
@@ -89,7 +86,7 @@
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fs-7 w-125px py-4" data-kt-menu="true">
                         <!--begin::Menu item-->
                         <div class="menu-item px-3">
-                          <%= link_to 'Edit', '', { class: 'menu-link px-3', 'data-bs-toggle': "modal", 'data-bs-target': "#kt_modal_edit_building" } %>
+                          <%= link_to 'Edit', edit_portfolio_building_path(building.portfolio, building), class: 'menu-link px-3', data: { turbo: true, turbo_frame: 'modal' } %>
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
@@ -110,45 +107,6 @@
             <!--end::Card body-->
           </div>
           <!--end::Card-->
-          <!--begin::Modals-->
-          <!--begin::Modal - Buildings - Add-->
-          <div class="modal fade" id="kt_modal_add_building" tabindex="-1" aria-hidden="true">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-              <!--begin::Modal content-->
-              <div class="modal-content">
-                <%= render template: 'buildings/new' %>
-              </div>
-            </div>
-          </div>
-          <!--end::Modal - Buildings - Add-->
-
-          <!--begin::Modal - Buildings - Edit-->
-          <div class="modal fade" id="kt_modal_edit_building" tabindex="-1" aria-hidden="true">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-              <!--begin::Modal content-->
-              <div class="modal-content">
-                <%= render template: 'buildings/new' %>
-              </div>
-            </div>
-          </div>
-          <!--end::Modal - Buildings - Edit-->
-
-          <!--begin::Modal - Buildings - Delete-->
-          <div class="modal fade" id="kt_modal_delete_building" tabindex="-1" aria-hidden="true">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-              <!--begin::Modal content-->
-              <div class="modal-content">
-                <%= render template: 'buildings/destroy' %>
-              </div>
-            </div>
-          </div>
-          <!--end::Modal - Buildings - Delete-->
-
-          <!--end::Modal - New Card-->
-          <!--end::Modals-->
         </div>
         <!--end::Content-->
       </div>

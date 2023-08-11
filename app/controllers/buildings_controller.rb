@@ -3,14 +3,8 @@
 require 'usps'
 
 class BuildingsController < ApplicationController
-  # load_resource, when cancancan installed
-  before_action :load_portfolio, only: %i[index new create]
-
-  def index
-    @buildings = @portfolio.buildings
-  end
-
-  def new; end
+  load_resource only: %i[index new edit update]
+  load_resource :portfolio, only: %i[new edit update create]
 
   def create
     USPS.config.username = '1R59PROPM0741'
@@ -26,8 +20,6 @@ class BuildingsController < ApplicationController
                               city: address.city,
                               state: address.state,
                               zip5: address.zip5,
-                              email_address: building_params[:email_address],
-                              sms: building_params[:sms],
                               portfolio_id: building_params[:portfolio_id])
 
       if building.save!
@@ -39,18 +31,16 @@ class BuildingsController < ApplicationController
     end
   end
 
-  def edit
-    render :new
+  def update
+    return unless @building.update(building_params)
+
+    redirect_to portfolio_buildings_path(@portfolio),
+                notice: 'Building updated successfully'
   end
 
   private
 
-  def load_portfolio
-    # load_resource, when cancancan installed
-    @portfolio = Portfolio.find(params[:portfolio_id])
-  end
-
   def building_params
-    params.permit(:portfolio_id, :name, :address1, :city, :zip_code, :email_address, :sms)
+    params.require(:building).permit(:portfolio_id, :name, :address1, :city, :zip5)
   end
 end

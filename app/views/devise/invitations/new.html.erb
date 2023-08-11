@@ -1,6 +1,6 @@
 <div data-controller="modal">
   <%= turbo_frame_tag "modal" do %>
-    <div class="turbo-modal w-50">
+    <div class="turbo-modal w-500px">
       <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| %>
         <!--begin::Card body-->
         <div class="card-body p-9">

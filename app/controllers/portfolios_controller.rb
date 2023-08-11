@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class PortfoliosController < ApplicationController
-  load_resource :portfolio, only: :update
-  def new; end
+  load_resource only: %i[update edit]
+
+  def new
+    @portfolio = Portfolio.new
+  end
 
   def create
-    portfolio_params = portfolio_params.merge(organization: current_user.organization)
     portfolio = Portfolio.new(portfolio_params)
     return unless portfolio.save!
 
@@ -24,6 +26,8 @@ class PortfoliosController < ApplicationController
   private
 
   def portfolio_params
-    params.require(:portfolio).permit(:name, :description, :email_address, :sms)
+    params.require(:portfolio)
+          .permit(:name, :description)
+          .merge({ organization: current_user.organization })
   end
 end

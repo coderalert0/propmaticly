@@ -1,0 +1,79 @@
+<!--begin::Card body-->
+<div class="card-body p-9">
+  <!--begin::Input group-->
+  <div class="row mb-6">
+    <!--begin::Label-->
+    <label class="col-lg-4 col-form-label fs-6">Building Name</label>
+    <!--end::Label-->
+    <!--begin::Col-->
+    <div class="col-lg-8">
+      <!--begin::Row-->
+      <div class="row">
+        <!--begin::Col-->
+        <div class="col-lg-8-6 fv-row">
+          <%= f.text_field :name, class: 'form-control form-control-lg form-control-solid', placeholder: 'The Lombardi' %>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Row-->
+    </div>
+    <!--end::Col-->
+  </div>
+  <!--end::Input group-->
+
+  <!--begin::Input group-->
+  <div class="row mb-6">
+    <!--begin::Label-->
+    <label class="col-lg-4 col-form-label required fs-6">Address</label>
+    <!--end::Label-->
+    <!--begin::Col-->
+    <div class="col-lg-8">
+      <!--begin::Row-->
+      <div class="row">
+        <!--begin::Col-->
+        <div class="col-lg8-6 fv-row">
+          <%= f.text_field :address1, class: 'form-control form-control-lg form-control-solid', placeholder: '280 Broadway' %>
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Row-->
+    </div>
+    <!--end::Col-->
+  </div>
+  <!--end::Input group-->
+
+  <!--begin::Input group-->
+  <div class="row mb-6">
+    <!--begin::Label-->
+    <label class="col-lg-4 col-form-label required fs-6">City</label>
+    <!--end::Label-->
+    <!--begin::Col-->
+    <div class="col-lg-8 fv-row">
+      <%= f.text_field :city, class: 'form-control form-control-lg form-control-solid', placeholder: 'New York' %>
+    </div>
+    <!--end::Col-->
+  </div>
+  <!--end::Input group-->
+
+  <!--begin::Input group-->
+  <div class="row mb-6">
+    <!--begin::Label-->
+    <label class="col-lg-4 col-form-label fs-6">Zip Code</label>
+    <!--end::Label-->
+    <!--begin::Col-->
+    <div class="col-lg-8 fv-row">
+      <%= f.text_field :zip5, class: 'form-control form-control-lg form-control-solid', placeholder: '10007' %>
+    </div>
+    <!--end::Col-->
+  </div>
+  <!--end::Input group-->
+
+  <%= f.hidden_field :portfolio_id, value: @portfolio&.id %>
+</div>
+<!--end::Card body-->
+<!--begin::Actions-->
+<div class="card-footer d-flex justify-content-end py-6 px-9">
+  <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-primary me-2' %>
+  <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+</div>
+<!--end::Actions-->
