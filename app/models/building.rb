@@ -2,6 +2,7 @@
 
 class Building < ApplicationRecord
   belongs_to :portfolio
+  has_many :buildings_users
   has_many :complaints, dependent: :destroy
 
   validates_presence_of :address1, :city

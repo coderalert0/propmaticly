@@ -63,15 +63,8 @@
             </div>
           <% end -%>
 
-          Portfolios
-          <% @portfolios&.each do |portfolio| %>
-            <%= portfolio.name %>
-          <% end %>
-
           Buildings
-          <% @buildings&.each do |building| %>
-            <%= building.name %>
-          <% end %>
+          <%= f.collection_check_boxes :building_ids, @buildings, :id, :name %>
         </div>
         <!--end::Card body-->
         <!--begin::Actions-->

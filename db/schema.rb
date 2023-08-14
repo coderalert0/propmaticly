@@ -12,7 +12,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_809_172_000) do
+ActiveRecord::Schema[7.0].define(version: 20_230_814_232_848) do
+  create_table 'building_users', force: :cascade do |t|
+    t.integer 'building_id'
+    t.integer 'user_id'
+    t.index ['building_id'], name: 'index_building_users_on_building_id'
+    t.index ['user_id'], name: 'index_building_users_on_user_id'
+  end
+
   create_table 'buildings', force: :cascade do |t|
     t.string 'name'
     t.string 'address1', null: false
@@ -105,6 +112,8 @@ ActiveRecord::Schema[7.0].define(version: 20_230_809_172_000) do
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
 
+  add_foreign_key 'building_users', 'buildings'
+  add_foreign_key 'building_users', 'users'
   add_foreign_key 'buildings', 'portfolios'
   add_foreign_key 'complaints', 'buildings'
   add_foreign_key 'portfolios', 'organizations'

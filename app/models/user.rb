@@ -2,7 +2,9 @@
 
 class User < ApplicationRecord
   belongs_to :organization
-  accepts_nested_attributes_for :organization
+  has_many :building_users
+  has_many :buildings, through: :building_users
+  accepts_nested_attributes_for :buildings
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
