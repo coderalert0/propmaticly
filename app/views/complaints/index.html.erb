@@ -49,9 +49,7 @@
                   <th class="min-w-125px">Building</th>
                   <th class="min-w-125px">Filed Date</th>
                   <th class="min-w-125px">Description</th>
-                  <th class="min-w-125px">Status</th>
                   <th class="min-w-125px">Category</th>
-                  <th class="min-w-125px">Link</th>
                   <th class="min-w-125px">State</th>
                   <th class="min-w-125px">Updated At</th>
                 </tr>
@@ -63,16 +61,14 @@
                       <a href="../../demo35/dist/apps/customers/view.html" class="text-gray-800 text-hover-primary mb-1"><%= complaint.complaint_id %></a>
                     </td>
                     <td>
-                      <a href="#" class="text-gray-600 text-hover-primary mb-1 fw-bold"><%= complaint.building.name %></a>
+                      <a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint.building.name %></a>
                     </td>
                     <td>
-                      <a href="#" class="text-gray-600 text-hover-primary mb-1 fw-bold"><%= complaint.filed_date %></a>
+                      <a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint.filed_date.strftime("%D") %></a>
                     <td><%= complaint.description %></td>
-                    <td><%= complaint.status %></td>
-                    <td><%= complaint.category %></td>
-                    <td><%= complaint.link %></td>
+                    <td><%= I18n.t(:complaint_category)[complaint.category.to_sym] %></td>
                     <td><%= complaint.state %></td>
-                    <td><%= complaint.updated_at %></td>
+                    <td><%= complaint.updated_at.strftime("%D") %></td>
 
                     <td class="text-end">
                       <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

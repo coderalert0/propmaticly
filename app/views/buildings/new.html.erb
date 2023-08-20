@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "modal" do %>
     <div class="turbo-modal w-50">
       <!--begin::Form-->
-      <%= form_for(@building, url: portfolio_buildings_path(@portfolio), method: :post) do |f| %>
+      <%= form_for(@building, url: portfolio_buildings_path(@portfolio), data: {turbo_frame: "_top"}) do |f| %>
         <%= render partial: 'form', locals: { f: f } %>
       <% end %>
       <!--end::Form-->

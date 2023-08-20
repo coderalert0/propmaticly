@@ -1,32 +1,7 @@
 <div class="fw-bold fs-2hx mb-5">Acme Property Management</div>
 <!--begin::Row-->
 <div class="row g-5 g-xl-8">
-  <div class="col-xl-3">
-    <!--begin::Statistics Widget 5-->
-    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
-      <!--begin::Body-->
-      <div class="card-body">
-        <!--begin::Statistics-->
-        <div class="m-0">
-          <!--begin::Heading-->
-          <div class="d-flex align-items-center mb-2">
-            <!--begin::Title-->
-            <i class="las la-phone-volume text-warning fs-3hx me-4"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @complaints.count %></span>
-            <!--end::Title-->
-          </div>
-          <!--end::Heading-->
-          <!--begin::Description-->
-          <span class="fs-6 text-gray-400">New Complaints Since Last Login</span>
-          <!--end::Description-->
-        </div>
-        <!--end::Statistics-->
-      </div>
-      <!--end::Body-->
-    </div>
-    <!--end::Statistics Widget 5-->
-  </div>
-  <div class="col-xl-3">
+  <div class="col-xl-4">
     <!--begin::Statistics Widget 5-->
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <!--begin::Body-->
@@ -37,13 +12,12 @@
           <div class="d-flex align-items-center me-2">
             <!--begin::Title-->
             <i class="las la-folder-open fs-3hx me-4 text-danger"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2">18</span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.size %></span>
             <!--end::Title-->
             <!--begin::Label-->
-            <span class="badge badge-light-danger fs-base">
-                    <i class="ki-outline ki-arrow-up fs-5 text-danger ms-n1"></i>
-                    8.02%
-                </span>
+<!--            <span class="badge badge-light-danger fs-base">-->
+<!--              <i class="ki-outline ki-arrow-up fs-5 text-danger ms-n1"></i>8.02%-->
+<!--            </span>-->
             <!--end::Label-->
           </div>
           <!--end::Heading-->
@@ -57,7 +31,7 @@
     </div>
     <!--end::Statistics Widget 5-->
   </div>
-  <div class="col-xl-3">
+  <div class="col-xl-4">
     <!--begin::Statistics Widget 5-->
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <!--begin::Body-->
@@ -71,10 +45,10 @@
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2">83</span>
             <!--end::Title-->
             <!--begin::Label-->
-            <span class="badge badge-light-danger fs-base">
-                    <i class="ki-outline ki-arrow-up fs-5 text-danger ms-n1"></i>
-                    8.02%
-                </span>
+<!--            <span class="badge badge-light-danger fs-base">-->
+<!--              <i class="ki-outline ki-arrow-up fs-5 text-danger ms-n1"></i>-->
+<!--              8.02%-->
+<!--            </span>-->
             <!--end::Label-->
           </div>
           <!--end::Heading-->
@@ -88,7 +62,7 @@
     </div>
     <!--end::Statistics Widget 5-->
   </div>
-  <div class="col-xl-3">
+  <div class="col-xl-4">
     <!--begin::Statistics Widget 5-->
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <!--begin::Body-->
@@ -102,10 +76,9 @@
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2">68</span>
             <!--end::Title-->
             <!--begin::Label-->
-            <span class="badge badge-light-danger fs-base">
-                    <i class="ki-outline ki-arrow-up fs-5 text-danger ms-n1"></i>
-                    8.02%
-                </span>
+<!--            <span class="badge badge-light-danger fs-base">-->
+<!--              <i class="ki-outline ki-arrow-up fs-5 text-danger ms-n1"></i>8.02%-->
+<!--            </span>-->
             <!--end::Label-->
           </div>
           <!--end::Heading-->

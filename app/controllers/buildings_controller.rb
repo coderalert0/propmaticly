@@ -8,7 +8,7 @@ class BuildingsController < ApplicationController
 
   def create
     USPS.config.username = '1R59PROPM0741'
-    address = USPS::Address.new(address1: building_params[:address1].to_s, city: building_params[:city], state: 'CA')
+    address = USPS::Address.new(address1: building_params[:address1].to_s, zip5: building_params[:zip5])
     req = USPS::Request::AddressStandardization.new(address)
 
     begin
@@ -41,6 +41,6 @@ class BuildingsController < ApplicationController
   private
 
   def building_params
-    params.require(:building).permit(:portfolio_id, :name, :address1, :city, :zip5)
+    params.require(:building).permit(:portfolio_id, :name, :address1, :zip5)
   end
 end

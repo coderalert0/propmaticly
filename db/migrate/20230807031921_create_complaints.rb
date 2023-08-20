@@ -6,7 +6,6 @@ class CreateComplaints < ActiveRecord::Migration[7.0]
       t.string :complaint_id
       t.datetime :filed_date
       t.string :description
-      t.string :status
       t.string :category
       t.datetime :last_inspection_date
       t.string :last_inspection_result
