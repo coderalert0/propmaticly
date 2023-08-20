@@ -1,7 +1,7 @@
 <div data-controller="modal">
   <%= turbo_frame_tag "modal" do %>
     <div class="turbo-modal w-1000px">
-      <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), data: { turbo: false }) do |f| %>
+      <%= form_for(@user, url: user_path(@user), method: :patch, data: { turbo: false }) do |f| %>
         <!--begin::Card body-->
         <div class="card-body p-9">
           <%= render "devise/shared/error_messages", resource: resource %>
@@ -18,9 +18,9 @@
             <!--end::Col-->
             <!--begin::Col-->
             <div class="col-lg-4 fv-row">
-              <div class='col-lg-2 col-form-label fs-6'>Buildings</div>
+              Buildings
               <%= f.collection_check_boxes :building_ids, @buildings, :id, :name do |b| %>
-                <div><%= b.check_box %> <%= b.label { b.text } %></div>
+                <div><%= b.check_box %><%= b.label { b.text } %></div>
               <% end %>
             </div>
             <!--end::Col-->
@@ -40,20 +40,6 @@
           </div>
           <!--end::Input group-->
 
-          <% resource.class.invite_key_fields.each do |field| -%>
-            <!--begin::Input group-->
-            <div class="row mb-6">
-              <!--begin::Label-->
-              <%= f.label field, class: 'col-lg-2 col-form-label fs-6 required' %>
-              <!--end::Label-->
-              <!--begin::Col-->
-              <div class="col-lg-4 fv-row">
-                <%= f.text_field field, class: 'form-control form-control-lg form-control-solid' %>
-              </div>
-              <!--end::Col-->
-            </div>
-            <!--end::Input group-->
-
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
@@ -66,19 +52,15 @@
             <!--end::Col-->
           </div>
           <!--end::Input group-->
-
-            <div class="field">
-            </div>
-          <% end -%>
         </div>
         <!--end::Card body-->
         <!--begin::Actions-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
           <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-primary me-2' %>
-          <%= f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-primary', id: 'kt_account_profile_details_submit' %>
+          <%= f.submit 'Save Changes', class: 'btn btn-primary' %>
         </div>
         <!--end::Actions-->
       <% end %>
     </div>
-<% end %>
+  <% end %>
 </div>

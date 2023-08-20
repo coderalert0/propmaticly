@@ -195,7 +195,7 @@
                         <!--begin::Menu item-->
                         <% if portfolio.buildings.blank? %>
                           <div class="menu-item px-3">
-                            <%= link_to 'Delete', portfolio_path(portfolio), data: {"turbo-method": :delete}, class: "menu-link px-3" %>
+                            <%= link_to 'Delete', portfolio_path(portfolio), data: { turbo: true, "turbo-method": :delete }, class: "menu-link px-3" %>
                           </div>
                         <% end %>
                         <!--end::Menu item-->

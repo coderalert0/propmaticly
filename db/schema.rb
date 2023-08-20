@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_814_232_848) do
     t.string 'description'
     t.string 'category'
     t.datetime 'last_inspection_date'
+    t.string 'last_inspection_result'
     t.string 'link'
     t.integer 'state', default: 0
     t.datetime 'created_at', null: false
@@ -90,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_814_232_848) do
     t.datetime 'confirmed_at'
     t.datetime 'confirmation_sent_at'
     t.string 'unconfirmed_email'
+    t.boolean 'admin'
     t.integer 'organization_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false

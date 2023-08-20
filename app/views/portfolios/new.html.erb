@@ -2,7 +2,7 @@
   <%= turbo_frame_tag "modal" do %>
     <div class="turbo-modal w-500px">
       <!--begin::Form-->
-      <%= form_for(@portfolio, data: {turbo_frame: "_top"}) do |f| %>
+      <%= form_for(@portfolio, data: { turbo: false }) do |f| %>
         <!--begin::Card body-->
         <div class="card-body p-9">
           <!--begin::Input group-->

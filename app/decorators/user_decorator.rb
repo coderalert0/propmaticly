@@ -9,4 +9,8 @@ class UserDecorator < Draper::Decorator
       object.confirmed? ? 'Yes' : 'No'
     end
   end
+
+  def admin?
+    object.admin? ? 'Yes' : 'No'
+  end
 end
