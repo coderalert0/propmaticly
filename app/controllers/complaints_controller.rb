@@ -2,6 +2,10 @@
 
 class ComplaintsController < ApplicationController
   def index
-    @complaints = Complaint.all
+    @complaints = current_user.organization.complaints.decorate.order(:created_at, :desc)
+  end
+
+  def update
+
   end
 end

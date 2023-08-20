@@ -3,6 +3,6 @@
 class HomeController < ApplicationController
   def show
     @complaints = current_user.organization.complaints
-    @portfolios = Portfolio.all.includes(:buildings)
+    @portfolios = current_user.organization.portfolios.includes(:buildings).order(:name)
   end
 end

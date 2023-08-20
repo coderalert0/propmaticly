@@ -12,7 +12,7 @@
           <div class="d-flex align-items-center me-2">
             <!--begin::Title-->
             <i class="las la-folder-open fs-3hx me-4 text-danger"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.open.size %></span>
             <!--end::Title-->
             <!--begin::Label-->
 <!--            <span class="badge badge-light-danger fs-base">-->
@@ -42,7 +42,7 @@
           <div class="d-flex align-items-center mb-2">
             <!--begin::Title-->
             <i class="las la-hard-hat fs-3hx me-4 text-primary"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2">83</span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.in_progress.size %></span>
             <!--end::Title-->
             <!--begin::Label-->
 <!--            <span class="badge badge-light-danger fs-base">-->
@@ -73,7 +73,7 @@
           <div class="d-flex align-items-center mb-2">
             <!--begin::Title-->
             <i class="las la-check fs-3hx me-4 text-success"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2">68</span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.closed.size %></span>
             <!--end::Title-->
             <!--begin::Label-->
 <!--            <span class="badge badge-light-danger fs-base">-->
@@ -174,12 +174,12 @@
                       <div class="text-gray-800 mb-1"><%= portfolio.name %></div>
                     </td>
                     <td>
-                      <a href="#" class="text-gray-600 text-hover-primary mb-1 fw-bold">34</a>
-                      <span class="text-success fw-bold">+28.73%</span>
+                      <a href="#" class="text-gray-600 text-hover-primary mb-1 fw-bold"><%= portfolio.complaints.open.size %></a>
+<!--                      <span class="text-success fw-bold">+28.73%</span>-->
                     </td>
                     <td>
-                      <a href="#" class="text-gray-600 text-hover-primary mb-1 fw-bold">51</a>
-                      <span class="text-danger fw-bold">+2.73%</span></td>
+                      <a href="#" class="text-gray-600 text-hover-primary mb-1 fw-bold"><%= portfolio.complaints.closed.size %></a>
+<!--                      <span class="text-danger fw-bold">+2.73%</span></td>-->
                     <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio) %></td>
                     <td>Joe Plumber</td>
                     <td class="text-end">

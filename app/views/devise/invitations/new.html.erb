@@ -1,19 +1,27 @@
 <div data-controller="modal">
   <%= turbo_frame_tag "modal" do %>
-    <div class="turbo-modal w-500px">
+    <div class="turbo-modal w-1000px">
       <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), data: {turbo_frame: "_top"}) do |f| %>
         <!--begin::Card body-->
         <div class="card-body p-9">
           <%= render "devise/shared/error_messages", resource: resource %>
 
           <!--begin::Input group-->
-          <div class="row mb-6">
+          <div class="row mb-8">
             <!--begin::Label-->
-            <%= f.label :first_name, class: 'col-lg-4 col-form-label fs-6' %>
+            <%= f.label :first_name, class: 'col-lg-2 col-form-label fs-6' %>
             <!--end::Label-->
             <!--begin::Col-->
-            <div class="col-lg-8 fv-row">
+            <div class="col-lg-4 fv-row">
               <%= f.text_field :first_name, class: 'form-control form-control-lg form-control-solid' %>
+            </div>
+            <!--end::Col-->
+            <!--begin::Col-->
+            <div class="col-lg-4 fv-row">
+              Buildings
+              <%= f.collection_check_boxes :building_ids, @buildings, :id, :name do |b| %>
+                <div><%= b.check_box %><%= b.label { b.text } %></div>
+              <% end %>
             </div>
             <!--end::Col-->
           </div>
@@ -22,10 +30,10 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <%= f.label :last_name, class: 'col-lg-4 col-form-label fs-6' %>
+            <%= f.label :last_name, class: 'col-lg-2 col-form-label fs-6' %>
             <!--end::Label-->
             <!--begin::Col-->
-            <div class="col-lg-8 fv-row">
+            <div class="col-lg-4 fv-row">
               <%= f.text_field :last_name, class: 'form-control form-control-lg form-control-solid' %>
             </div>
             <!--end::Col-->
@@ -35,10 +43,10 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <%= f.label :sms, class: 'col-lg-4 col-form-label fs-6' %>
+            <%= f.label :sms, class: 'col-lg-2 col-form-label fs-6' %>
             <!--end::Label-->
             <!--begin::Col-->
-            <div class="col-lg-8 fv-row">
+            <div class="col-lg-4 fv-row">
               <%= f.text_field :sms, class: 'form-control form-control-lg form-control-solid' %>
             </div>
             <!--end::Col-->
@@ -49,10 +57,10 @@
             <!--begin::Input group-->
             <div class="row mb-6">
               <!--begin::Label-->
-              <%= f.label field, class: 'col-lg-4 col-form-label fs-6' %>
+              <%= f.label field, class: 'col-lg-2 col-form-label fs-6' %>
               <!--end::Label-->
               <!--begin::Col-->
-              <div class="col-lg-8 fv-row">
+              <div class="col-lg-4 fv-row">
                 <%= f.text_field field, class: 'form-control form-control-lg form-control-solid' %>
               </div>
               <!--end::Col-->
@@ -62,9 +70,6 @@
             <div class="field">
             </div>
           <% end -%>
-
-          Buildings
-          <%= f.collection_check_boxes :building_ids, @buildings, :id, :name %>
         </div>
         <!--end::Card body-->
         <!--begin::Actions-->

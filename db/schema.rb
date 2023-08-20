@@ -36,7 +36,6 @@ ActiveRecord::Schema[7.0].define(version: 20_230_814_232_848) do
     t.string 'complaint_id'
     t.datetime 'filed_date'
     t.string 'description'
-    t.string 'status'
     t.string 'category'
     t.datetime 'last_inspection_date'
     t.string 'link'

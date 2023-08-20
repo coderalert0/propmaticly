@@ -54,10 +54,10 @@ gem 'cancancan'
 gem 'delayed_job_active_record'
 gem 'devise'
 gem 'devise_invitable'
+gem 'draper'
 gem 'faraday'
 gem 'pry'
 gem 'usps'
-gem 'wisper'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

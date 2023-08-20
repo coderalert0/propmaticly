@@ -396,5 +396,8 @@ en:
     Y2: Vacate Order Fully Rescinded
     Y3: Partial Vacate Order Served
     Y4: Vacate Order Partially Rescinded
-  hello: "Hello world"
+  complaint_state:
+    open: Open
+    in_progress: In Progress
+    closed: Closed
 

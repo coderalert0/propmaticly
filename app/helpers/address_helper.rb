@@ -2,7 +2,7 @@
 
 require 'usps'
 
-class AddressHelper
+module AddressHelper
   def self.normalize(address1, zip5)
     USPS.config.username = '1R59PROPM0741'
     address = USPS::Address.new(address1: address1, zip5: zip5)

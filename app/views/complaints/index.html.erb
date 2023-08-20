@@ -46,11 +46,10 @@
                 <thead>
                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                   <th class="min-w-125px">Complaint ID</th>
-                  <th class="min-w-125px">Building</th>
                   <th class="min-w-125px">Filed Date</th>
-                  <th class="min-w-125px">Description</th>
                   <th class="min-w-125px">Category</th>
-                  <th class="min-w-125px">State</th>
+                  <th class="min-w-125px">Last Inspection Date</th>
+                  <th class="min-w-125px">Status</th>
                   <th class="min-w-125px">Updated At</th>
                 </tr>
                 </thead>
@@ -58,16 +57,14 @@
                 <% @complaints.each do |complaint| %>
                   <tr>
                     <td>
-                      <a href="../../demo35/dist/apps/customers/view.html" class="text-gray-800 text-hover-primary mb-1"><%= complaint.complaint_id %></a>
+                      <div class="text-gray-800 mb-1"><%= complaint.complaint_id %></div>
+                      <div><a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint.building.name %></a></div>
                     </td>
                     <td>
-                      <a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint.building.name %></a>
-                    </td>
-                    <td>
-                      <a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint.filed_date.strftime("%D") %></a>
-                    <td><%= complaint.description %></td>
-                    <td><%= I18n.t(:complaint_category)[complaint.category.to_sym] %></td>
-                    <td><%= complaint.state %></td>
+                      <a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint&.filed_date&.strftime("%D") %></a>
+                    <td><%= I18n.t("complaint_category.#{complaint&.category}") %></td>
+                    <td><%= complaint&.last_inspection_date&.strftime("%D") %></td>
+                    <td><%= complaint&.state %></td>
                     <td><%= complaint.updated_at.strftime("%D") %></td>
 
                     <td class="text-end">
@@ -76,14 +73,11 @@
                       <!--begin::Menu-->
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fs-7 w-125px py-4" data-kt-menu="true">
                         <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                          <a href="../../demo35/dist/apps/customers/view.html" class="menu-link px-3">View</a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                          <a href="#" class="menu-link px-3" data-kt-customer-table-filter="delete_row">Delete</a>
-                        </div>
+                        <% complaint.state_options.each do |state| %>
+                          <div class="menu-item px-3">
+                            <%= link_to I18n.t("complaint_state.#{state[0]}"), complaint_path(complaint), class: "menu-link px-3" %>
+                          </div>
+                        <% end %>
                         <!--end::Menu item-->
                       </div>
                       <!--end::Menu-->

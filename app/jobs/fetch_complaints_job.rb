@@ -4,7 +4,6 @@ require 'faraday'
 
 class FetchComplaintsJob < ApplicationJob
   def perform
-    puts 'Fetching!'
     # response = Faraday.get "https://data.cityofnewyork.us/resource/eabe-havv.json?date_entered=#{Time.now.strftime("%D")}"
     response = Faraday.get 'https://data.cityofnewyork.us/resource/eabe-havv.json?date_entered=08/01/2023'
     return unless response.status == 200
