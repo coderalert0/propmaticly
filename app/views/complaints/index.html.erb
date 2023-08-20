@@ -75,7 +75,7 @@
                         <!--begin::Menu item-->
                         <% complaint.state_options.each do |state| %>
                           <div class="menu-item px-3">
-                            <%= link_to I18n.t("complaint_state.#{state[0]}"), complaint_path(complaint), class: "menu-link px-3" %>
+                            <%= link_to I18n.t("complaint_state.#{state[0]}"), complaint_path(complaint, state: state[1]), data: {"turbo-method": :put}, class: "menu-link px-3" %>
                           </div>
                         <% end %>
                         <!--end::Menu item-->

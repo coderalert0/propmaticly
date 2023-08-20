@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PortfoliosController < ApplicationController
-  load_resource only: %i[update edit]
+  load_resource only: %i[update edit destroy]
 
   def new
     @portfolio = Portfolio.new
@@ -21,6 +21,13 @@ class PortfoliosController < ApplicationController
 
   def update
     redirect_to root_path, notice: 'Portfolio updated successfully' if @portfolio.update(portfolio_params)
+  end
+
+  def destroy
+    return unless @portfolio.buildings.blank?
+
+    @portfolio.destroy
+    redirect_to root_path, notice: 'Portfolio has been deleted successfully'
   end
 
   private

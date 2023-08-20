@@ -90,9 +90,11 @@
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                          <%= link_to 'Delete', '', { class: 'menu-link px-3', 'data-bs-toggle': "modal", 'data-bs-target': "#kt_modal_delete_building" } %>
-                        </div>
+                        <% if building.complaints.blank? %>
+                          <div class="menu-item px-3">
+                            <%= link_to 'Delete', building_path(building), data: {"turbo-method": :delete}, class: 'menu-link px-3' %>
+                          </div>
+                        <% end %>
                         <!--end::Menu item-->
                       </div>
                       <!--end::Menu-->

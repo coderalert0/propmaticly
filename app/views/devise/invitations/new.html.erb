@@ -9,7 +9,7 @@
           <!--begin::Input group-->
           <div class="row mb-8">
             <!--begin::Label-->
-            <%= f.label :first_name, class: 'col-lg-2 col-form-label fs-6' %>
+            <%= f.label :first_name, class: 'col-lg-2 col-form-label fs-6 required' %>
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-4 fv-row">
@@ -30,7 +30,7 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <%= f.label :last_name, class: 'col-lg-2 col-form-label fs-6' %>
+            <%= f.label :last_name, class: 'col-lg-2 col-form-label fs-6 required' %>
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-4 fv-row">
@@ -39,6 +39,20 @@
             <!--end::Col-->
           </div>
           <!--end::Input group-->
+
+          <% resource.class.invite_key_fields.each do |field| -%>
+            <!--begin::Input group-->
+            <div class="row mb-6">
+              <!--begin::Label-->
+              <%= f.label field, class: 'col-lg-2 col-form-label fs-6 required' %>
+              <!--end::Label-->
+              <!--begin::Col-->
+              <div class="col-lg-4 fv-row">
+                <%= f.text_field field, class: 'form-control form-control-lg form-control-solid' %>
+              </div>
+              <!--end::Col-->
+            </div>
+            <!--end::Input group-->
 
           <!--begin::Input group-->
           <div class="row mb-6">
@@ -52,20 +66,6 @@
             <!--end::Col-->
           </div>
           <!--end::Input group-->
-
-          <% resource.class.invite_key_fields.each do |field| -%>
-            <!--begin::Input group-->
-            <div class="row mb-6">
-              <!--begin::Label-->
-              <%= f.label field, class: 'col-lg-2 col-form-label fs-6' %>
-              <!--end::Label-->
-              <!--begin::Col-->
-              <div class="col-lg-4 fv-row">
-                <%= f.text_field field, class: 'form-control form-control-lg form-control-solid' %>
-              </div>
-              <!--end::Col-->
-            </div>
-            <!--end::Input group-->
 
             <div class="field">
             </div>

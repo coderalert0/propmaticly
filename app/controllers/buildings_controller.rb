@@ -3,39 +3,43 @@
 require 'usps'
 
 class BuildingsController < ApplicationController
-  load_resource only: %i[index new edit update]
-  load_resource :portfolio, only: %i[new edit update create]
+  load_resource
+  load_resource :portfolio
 
   def create
-    USPS.config.username = '1R59PROPM0741'
-    address = USPS::Address.new(address1: building_params[:address1].to_s, zip5: building_params[:zip5])
-    req = USPS::Request::AddressStandardization.new(address)
+    address = AddressHelper.normalize(building_params[:address1].to_s.strip, building_params[:zip5].strip)
+    building = Building.new(name: building_params[:name],
+                            address1: address.address1,
+                            city: address.city,
+                            state: address.state,
+                            zip5: address.zip5,
+                            portfolio_id: building_params[:portfolio_id])
 
-    begin
-      response = req.send!
-      address = response.get(address)
-
-      building = Building.new(name: building_params[:name],
-                              address1: address.address1,
-                              city: address.city,
-                              state: address.state,
-                              zip5: address.zip5,
-                              portfolio_id: building_params[:portfolio_id])
-
-      if building.save!
-        redirect_to portfolio_buildings_path(@portfolio),
-                    notice: 'Building added successfully! We are now monitoring it for any complaints'
-      end
-    rescue StandardError => e
-      puts e.inspect
+    if building.save!
+      redirect_to portfolio_buildings_path(@portfolio),
+                  notice: 'Building added successfully! We are now monitoring it for any complaints'
     end
+  rescue StandardError => e
+    puts e.inspect
   end
 
   def update
-    return unless @building.update(building_params)
+    address = AddressHelper.normalize(building_params[:address1].to_s.strip, building_params[:zip5].strip)
+    return unless @building.update(name: building_params[:name],
+                                   address1: address.address1,
+                                   city: address.city,
+                                   state: address.state,
+                                   zip5: address.zip5)
 
     redirect_to portfolio_buildings_path(@portfolio),
                 notice: 'Building updated successfully'
+  end
+
+  def destroy
+    return unless @building.complaints.blank?
+
+    @building.destroy
+    redirect_to portfolio_path(@building.portfolio), notice: 'Building has been deleted successfully'
   end
 
   private
