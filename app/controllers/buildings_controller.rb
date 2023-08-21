@@ -24,25 +24,23 @@ class BuildingsController < ApplicationController
   end
 
   def update
-    begin
-      address = AddressHelper.normalize(building_params[:address1].to_s.strip, building_params[:zip5].strip)
-      return unless @building.update(name: building_params[:name],
-                                     address1: address.address1,
-                                     city: address.city,
-                                     state: address.state,
-                                     zip5: address.zip5)
+    address = AddressHelper.normalize(building_params[:address1].to_s.strip, building_params[:zip5].strip)
+    return unless @building.update(name: building_params[:name],
+                                   address1: address.address1,
+                                   city: address.city,
+                                   state: address.state,
+                                   zip5: address.zip5)
 
-      redirect_to portfolio_buildings_path(@portfolio),
-                  notice: 'Building updated successfully'
-    rescue
-    end
+    redirect_to portfolio_buildings_path(@portfolio),
+                notice: 'Building updated successfully'
+  rescue StandardError
   end
 
   def destroy
     return unless @building.complaints.blank?
 
     @building.destroy
-    redirect_to portfolio_path(@building.portfolio), notice: 'Building has been deleted successfully'
+    redirect_to portfolio_buildings_path(@building.portfolio), notice: 'Building has been deleted successfully'
   end
 
   private

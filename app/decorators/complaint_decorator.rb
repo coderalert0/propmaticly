@@ -16,4 +16,8 @@ class ComplaintDecorator < Draper::Decorator
       I18n.t("complaint_state.#{object.state}")
     end
   end
+
+  def category
+    I18n.t("complaint_category.#{object.category}") if object.category
+  end
 end

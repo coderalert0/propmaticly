@@ -5,8 +5,7 @@ FactoryBot.define do
     complaint_id { 'ABC123' }
     filed_date { Time.now }
     description { 'Electrical issues in my living room' }
-    status { 'Open' }
-    category { 'Electrical' }
+    category { '56' }
     last_inspection_date { Time.now - 2.months }
     link { 'http://propmatically.com' }
     state { 0 }

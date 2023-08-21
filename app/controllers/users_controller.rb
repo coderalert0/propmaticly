@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      @user.update(first_name: user_params[:first_name], last_name: user_params[:last_name], sms: user_params[:sms])
+      @user.update(user_params.except(:building_ids))
       BuildingUser.where(user_id: @user.id).destroy_all
       user_params[:building_ids].map { |building_id| BuildingUser.create(user: @user, building_id: building_id) }
 
@@ -24,6 +24,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :sms, building_ids: [])
+    params.require(:user).permit(:first_name, :last_name, :sms, :admin, building_ids: [])
   end
 end

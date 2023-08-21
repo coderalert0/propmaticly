@@ -27,7 +27,7 @@ module Users
     end
 
     def invite_params
-      params.require(:user).permit(:first_name, :last_name, :email, :sms,
+      params.require(:user).permit(:first_name, :last_name, :email, :sms, :admin,
                                    building_ids: []).merge(organization: organization)
     end
 

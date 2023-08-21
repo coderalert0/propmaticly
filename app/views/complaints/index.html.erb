@@ -53,16 +53,15 @@
                   <th class="min-w-125px">Updated At</th>
                 </tr>
                 </thead>
-                <tbody class="text-gray-600">
+                <tbody>
                 <% @complaints.each do |complaint| %>
                   <tr>
                     <td>
-                      <div class="text-gray-800 mb-1"><%= complaint.complaint_id %></div>
+                      <div class="mb-1"><%= complaint.complaint_id %></div>
                       <div><a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint.building.name %></a></div>
                     </td>
-                    <td>
-                      <a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint&.filed_date&.strftime("%D") %></a>
-                    <td><%= I18n.t("complaint_category.#{complaint&.category}") %></td>
+                    <td><%= complaint&.filed_date&.strftime("%D") %></td>
+                    <td><%= complaint&.category %></td>
                     <td><%= complaint&.last_inspection_date&.strftime("%D") %></td>
                     <td><%= complaint&.state %></td>
                     <td><%= complaint.updated_at.strftime("%D") %></td>
@@ -71,11 +70,11 @@
                       <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                         <i class="ki-outline ki-down fs-5 ms-1"></i></a>
                       <!--begin::Menu-->
-                      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fs-7 w-125px py-4" data-kt-menu="true">
+                      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
                         <!--begin::Menu item-->
                         <% complaint.state_options.each do |state| %>
                           <div class="menu-item px-3">
-                            <%= link_to I18n.t("complaint_state.#{state[0]}"), complaint_path(complaint, state: state[1]), data: {"turbo-method": :put}, class: "menu-link px-3" %>
+                            <%= button_to I18n.t("complaint_state.#{state[0]}"), complaint_path(complaint, state: state[1]), method: :put, data: { turbo: false }, class: "border-0 bg-transparent menu-link px-3" %>
                           </div>
                         <% end %>
                         <!--end::Menu item-->

@@ -83,7 +83,7 @@
                       <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                         <i class="ki-outline ki-down fs-5 ms-1"></i></a>
                       <!--begin::Menu-->
-                      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fs-7 w-125px py-4" data-kt-menu="true">
+                      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
                         <!--begin::Menu item-->
                         <div class="menu-item px-3">
                           <%= link_to 'Edit', edit_portfolio_building_path(building.portfolio, building), class: 'menu-link px-3', data: { turbo: true, turbo_frame: 'modal' } %>
@@ -92,7 +92,7 @@
                         <!--begin::Menu item-->
                         <% if building.complaints.blank? %>
                           <div class="menu-item px-3">
-                            <%= link_to 'Delete', building_path(building), data: {"turbo-method": :delete}, class: 'menu-link px-3' %>
+                            <%= button_to 'Delete', building_path(building), method: :delete, data: { turbo: false }, class: 'border-0 bg-transparent menu-link px-3' %>
                           </div>
                         <% end %>
                         <!--end::Menu item-->

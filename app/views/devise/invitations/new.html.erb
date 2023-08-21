@@ -6,70 +6,61 @@
         <div class="card-body p-9">
           <%= render "devise/shared/error_messages", resource: resource %>
 
-          <!--begin::Input group-->
-          <div class="row mb-8">
-            <!--begin::Label-->
-            <%= f.label :first_name, class: 'col-lg-2 col-form-label fs-6 required' %>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-4 fv-row">
-              <%= f.text_field :first_name, class: 'form-control form-control-lg form-control-solid' %>
+          <div class="row">
+            <div class='col-6'>
+              <!--begin::Input group-->
+              <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                </span>
+                <%= f.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
+              </div>
+              <!--end::Input group-->
+
+              <!--begin::Input group-->
+              <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                </span>
+                <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
+              </div>
+              <!--end::Input group-->
+
+              <!--begin::Input group-->
+              <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="ki-duotone ki-sms fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                </span>
+                <%= f.text_field :email, class: 'form-control', placeholder: 'Email' %>
+              </div>
+              <!--end::Input group-->
+
+              <!--begin::Input group-->
+              <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="ki-duotone ki-message-notif fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                </span>
+                <%= f.text_field :sms, class: 'form-control', placeholder: 'SMS' %>
+              </div>
+              <!--end::Input group-->
+
+              <!--begin::Input group-->
+              <div class="form-check">
+                <%= f.check_box :admin, class: 'form-check-input' %>
+                <%= f.label :Admin, class: 'form-check-label' %>
+              </div>
+              <!--end::Input group-->
             </div>
-            <!--end::Col-->
-            <!--begin::Col-->
-            <div class="col-lg-4 fv-row">
-              <div class='col-lg-2 col-form-label fs-6'>Buildings</div>
+
+            <div class='col-6'>
+              <!--begin::Input group-->
+              Buildings
               <%= f.collection_check_boxes :building_ids, @buildings, :id, :name do |b| %>
                 <div><%= b.check_box %> <%= b.label { b.text } %></div>
               <% end %>
+              <!--end::Input group-->
             </div>
-            <!--end::Col-->
           </div>
-          <!--end::Input group-->
-
-          <!--begin::Input group-->
-          <div class="row mb-6">
-            <!--begin::Label-->
-            <%= f.label :last_name, class: 'col-lg-2 col-form-label fs-6 required' %>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-4 fv-row">
-              <%= f.text_field :last_name, class: 'form-control form-control-lg form-control-solid' %>
-            </div>
-            <!--end::Col-->
-          </div>
-          <!--end::Input group-->
-
-          <% resource.class.invite_key_fields.each do |field| -%>
-            <!--begin::Input group-->
-            <div class="row mb-6">
-              <!--begin::Label-->
-              <%= f.label field, class: 'col-lg-2 col-form-label fs-6 required' %>
-              <!--end::Label-->
-              <!--begin::Col-->
-              <div class="col-lg-4 fv-row">
-                <%= f.text_field field, class: 'form-control form-control-lg form-control-solid' %>
-              </div>
-              <!--end::Col-->
-            </div>
-            <!--end::Input group-->
-
-          <!--begin::Input group-->
-          <div class="row mb-6">
-            <!--begin::Label-->
-            <%= f.label(:sms, 'SMS', class: 'col-lg-2 col-form-label fs-6') %>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-4 fv-row">
-              <%= f.text_field :sms, class: 'form-control form-control-lg form-control-solid' %>
-            </div>
-            <!--end::Col-->
-          </div>
-          <!--end::Input group-->
-
-            <div class="field">
-            </div>
-          <% end -%>
         </div>
         <!--end::Card body-->
         <!--begin::Actions-->

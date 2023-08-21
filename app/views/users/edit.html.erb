@@ -13,7 +13,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-4 fv-row">
-              <%= f.text_field :first_name, class: 'form-control form-control-lg form-control-solid' %>
+              <%= f.text_field :first_name, required: true, class: 'form-control form-control-lg form-control-solid' %>
             </div>
             <!--end::Col-->
             <!--begin::Col-->
@@ -34,7 +34,7 @@
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-4 fv-row">
-              <%= f.text_field :last_name, class: 'form-control form-control-lg form-control-solid' %>
+              <%= f.text_field :last_name, required: true, class: 'form-control form-control-lg form-control-solid' %>
             </div>
             <!--end::Col-->
           </div>
@@ -48,6 +48,19 @@
             <!--begin::Col-->
             <div class="col-lg-4 fv-row">
               <%= f.text_field :sms, class: 'form-control form-control-lg form-control-solid' %>
+            </div>
+            <!--end::Col-->
+          </div>
+          <!--end::Input group-->
+
+          <!--begin::Input group-->
+          <div class="row mb-6">
+            <!--begin::Label-->
+            <%= f.label :Admin, class: 'col-lg-2 col-form-label fs-6' %>
+            <!--end::Label-->
+            <!--begin::Col-->
+            <div class="col-lg-4 fv-row">
+              <%= f.check_box :admin, class: 'form-check-input mt-3' %>
             </div>
             <!--end::Col-->
           </div>
