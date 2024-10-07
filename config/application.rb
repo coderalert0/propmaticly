@@ -15,6 +15,8 @@ module Propmatically
 
     config.active_job.queue_adapter = :delayed_job
 
+    config.autoload_paths << "#{Rails.root}/lib"
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

@@ -23,10 +23,10 @@ class BuildingsController < ApplicationController
       redirect_to portfolio_buildings_path(@portfolio),
                   notice: t(:building_create_success)
     end
-  rescue USPS::InvalidStateError => e
+  rescue USPS::InvalidStateError
     flash[:alert] = t(:invalid_state_error)
     redirect_to portfolio_buildings_path(@portfolio)
-  rescue => e
+  rescue StandardError => e
     flash[:alert] = e
     redirect_to portfolio_buildings_path(@portfolio)
   end

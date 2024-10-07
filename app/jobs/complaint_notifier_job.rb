@@ -2,6 +2,7 @@
 
 class ComplaintNotifierJob < ApplicationJob
   def perform(_complaint_id)
-    puts '*** in the notifier job'
+    TwilioClient.new.send_sms(User.last, 'A new building complaint was filed, click link for details: ' +
+      'http://propmatically.com')
   end
 end

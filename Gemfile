@@ -56,7 +56,7 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'draper'
 gem 'faraday'
-gem 'pry'
+gem 'twilio-ruby'
 gem 'usps'
 
 group :development, :test do
