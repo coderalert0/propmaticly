@@ -9,8 +9,12 @@ class FetchComplaintsJob < ApplicationJob
     return unless response.status == 200
 
     JSON.parse(response.body).each do |complaint|
+      next unless complaint['house_number']
+      next unless complaint['house_street']
+      next unless complaint['zip_code']
+
       complaint_address = AddressHelper.normalize(
-        "#{complaint['house_number'].strip} #{complaint['house_street'].strip}", complaint['zip_code'].strip
+        "#{complaint['house_number']&.strip} #{complaint['house_street']&.strip}", complaint['zip_code']&.strip
       )
 
       next unless (building = Building.find_by(address1: complaint_address['address1'],

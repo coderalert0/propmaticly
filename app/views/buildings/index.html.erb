@@ -66,6 +66,8 @@
                   <th class="min-w-125px">Building Name</th>
                   <th class="min-w-125px">Portfolio</th>
                   <th class="min-w-125px">Address</th>
+                  <th class="min-w-125px">Complaints</th>
+                  <th class="min-w-125px">Violations</th>
                   <th class="min-w-125px">Contacts</th>
                 </tr>
                 </thead>
@@ -79,6 +81,8 @@
                     <td>
                       <div href="#" class="text-gray-600 mb-1"><%= building.address1.titleize %>, <%= building.city.titleize %>, <%= building.state %></div>
                     </td>
+                    <td><%= link_to building.complaints.size, complaints_path(building_id: building.id) %></td>
+                    <td><%= link_to building.violations.size, violations_path(building_id: building.id) %></td>
                     <td class="text-end">
                       <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                         <i class="ki-outline ki-down fs-5 ms-1"></i></a>
@@ -90,7 +94,7 @@
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
-                        <% if building.complaints.blank? %>
+                        <% if building.complaints.blank? && building.violations.blank?  %>
                           <div class="menu-item px-3">
                             <%= button_to 'Delete', building_path(building), method: :delete, data: { turbo: false }, class: 'border-0 bg-transparent menu-link px-3' %>
                           </div>

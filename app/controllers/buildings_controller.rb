@@ -6,6 +6,10 @@ class BuildingsController < ApplicationController
   load_resource
   load_resource :portfolio
 
+  def index
+    @buildings = @portfolio.buildings.includes(:complaints, :violations)
+  end
+
   def create
     address = AddressHelper.normalize(building_params[:address1].to_s.strip, building_params[:zip5].strip)
     building = Building.new(name: building_params[:name],
@@ -17,10 +21,14 @@ class BuildingsController < ApplicationController
 
     if building.save!
       redirect_to portfolio_buildings_path(@portfolio),
-                  notice: 'Building added successfully! We are now monitoring it for any complaints'
+                  notice: t(:building_create_success)
     end
-  rescue StandardError => e
-    puts e.inspect
+  rescue USPS::InvalidStateError => e
+    flash[:alert] = t(:invalid_state_error)
+    redirect_to portfolio_buildings_path(@portfolio)
+  rescue => e
+    flash[:alert] = e
+    redirect_to portfolio_buildings_path(@portfolio)
   end
 
   def update
@@ -32,7 +40,7 @@ class BuildingsController < ApplicationController
                                    zip5: address.zip5)
 
     redirect_to portfolio_buildings_path(@portfolio),
-                notice: 'Building updated successfully'
+                notice: t(:building_update_success)
   rescue StandardError
   end
 
@@ -40,7 +48,7 @@ class BuildingsController < ApplicationController
     return unless @building.complaints.blank?
 
     @building.destroy
-    redirect_to portfolio_buildings_path(@building.portfolio), notice: 'Building has been deleted successfully'
+    redirect_to portfolio_buildings_path(@building.portfolio), notice: t(:building_delete_success)
   end
 
   private

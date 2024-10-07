@@ -30,6 +30,26 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  building_create_success: Building added successfully! We are now monitoring it for any complaints
+  building_delete_success: Building has been deleted successfully
+  building_update_success: Building updated successfully
+  complaint_state:
+    open: Open
+    in_progress: In Progress
+    closed: Closed
+  complaint_update_success: The status of the complaint has been updated
+  invalid_state_error: Please enter a valid zip code
+  "no": "No"
+  portfolio_create_success: Portfolio added successfully! Now you can add a building to the portfolio to monitor complaints
+  portfolio_update_success: Portfolio updated successfully
+  portfolio_delete_success: Portfolio has been deleted successfully
+  user_update_success: User has been updated successfully
+  violation_state:
+    open: Open
+    closed: Closed
+  violation_update_success: The status of the violation has been updated
+  "yes": "Yes"
+
   complaint_category:
     1: ACCIDENT – Construction/Plumbing
     2: ACCIDENT – To Public
@@ -396,8 +416,4 @@ en:
     Y2: Vacate Order Fully Rescinded
     Y3: Partial Vacate Order Served
     Y4: Vacate Order Partially Rescinded
-  complaint_state:
-    open: Open
-    in_progress: In Progress
-    closed: Closed
 

@@ -5,4 +5,5 @@ class Organization < ApplicationRecord
   has_many :portfolios
   has_many :buildings, through: :portfolios
   has_many :complaints, through: :buildings
+  has_many :violations, through: :buildings
 end

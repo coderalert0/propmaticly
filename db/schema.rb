@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_07_180051) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_07_182004) do
   create_table "building_users", force: :cascade do |t|
     t.integer "building_id"
     t.integer "user_id"
@@ -119,6 +119,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_07_180051) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "violations", force: :cascade do |t|
+    t.string "number"
+    t.string "type_code"
+    t.integer "state", default: 0
+    t.string "description"
+    t.string "comments"
+    t.integer "building_id"
+    t.datetime "issue_date"
+    t.datetime "disposition_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["building_id"], name: "index_violations_on_building_id"
+  end
+
   add_foreign_key "building_users", "buildings"
   add_foreign_key "building_users", "users"
   add_foreign_key "buildings", "portfolios"
@@ -126,4 +140,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_07_180051) do
   add_foreign_key "inspections", "buildings"
   add_foreign_key "portfolios", "organizations"
   add_foreign_key "users", "organizations"
+  add_foreign_key "violations", "buildings"
 end

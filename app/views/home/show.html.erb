@@ -172,11 +172,11 @@
                   <tr>
                     <td><%= portfolio.name %></td>
                     <td>
-                      <a href="#" class="text-hover-primary mb-1 fw-bold"><%= portfolio.complaints.open.size %></a>
+                      <a href="#" class="text-hover-primary mb-1 fw-bold"><%= link_to portfolio.complaints.open.size, portfolio_complaints_path(portfolio, state: 'open') %></a>
 <!--                      <span class="text-success fw-bold">+28.73%</span>-->
                     </td>
                     <td>
-                      <a href="#" class="text-hover-primary mb-1 fw-bold"><%= portfolio.complaints.closed.size %></a>
+                      <a href="#" class="text-hover-primary mb-1 fw-bold"><%= link_to portfolio.complaints.closed.size, portfolio_complaints_path(portfolio, state: 'closed') %></a>
 <!--                      <span class="text-danger fw-bold">+2.73%</span></td>-->
                     <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio), class: 'fw-bold' %></td>
                     <td>Joe Plumber</td>

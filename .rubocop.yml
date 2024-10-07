@@ -1,0 +1,15 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'bin/bundle'
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10

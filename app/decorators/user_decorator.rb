@@ -6,11 +6,11 @@ class UserDecorator < Draper::Decorator
   def confirmed?
     clazz = 'badge-light-danger' unless object.confirmed?
     h.content_tag(:span, class: "py-3 px-4 #{clazz}") do
-      object.confirmed? ? 'Yes' : 'No'
+      object.confirmed? ? I18n.t(:yes) : I18n.t(:no)
     end
   end
 
   def admin?
-    object.admin? ? 'Yes' : 'No'
+    object.admin? ? I18n.t(:yes) : I18n.t(:no)
   end
 end

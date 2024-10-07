@@ -14,10 +14,13 @@ Rails.application.routes.draw do
   root 'home#show'
 
   resource :fetch_complaints, only: :show
+  resource :fetch_violations, only: :show
   resources :portfolios do
     resources :buildings
+    resources :complaints
   end
   resources :buildings
   resources :complaints
+  resources :violations
   resources :users
 end

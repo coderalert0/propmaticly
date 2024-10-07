@@ -12,7 +12,7 @@ class PortfoliosController < ApplicationController
     return unless portfolio.save!
 
     redirect_to portfolio_buildings_path(portfolio),
-                notice: 'Portfolio added successfully! Now you can add a building to the portfolio to monitor complaints'
+                notice: t(:portfolio_create_success)
   end
 
   def edit
@@ -20,14 +20,14 @@ class PortfoliosController < ApplicationController
   end
 
   def update
-    redirect_to root_path, notice: 'Portfolio updated successfully' if @portfolio.update(portfolio_params)
+    redirect_to root_path, notice: t(:portfolio_update_success) if @portfolio.update(portfolio_params)
   end
 
   def destroy
     return unless @portfolio.buildings.blank?
 
     @portfolio.destroy
-    redirect_to root_path, notice: 'Portfolio has been deleted successfully'
+    redirect_to root_path, notice: t(:portfolio_delete_success)
   end
 
   private

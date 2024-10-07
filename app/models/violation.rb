@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
-class Inspection < ApplicationRecord
+class Violation < ApplicationRecord
   belongs_to :building
 
   enum state: {
-    failed: 0,
-    passed: 1,
-    in_progress: 2
+    closed: 0,
+    open: 1
   }
 
   def state_options
-    states = Inspection.states.dup
+    states = Violation.states.dup
     states.delete(state)
     states
   end

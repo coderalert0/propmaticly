@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       BuildingUser.where(user_id: @user.id).destroy_all
       user_params[:building_ids].map { |building_id| BuildingUser.create(user: @user, building_id: building_id) }
 
-      redirect_to users_path, notice: 'User has been updated successfully'
+      redirect_to users_path, notice: t(:user_update_success)
     end
   end
 
