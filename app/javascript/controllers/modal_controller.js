@@ -1,20 +1,26 @@
 import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="modals"
+// Connects to data-controller="modal"
 export default class extends Controller {
-    connect() { console.log('CONNECTED!') }
-    close(e) {
-        console.log('CLOSING!')
-        // Prevent default action
-        e.preventDefault();
-        // Remove from parent
-        const modal = document.getElementById("modal");
-        modal.innerHTML = "";
+    static targets = ["modal"];
 
-        // Remove the src attribute from the modal
-        modal.removeAttribute("src");
+    // Open the modal
+    open(event) {
+        event.preventDefault();
+        const modalId = event.currentTarget.getAttribute("data-bs-target");
+        const modal = document.querySelector(modalId);
+        if (modal) {
+            const modalInstance = new bootstrap.Modal(modal);
+            modalInstance.show();
+        }
+    }
 
-        // Remove complete attribute
-        modal.removeAttribute("complete");
+    // Close the modal
+    close(event) {
+        const modal = event.target.closest(".modal");
+        if (modal) {
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+        }
     }
 }

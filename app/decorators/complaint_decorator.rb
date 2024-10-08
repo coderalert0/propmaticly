@@ -20,4 +20,12 @@ class ComplaintDecorator < Draper::Decorator
   def category
     I18n.t("complaint_category.#{object.category}") if object.category
   end
+
+  def self.states_select
+    [['Open', 'open'], ['In Progress', 'in_progress'], ['Closed', 'closed']]
+  end
+
+  def self.categories_select
+    I18n.backend.send(:translations)[:en][:complaint_category].invert.to_a.sort_by { |key, _value| key }
+  end
 end

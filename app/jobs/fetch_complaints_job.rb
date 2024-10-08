@@ -9,7 +9,6 @@ class FetchComplaintsJob < ApplicationJob
     return unless response.status == 200
 
     JSON.parse(response.body).each do |complaint|
-      binding.break
       next unless complaint['house_number']
       next unless complaint['house_street']
       next unless complaint['zip_code']

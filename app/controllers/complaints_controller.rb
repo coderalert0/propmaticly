@@ -2,7 +2,7 @@
 
 class ComplaintsController < ApplicationController
   load_and_authorize_resource
-  load_and_authorize_resource :building, only: :index
+  load_and_authorize_resource :building
   load_and_authorize_resource :portfolio, only: :index
 
   def index
@@ -16,14 +16,46 @@ class ComplaintsController < ApplicationController
     @complaints = @complaints.decorate.order(:created_at, :desc)
   end
 
+  def create
+    complaint = Complaint.new(complaint_id: complaint_params[:complaint_id],
+                              filed_date: complaint_params[:filed_date],
+                              description: complaint_params[:description],
+                              category: complaint_params[:category],
+                              last_inspection_date: complaint_params[:last_inspection_date],
+                              last_inspection_result: complaint_params[:last_inspection_result],
+                              disposition_date: complaint_params[:disposition_date],
+                              state: complaint_params[:state],
+                              building_id: complaint_params[:building_id])
+
+    return unless complaint.save!
+
+    redirect_to building_complaints_path(complaint.building),
+                notice: t(:complaint_create_success)
+  end
+
   def update
-    @complaint.update(state: complaint_params[:state].to_i)
-    redirect_to complaints_path, notice: t(:complaint_update_success)
+    return unless @complaint.update(complaint_id: complaint_params[:complaint_id],
+                                    filed_date: complaint_params[:filed_date],
+                                    description: complaint_params[:description],
+                                    category: complaint_params[:category],
+                                    last_inspection_date: complaint_params[:last_inspection_date],
+                                    last_inspection_result: complaint_params[:last_inspection_result],
+                                    disposition_date: complaint_params[:disposition_date],
+                                    state: complaint_params[:state],
+                                    building_id: complaint_params[:building_id])
+
+    redirect_to building_complaints_path(@complaint.building), notice: t(:complaint_update_success)
+  end
+
+  def destroy
+    @complaint.destroy
+    redirect_to building_complaints_path(@complaint.building), notice: t(:complaint_delete_success)
   end
 
   private
 
   def complaint_params
-    params.permit(:id, :state)
+    params.require(:complaint).permit(:id, :complaint_id, :state, :filed_date, :description, :category,
+                                      :last_inspection_date, :last_inspection_result, :state, :building_id, :disposition_date)
   end
 end

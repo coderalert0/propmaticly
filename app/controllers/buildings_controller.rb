@@ -20,7 +20,7 @@ class BuildingsController < ApplicationController
                             portfolio_id: building_params[:portfolio_id])
 
     if building.save!
-      redirect_to portfolio_buildings_path(@portfolio),
+      redirect_to portfolio_buildings_path(building.portfolio),
                   notice: t(:building_create_success)
     end
   rescue USPS::InvalidStateError
@@ -39,7 +39,7 @@ class BuildingsController < ApplicationController
                                    state: address.state,
                                    zip5: address.zip5)
 
-    redirect_to portfolio_buildings_path(@portfolio),
+    redirect_to portfolio_buildings_path(@building.portfolio),
                 notice: t(:building_update_success)
   rescue StandardError
   end

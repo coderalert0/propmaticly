@@ -1,0 +1,17 @@
+<div class="modal fade modal-xl" id="editModal<%= complaint.id %>" tabindex="-1" aria-hidden="true" data-controller="modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Complaint</h5>
+        <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!--begin::Form-->
+        <%= form_for(complaint, data: { turbo: false }) do |f| %>
+          <%= render partial: 'form', locals: { f: f } %>
+        <% end %>
+        <!--end::Form-->
+      </div>
+    </div>
+  </div>
+</div>

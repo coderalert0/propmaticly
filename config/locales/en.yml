@@ -33,11 +33,13 @@ en:
   building_create_success: Building added successfully! We are now monitoring it for any complaints
   building_delete_success: Building has been deleted successfully
   building_update_success: Building updated successfully
+  complaint_create_success: Complaint added successfully
+  complaint_delete_success: Complaint has been deleted successfully
   complaint_state:
     open: Open
     in_progress: In Progress
     closed: Closed
-  complaint_update_success: The status of the complaint has been updated
+  complaint_update_success: The complaint has been updated
   invalid_state_error: Please enter a valid zip code
   "no": "No"
   portfolio_create_success: Portfolio added successfully! Now you can add a building to the portfolio to monitor complaints

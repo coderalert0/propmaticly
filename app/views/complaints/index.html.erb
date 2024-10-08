@@ -1,6 +1,5 @@
 <!--begin::Wrapper-->
 <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-  <!--begin::Wrapper container-->
   <div class="">
     <!--begin::Main-->
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -8,17 +7,13 @@
       <div class="d-flex flex-column flex-column-fluid">
         <!--begin::Toolbar-->
         <div id="kt_app_toolbar" class="app-toolbar d-flex flex-stack py-4 py-lg-8">
-          <!--begin::Toolbar wrapper-->
           <div class="d-flex flex-grow-1 flex-stack flex-wrap gap-2 mb-n10" id="kt_toolbar">
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-              <!--begin::Title-->
               <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Complaints List</h1>
-              <!--end::Title-->
             </div>
             <!--end::Page title-->
           </div>
-          <!--end::Toolbar wrapper-->
         </div>
         <!--end::Toolbar-->
         <!--begin::Content-->
@@ -27,27 +22,11 @@
           <div class="card">
             <!--begin::Card header-->
             <div class="card-header border-0 pt-6">
-              <!--begin::Card title-->
-              <!--begin::Card toolbar-->
               <div class="card-toolbar">
-                <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                  <!--begin::Add portfolio-->
-                  <%= link_to 'Add Complaint', new_complaint_path, class: 'btn btn-primary', data: { turbo: true, turbo_frame: 'modal' } %>
-                  <!--end::Add portfolio-->
+                  <%= link_to 'Add Complaint', '#', class: 'btn btn-primary', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
                 </div>
-                <!--end::Toolbar-->
               </div>
-              <!--end::Card toolbar-->
-              <div class="card-title">
-                <!--begin::Search-->
-<!--                <div class="d-flex align-items-center position-relative my-1">-->
-<!--                  <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>-->
-<!--                  <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Complaints" />-->
-<!--                </div>-->
-                <!--end::Search-->
-              </div>
-              <!--begin::Card title-->
             </div>
             <!--end::Card header-->
             <!--begin::Card body-->
@@ -58,240 +37,89 @@
                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                   <th class="min-w-125px">Complaint ID</th>
                   <th class="min-w-100px">Filed Date</th>
-                  <th class="min-w-100px">Disposition Date</th>
                   <th class="min-w-125px">Category</th>
-                  <th class="min-w-125px">Last Inspection Date</th>
                   <th class="min-w-125px">Status</th>
                   <th class="min-w-100px">Updated On</th>
+                  <th class="min-w-100px">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% @complaints.each do |complaint| %>
                   <tr>
                     <td>
-                      <div class="mb-1"><%= complaint.complaint_id %></div>
-                      <div><a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint.building.name %></a></div>
+                      <div class="mb-1">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#complaintModal<%= complaint.id %>">
+                          <%= complaint.complaint_id %>
+                        </a>
+                      </div>
+                      <div><%= complaint.building.name %></div>
                     </td>
                     <td><%= complaint&.filed_date&.strftime("%D") %></td>
-                    <td><%= complaint&.disposition_date&.strftime("%D") %></td>
                     <td><%= complaint&.category %></td>
-                    <td><%= complaint&.last_inspection_date&.strftime("%D") %></td>
                     <td><%= complaint&.state %></td>
                     <td><%= complaint.updated_at.strftime("%D") %></td>
-
                     <td class="text-end">
                       <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                        <i class="ki-outline ki-down fs-5 ms-1"></i></a>
-                      <!--begin::Menu-->
+                        <i class="ki-outline ki-down fs-5 ms-1"></i>
+                      </a>
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
-                        <!--begin::Menu item-->
-                        <% complaint.state_options.each do |state| %>
-                          <div class="menu-item px-3">
-                            <%= button_to I18n.t("complaint_state.#{state[0]}"), complaint_path(complaint, state: state[1]), method: :put, data: { turbo: false }, class: "border-0 bg-transparent menu-link px-3" %>
-                          </div>
-                        <% end %>
-                        <!--end::Menu item-->
+                        <div class="menu-item px-3">
+                          <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
+                        </div>
+                        <div class="menu-item px-3">
+                          <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
+                        </div>
                       </div>
-                      <!--end::Menu-->
                     </td>
                   </tr>
+                  <!-- Render the Edit Modal Partial -->
+                  <%= render 'edit', complaint: complaint %>
+                  <!--end::Edit Modal-->
+
+                  <!-- Render the Delete Modal Partial -->
+                  <%= render 'delete', complaint: complaint %>
+                  <!--end::Delete Confirmation Modal-->
                 <% end %>
                 </tbody>
               </table>
               <!--end::Table-->
+
+              <!-- Render the New Modal Partial -->
+              <%= render 'new' %>
+              <!--end::New Modal-->
             </div>
             <!--end::Card body-->
           </div>
           <!--end::Card-->
           <!--begin::Modals-->
-          <!--begin::Modal - Customers - Add-->
-          <div class="modal fade" id="kt_modal_add_customer" tabindex="-1" aria-hidden="true">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-              <!--begin::Modal content-->
-              <div class="modal-content">
-                <!--begin::Form-->
-                <form class="form" action="#" id="kt_modal_add_customer_form" data-kt-redirect="../../demo35/dist/apps/customers/list.html">
-                  <!--begin::Modal header-->
-                  <div class="modal-header" id="kt_modal_add_customer_header">
-                    <!--begin::Modal title-->
-                    <h2 class="fw-bold">Add a Customer</h2>
-                    <!--end::Modal title-->
-                    <!--begin::Close-->
-                    <div id="kt_modal_add_customer_close" class="btn btn-icon btn-sm btn-active-icon-primary">
-                      <i class="ki-outline ki-cross fs-1"></i>
-                    </div>
-                    <!--end::Close-->
+          <% @complaints.each do |complaint| %>
+            <div class="modal fade" id="complaintModal<%= complaint.id %>" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered mw-650px">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2 class="fw-bold">Complaint Details</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <!--end::Modal header-->
-                  <!--begin::Modal body-->
                   <div class="modal-body py-10 px-lg-17">
-                    <!--begin::Scroll-->
-                    <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-                      <!--begin::Input group-->
-                      <div class="fv-row mb-7">
-                        <!--begin::Label-->
-                        <label class="required fs-6 mb-2">Name</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <input type="text" class="form-control form-control-solid" placeholder="" name="name" value="Sean Bean" />
-                        <!--end::Input-->
-                      </div>
-                      <!--end::Input group-->
-                      <!--begin::Input group-->
-                      <div class="fv-row mb-7">
-                        <!--begin::Label-->
-                        <label class="fs-6 mb-2">
-                          <span class="required">Email</span>
-                          <span class="ms-1" data-bs-toggle="tooltip" title="Email address must be active">
-																		<i class="ki-outline ki-information fs-7"></i>
-																	</span>
-                        </label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <input type="email" class="form-control form-control-solid" placeholder="" name="email" value="sean@dellito.com" />
-                        <!--end::Input-->
-                      </div>
-                      <!--end::Input group-->
-                      <!--begin::Input group-->
-                      <div class="fv-row mb-15">
-                        <!--begin::Label-->
-                        <label class="fs-6 mb-2">Description</label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <input type="text" class="form-control form-control-solid" placeholder="" name="description" />
-                        <!--end::Input-->
-                      </div>
-                      <!--end::Input group-->
-                      <!--begin::Billing toggle-->
-                      <div class="fw-bold fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">Shipping Information
-                        <span class="ms-2 rotate-180">
-																<i class="ki-outline ki-down fs-3"></i>
-															</span></div>
-                      <!--end::Billing toggle-->
-                      <!--begin::Billing form-->
-                      <div id="kt_modal_add_customer_billing_info" class="collapse show">
-                        <!--begin::Input group-->
-                        <div class="d-flex flex-column mb-7 fv-row">
-                          <!--begin::Label-->
-                          <label class="required fs-6 mb-2">Address Line 1</label>
-                          <!--end::Label-->
-                          <!--begin::Input-->
-                          <input class="form-control form-control-solid" placeholder="" name="address1" value="101, Collins Street" />
-                          <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="d-flex flex-column mb-7 fv-row">
-                          <!--begin::Label-->
-                          <label class="fs-6 mb-2">Address Line 2</label>
-                          <!--end::Label-->
-                          <!--begin::Input-->
-                          <input class="form-control form-control-solid" placeholder="" name="address2" value="" />
-                          <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="d-flex flex-column mb-7 fv-row">
-                          <!--begin::Label-->
-                          <label class="required fs-6 mb-2">Town</label>
-                          <!--end::Label-->
-                          <!--begin::Input-->
-                          <input class="form-control form-control-solid" placeholder="" name="city" value="Melbourne" />
-                          <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="row g-9 mb-7">
-                          <!--begin::Col-->
-                          <div class="col-md-6 fv-row">
-                            <!--begin::Label-->
-                            <label class="required fs-6 mb-2">State / Province</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input class="form-control form-control-solid" placeholder="" name="state" value="Victoria" />
-                            <!--end::Input-->
-                          </div>
-                          <!--end::Col-->
-                          <!--begin::Col-->
-                          <div class="col-md-6 fv-row">
-                            <!--begin::Label-->
-                            <label class="required fs-6 mb-2">Post Code</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input class="form-control form-control-solid" placeholder="" name="postcode" value="3000" />
-                            <!--end::Input-->
-                          </div>
-                          <!--end::Col-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="d-flex flex-column mb-7 fv-row">
-                          <!--begin::Label-->
-                          <label class="fs-6 mb-2">
-                            <span class="required">Country</span>
-                            <span class="ms-1" data-bs-toggle="tooltip" title="Country of origination">
-																			<i class="ki-outline ki-information fs-7"></i>
-																		</span>
-                          </label>
-                          <!--end::Label-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                          <!--begin::Wrapper-->
-                          <div class="d-flex flex-stack">
-                            <!--begin::Label-->
-                            <div class="me-5">
-                              <!--begin::Label-->
-                              <label class="fs-6 fw-semibold">Use as a billing adderess?</label>
-                              <!--end::Label-->
-                              <!--begin::Input-->
-                              <div class="fs-7 text-muted">If you need more info, please check budget planning</div>
-                              <!--end::Input-->
-                            </div>
-                            <!--end::Label-->
-                            <!--begin::Switch-->
-                            <label class="form-check form-switch form-check-custom form-check-solid">
-                              <!--begin::Input-->
-                              <input class="form-check-input" name="billing" type="checkbox" value="1" id="kt_modal_add_customer_billing" checked="checked" />
-                              <!--end::Input-->
-                              <!--begin::Label-->
-                              <span class="form-check-label text-muted" for="kt_modal_add_customer_billing">Yes</span>
-                              <!--end::Label-->
-                            </label>
-                            <!--end::Switch-->
-                          </div>
-                          <!--begin::Wrapper-->
-                        </div>
-                        <!--end::Input group-->
-                      </div>
-                      <!--end::Billing form-->
+                    <div>
+                      <p><strong>Complaint ID:</strong> <%= complaint.complaint_id %></p>
+                      <p><strong>Filed Date:</strong> <%= complaint.filed_date&.strftime("%D") %></p>
+                      <p><strong>Disposition Date:</strong> <%= complaint.disposition_date&.strftime("%D") if complaint.disposition_date %></p>
+                      <p><strong>Category:</strong> <%= complaint.category %></p>
+                      <p><strong>Status:</strong> <%= complaint.state %></p>
+                      <p><strong>Last Inspection Date:</strong> <%= complaint.last_inspection_date&.strftime("%D") if complaint.last_inspection_date %></p>
+                      <p><strong>Updated On:</strong> <%= complaint.updated_at&.strftime("%D") %></p>
+                      <p><strong>Description:</strong> <%= complaint.description %></p> <!-- Added description field -->
                     </div>
-                    <!--end::Scroll-->
                   </div>
-                  <!--end::Modal body-->
-                  <!--begin::Modal footer-->
-                  <div class="modal-footer flex-center">
-                    <!--begin::Button-->
-                    <button type="reset" id="kt_modal_add_customer_cancel" class="btn btn-light me-3">Discard</button>
-                    <!--end::Button-->
-                    <!--begin::Button-->
-                    <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
-                      <span class="indicator-label">Submit</span>
-                      <span class="indicator-progress">Please wait...
-															<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                    <!--end::Button-->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                   </div>
-                  <!--end::Modal footer-->
-                </form>
-                <!--end::Form-->
+                </div>
               </div>
             </div>
-          </div>
-          <!--end::Modal - Customers - Add-->
-          <!--end::Modal - New Card-->
+            <!--end::Modal-->
+          <% end %>
           <!--end::Modals-->
         </div>
         <!--end::Content-->

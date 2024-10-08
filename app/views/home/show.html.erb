@@ -14,11 +14,6 @@
             <i class="las la-folder-open fs-3hx me-4 text-danger"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.open.size %></span>
             <!--end::Title-->
-            <!--begin::Label-->
-<!--            <span class="badge badge-light-danger fs-base">-->
-<!--              <i class="ki-outline ki-arrow-up fs-5 text-danger ms-n1"></i>8.02%-->
-<!--            </span>-->
-            <!--end::Label-->
           </div>
           <!--end::Heading-->
           <!--begin::Description-->
@@ -44,12 +39,6 @@
             <i class="las la-hard-hat fs-3hx me-4 text-primary"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.in_progress.size %></span>
             <!--end::Title-->
-            <!--begin::Label-->
-<!--            <span class="badge badge-light-danger fs-base">-->
-<!--              <i class="ki-outline ki-arrow-up fs-5 text-danger ms-n1"></i>-->
-<!--              8.02%-->
-<!--            </span>-->
-            <!--end::Label-->
           </div>
           <!--end::Heading-->
           <!--begin::Description-->
@@ -75,11 +64,6 @@
             <i class="las la-check fs-3hx me-4 text-success"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.closed.size %></span>
             <!--end::Title-->
-            <!--begin::Label-->
-<!--            <span class="badge badge-light-danger fs-base">-->
-<!--              <i class="ki-outline ki-arrow-up fs-5 text-danger ms-n1"></i>8.02%-->
-<!--            </span>-->
-            <!--end::Label-->
           </div>
           <!--end::Heading-->
           <!--begin::Description-->
@@ -127,10 +111,10 @@
               <!--begin::Card title-->
               <div class="card-title">
                 <!--begin::Search-->
-<!--                <div class="d-flex align-items-center position-relative my-1">-->
-<!--                  <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>-->
-<!--                  <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Portfolios" />-->
-<!--                </div>-->
+                <!-- <div class="d-flex align-items-center position-relative my-1"> -->
+                <!--   <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i> -->
+                <!--   <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Portfolios" /> -->
+                <!-- </div> -->
                 <!--end::Search-->
               </div>
               <!--begin::Card title-->
@@ -139,7 +123,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                   <!--begin::Add portfolio-->
-                  <%= link_to 'Add Portfolio', new_portfolio_path, class: 'btn btn-primary', data: { turbo: true, turbo_frame: 'modal' } %>
+                  <%= link_to 'Add Portfolio', '#', class: 'btn btn-primary', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
                   <!--end::Add portfolio-->
                 </div>
                 <!--end::Toolbar-->
@@ -158,6 +142,7 @@
                   <th class="min-w-125px">Closed this Month</th>
                   <th class="min-w-125px">Number of Buildings</th>
                   <th class="min-w-125px">Contact</th>
+                  <th class="min-w-125px">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -166,11 +151,10 @@
                     <td><%= portfolio.name %></td>
                     <td>
                       <a href="#" class="text-hover-primary mb-1 fw-bold"><%= link_to portfolio.complaints.open.size, portfolio_complaints_path(portfolio, state: 'open') %></a>
-<!--                      <span class="text-success fw-bold">+28.73%</span>-->
                     </td>
                     <td>
                       <a href="#" class="text-hover-primary mb-1 fw-bold"><%= link_to portfolio.complaints.closed.size, portfolio_complaints_path(portfolio, state: 'closed') %></a>
-<!--                      <span class="text-danger fw-bold">+2.73%</span></td>-->
+                    </td>
                     <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio), class: 'fw-bold' %></td>
                     <td>Joe Plumber</td>
                     <td class="text-end">
@@ -180,13 +164,13 @@
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
                         <!--begin::Menu item-->
                         <div class="menu-item px-3">
-                          <%= link_to 'Edit', edit_portfolio_path(portfolio), class: 'menu-link px-3', data: { turbo: true, turbo_frame: 'modal' } %>
+                          <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{portfolio.id}" } %>
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <% if portfolio.buildings.blank? %>
                           <div class="menu-item px-3">
-                            <%= button_to 'Delete', portfolio_path(portfolio), method: :delete, data: { turbo: false }, class: 'border-0 bg-transparent menu-link px-3' %>
+                            <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { bs_toggle: 'modal', bs_target: "#deleteModal#{portfolio.id}" } %>
                           </div>
                         <% end %>
                         <!--end::Menu item-->
@@ -194,10 +178,21 @@
                       <!--end::Menu-->
                     </td>
                   </tr>
+                  <!-- Render the Edit Modal Partial -->
+                  <%= render 'portfolios/edit', portfolio: portfolio %>
+                  <!--end::Edit Modal-->
+
+                  <!-- Render the Delete Modal Partial -->
+                  <%= render 'portfolios/delete', portfolio: portfolio %>
+                  <!--end::Delete Confirmation Modal-->
                 <% end %>
                 </tbody>
               </table>
               <!--end::Table-->
+
+              <!-- Render the New Modal Partial -->
+              <%= render 'portfolios/new' %>
+              <!--end::New Modal-->
             </div>
             <!--end::Card body-->
           </div>
@@ -205,10 +200,6 @@
         </div>
         <!--end::Content-->
       </div>
-      <!--end::Content wrapper-->
     </div>
-    <!--end:::Main-->
   </div>
-  <!--end::Wrapper container-->
 </div>
-<!--end::Wrapper-->

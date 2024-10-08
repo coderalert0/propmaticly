@@ -1,0 +1,94 @@
+<!--begin::Card body-->
+<div class="card-body p-9">
+  <div class="row">
+    <!--begin::First Column - Non-date fields-->
+    <div class="col-lg-6">
+      <!--begin::Input group 1-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label required fs-6">Complaint ID</label>
+        <div class="col-lg-8">
+          <%= f.text_field :complaint_id, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'ABC123' %>
+        </div>
+      </div>
+      <!--end::Input group 1-->
+
+      <!--begin::Input group 2-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label required fs-6">Description</label>
+        <div class="col-lg-8">
+          <%= f.text_area :description, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Description' %>
+        </div>
+      </div>
+      <!--end::Input group 2-->
+
+      <!--begin::Input group 3-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fs-6">Last Inspection Result</label>
+        <div class="col-lg-8">
+          <%= f.text_field :last_inspection_result, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Result' %>
+        </div>
+      </div>
+      <!--end::Input group 3-->
+
+      <!--begin::Input group 4-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fs-6">Category</label>
+        <div class="col-lg-8">
+          <%= f.select :category, ComplaintDecorator.categories_select, {}, class: 'form-select form-select-lg form-select-solid', placeholder: 'Category' %>
+        </div>
+      </div>
+      <!--end::Input group 4-->
+    </div>
+    <!--end::First Column-->
+
+    <!--begin::Second Column - Date fields and State-->
+    <div class="col-lg-6">
+      <!--begin::Input group 1-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fs-6">Filed Date</label>
+        <div class="col-lg-8">
+          <%= f.date_field :filed_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Filed Date' %>
+        </div>
+      </div>
+      <!--end::Input group 1-->
+
+      <!--begin::Input group 2-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fs-6">Last Inspection Date</label>
+        <div class="col-lg-8">
+          <%= f.date_field :last_inspection_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Date' %>
+        </div>
+      </div>
+      <!--end::Input group 2-->
+
+      <!--begin::Input group 3-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fs-6">Disposition Date</label>
+        <div class="col-lg-8">
+          <%= f.date_field :disposition_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Disposition Date' %>
+        </div>
+      </div>
+      <!--end::Input group 3-->
+
+      <!--begin::Input group 4 - State Field-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fs-6">State</label>
+        <div class="col-lg-8">
+          <%= f.select :state, ComplaintDecorator.states_select, {}, class: 'form-select form-select-lg form-select-solid' %>
+        </div>
+      </div>
+      <!--end::Input group 4-->
+    </div>
+    <!--end::Second Column-->
+  </div>
+
+  <%= f.hidden_field :building_id, value: @building&.id %>
+</div>
+<!--end::Card body-->
+
+<!--begin::Actions-->
+<div class="card-footer d-flex justify-content-end py-6 px-9">
+  <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-light me-2' %>
+  <button type="submit" class="btn btn-success" id="kt_account_profile_details_submit">Save</button>
+</div>
+<!--end::Actions-->

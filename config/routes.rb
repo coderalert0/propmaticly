@@ -19,7 +19,9 @@ Rails.application.routes.draw do
     resources :buildings
     resources :complaints
   end
-  resources :buildings
+  resources :buildings do
+    resources :complaints
+  end
   resources :complaints
   resources :violations
   resources :users
