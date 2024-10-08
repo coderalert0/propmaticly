@@ -28,6 +28,17 @@
             <!--begin::Card header-->
             <div class="card-header border-0 pt-6">
               <!--begin::Card title-->
+              <!--begin::Card toolbar-->
+              <div class="card-toolbar">
+                <!--begin::Toolbar-->
+                <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+                  <!--begin::Add portfolio-->
+                  <%= link_to 'Add Complaint', new_complaint_path, class: 'btn btn-primary', data: { turbo: true, turbo_frame: 'modal' } %>
+                  <!--end::Add portfolio-->
+                </div>
+                <!--end::Toolbar-->
+              </div>
+              <!--end::Card toolbar-->
               <div class="card-title">
                 <!--begin::Search-->
 <!--                <div class="d-flex align-items-center position-relative my-1">-->
@@ -46,11 +57,12 @@
                 <thead>
                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                   <th class="min-w-125px">Complaint ID</th>
-                  <th class="min-w-125px">Filed Date</th>
+                  <th class="min-w-100px">Filed Date</th>
+                  <th class="min-w-100px">Disposition Date</th>
                   <th class="min-w-125px">Category</th>
                   <th class="min-w-125px">Last Inspection Date</th>
                   <th class="min-w-125px">Status</th>
-                  <th class="min-w-125px">Updated At</th>
+                  <th class="min-w-100px">Updated On</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,6 +73,7 @@
                       <div><a href="#" class="text-gray-600 text-hover-primary mb-1"><%= complaint.building.name %></a></div>
                     </td>
                     <td><%= complaint&.filed_date&.strftime("%D") %></td>
+                    <td><%= complaint&.disposition_date&.strftime("%D") %></td>
                     <td><%= complaint&.category %></td>
                     <td><%= complaint&.last_inspection_date&.strftime("%D") %></td>
                     <td><%= complaint&.state %></td>

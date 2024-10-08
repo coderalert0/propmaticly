@@ -28,6 +28,17 @@
             <!--begin::Card header-->
             <div class="card-header border-0 pt-6">
               <!--begin::Card title-->
+              <!--begin::Card toolbar-->
+              <div class="card-toolbar">
+                <!--begin::Toolbar-->
+                <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+                  <!--begin::Add portfolio-->
+                  <%= link_to 'Add Violation', new_violation_path, class: 'btn btn-primary', data: { turbo: true, turbo_frame: 'modal' } %>
+                  <!--end::Add portfolio-->
+                </div>
+                <!--end::Toolbar-->
+              </div>
+              <!--end::Card toolbar-->
               <div class="card-title">
                 <!--begin::Search-->
                 <!--                <div class="d-flex align-items-center position-relative my-1">-->
@@ -45,8 +56,9 @@
               <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
                 <thead>
                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                  <th class="min-w-125px">Number</th>
+                  <th class="min-w-125px">Violation ID</th>
                   <th class="min-w-125px">Type Code</th>
+                  <th class="min-w-125px">Category</th>
                   <th class="min-w-125px">Description</th>
                   <th class="min-w-125px">Comments</th>
                   <th class="min-w-125px">Issue Date</th>
@@ -61,6 +73,7 @@
                       <div class="mb-1"><%= violation.number %></div>
                     </td>
                     <td><%= violation&.type_code %></td>
+                    <td><%= violation&.category %></td>
                     <td><%= violation&.description %></td>
                     <td><%= violation&.comments %></td>
                     <td><%= violation&.issue_date&.strftime("%D") %></td>

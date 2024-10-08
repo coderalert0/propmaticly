@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_07_182004) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
   create_table "building_users", force: :cascade do |t|
     t.integer "building_id"
     t.integer "user_id"
@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_07_182004) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "building_id"
+    t.datetime "disposition_date"
     t.index ["building_id"], name: "index_complaints_on_building_id"
   end
 
@@ -122,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_07_182004) do
   create_table "violations", force: :cascade do |t|
     t.string "number"
     t.string "type_code"
+    t.string "violation_category"
     t.integer "state", default: 0
     t.string "description"
     t.string "comments"

@@ -2,7 +2,8 @@
 
 class Building < ApplicationRecord
   belongs_to :portfolio
-  has_many :buildings_users
+  has_many :building_users
+  has_many :users, through: :building_users
   has_many :complaints, dependent: :destroy
   has_many :violations, dependent: :destroy
 

@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 class PortfoliosController < ApplicationController
-  load_resource only: %i[update edit destroy]
-
-  def new
-    @portfolio = Portfolio.new
-  end
+  load_and_authorize_resource
 
   def create
     portfolio = Portfolio.new(portfolio_params)

@@ -3,11 +3,11 @@
 require 'usps'
 
 class BuildingsController < ApplicationController
-  load_resource
-  load_resource :portfolio
+  load_and_authorize_resource
+  load_and_authorize_resource :portfolio
 
   def index
-    @buildings = @portfolio.buildings.includes(:complaints, :violations)
+    @buildings = @buildings.includes(:complaints, :violations)
   end
 
   def create

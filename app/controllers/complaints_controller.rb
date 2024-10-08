@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
 class ComplaintsController < ApplicationController
-  load_resource
-  load_resource :building, only: :index
-  load_resource :portfolio, only: :index
+  load_and_authorize_resource
+  load_and_authorize_resource :building, only: :index
+  load_and_authorize_resource :portfolio, only: :index
 
   def index
-    @complaints = if @building
-                    @building.complaints
-                  elsif @portfolio
-                    @portfolio.complaints
-                  else
-                    current_user.organization.complaints
-                  end
+    if @building
+      @complaints = @building.complaints
+    elsif @portfolio
+      @complaints = @portfolio.complaints
+    end
+
     @complaints = @complaints.send(params[:state]) if params[:state]
     @complaints = @complaints.decorate.order(:created_at, :desc)
   end

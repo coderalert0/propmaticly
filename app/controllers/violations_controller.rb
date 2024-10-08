@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 class ViolationsController < ApplicationController
-  load_resource
-  load_resource :building, only: :index
+  load_and_authorize_resource
+  load_and_authorize_resource :building, only: :index
 
   def index
-    @violations = if @building
-                    @building.violations
-                  else
-                    current_user.organization.violations
-                  end
+    @violations = @building.violations if @building
     @violations = @violations.decorate.order(:created_at, :desc)
   end
 
