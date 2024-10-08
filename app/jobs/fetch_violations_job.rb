@@ -8,27 +8,21 @@ class FetchViolationsJob < ApplicationJob
     return unless response.status == 200
 
     JSON.parse(response.body).each do |violation|
-      next unless violation['house_number']
-      next unless violation['street']
-      next unless violation['zip']
+      normalized_address = AddressHelper.normalize("#{violation['house_number']&.strip} #{violation['street']&.strip}",
+                                                   I18n.t("boro.#{violation['boro']}")&.strip, 'NY', violation['zip']&.strip)
 
-      violation_address = AddressHelper.normalize(
-        "#{violation['house_number'].strip} #{violation['street'].strip}",
-        violation['zip'].strip
-      )
+      next unless (buildings = Building.where(address1: normalized_address['address1'],
+                                              zip5: normalized_address['zip5']))
 
-      next unless (building = Building.find_by(address1: violation_address['address1'],
-                                               zip5: violation_address['zip5']))
-
-      Violation.find_or_initialize_by(number: violation['violation_number'])
-               .update(building_id: building.id,
-                       type_code: violation['violation_type_code'],
-                       category: violation['violation_category'],
-                       issue_date: Date.strptime(violation['issue_date'], '%m/%d/%Y'),
-                       description: violation['description'],
-                       disposition_date: violation['disposition_date'],
-                       comments: violation['disposition_comments'],
-                       building: building)
+      buildings.each do |building|
+        Violation.find_or_initialize_by(number: violation['violation_number'], building: building)
+                 .update(type_code: violation['violation_type_code'],
+                         category: violation['violation_category'],
+                         issue_date: Date.strptime(violation['issue_date'], '%m/%d/%Y'),
+                         description: violation['description'],
+                         disposition_date: violation['disposition_date'],
+                         comments: violation['disposition_comments'])
+      end
     end
   end
 end

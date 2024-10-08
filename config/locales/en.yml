@@ -30,10 +30,16 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  building_create_success: Building added successfully! We are now monitoring it for any complaints
+  boro:
+    1: Manhattan
+    2: Bronx
+    3: Brooklyn
+    4: Queens
+    5: Staten Island
+  building_create_success: Building has been added successfully! We are now monitoring it for any complaints
   building_delete_success: Building has been deleted successfully
-  building_update_success: Building updated successfully
-  complaint_create_success: Complaint added successfully
+  building_update_success: Building has been updated successfully
+  complaint_create_success: Complaint has been added successfully
   complaint_delete_success: Complaint has been deleted successfully
   complaint_state:
     open: Open
@@ -42,14 +48,15 @@ en:
   complaint_update_success: The complaint has been updated
   invalid_state_error: Please enter a valid zip code
   "no": "No"
-  portfolio_create_success: Portfolio added successfully! Now you can add a building to the portfolio to monitor complaints
-  portfolio_update_success: Portfolio updated successfully
+  portfolio_create_success: Portfolio has been added successfully! Now you can add a building to the portfolio to monitor complaints
+  portfolio_update_success: Portfolio has been updated successfully
   portfolio_delete_success: Portfolio has been deleted successfully
+  user_delete_success: User has been deleted successfully
   user_update_success: User has been updated successfully
   violation_state:
     open: Open
     closed: Closed
-  violation_update_success: The status of the violation has been updated
+  violation_update_success: The status of the violation has been updated successfully
   "yes": "Yes"
 
   complaint_category:

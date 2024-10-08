@@ -42,7 +42,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                   <!--begin::Add customer-->
-                  <%= link_to 'Invite User', new_user_invitation_path, class: 'btn btn-primary', data: { turbo: true, turbo_frame: 'modal' } %>
+                  <%= link_to 'Invite User', '#', class: 'btn btn-primary', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
                   <!--end::Add customer-->
                 </div>
                 <!--end::Toolbar-->
@@ -91,12 +91,12 @@
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
                         <!--begin::Menu item-->
                         <div class="menu-item px-3">
-                          <%= link_to 'Edit', edit_user_path(user), class: 'menu-link px-3', data: { turbo: true, turbo_frame: 'modal' } %>
+                          <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{user.id}" } %>
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-3">
-                          <%= button_to 'Delete', '#', method: :delete, data: { turbo: false }, class: 'border-0 bg-transparent menu-link px-3' %>
+                          <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { bs_toggle: 'modal', bs_target: "#deleteModal#{user.id}" } %>
                         </div>
                         <!--end::Menu item-->
                       </div>
@@ -104,10 +104,21 @@
                     </td>
                   </tr>
                   <% %>
+                  <!-- Render the Delete Modal Partial -->
+                  <%= render 'edit', user: user, buildings: @buildings %>
+                  <!--end::Delete Confirmation Modal-->
+
+                  <!-- Render the Delete Modal Partial -->
+                  <%= render 'delete', user: user %>
+                  <!--end::Delete Confirmation Modal-->
                 <% end %>
                 </tbody>
               </table>
               <!--end::Table-->
+
+              <!-- Render the New Modal Partial -->
+              <%= render 'devise/invitations/new' %>
+              <!--end::New Modal-->
             </div>
             <!--end::Card body-->
           </div>

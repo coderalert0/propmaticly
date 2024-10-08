@@ -7,8 +7,8 @@ class PortfoliosController < ApplicationController
     portfolio = Portfolio.new(portfolio_params)
     return unless portfolio.save!
 
-    redirect_to portfolio_buildings_path(portfolio),
-                notice: t(:portfolio_create_success)
+    flash[:success] = t(:portfolio_create_success)
+    redirect_to portfolio_buildings_path(portfolio)
   end
 
   def edit
@@ -16,21 +16,24 @@ class PortfoliosController < ApplicationController
   end
 
   def update
-    redirect_to root_path, notice: t(:portfolio_update_success) if @portfolio.update(portfolio_params)
+    return unless @portfolio.update(portfolio_params)
+
+    flash[:success] = t(:portfolio_update_success)
+    redirect_to root_path
   end
 
   def destroy
     return unless @portfolio.buildings.blank?
 
-    @portfolio.destroy
-    redirect_to root_path, notice: t(:portfolio_delete_success)
+    return unless @portfolio.destroy
+
+    flash[:success] = t(:portfolio_delete_success)
+    redirect_to root_path
   end
 
   private
 
   def portfolio_params
-    params.require(:portfolio)
-          .permit(:name, :description)
-          .merge({ organization: current_user.organization })
+    params.require(:portfolio).permit(:name, :description).merge({ organization: current_user.organization })
   end
 end

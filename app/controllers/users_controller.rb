@@ -5,9 +5,6 @@ class UsersController < ApplicationController
 
   def index
     @users = current_user.organization.users.decorate
-  end
-
-  def edit
     @buildings = current_user.organization.buildings
   end
 
@@ -17,8 +14,16 @@ class UsersController < ApplicationController
       BuildingUser.where(user_id: @user.id).destroy_all
       user_params[:building_ids].map { |building_id| BuildingUser.create(user: @user, building_id: building_id) }
 
-      redirect_to users_path, notice: t(:user_update_success)
+      flash[:success] = t(:user_update_success)
+      redirect_to users_path
     end
+  end
+
+  def destroy
+    return unless @user.destroy
+
+    flash[:success] = t(:user_delete_success)
+    redirect_to users_path
   end
 
   private

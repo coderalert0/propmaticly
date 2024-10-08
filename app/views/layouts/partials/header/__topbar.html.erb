@@ -3,23 +3,9 @@
     <!--begin::User menu-->
     <div class="app-navbar-item ms-3 ms-lg-9" id="kt_header_user_menu_toggle">
         <!--begin::Menu wrapper-->
-        <div class="d-flex align-items-center"
-            data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-            data-kt-menu-attach="parent"
-            data-kt-menu-placement="bottom-end"
-        >
-            <!--begin:Info-->
-            <div class="text-end d-none d-sm-flex flex-column justify-content-center me-3">
-                <span class="?page=pages/user-profile/overview" class="text-gray-500 fs-8 fw-bold">Hello</span>
-                <a href="?page=pages/user-profile/overview" class="text-gray-800 fs-7 fw-bold d-block"><%= current_user&.first_name %></a>
-            </div>
-            <!--end:Info-->
-            <!--begin::User-->
-            <div class="cursor-pointer symbol symbol symbol-circle symbol-35px symbol-md-40px">
-                <img class src="/assets/media/avatars/300-2.jpg" alt="user"/>
-                <div class="position-absolute translate-middle bottom-0 mb-1 start-100 ms-n1 bg-success rounded-circle h-8px w-8px"></div>
-            </div>
-            <!--end::User-->
+        <div class="d-flex align-items-center" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+          <span class="las la-user-circle fs-2hx me-1"></span>
+          <span>Hello <%= current_user&.first_name %></span>
         </div>
 <%= render 'partials/menus/user-account-menu' %>
         <!--end::Menu wrapper-->

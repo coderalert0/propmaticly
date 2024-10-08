@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   belongs_to :organization
-  has_many :building_users
+  has_many :building_users, dependent: :destroy
   has_many :buildings, through: :building_users
   accepts_nested_attributes_for :buildings, :organization
 

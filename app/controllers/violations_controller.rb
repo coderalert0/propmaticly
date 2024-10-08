@@ -10,8 +10,10 @@ class ViolationsController < ApplicationController
   end
 
   def update
-    @violation.update(state: violation_params[:state].to_i)
-    redirect_to violations_path, notice: t(:violation_update_success)
+    return unless @violation.update(state: violation_params[:state].to_i)
+
+    flash[:success] = t(:violation_update_success)
+    redirect_to violations_path
   end
 
   private

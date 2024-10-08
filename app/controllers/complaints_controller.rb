@@ -29,27 +29,31 @@ class ComplaintsController < ApplicationController
 
     return unless complaint.save!
 
-    redirect_to building_complaints_path(complaint.building),
-                notice: t(:complaint_create_success)
+    flash[:success] = t(:complaint_create_success)
+    redirect_to building_complaints_path(complaint.building)
   end
 
   def update
-    return unless @complaint.update(complaint_id: complaint_params[:complaint_id],
-                                    filed_date: complaint_params[:filed_date],
-                                    description: complaint_params[:description],
-                                    category: complaint_params[:category],
-                                    last_inspection_date: complaint_params[:last_inspection_date],
-                                    last_inspection_result: complaint_params[:last_inspection_result],
-                                    disposition_date: complaint_params[:disposition_date],
-                                    state: complaint_params[:state],
-                                    building_id: complaint_params[:building_id])
+    if @complaint.update(complaint_id: complaint_params[:complaint_id],
+                         filed_date: complaint_params[:filed_date],
+                         description: complaint_params[:description],
+                         category: complaint_params[:category],
+                         last_inspection_date: complaint_params[:last_inspection_date],
+                         last_inspection_result: complaint_params[:last_inspection_result],
+                         disposition_date: complaint_params[:disposition_date],
+                         state: complaint_params[:state],
+                         building_id: complaint_params[:building_id])
 
-    redirect_to building_complaints_path(@complaint.building), notice: t(:complaint_update_success)
+      flash[:success] = t(:complaint_update_success)
+      redirect_to building_complaints_path(@complaint.building)
+    end
   end
 
   def destroy
-    @complaint.destroy
-    redirect_to building_complaints_path(@complaint.building), notice: t(:complaint_delete_success)
+    return unless @complaint.destroy
+
+    flash[:success] = t(:complaint_delete_success)
+    redirect_to building_complaints_path(@complaint.building)
   end
 
   private

@@ -1,0 +1,74 @@
+<!--begin::Card body-->
+<div class="card-body p-9">
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="row">
+    <div class='col-6'>
+      <!--begin::Input group-->
+      <div class="input-group mb-5">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+        </span>
+        <%= f.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="input-group mb-5">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+        </span>
+        <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="input-group mb-5">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="ki-duotone ki-sms fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+        </span>
+        <%= f.text_field :email, class: 'form-control', placeholder: 'Email' %>
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="input-group mb-5">
+        <span class="input-group-text" id="basic-addon1">
+          <i class="ki-duotone ki-message-notif fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+        </span>
+        <%= f.text_field :sms, class: 'form-control', placeholder: 'SMS' %>
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="form-check">
+        <%= f.check_box :admin, class: 'form-check-input' %>
+        <%= f.label :admin, "Admin", class: 'form-check-label' %>
+      </div>
+      <!--end::Input group-->
+    </div>
+
+    <!-- Right Column (Buildings) -->
+    <div class="col-lg-6">
+      <!-- Place the label above the checkboxes -->
+      <label for="buildings" class="form-label fs-6 required">Buildings</label>
+      <div class="fv-row">
+        <!-- Add form-check classes to style the checkboxes and space them out with mb-3 -->
+        <%= f.collection_check_boxes :building_ids, @buildings, :id, :name do |b| %>
+          <div class="form-check mb-3">
+            <%= b.check_box(class: 'form-check-input') %>
+            <%= b.label(class: 'form-check-label') %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end::Card body-->
+
+<!--begin::Actions-->
+<div class="card-footer d-flex justify-content-end py-6 px-9">
+  <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-primary me-2' %>
+  <%= f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-success', id: 'kt_account_profile_details_submit' %>
+</div>
+<!--end::Actions-->
