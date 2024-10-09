@@ -2,27 +2,36 @@
 
 require 'faraday'
 
-class FetchViolationsJob < ApplicationJob
-  def perform
-    response = Faraday.get 'https://data.cityofnewyork.us/resource/3h2n-5cm9.json?issue_date=19880914'
-    return unless response.status == 200
+class FetchViolationsJob < FetchJob
+  private
 
-    JSON.parse(response.body).each do |violation|
-      normalized_address = AddressHelper.normalize("#{violation['house_number']&.strip} #{violation['street']&.strip}",
-                                                   I18n.t("boro.#{violation['boro']}")&.strip, 'NY', violation['zip']&.strip)
+  def url
+    'https://data.cityofnewyork.us/resource/3h2n-5cm9.json?issue_date=19880914'
+  end
 
-      next unless (buildings = Building.where(address1: normalized_address['address1'],
-                                              zip5: normalized_address['zip5']))
+  def building_where_params(violation, building)
+    { number: violation['violation_number'], building: building }
+  end
 
-      buildings.each do |building|
-        Violation.find_or_initialize_by(number: violation['violation_number'], building: building)
-                 .update(type_code: violation['violation_type_code'],
-                         category: violation['violation_category'],
-                         issue_date: Date.strptime(violation['issue_date'], '%m/%d/%Y'),
-                         description: violation['description'],
-                         disposition_date: violation['disposition_date'],
-                         comments: violation['disposition_comments'])
-      end
-    end
+  def resource_attributes(violation)
+    { type_code: violation['violation_type_code'],
+      category: violation['violation_category'],
+      issue_date: violation['issue_date'],
+      description: violation['description'],
+      disposition_date: violation['disposition_date'],
+      comments: violation['disposition_comments'] }
+  end
+
+  def normalize_address_params(violation)
+    {
+      address1: "#{violation['house_number']&.strip} #{violation['street']&.strip}",
+      city: I18n.t("boro.#{violation['boro']}")&.strip,
+      state: 'NY',
+      zip5: violation['zip']&.strip
+    }
+  end
+
+  def resource_clazz
+    Violation
   end
 end
