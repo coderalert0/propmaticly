@@ -55,6 +55,7 @@ en:
   user_update_success: User has been updated successfully
   violation_state:
     open: Open
+    in_progress: In Progress
     closed: Closed
   violation_update_success: The status of the violation has been updated successfully
   "yes": "Yes"

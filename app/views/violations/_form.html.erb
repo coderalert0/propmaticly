@@ -5,36 +5,36 @@
     <div class="col-lg-6">
       <!--begin::Input group 1-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fs-6">Complaint ID</label>
+        <label class="col-lg-4 col-form-label required fs-6">Violation ID</label>
         <div class="col-lg-8">
-          <%= f.text_field :complaint_id, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'ABC123' %>
+          <%= f.text_field :number, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'ABC123' %>
         </div>
       </div>
       <!--end::Input group 1-->
 
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fs-6">Description</label>
+        <label class="col-lg-4 col-form-label required fs-6">Type Code</label>
         <div class="col-lg-8">
-          <%= f.text_area :description, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Description' %>
+          <%= f.text_field :type_code, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Description' %>
         </div>
       </div>
       <!--end::Input group 2-->
 
       <!--begin::Input group 3-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Last Inspection Result</label>
+        <label class="col-lg-4 col-form-label fs-6">Category</label>
         <div class="col-lg-8">
-          <%= f.text_field :last_inspection_result, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Result' %>
+          <%= f.text_field :category, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Result' %>
         </div>
       </div>
       <!--end::Input group 3-->
 
       <!--begin::Input group 4-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Category</label>
+        <label class="col-lg-4 col-form-label fs-6">Description</label>
         <div class="col-lg-8">
-          <%= f.select :category, ComplaintDecorator.categories_select, {}, class: 'form-select form-select-lg form-select-solid', placeholder: 'Category' %>
+          <%= f.text_area :description, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Result' %>
         </div>
       </div>
       <!--end::Input group 4-->
@@ -45,18 +45,18 @@
     <div class="col-lg-6">
       <!--begin::Input group 1-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Filed Date</label>
+        <label class="col-lg-4 col-form-label fs-6">Comments</label>
         <div class="col-lg-8">
-          <%= f.date_field :filed_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Filed Date' %>
+          <%= f.text_area :comments, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Result' %>
         </div>
       </div>
       <!--end::Input group 1-->
 
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Last Inspection Date</label>
+        <label class="col-lg-4 col-form-label fs-6">Issue Date</label>
         <div class="col-lg-8">
-          <%= f.date_field :last_inspection_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Date' %>
+          <%= f.date_field :issue_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Date' %>
         </div>
       </div>
       <!--end::Input group 2-->
@@ -74,7 +74,7 @@
       <div class="row mb-6">
         <label class="col-lg-4 col-form-label fs-6">State</label>
         <div class="col-lg-8">
-          <%= f.collection_select :state, ComplaintDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
+          <%= f.collection_select :state, ViolationDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
       </div>
       <!--end::Input group 4-->

@@ -16,4 +16,8 @@ class ViolationDecorator < Draper::Decorator
       I18n.t("violation_state.#{object.state}")
     end
   end
+
+  def self.states_select
+    [['Open', 'open'], ['In Progress', 'in_progress'], ['Closed', 'closed']]
+  end
 end

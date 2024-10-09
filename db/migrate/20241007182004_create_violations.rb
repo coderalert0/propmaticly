@@ -5,7 +5,7 @@ class CreateViolations < ActiveRecord::Migration[7.0]
     create_table :violations do |t|
       t.string :number
       t.string :type_code
-      t.string :violation_category
+      t.string :category
       t.integer :state, default: 0
       t.string :description
       t.string :comments

@@ -60,6 +60,6 @@ class ComplaintsController < ApplicationController
 
   def complaint_params
     params.require(:complaint).permit(:id, :complaint_id, :state, :filed_date, :description, :category,
-                                      :last_inspection_date, :last_inspection_result, :state, :building_id, :disposition_date)
+                                      :last_inspection_date, :last_inspection_result, :state, :disposition_date, :building_id)
   end
 end

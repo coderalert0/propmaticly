@@ -77,7 +77,7 @@
                       <div href="#" class="text-gray-600 mb-1"><%= building.address1.titleize %>, <%= building.city.titleize %>, <%= building.state %></div>
                     </td>
                     <td><%= link_to building.complaints.size, building_complaints_path(building) %></td>
-                    <td><%= link_to building.violations.size, violations_path(building_id: building.id) %></td>
+                    <td><%= link_to building.violations.size, building_violations_path(building_id: building.id) %></td>
                     <td class="text-end">
                       <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                         <i class="ki-outline ki-down fs-5 ms-1"></i></a>

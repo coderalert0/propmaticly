@@ -4,13 +4,8 @@ class Violation < ApplicationRecord
   belongs_to :building
 
   enum state: {
-    closed: 0,
-    open: 1
+    open: 0,
+    in_progress: 1,
+    closed: 2
   }
-
-  def state_options
-    states = Violation.states.dup
-    states.delete(state)
-    states
-  end
 end

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
   resources :buildings do
     resources :complaints
+    resources :violations
   end
   resources :complaints
   resources :violations
