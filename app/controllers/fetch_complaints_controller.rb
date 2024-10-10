@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class FetchComplaintsController < ApplicationController
+class FetchDobComplaintsController < ApplicationController
   def show
-    Delayed::Job.enqueue FetchComplaintsJob.new
+    Delayed::Job.enqueue FetchDOBComplaintsJob.new
     render json: nil
   end
 end

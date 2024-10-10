@@ -2,7 +2,7 @@
 
 require 'faraday'
 
-class FetchComplaintsJob < FetchJob
+class FetchDobComplaintsJob < FetchJob
   private
 
   def state_enum(status)

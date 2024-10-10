@@ -2,7 +2,7 @@
 
 require 'faraday'
 
-class FetchViolationsJob < FetchJob
+class FetchDobViolationsJob < FetchJob
   private
 
   def url
@@ -10,7 +10,7 @@ class FetchViolationsJob < FetchJob
   end
 
   def building_where_params(violation, building)
-    { number: violation['violation_number'], building: building }
+    { number: violation['dob_violation_number'], building: building }
   end
 
   def resource_attributes(violation)

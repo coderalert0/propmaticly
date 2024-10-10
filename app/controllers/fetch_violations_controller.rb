@@ -2,7 +2,7 @@
 
 class FetchViolationsController < ApplicationController
   def show
-    Delayed::Job.enqueue FetchViolationsJob.new
+    Delayed::Job.enqueue FetchDobViolationsJob.new
     render json: nil
   end
 end

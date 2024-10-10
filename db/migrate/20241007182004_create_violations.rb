@@ -3,7 +3,8 @@
 class CreateViolations < ActiveRecord::Migration[7.0]
   def change
     create_table :violations do |t|
-      t.string :number
+      t.string :dob_number
+      t.string :ecb_number
       t.string :type_code
       t.string :category
       t.integer :state, default: 0

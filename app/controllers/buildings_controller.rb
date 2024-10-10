@@ -11,7 +11,8 @@ class BuildingsController < ApplicationController
   end
 
   def create
-    address = AddressHelper.normalize(building_params[:address1].to_s.strip, building_params[:zip5].strip)
+    address = AddressHelper.normalize({ address1: building_params[:address1].to_s.strip,
+                                        zip5: building_params[:zip5].strip })
     building = Building.new(name: building_params[:name],
                             address1: address.address1,
                             city: address.city,
