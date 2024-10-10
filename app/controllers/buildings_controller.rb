@@ -33,7 +33,8 @@ class BuildingsController < ApplicationController
   end
 
   def update
-    address = AddressHelper.normalize(building_params[:address1].to_s.strip, building_params[:zip5].strip)
+    address = AddressHelper.normalize({ address1: building_params[:address1].to_s.strip,
+                                        zip5: building_params[:zip5].strip })
     return unless @building.update(name: building_params[:name], address1: address.address1, city: address.city,
                                    state: address.state, zip5: address.zip5)
 
