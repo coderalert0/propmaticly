@@ -123,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
   create_table "violations", force: :cascade do |t|
     t.string "dob_number"
     t.string "ecb_number"
+    t.string "hpd_number"
     t.string "type_code"
     t.string "category"
     t.integer "state", default: 0

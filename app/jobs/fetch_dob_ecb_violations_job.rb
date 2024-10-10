@@ -9,7 +9,7 @@ class FetchDobEcbViolationsJob < FetchJob
     'https://data.cityofnewyork.us/resource/6bgk-3dad.json'
   end
 
-  def building_where_params(violation, building)
+  def resource_where_params(violation, building)
     { dob_number: violation['dob_violation_number'],
       ecb_number: violation['ecb_violation_number'],
       building: building }

@@ -13,7 +13,7 @@ class FetchDobComplaintsJob < FetchJob
     'https://data.cityofnewyork.us/resource/eabe-havv.json?date_entered=08/01/2023'
   end
 
-  def building_where_params(complaint, building)
+  def resource_where_params(complaint, building)
     { complaint_id: complaint['complaint_number'], building: building }
   end
 

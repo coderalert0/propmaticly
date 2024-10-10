@@ -2,28 +2,28 @@
 
 require 'faraday'
 
-class FetchDobSafetyViolationsJob < FetchJob
+class FetchHpdViolationsJob < FetchJob
   private
 
   def url
-    'https://data.cityofnewyork.us/resource/855j-jady.json'
+    'https://data.cityofnewyork.us/resource/wvxf-dwi5.json'
   end
 
   def resource_where_params(violation, building)
-    { dob_number: violation['violation_number'],
+    { hpd_number: violation['violationid'],
       building: building }
   end
 
   def resource_attributes(violation)
     {
-      description: violation['violation_remarks']
+      description: violation['novdescription']
     }
   end
 
   def normalize_address_params(violation)
     {
-      address1: "#{violation['house_number']&.strip} #{violation['street']&.strip}",
-      city: violation['city']&.strip,
+      address1: "#{violation['housenumber']&.strip} #{violation['streetname']&.strip} ##{violation['apartment']&.strip}",
+      city: nil,
       state: nil,
       zip5: violation['zip']&.strip
     }
