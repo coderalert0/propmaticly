@@ -4,6 +4,11 @@ class Complaint < ApplicationRecord
   belongs_to :building
   after_commit :send_notification, on: :create
 
+  enum severity: {
+    non_emergency: 0,
+    emergency: 1
+  }
+
   enum state: {
     open: 0,
     in_progress: 1,
@@ -13,12 +18,6 @@ class Complaint < ApplicationRecord
   scope :open, -> { where(state: 0) }
   scope :in_progress, -> { where(state: 1) }
   scope :closed, -> { where(state: 2) }
-
-  def state_options
-    states = Complaint.states.dup
-    states.delete(state)
-    states
-  end
 
   private
 

@@ -56,6 +56,7 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'draper'
 gem 'faraday'
+gem 'kaminari'
 gem 'twilio-ruby'
 gem 'usps'
 

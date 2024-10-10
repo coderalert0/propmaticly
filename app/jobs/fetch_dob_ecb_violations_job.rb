@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-require 'faraday'
-
 class FetchDobEcbViolationsJob < FetchJob
   private
 
   def url
-    'https://data.cityofnewyork.us/resource/6bgk-3dad.json'
+    'https://data.cityofnewyork.us/resource/6bgk-3dad.json?bin=3148711'
   end
 
   def resource_where_params(violation, building)
-    { dob_number: violation['dob_violation_number'],
-      ecb_number: violation['ecb_violation_number'],
-      building: building }
+    { violation_id: violation['ecb_violation_number'], building: building }
   end
 
-  def resource_attributes(violation)
+  def resource_update_attributes(violation)
     {
+      state: violation['ecb_violation_status'],
+      issue_date: violation['issue_date'],
+      severity: violation['severity'],
+      violation_type: violation['violation_type'],
       description: violation['violation_description']
     }
   end
@@ -31,6 +31,6 @@ class FetchDobEcbViolationsJob < FetchJob
   end
 
   def resource_clazz
-    Violation
+    DobEcbViolation
   end
 end

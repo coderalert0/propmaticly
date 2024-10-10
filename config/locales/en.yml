@@ -41,6 +41,9 @@ en:
   building_update_success: Building has been updated successfully
   complaint_create_success: Complaint has been added successfully
   complaint_delete_success: Complaint has been deleted successfully
+  complaint_severity:
+    emergency: Emergency
+    non_emergency: Non-Emergency
   complaint_state:
     open: Open
     in_progress: In Progress
@@ -54,9 +57,15 @@ en:
   user_delete_success: User has been deleted successfully
   user_update_success: User has been updated successfully
   violation_state:
-    open: Open
+    open: &open 'Open'
+    Open: *open
     in_progress: In Progress
-    closed: Closed
+    Close: &closed Closed
+    closed: *closed
+    Active: *open
+    Dismissed: *closed
+    ACTIVE: *open
+    RESOLVE: *closed
   violation_update_success: The status of the violation has been updated successfully
   "yes": "Yes"
 
@@ -426,4 +435,73 @@ en:
     Y2: Vacate Order Fully Rescinded
     Y3: Partial Vacate Order Served
     Y4: Vacate Order Partially Rescinded
+  violation_type_code:
+    B: Boiler
+    BDM: Boiler
+    BMD: Boiler
+    C: Construction
+    E: Elevator
+    EIT: Elevator Safety Test
+    ES: Electric Sign
+    LL5: Local Law 5 of 1973 (Fire Safety in Office Buildings)
+    LL573: Local Law 5 of 1973 (Fire Safety in Office Buildings)
+    LL1080: "Local Law 10 of 1980 (Facade: Borough Office)"
+    LL1081: "Local Law 10 of 1981 (Elevator Safety Test)"
+    LL1684: "Local Law 16 of 1984 (Fire Safety)"
+    LL58: "Local Law 58 of 1988 (penalties for work without a permit)"
+    LL5888: "Local Law 58 of 1988 (penalties for work without a permit)"
+    LL6291: "Local Law 62 of 1991 (Boiler)"
+    NRF: No Report Filed
+    1684NRF: No Report Filed
+    LL1198: "Local Law 11 - 1998 (Facade)"
+    MDV: Multiple Dwelling Violation
+    P: Plumbing
+    S: Sign
+    UB: Unsafe Building Violation
+    UB*: Unsafe Building Violation dismissed
+    V: DOB Violation
+    V*: DOB Violation Dismissed
+    V%: Precept issued for Unsafe Buildings Violation
+    VAC: Vacate
+    VAC*: Vacate Dismissed
+    VCLOS: Order of Closure (padlock order)
+    VCLOS*: Order of Closure (padlock order) Dismissed
+    VEWL: Violation Work without Permit Elevator Lien
+    VWL: Violation Work without Permit Elevator Lien
+    VWL*: Violation Work without Permit Elevator Lien Dismissed
+    VECW: Violation Work without Permit Elevator
+    VEW: Violation Work without Permit Elevator
+    VEW*: Violation Work without Permit Elevator Dismissed
+    VH: Violation Hazardous
+    VH*: Violation Hazardous Dismissed
+    VW: Violation - Work Without a Permit
+    VWH: Violation - Work Without a Permit Hazardous
+    VWH*: Violation - Work Without a Permit Hazardous Dismissed
+    VPW: Violation Pending - Work Without a Permit
+    VPW*: Violation Pending - Work Without a Permit Dismissed
+    ZV: Zoning Violation
+    ZV*: Zoning Violation Dismissed
+    UB%: Precept issued for Unsafe Buildings Violation
+  current_status_id:
+    1: Violation Open
+    2: Notice of Violation Sent out
+    3: Notice of Violation Certified On Time
+    4: Notice of Violation Certified Late
+    6: Certification Postponement Granted
+    7: Certification Postponement Denied
+    8: False Certification
+    11: Violation Will Be Reinspected
+    19: Violation Closed
+    20: Defect Letter Issued
+    21: Not Complied With
+    22: First No Access To Re-inspect Violation
+    23: Second No Access To Re-inspect Violation
+    24: Violation Reopen
+    27: Info Notice of Violation Sent Out
+    28: Invalid Certification
+    36: Complied In Access Area
+
+
+
+
 

@@ -6,7 +6,7 @@ FactoryBot.define do
     filed_date { Time.now }
     description { 'Electrical issues in my living room' }
     category { '56' }
-    last_inspection_date { Time.now - 2.months }
+    inspection_date { Time.now - 2.months }
     link { 'http://propmatically.com' }
     state { 0 }
     building

@@ -1,22 +1,24 @@
 # frozen_string_literal: true
 
-require 'faraday'
-
 class FetchDobSafetyViolationsJob < FetchJob
   private
 
   def url
-    'https://data.cityofnewyork.us/resource/855j-jady.json'
+    'https://data.cityofnewyork.us/resource/855j-jady.json?bin=2056302'
   end
 
   def resource_where_params(violation, building)
-    { dob_number: violation['violation_number'],
-      building: building }
+    { violation_id: violation['violation_number'], building: building }
   end
 
-  def resource_attributes(violation)
+  def resource_update_attributes(violation)
     {
-      description: violation['violation_remarks']
+      issue_date: violation['violation_issue_date'],
+      violation_type: violation['violation_type'],
+      state: violation['violation_status'],
+      description: violation['violation_remarks'],
+      device_number: violation['device_number'],
+      device_type: violation['device_type']
     }
   end
 
@@ -30,6 +32,6 @@ class FetchDobSafetyViolationsJob < FetchJob
   end
 
   def resource_clazz
-    Violation
+    DobSafetyViolation
   end
 end

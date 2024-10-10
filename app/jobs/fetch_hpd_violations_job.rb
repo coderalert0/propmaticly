@@ -1,22 +1,21 @@
 # frozen_string_literal: true
 
-require 'faraday'
-
 class FetchHpdViolationsJob < FetchJob
   private
 
   def url
-    'https://data.cityofnewyork.us/resource/wvxf-dwi5.json'
+    'https://data.cityofnewyork.us/resource/wvxf-dwi5.json?violationid=10000824'
   end
 
   def resource_where_params(violation, building)
-    { hpd_number: violation['violationid'],
-      building: building }
+    { violation_id: violation['violationid'], building: building }
   end
 
-  def resource_attributes(violation)
+  def resource_update_attributes(violation)
     {
-      description: violation['novdescription']
+      description: violation['novdescription'],
+      issue_date: violation['novissueddate'],
+      state: violation['violationstatus']
     }
   end
 
@@ -30,6 +29,6 @@ class FetchHpdViolationsJob < FetchJob
   end
 
   def resource_clazz
-    Violation
+    HpdViolation
   end
 end

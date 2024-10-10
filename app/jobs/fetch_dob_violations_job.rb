@@ -1,25 +1,23 @@
 # frozen_string_literal: true
 
-require 'faraday'
-
 class FetchDobViolationsJob < FetchJob
   private
 
   def url
-    'https://data.cityofnewyork.us/resource/3h2n-5cm9.json?issue_date=19880914'
+    'https://data.cityofnewyork.us/resource/3h2n-5cm9.json?house_number=7509&street=3%20AVENUE'
   end
 
   def resource_where_params(violation, building)
-    { number: violation['dob_violation_number'], building: building }
+    { violation_id: violation['number'], building: building }
   end
 
-  def resource_attributes(violation)
-    { type_code: violation['violation_type_code'],
-      category: violation['violation_category'],
+  def resource_update_attributes(violation)
+    {
       issue_date: violation['issue_date'],
-      description: violation['description'],
-      disposition_date: violation['disposition_date'],
-      comments: violation['disposition_comments'] }
+      violation_type: violation['violation_type_code'],
+      device_number: violation['device_number'],
+      description: violation['description']
+    }
   end
 
   def normalize_address_params(violation)

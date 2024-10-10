@@ -13,19 +13,12 @@ class ComplaintsController < ApplicationController
     end
 
     @complaints = @complaints.send(params[:state]) if params[:state]
-    @complaints = @complaints.decorate.order(:created_at, :desc)
+    @complaints = @complaints.order(:created_at, :desc).page(params[:page]).per(10)
+    @complaints = PaginationDecorator.decorate(@complaints)
   end
 
   def create
-    complaint = Complaint.new(complaint_id: complaint_params[:complaint_id],
-                              filed_date: complaint_params[:filed_date],
-                              description: complaint_params[:description],
-                              category: complaint_params[:category],
-                              last_inspection_date: complaint_params[:last_inspection_date],
-                              last_inspection_result: complaint_params[:last_inspection_result],
-                              disposition_date: complaint_params[:disposition_date],
-                              state: complaint_params[:state],
-                              building_id: complaint_params[:building_id])
+    complaint = Complaint.new(**create_update_hash)
 
     return unless complaint.save!
 
@@ -34,19 +27,10 @@ class ComplaintsController < ApplicationController
   end
 
   def update
-    if @complaint.update(complaint_id: complaint_params[:complaint_id],
-                         filed_date: complaint_params[:filed_date],
-                         description: complaint_params[:description],
-                         category: complaint_params[:category],
-                         last_inspection_date: complaint_params[:last_inspection_date],
-                         last_inspection_result: complaint_params[:last_inspection_result],
-                         disposition_date: complaint_params[:disposition_date],
-                         state: complaint_params[:state],
-                         building_id: complaint_params[:building_id])
+    return unless @complaint.update(create_update_hash)
 
-      flash[:success] = t(:complaint_update_success)
-      redirect_to building_complaints_path(@complaint.building)
-    end
+    flash[:success] = t(:complaint_update_success)
+    redirect_to building_complaints_path(@complaint.building)
   end
 
   def destroy
@@ -59,7 +43,22 @@ class ComplaintsController < ApplicationController
   private
 
   def complaint_params
-    params.require(:complaint).permit(:id, :complaint_id, :state, :filed_date, :description, :category,
-                                      :last_inspection_date, :last_inspection_result, :state, :disposition_date, :building_id)
+    params.require(:complaint).permit(:id, :complaint_id, :state, :filed_date, :description, :category_code, :severity,
+                                      :inspection_date, :state, :disposition_date, :disposition_code, :building_id)
+  end
+
+  def create_update_hash
+    {
+      complaint_id: complaint_params[:complaint_id],
+      filed_date: complaint_params[:filed_date],
+      description: complaint_params[:description],
+      category_code: complaint_params[:category_code],
+      inspection_date: complaint_params[:inspection_date],
+      disposition_date: complaint_params[:disposition_date],
+      disposition_code: complaint_params[:disposition_code],
+      state: complaint_params[:state],
+      severity: complaint_params[:severity],
+      building_id: complaint_params[:building_id]
+    }
   end
 end

@@ -16,25 +16,16 @@
       <div class="row mb-6">
         <label class="col-lg-4 col-form-label required fs-6">Description</label>
         <div class="col-lg-8">
-          <%= f.text_area :description, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Description' %>
+          <%= f.text_area :description, rows: 12, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Description' %>
         </div>
       </div>
       <!--end::Input group 2-->
 
-      <!--begin::Input group 3-->
+      <!--begin::Input group 4 - State Field-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Last Inspection Result</label>
+        <label class="col-lg-4 col-form-label fs-6">Status</label>
         <div class="col-lg-8">
-          <%= f.text_field :last_inspection_result, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Result' %>
-        </div>
-      </div>
-      <!--end::Input group 3-->
-
-      <!--begin::Input group 4-->
-      <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Category</label>
-        <div class="col-lg-8">
-          <%= f.select :category, ComplaintDecorator.categories_select, {}, class: 'form-select form-select-lg form-select-solid', placeholder: 'Category' %>
+          <%= f.collection_select :state, ComplaintDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
       </div>
       <!--end::Input group 4-->
@@ -43,6 +34,25 @@
 
     <!--begin::Second Column - Date fields and State-->
     <div class="col-lg-6">
+
+      <!--begin::Input group 4-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fs-6">Category</label>
+        <div class="col-lg-8">
+          <%= f.collection_select :category_code, ComplaintDecorator.categories_code_select, :last, :first, { selected: f.try(:object).try(:object).try(:category_code) }, class: 'form-select form-select-lg form-select-solid' %>
+        </div>
+      </div>
+      <!--end::Input group 4-->
+
+      <!--begin::Input group 4 - Emergency Field-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fs-6">Severity</label>
+        <div class="col-lg-8">
+          <%= f.collection_select :severity, ComplaintDecorator.severities_select, :last, :first, { selected: f.try(:object).try(:object).try(:severity) }, class: 'form-select form-select-lg form-select-solid' %>
+        </div>
+      </div>
+      <!--end::Input group 4-->
+
       <!--begin::Input group 1-->
       <div class="row mb-6">
         <label class="col-lg-4 col-form-label fs-6">Filed Date</label>
@@ -54,12 +64,21 @@
 
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Last Inspection Date</label>
+        <label class="col-lg-4 col-form-label fs-6">Inspection Date</label>
         <div class="col-lg-8">
-          <%= f.date_field :last_inspection_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Last Inspection Date' %>
+          <%= f.date_field :inspection_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Inspection Date' %>
         </div>
       </div>
       <!--end::Input group 2-->
+
+      <!--begin::Input group 4 - State Field-->
+      <div class="row mb-6">
+        <label class="col-lg-4 col-form-label fs-6">Disposition</label>
+        <div class="col-lg-8">
+          <%= f.collection_select :disposition_code, ComplaintDecorator.disposition_codes_select, :last, :first, { selected: f.try(:object).try(:object).try(:disposition_code) }, class: 'form-select form-select-lg form-select-solid' %>
+        </div>
+      </div>
+      <!--end::Input group 4-->
 
       <!--begin::Input group 3-->
       <div class="row mb-6">
@@ -69,15 +88,6 @@
         </div>
       </div>
       <!--end::Input group 3-->
-
-      <!--begin::Input group 4 - State Field-->
-      <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">State</label>
-        <div class="col-lg-8">
-          <%= f.collection_select :state, ComplaintDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
-        </div>
-      </div>
-      <!--end::Input group 4-->
     </div>
     <!--end::Second Column-->
   </div>

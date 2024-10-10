@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require 'faraday'
-
 class FetchDobComplaintsJob < FetchJob
   private
 
-  def state_enum(status)
-    status == 'ACTIVE' ? 0 : 2
+  def dob_state_enum(status)
+    status == 'CLOSED' ? 2 : 0
   end
 
   def url
@@ -17,13 +15,13 @@ class FetchDobComplaintsJob < FetchJob
     { complaint_id: complaint['complaint_number'], building: building }
   end
 
-  def resource_attributes(complaint)
+  def resource_update_attributes(complaint)
     { filed_date: (Date.strptime(complaint['date_entered'], '%m/%d/%Y') if complaint['date_entered']),
       disposition_date: (Date.strptime(complaint['disposition_date'], '%m/%d/%Y') if complaint['disposition_date']),
-      category: complaint['complaint_category'],
-      last_inspection_date: (Date.strptime(complaint['inspection_date'], '%m/%d/%Y') if complaint['inspection_date']),
-      last_inspection_result: complaint['disposition_code'].try(:to_sym),
-      state: state_enum(complaint['status']) }
+      disposition_code: complaint['disposition_code'],
+      category_code: complaint['complaint_category'],
+      inspection_date: (Date.strptime(complaint['inspection_date'], '%m/%d/%Y') if complaint['inspection_date']),
+      state: dob_state_enum(complaint['status']) }
   end
 
   def normalize_address_params(complaint)

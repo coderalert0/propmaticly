@@ -8,10 +8,4 @@ class Inspection < ApplicationRecord
     passed: 1,
     in_progress: 2
   }
-
-  def state_options
-    states = Inspection.states.dup
-    states.delete(state)
-    states
-  end
 end

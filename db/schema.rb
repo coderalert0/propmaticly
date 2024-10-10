@@ -34,15 +34,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
     t.string "complaint_id"
     t.datetime "filed_date"
     t.string "description"
-    t.string "category"
-    t.datetime "last_inspection_date"
-    t.string "last_inspection_result"
+    t.string "category_code"
+    t.datetime "disposition_date"
+    t.string "disposition_code"
+    t.datetime "inspection_date"
     t.string "link"
     t.integer "state", default: 0
+    t.integer "severity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "building_id"
-    t.datetime "disposition_date"
     t.index ["building_id"], name: "index_complaints_on_building_id"
   end
 
@@ -121,17 +122,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
   end
 
   create_table "violations", force: :cascade do |t|
-    t.string "dob_number"
-    t.string "ecb_number"
-    t.string "hpd_number"
-    t.string "type_code"
-    t.string "category"
+    t.string "violation_id"
     t.integer "state", default: 0
-    t.string "description"
-    t.string "comments"
-    t.integer "building_id"
     t.datetime "issue_date"
-    t.datetime "disposition_date"
+    t.integer "severity"
+    t.string "violation_type"
+    t.string "description"
+    t.string "device_number"
+    t.string "device_type"
+    t.integer "building_id"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_violations_on_building_id"

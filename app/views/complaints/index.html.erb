@@ -32,13 +32,14 @@
             <!--begin::Card body-->
             <div class="card-body pt-0">
               <!--begin::Table-->
-              <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
+              <table class="table table-hover align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
                 <thead>
                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                   <th class="min-w-125px">Complaint ID</th>
                   <th class="min-w-100px">Filed Date</th>
-                  <th class="min-w-125px">Category</th>
-                  <th class="min-w-125px">Status</th>
+                  <th class="min-w-250px">Description</th>
+                  <th class="min-w-100px">Status</th>
+                  <th class="min-w-125px">Severity</th>
                   <th class="min-w-100px">Updated On</th>
                   <th class="min-w-100px">Actions</th>
                 </tr>
@@ -55,10 +56,11 @@
                       <div><%= complaint.building.name %></div>
                     </td>
                     <td><%= complaint&.filed_date&.strftime("%D") %></td>
-                    <td><%= complaint&.category %></td>
+                    <td><%= complaint&.description[0..120] || complaint&.category_code %></td>
                     <td><%= complaint&.state %></td>
+                    <td><%= complaint&.severity %></td>
                     <td><%= complaint.updated_at.strftime("%D") %></td>
-                    <td class="text-end">
+                    <td>
                       <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                         <i class="ki-outline ki-down fs-5 ms-1"></i>
                       </a>
@@ -84,6 +86,11 @@
               </table>
               <!--end::Table-->
 
+              <!-- Pagination Links -->
+              <div class="d-flex justify-content-center mt-4">
+                <%= paginate @complaints %>
+              </div>
+
               <!-- Render the New Modal Partial -->
               <%= render 'new' %>
               <!--end::New Modal-->
@@ -91,7 +98,7 @@
             <!--end::Card body-->
           </div>
           <!--end::Card-->
-          <!--begin::Modals-->
+          <!--begin::Complaint Details-->
           <% @complaints.each do |complaint| %>
             <div class="modal fade" id="complaintModal<%= complaint.id %>" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -103,13 +110,15 @@
                   <div class="modal-body py-10 px-lg-17">
                     <div>
                       <p><strong>Complaint ID:</strong> <%= complaint.complaint_id %></p>
-                      <p><strong>Filed Date:</strong> <%= complaint.filed_date&.strftime("%D") %></p>
-                      <p><strong>Disposition Date:</strong> <%= complaint.disposition_date&.strftime("%D") if complaint.disposition_date %></p>
-                      <p><strong>Category:</strong> <%= complaint.category %></p>
+                      <p><strong>Description:</strong> <%= simple_format(complaint.description) %></p>
                       <p><strong>Status:</strong> <%= complaint.state %></p>
-                      <p><strong>Last Inspection Date:</strong> <%= complaint.last_inspection_date&.strftime("%D") if complaint.last_inspection_date %></p>
+                      <p><strong>Category:</strong> <%= complaint.category_code %></p>
+                      <p><strong>Severity:</strong> <%= complaint.severity %></p>
+                      <p><strong>Filed Date:</strong> <%= complaint.filed_date&.strftime("%D") %></p>
+                      <p><strong>Inspection Date:</strong> <%= complaint.inspection_date&.strftime("%D") %></p>
+                      <p><strong>Disposition:</strong> <%= complaint.disposition_code %></p>
+                      <p><strong>Disposition Date:</strong> <%= complaint.disposition_date&.strftime("%D") if complaint.disposition_date %></p>
                       <p><strong>Updated On:</strong> <%= complaint.updated_at&.strftime("%D") %></p>
-                      <p><strong>Description:</strong> <%= complaint.description %></p> <!-- Added description field -->
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -120,7 +129,7 @@
             </div>
             <!--end::Modal-->
           <% end %>
-          <!--end::Modals-->
+          <!--end::Complaint Details-->
         </div>
         <!--end::Content-->
       </div>
