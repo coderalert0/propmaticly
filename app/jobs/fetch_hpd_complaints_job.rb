@@ -3,10 +3,6 @@
 class FetchHpdComplaintsJob < FetchJob
   private
 
-  def hpd_state_enum(status)
-    status == 'OPEN' ? 0 : 2
-  end
-
   def hpd_severity_enum(status)
     status == 'EMERGENCY' ? 1 : 0
   end
@@ -26,7 +22,7 @@ class FetchHpdComplaintsJob < FetchJob
         ["LOCATION: #{complaint['space_type'].capitalize}", "CATEGORY: #{complaint['major_category'].capitalize}/#{complaint['minor_category'].capitalize}",
          "PROBLEM: #{complaint['problem_code'].capitalize}"].join(', '), complaint['status_description']
       ].join("\n\n"),
-      state: hpd_state_enum(complaint['complaint_status']),
+      state: resource_clazz.mapped_state(complaint['complaint_status']),
       severity: hpd_severity_enum(complaint['type'])
     }
   end
@@ -41,6 +37,6 @@ class FetchHpdComplaintsJob < FetchJob
   end
 
   def resource_clazz
-    Complaint
+    HpdComplaint
   end
 end

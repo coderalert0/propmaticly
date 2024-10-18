@@ -3,10 +3,6 @@
 class FetchDobComplaintsJob < FetchJob
   private
 
-  def dob_state_enum(status)
-    status == 'CLOSED' ? 2 : 0
-  end
-
   def url
     'https://data.cityofnewyork.us/resource/eabe-havv.json?date_entered=08/01/2023'
   end
@@ -21,7 +17,7 @@ class FetchDobComplaintsJob < FetchJob
       disposition_code: complaint['disposition_code'],
       category_code: complaint['complaint_category'],
       inspection_date: (Date.strptime(complaint['inspection_date'], '%m/%d/%Y') if complaint['inspection_date']),
-      state: dob_state_enum(complaint['status']) }
+      state: resource_clazz.mapped_state(complaint['status']) }
   end
 
   def normalize_address_params(complaint)
@@ -34,6 +30,6 @@ class FetchDobComplaintsJob < FetchJob
   end
 
   def resource_clazz
-    Complaint
+    DobComplaint
   end
 end
