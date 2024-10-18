@@ -20,6 +20,7 @@ class ViolationsController < ApplicationController
 
   def update
     return unless @violation.update(create_update_hash)
+
     flash[:success] = t(:violation_update_success)
     redirect_to building_violations_path(@violation.building)
   end

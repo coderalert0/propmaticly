@@ -29,7 +29,6 @@ class FetchJob < ApplicationJob
   def find_or_initialize_and_update(resource, building)
     resource_params = resource_where_params(resource, building)
     resource_attributes = resource_update_attributes(resource)
-    binding.break
     resource_clazz.find_or_initialize_by(resource_params).update(resource_attributes)
   end
 end

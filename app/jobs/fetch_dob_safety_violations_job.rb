@@ -15,10 +15,10 @@ class FetchDobSafetyViolationsJob < FetchJob
     {
       issue_date: violation['violation_issue_date'],
       violation_type: violation['violation_type'],
-      state: violation['violation_status'],
       description: violation['violation_remarks'],
       device_number: violation['device_number'],
-      device_type: violation['device_type']
+      device_type: violation['device_type'],
+      state: resource_clazz.mapped_state(violation['violation_status'])
     }
   end
 

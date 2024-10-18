@@ -10,8 +10,12 @@ class DobEcbViolation < Violation
     Unknown: 5
   }
 
-  enum state: {
-    ACTIVE: 0,
-    RESOLVE: 1
-  }
+  def self.mapped_state(state)
+    case state
+    when 'ACTIVE'
+      0
+    when 'RESOLVE'
+      2
+    end
+  end
 end

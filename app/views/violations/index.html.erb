@@ -74,7 +74,7 @@
                       </a>
                     </td>
                     <td><%= violation&.issue_date&.strftime("%D") %></td>
-                    <td><%= violation&.description[0..120] %></td>
+                    <td><%= violation&.description&.[](0..120) %></td>
                     <td><%= violation&.state %></td>
                     <td><%= violation&.severity %></td>
                     <td><%= violation.updated_at.strftime("%D") %></td>

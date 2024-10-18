@@ -15,7 +15,7 @@ class FetchHpdViolationsJob < FetchJob
     {
       description: violation['novdescription'],
       issue_date: violation['novissueddate'],
-      state: violation['violationstatus']
+      state: resource_clazz.mapped_state(violation['violationstatus'])
     }
   end
 

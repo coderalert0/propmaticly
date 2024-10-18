@@ -13,11 +13,11 @@ class FetchDobEcbViolationsJob < FetchJob
 
   def resource_update_attributes(violation)
     {
-      state: violation['ecb_violation_status'],
       issue_date: violation['issue_date'],
       severity: violation['severity'],
       violation_type: violation['violation_type'],
-      description: violation['violation_description']
+      description: violation['violation_description'],
+      state: resource_clazz.mapped_state(violation['ecb_violation_status'])
     }
   end
 
