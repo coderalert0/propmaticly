@@ -66,7 +66,9 @@ en:
     Dismissed: *closed
     ACTIVE: *open
     RESOLVE: *closed
-  violation_update_success: The status of the violation has been updated successfully
+  violation_create_success: Violation has been added successfully
+  violation_delete_success: Violation has been deleted successfully
+  violation_update_success: Violation has been updated successfully
   "yes": "Yes"
 
   complaint_category:
