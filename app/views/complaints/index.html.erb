@@ -56,7 +56,7 @@
                       <div><%= complaint.building.name %></div>
                     </td>
                     <td><%= complaint&.filed_date&.strftime("%D") %></td>
-                    <td><%= complaint&.description[0..120] || complaint&.category_code %></td>
+                    <td><%= complaint&.description&.[](0..120) || complaint&.category_code %></td>
                     <td><%= complaint&.state %></td>
                     <td><%= complaint&.severity %></td>
                     <td><%= complaint.updated_at.strftime("%D") %></td>

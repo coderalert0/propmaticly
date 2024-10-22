@@ -42,8 +42,9 @@ en:
   complaint_create_success: Complaint has been added successfully
   complaint_delete_success: Complaint has been deleted successfully
   complaint_severity:
-    emergency: Emergency
     non_emergency: Non-Emergency
+    emergency: Emergency
+    immediate_emergency: Immediate Emergency
   complaint_state:
     open: Open
     in_progress: In Progress
@@ -56,16 +57,14 @@ en:
   portfolio_delete_success: Portfolio has been deleted successfully
   user_delete_success: User has been deleted successfully
   user_update_success: User has been updated successfully
+  violation_severity:
+    non_hazardous: Non-Hazardous
+    hazardous: Hazardous
+    immediately_hazardous: Immediately Hazardous
   violation_state:
-    open: &open 'Open'
-    Open: *open
+    open: Open
     in_progress: In Progress
-    Close: &closed Closed
-    closed: *closed
-    Active: *open
-    Dismissed: *closed
-    ACTIVE: *open
-    RESOLVE: *closed
+    closed: Closed
   violation_create_success: Violation has been added successfully
   violation_delete_success: Violation has been deleted successfully
   violation_update_success: Violation has been updated successfully

@@ -23,7 +23,7 @@ class FetchHpdComplaintsJob < FetchJob
          "PROBLEM: #{complaint['problem_code'].capitalize}"].join(', '), complaint['status_description']
       ].join("\n\n"),
       state: resource_clazz.mapped_state(complaint['complaint_status']),
-      severity: hpd_severity_enum(complaint['type'])
+      severity: resource_clazz.mapped_severity(complaint['type'])
     }
   end
 

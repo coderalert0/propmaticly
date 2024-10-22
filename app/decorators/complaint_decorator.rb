@@ -20,9 +20,11 @@ class ComplaintDecorator < Draper::Decorator
   def severity
     clazz = case object.severity
             when 'emergency'
+              'badge-light-warning'
+            when 'immediate_emergency'
               'badge-light-danger'
             when 'non_emergency'
-              'badge-light-success'
+              'badge-light-primary'
             end
     h.content_tag(:span, class: "badge py-3 px-4 fs-7 #{clazz}") do
       I18n.t("complaint_severity.#{object.severity}")
@@ -38,22 +40,22 @@ class ComplaintDecorator < Draper::Decorator
   end
 
   def self.categories_code_select
-    [['', '']].concat(I18n.backend.send(:translations)[:en][:complaint_category].invert.to_a.sort_by do |key, _value|
-                        key
-                      end)
+    [[]].concat(I18n.backend.send(:translations)[:en][:complaint_category].invert.to_a.sort_by do |key, _value|
+                  key
+                end)
   end
 
   def self.disposition_codes_select
-    [['', '']].concat(I18n.backend.send(:translations)[:en][:disposition_code].invert.to_a.sort_by do |key, _value|
-                        key
-                      end)
+    [[]].concat(I18n.backend.send(:translations)[:en][:disposition_code].invert.to_a.sort_by do |key, _value|
+                  key
+                end)
   end
 
   def self.states_select
-    [['Open', 'open'], ['In Progress', 'in_progress'], ['Closed', 'closed']]
+    [[]].concat(I18n.backend.send(:translations)[:en][:complaint_state].invert.to_a)
   end
 
   def self.severities_select
-    [['', ''], ['Non-Emergency', 'non_emergency'], ['Emergency', 'emergency']]
+    [[]].concat(I18n.backend.send(:translations)[:en][:complaint_severity].invert.to_a)
   end
 end

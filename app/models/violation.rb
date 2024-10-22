@@ -4,6 +4,12 @@ class Violation < ApplicationRecord
   belongs_to :building
   after_commit :send_notification, on: :create
 
+  enum severity: {
+    non_hazardous: 0,
+    hazardous: 1,
+    immediately_hazardous: 2
+  }
+
   enum state: {
     open: 0,
     in_progress: 1,

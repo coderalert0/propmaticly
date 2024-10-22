@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 class DobEcbViolation < Violation
-  enum severity: {
-    Hazardous: 0,
-    "Non-Hazardous": 1,
-    "CLASS - 1": 2,
-    "CLASS - 2": 3,
-    "CLASS - 3": 4,
-    Unknown: 5
-  }
+  def self.mapped_severity(severity)
+    case severity
+    when 'CLASS - 3, Non-Hazardous'
+      0
+    when 'CLASS - 2', 'Hazardous'
+      1
+    when 'CLASS - 1'
+      2
+    end
+  end
 
   def self.mapped_state(state)
     case state

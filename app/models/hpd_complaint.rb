@@ -9,4 +9,15 @@ class HpdComplaint < Complaint
       2
     end
   end
+
+  def self.mapped_severity(severity)
+    case severity
+    when 'NON EMERGENCY'
+      0
+    when 'EMERGENCY'
+      1
+    when 'IMMEDIATE EMERGENCY'
+      2
+    end
+  end
 end

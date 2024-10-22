@@ -6,7 +6,8 @@ class Complaint < ApplicationRecord
 
   enum severity: {
     non_emergency: 0,
-    emergency: 1
+    emergency: 1,
+    immediate_emergency: 2
   }
 
   enum state: {
