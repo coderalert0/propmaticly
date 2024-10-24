@@ -13,7 +13,7 @@ class ComplaintsController < ApplicationController
     end
 
     @complaints = @complaints.send(params[:state]) if params[:state]
-    @complaints = @complaints.order(:created_at, :desc).page(params[:page]).per(10)
+    @complaints = @complaints.order(:created_at, :desc).page(params[:page])
     @complaints = PaginationDecorator.decorate(@complaints)
   end
 

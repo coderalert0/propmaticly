@@ -4,11 +4,17 @@ class PortfoliosController < ApplicationController
   load_and_authorize_resource
 
   def create
-    portfolio = Portfolio.new(portfolio_params)
-    return unless portfolio.save!
+    ActiveRecord::Base.transaction do
+      portfolio = Portfolio.new(portfolio_params)
 
-    flash[:success] = t(:portfolio_create_success)
-    redirect_to portfolio_buildings_path(portfolio)
+      if portfolio.save
+        portfolio.update_asset_contacts(params[:portfolio][:user_ids])
+        flash[:success] = t(:portfolio_create_success)
+        redirect_to portfolio_buildings_path(portfolio)
+      else
+        render :new
+      end
+    end
   end
 
   def edit
@@ -16,10 +22,15 @@ class PortfoliosController < ApplicationController
   end
 
   def update
-    return unless @portfolio.update(portfolio_params)
-
-    flash[:success] = t(:portfolio_update_success)
-    redirect_to root_path
+    ActiveRecord::Base.transaction do
+      if @portfolio.update(portfolio_params)
+        @portfolio.update_asset_contacts(params[:portfolio][:user_ids])
+        flash[:success] = t(:portfolio_update_success)
+        redirect_to root_path
+      else
+        render :edit
+      end
+    end
   end
 
   def destroy
@@ -34,6 +45,6 @@ class PortfoliosController < ApplicationController
   private
 
   def portfolio_params
-    params.require(:portfolio).permit(:name, :description).merge({ organization: current_user.organization })
+    params.require(:portfolio).permit(:name, :description, :user_id).merge({ organization: current_user.organization })
   end
 end

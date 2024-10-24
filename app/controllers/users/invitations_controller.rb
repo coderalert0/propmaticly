@@ -15,7 +15,9 @@ module Users
       yield resource if block_given?
 
       if resource_invited
-        invite_params[:building_ids].map { |building_id| BuildingUser.create(user: resource, building_id: building_id) }
+        invite_params[:building_ids].each do |building_id|
+          AssetContact.create(user: resource, assignable: Building.find(building_id))
+        end
 
         if is_flashing_format? && resource.invitation_sent_at
           set_flash_message :notice, :send_instructions, email: resource.email

@@ -5,7 +5,7 @@
     <div class="col-lg-6">
       <!--begin::Input group 1-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fs-6">Violation ID</label>
+        <label class="col-lg-4 col-form-label required">Violation ID</label>
         <div class="col-lg-8">
           <%= f.text_field :violation_id, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'ABC123' %>
         </div>
@@ -13,7 +13,7 @@
       <!--end::Input group 1-->
       <!--begin::Input group 4-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fs-6">Description</label>
+        <label class="col-lg-4 col-form-label required">Description</label>
         <div class="col-lg-8">
           <%= f.text_area :description, rows: 12, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
         </div>
@@ -26,7 +26,7 @@
     <div class="col-lg-6">
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Status</label>
+        <label class="col-lg-4 col-form-label">Status</label>
         <div class="col-lg-8">
           <%= f.collection_select :state, ViolationDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
@@ -35,7 +35,7 @@
 
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Type</label>
+        <label class="col-lg-4 col-form-label">Type</label>
         <div class="col-lg-8">
           <%= f.text_field :violation_type, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
         </div>
@@ -44,7 +44,7 @@
 
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Issue Date</label>
+        <label class="col-lg-4 col-form-label">Issue Date</label>
         <div class="col-lg-8">
           <%= f.date_field :issue_date, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
         </div>
@@ -53,7 +53,7 @@
 
       <!--begin::Input group 4 - State Field-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Severity</label>
+        <label class="col-lg-4 col-form-label">Severity</label>
         <div class="col-lg-8">
           <%= f.collection_select :severity, ViolationDecorator.severity_select, :last, :first, { selected: f.try(:object).try(:object).try(:severity) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
@@ -62,7 +62,7 @@
 
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Device Number</label>
+        <label class="col-lg-4 col-form-label">Device Number</label>
         <div class="col-lg-8">
           <%= f.text_field :device_number, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
         </div>
@@ -71,7 +71,7 @@
 
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Device Type</label>
+        <label class="col-lg-4 col-form-label">Device Type</label>
         <div class="col-lg-8">
           <%= f.text_field :device_type, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
         </div>

@@ -1,142 +1,131 @@
 <!--begin::Wrapper-->
 <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-  <div class="">
-    <!--begin::Main-->
-    <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-      <!--begin::Content wrapper-->
-      <div class="d-flex flex-column flex-column-fluid">
-        <!--begin::Toolbar-->
-        <div id="kt_app_toolbar" class="app-toolbar d-flex flex-stack py-4 py-lg-8">
-          <div class="d-flex flex-grow-1 flex-stack flex-wrap gap-2 mb-n10" id="kt_toolbar">
-            <!--begin::Page title-->
-            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-              <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Complaints List</h1>
-            </div>
-            <!--end::Page title-->
+  <!--begin::Main-->
+  <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+    <!--begin::Content wrapper-->
+    <div class="d-flex flex-column flex-column-fluid">
+      <!--begin::Toolbar-->
+      <div id="kt_app_toolbar" class="app-toolbar d-flex flex-stack py-4 py-lg-8">
+        <div class="d-flex flex-grow-1 flex-stack flex-wrap gap-2 mb-n10" id="kt_toolbar">
+          <!--begin::Page title-->
+          <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Complaints List</h1>
           </div>
+          <!--end::Page title-->
         </div>
-        <!--end::Toolbar-->
-        <!--begin::Content-->
-        <div id="kt_app_content" class="app-content flex-column-fluid">
-          <!--begin::Card-->
-          <div class="card">
-            <!--begin::Card header-->
-            <div class="card-header border-0 pt-6">
-              <div class="card-toolbar">
-                <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                  <%= link_to 'Add Complaint', '#', class: 'btn btn-primary', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
-                </div>
-              </div>
-            </div>
-            <!--end::Card header-->
-            <!--begin::Card body-->
-            <div class="card-body pt-0">
-              <!--begin::Table-->
-              <table class="table table-hover align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
-                <thead>
-                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                  <th class="min-w-125px">Complaint ID</th>
-                  <th class="min-w-100px">Filed Date</th>
-                  <th class="min-w-250px">Description</th>
-                  <th class="min-w-100px">Status</th>
-                  <th class="min-w-125px">Severity</th>
-                  <th class="min-w-100px">Updated On</th>
-                  <th class="min-w-100px">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <% @complaints.each do |complaint| %>
-                  <tr>
-                    <td>
-                      <div class="mb-1">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#complaintModal<%= complaint.id %>">
-                          <%= complaint.complaint_id %>
-                        </a>
-                      </div>
-                      <div><%= complaint.building.name %></div>
-                    </td>
-                    <td><%= complaint&.filed_date&.strftime("%D") %></td>
-                    <td><%= complaint&.description&.[](0..120) || complaint&.category_code %></td>
-                    <td><%= complaint&.state %></td>
-                    <td><%= complaint&.severity %></td>
-                    <td><%= complaint.updated_at.strftime("%D") %></td>
-                    <td>
-                      <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                        <i class="ki-outline ki-down fs-5 ms-1"></i>
-                      </a>
-                      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
-                        <div class="menu-item px-3">
-                          <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
-                        </div>
-                        <div class="menu-item px-3">
-                          <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <!-- Render the Edit Modal Partial -->
-                  <%= render 'edit', complaint: complaint %>
-                  <!--end::Edit Modal-->
-
-                  <!-- Render the Delete Modal Partial -->
-                  <%= render 'delete', complaint: complaint %>
-                  <!--end::Delete Confirmation Modal-->
-                <% end %>
-                </tbody>
-              </table>
-              <!--end::Table-->
-
-              <!-- Pagination Links -->
-              <div class="d-flex justify-content-center mt-4">
-                <%= paginate @complaints, theme: 'bootstrap4' %>
-              </div>
-
-              <!-- Render the New Modal Partial -->
-              <%= render 'new' %>
-              <!--end::New Modal-->
-            </div>
-            <!--end::Card body-->
-          </div>
-          <!--end::Card-->
-          <!--begin::Complaint Details-->
-          <% @complaints.each do |complaint| %>
-            <div class="modal fade" id="complaintModal<%= complaint.id %>" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered mw-650px">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h2 class="fw-bold">Complaint Details</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body py-10 px-lg-17">
-                    <div>
-                      <p><strong>Complaint ID:</strong> <%= complaint.complaint_id %></p>
-                      <p><strong>Description:</strong> <%= simple_format(complaint.description) %></p>
-                      <p><strong>Status:</strong> <%= complaint.state %></p>
-                      <p><strong>Category:</strong> <%= complaint.category_code %></p>
-                      <p><strong>Severity:</strong> <%= complaint.severity %></p>
-                      <p><strong>Filed Date:</strong> <%= complaint.filed_date&.strftime("%D") %></p>
-                      <p><strong>Inspection Date:</strong> <%= complaint.inspection_date&.strftime("%D") %></p>
-                      <p><strong>Disposition:</strong> <%= complaint.disposition_code %></p>
-                      <p><strong>Disposition Date:</strong> <%= complaint.disposition_date&.strftime("%D") if complaint.disposition_date %></p>
-                      <p><strong>Updated On:</strong> <%= complaint.updated_at&.strftime("%D") %></p>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--end::Modal-->
-          <% end %>
-          <!--end::Complaint Details-->
-        </div>
-        <!--end::Content-->
       </div>
-      <!--end::Content wrapper-->
+      <!--end::Toolbar-->
+      <!--begin::Content-->
+      <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Card-->
+        <div class="card">
+          <!--begin::Card header-->
+          <div class="card-header border-0 pt-6">
+            <div class="card-toolbar">
+              <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+                <%= link_to 'Add Complaint', '#', class: 'btn btn-primary', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+              </div>
+            </div>
+          </div>
+          <!--end::Card header-->
+          <!--begin::Card body-->
+          <div class="card-body pt-0">
+            <!--begin::Table-->
+            <table class="table table-hover align-middle table-row-dashed gy-5" id="kt_customers_table">
+              <thead>
+              <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                <th class="min-w-125px">Complaint ID</th>
+                <th class="min-w-100px">Filed Date</th>
+                <th class="min-w-250px">Description</th>
+                <th class="min-w-100px">Status</th>
+                <th class="min-w-125px">Severity</th>
+                <th class="min-w-100px">Updated On</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @complaints.each do |complaint| %>
+                <tr>
+                  <td>
+                    <div class="mb-1">
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#complaintModal<%= complaint.id %>">
+                        <%= complaint.complaint_id %>
+                      </a>
+                    </div>
+                    <div><%= complaint.building.name %></div>
+                  </td>
+                  <td><%= complaint&.filed_date&.strftime("%D") %></td>
+                  <td><%= complaint&.description&.[](0..120) || complaint&.category_code %></td>
+                  <td><%= complaint&.state %></td>
+                  <td><%= complaint&.severity %></td>
+                  <td><%= complaint.updated_at.strftime("%D") %></td>
+                  <td>
+                    <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                      <i class="ki-outline ki-down fs-5 ms-1"></i>
+                    </a>
+                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
+                      <div class="menu-item px-3">
+                        <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
+                      </div>
+                      <div class="menu-item px-3">
+                        <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Render the Edit Modal Partial -->
+                <%= render 'edit', complaint: complaint %>
+                <!-- Render the Delete Modal Partial -->
+                <%= render 'delete', complaint: complaint %>
+              <% end %>
+              </tbody>
+            </table>
+            <!--end::Table-->
+            <!-- Pagination Links -->
+            <div class="d-flex justify-content-center mt-4">
+              <%= paginate @complaints, theme: 'bootstrap4' %>
+            </div>
+            <!-- Render the New Modal Partial -->
+            <%= render 'new' %>
+          </div>
+          <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+        <!--begin::Complaint Details-->
+        <% @complaints.each do |complaint| %>
+          <div class="modal fade" id="complaintModal<%= complaint.id %>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="fw-bold">Complaint Details</h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-10 px-lg-17">
+                  <div>
+                    <p><strong>Complaint ID:</strong> <%= complaint.complaint_id %></p>
+                    <p><strong>Description:</strong> <%= simple_format(complaint.description) %></p>
+                    <p><strong>Status:</strong> <%= complaint.state %></p>
+                    <p><strong>Category:</strong> <%= complaint.category_code %></p>
+                    <p><strong>Severity:</strong> <%= complaint.severity %></p>
+                    <p><strong>Filed Date:</strong> <%= complaint.filed_date&.strftime("%D") %></p>
+                    <p><strong>Inspection Date:</strong> <%= complaint.inspection_date&.strftime("%D") %></p>
+                    <p><strong>Disposition:</strong> <%= complaint.disposition_code %></p>
+                    <p><strong>Disposition Date:</strong> <%= complaint.disposition_date&.strftime("%D") if complaint.disposition_date %></p>
+                    <p><strong>Updated On:</strong> <%= complaint.updated_at&.strftime("%D") %></p>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <!--end::Complaint Details-->
+      </div>
+      <!--end::Content-->
     </div>
-    <!--end:::Main-->
+    <!--end::Content wrapper-->
   </div>
-  <!--end::Wrapper container-->
+  <!--end::Main-->
 </div>
 <!--end::Wrapper-->

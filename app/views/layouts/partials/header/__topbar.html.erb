@@ -1,5 +1,6 @@
 <!--begin::Navbar-->
 <div class="app-navbar flex-shrink-0">
+  <% if user_signed_in? %>
     <!--begin::User menu-->
     <div class="app-navbar-item ms-3 ms-lg-9" id="kt_header_user_menu_toggle">
         <!--begin::Menu wrapper-->
@@ -7,9 +8,10 @@
           <span class="las la-user-circle fs-2hx me-1"></span>
           <span>Hello <%= current_user&.first_name %></span>
         </div>
-<%= render 'partials/menus/user-account-menu' %>
+        <%= render 'partials/menus/user-account-menu' %>
         <!--end::Menu wrapper-->
     </div>
+  <% end %>
     <!--end::User menu-->
     <!--begin::Header menu toggle-->
     <div class="app-navbar-item d-lg-none ms-2 me-n3" title="Show header menu">

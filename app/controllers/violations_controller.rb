@@ -6,7 +6,7 @@ class ViolationsController < ApplicationController
 
   def index
     @violations = @building.violations if @building
-    @violations = @violations.order(:created_at, :desc).page(params[:page]).per(10)
+    @violations = @violations.order(:created_at, :desc).page(params[:page])
     @violations = PaginationDecorator.decorate(@violations)
   end
 

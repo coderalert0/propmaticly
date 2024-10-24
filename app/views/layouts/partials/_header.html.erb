@@ -1,34 +1,34 @@
 <!--begin::Header-->
-<div id="kt_app_header" class="app-header "
-     >
-                        <!--begin::Header primary-->
-            <div class="app-header-primary "
-                 data-kt-sticky="true" data-kt-sticky-name="app-header-primary-sticky" data-kt-sticky-offset="{default: 'false', lg: '300px'}"
-                 >
-                <!--begin::Header primary container-->
-                <div class="container-xxl d-flex align-items-stretch justify-content-between ">
-                    <!--begin::Logo and search-->
-<div class="d-flex flex-grow-1 flex-lg-grow-0">
-    <!--begin::Logo wrapper-->
-    <div class="d-flex align-items-center me-7" id="kt_app_header_logo_wrapper">
-        <!--begin::Header toggle-->
-        <button class="d-lg-none btn btn-icon btn-flex btn-color-gray-600 btn-active-color-primary w-35px h-35px ms-n2 me-2" id="kt_app_header_menu_toggle">
-            <i class="ki-outline ki-abstract-14 fs-2"></i>        </button>
-        <!--end::Header toggle-->
-        <!--begin::Logo-->
-          <img alt="Logo" src="/assets/media/logos/demo-35-small.svg" class="h-20px d-sm-none d-inline"/>
-          <img alt="Logo" src="/assets/media/logos/logo.png" class="h-20px h-lg-35px theme-light-show d-none d-sm-inline"/>
-          <img alt="Logo" src="/assets/media/logos/demo-35-dark.png" class="h-20px h-lg-25px theme-dark-show d-none d-sm-inline"/>
-        <!--end::Logo-->
+<div id="kt_app_header" class="app-header">
+  <!--begin::Header primary-->
+  <div class="app-header-primary" data-kt-sticky="true" data-kt-sticky-name="app-header-primary-sticky" data-kt-sticky-offset="{default: 'false', lg: '300px'}">
+    <!--begin::Header primary container-->
+    <div class="container-xxl d-flex align-items-stretch justify-content-between">
+      <!--begin::Logo and search-->
+      <div class="d-flex flex-grow-1 flex-lg-grow-0">
+        <!--begin::Logo wrapper-->
+        <div class="d-flex align-items-center me-7" id="kt_app_header_logo_wrapper">
+          <!--begin::Header toggle-->
+          <button class="d-lg-none btn btn-icon btn-flex btn-color-gray-600 btn-active-color-primary w-35px h-35px ms-n2 me-2" id="kt_app_header_menu_toggle">
+            <i class="ki-outline ki-abstract-14 fs-2"></i>
+          </button>
+          <!--end::Header toggle-->
+          <!--begin::Logo-->
+          <img alt="Logo" src="/assets/media/logos/demo-35-small.svg" class="h-20px d-sm-none d-inline" />
+          <img alt="Logo" src="/assets/media/logos/logo.png" class="h-20px h-lg-35px theme-light-show d-none d-sm-inline" />
+          <img alt="Logo" src="/assets/media/logos/demo-35-dark.png" class="h-20px h-lg-25px theme-dark-show d-none d-sm-inline" />
+          <!--end::Logo-->
+        </div>
+        <!--end::Logo wrapper-->
+        <% unless current_user.nil? %>
+          <%= render 'layouts/partials/header/_menu' %>
+        <% end %>
+      </div>
+      <!--end::Logo and search-->
+      <%= render 'layouts/partials/header/_topbar' %>
     </div>
-    <!--end::Logo wrapper-->
-<%= render 'layouts/partials/header/_menu' %>
+    <!--end::Header primary container-->
+  </div>
+  <!--end::Header primary-->
 </div>
-<!--end::Logo and search-->
-<%= render 'layouts/partials/header/_topbar' %>
-                </div>
-                <!--end::Header primary container-->
-            </div>
-            <!--end::Header primary-->
-            </div>
 <!--end::Header-->

@@ -5,7 +5,7 @@
     <div class="col-lg-6">
       <!--begin::Input group 1-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fs-6">Complaint ID</label>
+        <label class="col-lg-4 col-form-label required">Complaint ID</label>
         <div class="col-lg-8">
           <%= f.text_field :complaint_id, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'ABC123' %>
         </div>
@@ -14,7 +14,7 @@
 
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label required fs-6">Description</label>
+        <label class="col-lg-4 col-form-label required">Description</label>
         <div class="col-lg-8">
           <%= f.text_area :description, rows: 12, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Description' %>
         </div>
@@ -23,7 +23,7 @@
 
       <!--begin::Input group 4 - State Field-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Status</label>
+        <label class="col-lg-4 col-form-label">Status</label>
         <div class="col-lg-8">
           <%= f.collection_select :state, ComplaintDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
@@ -37,7 +37,7 @@
 
       <!--begin::Input group 4-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Category</label>
+        <label class="col-lg-4 col-form-label">Category</label>
         <div class="col-lg-8">
           <%= f.collection_select :category_code, ComplaintDecorator.categories_code_select, :last, :first, { selected: f.try(:object).try(:object).try(:category_code) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
@@ -46,7 +46,7 @@
 
       <!--begin::Input group 4 - Emergency Field-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Severity</label>
+        <label class="col-lg-4 col-form-label">Severity</label>
         <div class="col-lg-8">
           <%= f.collection_select :severity, ComplaintDecorator.severities_select, :last, :first, { selected: f.try(:object).try(:object).try(:severity) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
@@ -55,7 +55,7 @@
 
       <!--begin::Input group 1-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Filed Date</label>
+        <label class="col-lg-4 col-form-label">Filed Date</label>
         <div class="col-lg-8">
           <%= f.date_field :filed_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Filed Date' %>
         </div>
@@ -64,7 +64,7 @@
 
       <!--begin::Input group 2-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Inspection Date</label>
+        <label class="col-lg-4 col-form-label">Inspection Date</label>
         <div class="col-lg-8">
           <%= f.date_field :inspection_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Inspection Date' %>
         </div>
@@ -73,7 +73,7 @@
 
       <!--begin::Input group 4 - State Field-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Disposition</label>
+        <label class="col-lg-4 col-form-label">Disposition</label>
         <div class="col-lg-8">
           <%= f.collection_select :disposition_code, ComplaintDecorator.disposition_codes_select, :last, :first, { selected: f.try(:object).try(:object).try(:disposition_code) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
@@ -82,7 +82,7 @@
 
       <!--begin::Input group 3-->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fs-6">Disposition Date</label>
+        <label class="col-lg-4 col-form-label">Disposition Date</label>
         <div class="col-lg-8">
           <%= f.date_field :disposition_date, class: 'form-control form-control-lg form-control-solid', placeholder: 'Disposition Date' %>
         </div>

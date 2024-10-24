@@ -47,16 +47,17 @@
       </div>
       <!--end:Menu item-->
       <!--begin:Menu item-->
+      <% if current_user&.admin? %>
       <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2" >
         <!--begin:Menu link-->
         <span class="menu-link py-3" >
-        <span  class="menu-title" >
-          <%= link_to "Users", users_path %>
+          <span  class="menu-title" >
+            <%= link_to "Users", users_path %>
+          </span>
         </span>
-      </span>
         <!--end:Menu link-->
-
-        </div>
+      </div>
+      <% end %>
       <!--end:Menu item-->
     </div>
     <!--end::Menu-->

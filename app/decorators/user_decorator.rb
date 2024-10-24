@@ -13,4 +13,8 @@ class UserDecorator < Draper::Decorator
   def admin?
     object.admin? ? I18n.t(:yes) : I18n.t(:no)
   end
+
+  def first_last_name
+    "#{object.first_name} #{object.last_name}"
+  end
 end

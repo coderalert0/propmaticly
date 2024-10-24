@@ -7,7 +7,8 @@ class BuildingsController < ApplicationController
   load_and_authorize_resource :portfolio
 
   def index
-    @buildings = @buildings.includes(:complaints, :violations)
+    @buildings = @portfolio.buildings
+    @buildings = @buildings.order(:name, :asc).page(params[:page])
   end
 
   def create

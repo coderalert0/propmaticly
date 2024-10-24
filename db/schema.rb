@@ -11,6 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
+  create_table "asset_contacts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "assignable_type", null: false
+    t.integer "assignable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignable_type", "assignable_id"], name: "index_asset_contacts_on_assignable"
+    t.index ["user_id"], name: "index_asset_contacts_on_user_id"
+  end
+
   create_table "building_users", force: :cascade do |t|
     t.integer "building_id"
     t.integer "user_id"
@@ -137,6 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
     t.index ["building_id"], name: "index_violations_on_building_id"
   end
 
+  add_foreign_key "asset_contacts", "users"
   add_foreign_key "building_users", "buildings"
   add_foreign_key "building_users", "users"
   add_foreign_key "buildings", "portfolios"

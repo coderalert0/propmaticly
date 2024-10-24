@@ -1,6 +1,5 @@
 <!--begin::Card body-->
 <div class="card-body p-9">
-  <%= render "devise/shared/error_messages", resource: resource %>
   <div class="row">
     <div class='col-6'>
       <!--begin::Input group-->
@@ -18,15 +17,6 @@
           <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
         </span>
         <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
-      </div>
-      <!--end::Input group-->
-
-      <!--begin::Input group-->
-      <div class="input-group mb-5">
-        <span class="input-group-text" id="basic-addon1">
-          <i class="ki-duotone ki-sms fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-        </span>
-        <%= f.text_field :email, class: 'form-control', placeholder: 'Email' %>
       </div>
       <!--end::Input group-->
 
@@ -73,6 +63,6 @@
 <!--begin::Actions-->
 <div class="card-footer d-flex justify-content-end py-6 px-9">
   <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-primary me-2' %>
-  <%= f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-success', id: 'kt_account_profile_details_submit' %>
+  <%= f.submit 'Save', class: 'btn btn-success', id: 'kt_account_profile_details_submit' %>
 </div>
 <!--end::Actions-->
