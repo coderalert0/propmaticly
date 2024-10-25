@@ -1,6 +1,6 @@
 <h2>Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="card-body border-top py-9">
     <%= render "users/shared/error_messages", resource: resource %>
 

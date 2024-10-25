@@ -10,7 +10,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-action="modal#close">Cancel</button>
-        <%= button_to 'Delete', user_path(user), method: :delete, data: { turbo: false }, class: 'btn btn-danger', form: { id: "delete_user_#{user.id}" } %>
+        <%= button_to 'Delete', user_path(user), method: :delete, class: 'btn btn-danger', form: { id: "delete_user_#{user.id}" } %>
       </div>
     </div>
   </div>

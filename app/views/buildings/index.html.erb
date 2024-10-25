@@ -40,17 +40,10 @@
                     <td><%= link_to building.violations.size, building_violations_path(building_id: building.id) %></td>
                     <td></td>
                     <td class="text-end">
-                      <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions<i class="ki-outline ki-down fs-5 ms-1"></i></a>
-                      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
-                        <div class="menu-item px-3">
-                          <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{building.id}" } %>
-                        </div>
-                        <% if building.complaints.blank? && building.violations.blank? %>
-                          <div class="menu-item px-3">
-                            <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { bs_toggle: 'modal', bs_target: "#deleteModal#{building.id}" } %>
-                          </div>
-                        <% end %>
-                      </div>
+                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{building.id}" } %>
+                      <% if building.complaints.blank? && building.violations.blank? %>
+                        <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { bs_toggle: 'modal', bs_target: "#deleteModal#{building.id}" } %>
+                      <% end %>
                     </td>
                   </tr>
                   <%= render 'edit', building: building %>

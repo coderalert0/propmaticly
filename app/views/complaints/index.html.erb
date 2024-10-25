@@ -59,17 +59,8 @@
                   <td><%= complaint&.severity %></td>
                   <td><%= complaint.updated_at.strftime("%D") %></td>
                   <td>
-                    <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                      <i class="ki-outline ki-down fs-5 ms-1"></i>
-                    </a>
-                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
-                      <div class="menu-item px-3">
-                        <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
-                      </div>
-                      <div class="menu-item px-3">
-                        <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
-                      </div>
-                    </div>
+                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
+                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
                   </td>
                 </tr>
                 <!-- Render the Edit Modal Partial -->

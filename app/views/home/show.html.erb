@@ -115,18 +115,10 @@
             <td><%= link_to portfolio.complaints.closed.size, portfolio_complaints_path(portfolio, state: 'closed'), class: 'text-hover-primary mb-1 fw-bold' %></td>
             <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio), class: 'fw-bold' %></td>
             <td class="text-end">
-              <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                <i class="bi bi-caret-down-fill fs-5 ms-1"></i></a>
-              <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 fs-7 w-125px py-4 menu-hover-primary" data-kt-menu="true">
-                <div class="menu-item px-3">
-                  <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{portfolio.id}" } %>
-                </div>
-                <% if portfolio.buildings.blank? %>
-                  <div class="menu-item px-3">
-                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { bs_toggle: 'modal', bs_target: "#deleteModal#{portfolio.id}" } %>
-                  </div>
-                <% end %>
-              </div>
+              <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{portfolio.id}" } %>
+              <% if portfolio.buildings.blank? %>
+                <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { bs_toggle: 'modal', bs_target: "#deleteModal#{portfolio.id}" } %>
+              <% end %>
             </td>
           </tr>
           <%= render 'portfolios/edit', portfolio: portfolio %>

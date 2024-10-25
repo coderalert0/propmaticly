@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <!--begin::Form-->
-        <%= form_for(Violation.new, data: { turbo: false }) do |f| %>
+        <%= form_for(Violation.new) do |f| %>
           <%= render partial: 'form', locals: { f: f } %>
         <% end %>
         <!--end::Form-->

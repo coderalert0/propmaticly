@@ -22,7 +22,7 @@
   <div class="row mb-6">
     <label class="col-lg-4 col-form-label">Contacts</label>
     <div class="col-lg-8 fv-row">
-      <%= f.collection_select(:user_ids, @users, :id, :first_last_name, { include_blank: true, selected: f.object.user_ids }, { multiple: true, class: 'form-select form-select-lg form-select-solid' }) %>
+      <%= f.select(:user_ids, User.pluck(:email, :id), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' }) %>
     </div>
   </div>
   <!--end::Input group-->
@@ -32,6 +32,6 @@
 <!--begin::Actions-->
 <div class="card-footer d-flex justify-content-end py-6 px-9">
   <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-light me-2' %>
-  <button type="submit" class="btn btn-success" id="kt_account_profile_details_submit">Save</button>
+  <%= f.submit 'Save', class: "btn btn-success" %>
 </div>
 <!--end::Actions-->

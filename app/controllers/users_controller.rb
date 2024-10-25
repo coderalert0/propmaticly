@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     ActiveRecord::Base.transaction do
       @user.update(user_params.except(:building_ids))
       AssetContact.where(user_id: @user.id, assignable_type: 'Building').destroy_all
-      user_params[:building_ids].each do |building_id|
+      user_params[:building_ids]&.each do |building_id|
         AssetContact.create(user: @user, assignable: Building.find(building_id))
       end
 

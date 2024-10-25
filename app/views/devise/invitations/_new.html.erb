@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <!--begin::Form-->
-        <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), data: { turbo: false }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: invitation_path(resource_name)) do |f| %>
           <%= render partial: 'devise/invitations/create_form', locals: { f: f } %>
         <% end %>
         <!--end::Form-->
