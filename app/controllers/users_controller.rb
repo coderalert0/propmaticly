@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   def index
     @users = current_organization.users.page(params[:page])
     @users = PaginationDecorator.decorate(@users)
+    @portfolios = current_organization.portfolios.order('LOWER(name)')
     @grouped_buildings = current_organization.buildings.group_by(&:portfolio).transform_keys(&:name).transform_values do |buildings|
       buildings.map do |b|
         [b.name, b.id]
@@ -16,12 +17,9 @@ class UsersController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      @user.update(user_params.except(:building_ids))
-      AssetContact.where(user_id: @user.id, assignable_type: 'Building').destroy_all
-      user_params[:building_ids]&.reject(&:blank?)&.each do |building_id|
-        AssetContact.create(user: @user, assignable: Building.find(building_id))
-      end
-
+      @user.update(user_params.except(:portfolio_ids, :building_ids))
+      AssetContact.assign_assets_to_user('Portfolio', user_params[:portfolio_ids], @user)
+      AssetContact.assign_assets_to_user('Building', user_params[:building_ids], @user)
       flash[:success] = t(:user_update_success)
       redirect_to users_path
     end
@@ -37,7 +35,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :sms, :admin, building_ids: [])
+    params.require(:user).permit(:first_name, :last_name, :sms, :admin, portfolio_ids: [], building_ids: [])
   end
 
   def validate_admin

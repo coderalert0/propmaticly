@@ -5,7 +5,7 @@
     <div class="row mb-6 align-items-center">
       <label class="col-lg-4">First Name</label>
       <div class="col-lg-8">
-        <%= f.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
+        <%= f.text_field :first_name, required: true, class: 'form-control', placeholder: 'First Name' %>
       </div>
     </div>
     <!--end::Input group-->
@@ -14,7 +14,7 @@
     <div class="row mb-6 align-items-center">
       <label class="col-lg-4">Last Name</label>
       <div class="col-lg-8">
-        <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
+        <%= f.text_field :last_name, required: true, class: 'form-control', placeholder: 'Last Name' %>
       </div>
     </div>
     <!--end::Input group-->
@@ -23,7 +23,7 @@
     <div class="row mb-6 align-items-center">
       <label class="col-lg-4">Email</label>
       <div class="col-lg-8">
-        <%= f.text_field :email, class: 'form-control', placeholder: 'Email' %>
+        <%= f.text_field :email, required: true, class: 'form-control', placeholder: 'Email' %>
       </div>
     </div>
     <!--end::Input group-->
@@ -36,6 +36,15 @@
       </div>
     </div>
     <!--end::Input group-->
+
+  <!--begin::Input group-->
+  <div class="row mb-6 align-items-center">
+    <label class="col-lg-4">Portfolios</label>
+    <div class="col-lg-8">
+      <%= f.select :portfolio_ids, @portfolios.pluck(:name, :id), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' } %>
+    </div>
+  </div>
+  <!--end::Input group-->
 
   <!--begin::Input group-->
   <div class="row mb-6 align-items-center">
