@@ -1,0 +1,7 @@
+<% if resource.errors.empty? %>
+  window.location.href = "<%= users_path %>";
+<% else %>
+  <% resource.errors.full_messages.each do |message| %>
+    document.getElementById('error').innerHTML += "<div class='alert alert-primary alert-dismissible'><%= j(message) %></div>";
+  <% end %>
+<% end %>

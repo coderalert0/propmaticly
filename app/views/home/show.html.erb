@@ -1,11 +1,10 @@
 <div class="fw-bold fs-2hx mb-5"><%= @organization.name %></div>
-<!--begin::Row-->
 <div class="row g-5 g-xl-8">
   <div class="col-xl-4">
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
-          <div class="d-flex align-items-center me-2">
+          <div>
             <i class="bi bi-folder fs-3hx me-4 text-danger"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.violations.open.size %></span>
           </div>
@@ -18,7 +17,7 @@
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
-          <div class="d-flex align-items-center mb-2">
+          <div>
             <i class="bi bi-hammer fs-3hx me-4 text-primary"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.violations.in_progress.size %></span>
           </div>
@@ -31,7 +30,7 @@
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
-          <div class="d-flex align-items-center mb-2">
+          <div>
             <i class="bi bi-check-circle fs-3hx me-4 text-success"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.violations.closed.size %></span>
           </div>
@@ -41,14 +40,13 @@
     </div>
   </div>
 </div>
-<!--end::Row-->
-<!--begin::Row-->
+
 <div class="row g-5 g-xl-8">
   <div class="col-xl-4">
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
-          <div class="d-flex align-items-center me-2">
+          <div>
             <i class="bi bi-folder fs-3hx me-4 text-danger"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.open.size %></span>
           </div>
@@ -61,7 +59,7 @@
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
-          <div class="d-flex align-items-center mb-2">
+          <div>
             <i class="bi bi-hammer fs-3hx me-4 text-primary"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.in_progress.size %></span>
           </div>
@@ -74,7 +72,7 @@
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
-          <div class="d-flex align-items-center mb-2">
+          <div>
             <i class="bi bi-check-circle fs-3hx me-4 text-success"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.closed.size %></span>
           </div>
@@ -84,21 +82,19 @@
     </div>
   </div>
 </div>
-<!--end::Row-->
 
-<!--begin::Content-->
 <div id="kt_app_content" class="app-content flex-column-fluid">
   <div class="card">
     <div class="card-header border-0 pt-6">
       <div class="card-title"></div>
       <div class="card-toolbar">
         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-          <%= link_to 'Add Portfolio', '#', class: 'btn btn-primary', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+          <%= link_to 'Add Portfolio', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
         </div>
       </div>
     </div>
-    <div class="card-body pt-0">
-      <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
+    <div class="card-body">
+      <table class="table align-middle table-row-dashed fs-6 gy-3">
         <thead>
         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
           <th class="min-w-200px">Portfolio Name</th>
@@ -123,8 +119,10 @@
                   <div class="dropdown-item">
                     <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{portfolio.id}" } %>
                   </div>
-                  <div class="dropdown-item">
-                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{portfolio.id}" } %>
+                  <% if portfolio.buildings.blank? %>
+                    <div class="dropdown-item">
+                      <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{portfolio.id}" } %>
+                  <% end %>
                   </div>
                 </div>
               </div>

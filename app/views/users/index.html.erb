@@ -1,75 +1,63 @@
-<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-  <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-    <div class="d-flex flex-column flex-column-fluid">
-      <div id="kt_app_toolbar" class="app-toolbar d-flex flex-stack py-4 py-lg-8">
-        <div class="d-flex flex-grow-1 flex-stack flex-wrap gap-2 mb-n10" id="kt_toolbar">
-          <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-            <h1 class="page-heading text-dark fw-bold fs-3 my-0">Users List</h1>
-          </div>
+<div>
+  <div>
+    <div class="py-lg-8">
+      <h2>User List</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-header border-0 pt-6">
+        <div class="card-toolbar">
+          <%= link_to 'Invite User', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
         </div>
       </div>
-      <div id="kt_app_content" class="app-content flex-column-fluid">
-        <div class="card">
-          <div class="card-header border-0 pt-6">
-            <div class="card-toolbar">
-              <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                <%= link_to 'Invite User', '#', class: 'btn btn-primary', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
-              </div>
-              <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
-                <div class="fw-bold me-5">
-                  <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected</div>
-                <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">Delete Selected</button>
-              </div>
-            </div>
-          </div>
-          <div class="card-body pt-0">
-            <table class="table align-middle table-row-dashed gy-5" id="kt_customers_table">
-              <thead>
-              <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                <th class="min-w-125px">Name</th>
-                <th class="min-w-125px">Email Address</th>
-                <th class="min-w-125px">SMS</th>
-                <th class="min-w-125px">Buildings</th>
-                <th class="min-w-125px">Accepted Invite</th>
-                <th class="min-w-125px">Admin</th>
-              </tr>
-              </thead>
-              <tbody>
-              <% @users.each do |user| %>
-                <tr>
-                  <td><%= user.first_name %> <%= user.last_name %></td>
-                  <td><div class="text-gray-800 mb-1"><%= user.email %></div></td>
-                  <td><%= user.sms %></td>
-                  <td></td>
-                  <td><%= user.confirmed? %></td>
-                  <td><%= user.admin? %></td>
-                  <td class="text-end">
-                    <div class="dropdown">
-                      <div class="btn btn-sm btn-light dropdown-toggle">
-                        Actions
-                      </div>
-                      <div class="dropdown-menu">
-                        <div class="dropdown-item">
-                          <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{user.id}" } %>
-                        </div>
-                        <div class="dropdown-item">
-                          <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{user.id}" } %>
-                        </div>
-                      </div>
+      <div class="card-body">
+        <table class="table align-middle table-row-dashed gy-3">
+          <thead>
+          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase">
+            <th class="min-w-125px">Name</th>
+            <th class="min-w-125px">Email Address</th>
+            <th class="min-w-125px">SMS</th>
+            <th class="min-w-125px">Portfolios</th>
+            <th class="min-w-125px">Accepted Invite</th>
+            <th class="min-w-125px">Admin</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.first_name %> <%= user.last_name %></td>
+              <td><div class="text-gray-800 mb-1"><%= user.email %></div></td>
+              <td><%= user.sms %></td>
+              <td><%= user.portfolios.map(&:name).join(', ') %></td>
+              <td><%= user.confirmed? %></td>
+              <td><%= user.admin? %></td>
+              <td class="text-end">
+                <div class="dropdown">
+                  <div class="btn btn-sm btn-light dropdown-toggle">
+                    Actions
+                  </div>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{user.id}" } %>
                     </div>
-                  </td>
-                </tr>
-                <%= render 'edit', user: user, buildings: @buildings %>
-                <%= render 'delete', user: user %>
-              <% end %>
-              </tbody>
-            </table>
-            <div class="d-flex justify-content-center mt-4">
-              <%= paginate @users, theme: 'bootstrap4' %>
-            </div>
-            <%= render 'devise/invitations/new' %>
-          </div>
+                    <% unless current_user == user %>
+                      <div class="dropdown-item">
+                        <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{user.id}" } %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <%= render 'edit', user: user, buildings: @buildings %>
+            <%= render 'delete', user: user %>
+          <% end %>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center mt-4">
+          <%= paginate @users, theme: 'bootstrap4' %>
         </div>
+        <%= render 'devise/invitations/new' %>
       </div>
     </div>
   </div>

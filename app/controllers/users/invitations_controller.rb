@@ -3,8 +3,8 @@
 module Users
   class InvitationsController < Devise::InvitationsController
     def new
-      @portfolios = Portfolio.all
-      @buildings = Building.all
+      @portfolios = current_organization.portfolios
+      @buildings = current_organization.buildings
       super
     end
 
@@ -14,18 +14,14 @@ module Users
 
       yield resource if block_given?
 
-      if resource_invited
-        binding.break
-        AssetContact.assign_assets_to_user('Portfolio', invite_params[:portfolio_ids], resource)
-        AssetContact.assign_assets_to_user('Building', invite_params[:building_ids], resource)
+      return unless resource_invited
 
-        if is_flashing_format? && resource.invitation_sent_at
-          set_flash_message :notice, :send_instructions, email: resource.email
-        end
-        respond_with resource, location: users_path
-      else
-        respond_with(resource)
-      end
+      AssetContact.assign_assets_to_user('Portfolio', invite_params[:portfolio_ids], resource)
+      AssetContact.assign_assets_to_user('Building', invite_params[:building_ids], resource)
+
+      return unless resource.invitation_sent_at
+
+      set_flash_message :success, :send_instructions, email: resource.email
     end
 
     def invite_params

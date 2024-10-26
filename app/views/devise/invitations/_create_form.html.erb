@@ -3,7 +3,7 @@
   <%= render "devise/shared/error_messages", resource: resource %>
     <!--begin::Input group-->
     <div class="row mb-6 align-items-center">
-      <label class="col-lg-4">First Name</label>
+      <label class="col-lg-4 required">First Name</label>
       <div class="col-lg-8">
         <%= f.text_field :first_name, required: true, class: 'form-control', placeholder: 'First Name' %>
       </div>
@@ -12,7 +12,7 @@
 
     <!--begin::Input group-->
     <div class="row mb-6 align-items-center">
-      <label class="col-lg-4">Last Name</label>
+      <label class="col-lg-4 required">Last Name</label>
       <div class="col-lg-8">
         <%= f.text_field :last_name, required: true, class: 'form-control', placeholder: 'Last Name' %>
       </div>
@@ -21,7 +21,7 @@
 
     <!--begin::Input group-->
     <div class="row mb-6 align-items-center">
-      <label class="col-lg-4">Email</label>
+      <label class="col-lg-4 required">Email</label>
       <div class="col-lg-8">
         <%= f.text_field :email, required: true, class: 'form-control', placeholder: 'Email' %>
       </div>
@@ -66,7 +66,7 @@
 
 <!--begin::Actions-->
 <div class="card-footer d-flex justify-content-end py-6 px-9">
-  <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-primary me-2' %>
-  <%= f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-success', id: 'kt_account_profile_details_submit' %>
+  <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-light me-2' %>
+  <%= f.submit t("devise.invitations.new.submit_button"), class: 'btn btn-success' %>
 </div>
 <!--end::Actions-->
