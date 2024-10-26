@@ -1,4 +1,4 @@
-<div class="fw-bold fs-2hx mb-5"><%= current_user.organization.name %></div>
+<div class="fw-bold fs-2hx mb-5"><%= @organization.name %></div>
 <!--begin::Row-->
 <div class="row g-5 g-xl-8">
   <div class="col-xl-4">
@@ -7,7 +7,7 @@
         <div>
           <div class="d-flex align-items-center me-2">
             <i class="bi bi-folder fs-3hx me-4 text-danger"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.violations.open.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.violations.open.size %></span>
           </div>
           <span class="fs-6 text-gray-400">Active Violations</span>
         </div>
@@ -20,7 +20,7 @@
         <div>
           <div class="d-flex align-items-center mb-2">
             <i class="bi bi-hammer fs-3hx me-4 text-primary"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.violations.in_progress.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.violations.in_progress.size %></span>
           </div>
           <span class="fs-6 text-gray-400">Violations Being Addressed</span>
         </div>
@@ -33,7 +33,7 @@
         <div>
           <div class="d-flex align-items-center mb-2">
             <i class="bi bi-check-circle fs-3hx me-4 text-success"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.violations.closed.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.violations.closed.size %></span>
           </div>
           <span class="fs-6 text-gray-400">Violations Closed</span>
         </div>
@@ -50,7 +50,7 @@
         <div>
           <div class="d-flex align-items-center me-2">
             <i class="bi bi-folder fs-3hx me-4 text-danger"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.open.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.open.size %></span>
           </div>
           <span class="fs-6 text-gray-400">Active Complaints</span>
         </div>
@@ -63,7 +63,7 @@
         <div>
           <div class="d-flex align-items-center mb-2">
             <i class="bi bi-hammer fs-3hx me-4 text-primary"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.in_progress.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.in_progress.size %></span>
           </div>
           <span class="fs-6 text-gray-400">Complaints Being Addressed</span>
         </div>
@@ -76,7 +76,7 @@
         <div>
           <div class="d-flex align-items-center mb-2">
             <i class="bi bi-check-circle fs-3hx me-4 text-success"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= current_user.organization.complaints.closed.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.closed.size %></span>
           </div>
           <span class="fs-6 text-gray-400">Closed Complaints</span>
         </div>
@@ -111,14 +111,23 @@
         <% @portfolios.each do |portfolio| %>
           <tr>
             <td><%= portfolio.name %></td>
-            <td><%= link_to portfolio.complaints.open.size, portfolio_complaints_path(portfolio, state: 'open'), class: 'text-hover-primary mb-1 fw-bold' %></td>
-            <td><%= link_to portfolio.complaints.closed.size, portfolio_complaints_path(portfolio, state: 'closed'), class: 'text-hover-primary mb-1 fw-bold' %></td>
-            <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio), class: 'fw-bold' %></td>
+            <td><%= link_to portfolio.complaints.open.size, portfolio_complaints_path(portfolio, state: 'open') %></td>
+            <td><%= link_to portfolio.complaints.closed.size, portfolio_complaints_path(portfolio, state: 'closed') %></td>
+            <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio) %></td>
             <td class="text-end">
-              <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{portfolio.id}" } %>
-              <% if portfolio.buildings.blank? %>
-                <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { bs_toggle: 'modal', bs_target: "#deleteModal#{portfolio.id}" } %>
-              <% end %>
+              <div class="dropdown">
+                <div class="btn btn-sm btn-light dropdown-toggle">
+                  Actions
+                </div>
+                <div class="dropdown-menu">
+                  <div class="dropdown-item">
+                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{portfolio.id}" } %>
+                  </div>
+                  <div class="dropdown-item">
+                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{portfolio.id}" } %>
+                  </div>
+                </div>
+              </div>
             </td>
           </tr>
           <%= render 'portfolios/edit', portfolio: portfolio %>

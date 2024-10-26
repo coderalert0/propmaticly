@@ -34,11 +34,11 @@
                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                   <th class="min-w-125px">Violation ID</th>
                   <th class="min-w-100px">Issue Date</th>
-                  <th class="min-w-250px">Description</th>
+                  <th class="min-w-200px">Description</th>
                   <th class="min-w-100px">Status</th>
                   <th class="min-w-125px">Severity</th>
                   <th class="min-w-100px">Updated On</th>
-                  <th class="text-end">Actions</th>
+                  <th class="text-end min-w-100px">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,9 +54,20 @@
                     <td><%= violation&.state %></td>
                     <td><%= violation&.severity %></td>
                     <td><%= violation.updated_at.strftime("%D") %></td>
-                    <td class="text-end">
-                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
-                      <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{violation.id}" } %>
+                    <td>
+                      <div class="dropdown">
+                        <div class="btn btn-sm btn-light dropdown-toggle">
+                          Actions
+                        </div>
+                        <div class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
+                          </div>
+                          <div class="dropdown-item">
+                            <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{violation.id}" } %>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                   <%= render 'edit', violation: violation %>

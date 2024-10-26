@@ -40,10 +40,21 @@
                     <td><%= link_to building.violations.size, building_violations_path(building_id: building.id) %></td>
                     <td></td>
                     <td class="text-end">
-                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{building.id}" } %>
-                      <% if building.complaints.blank? && building.violations.blank? %>
-                        <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { bs_toggle: 'modal', bs_target: "#deleteModal#{building.id}" } %>
-                      <% end %>
+                      <div class="dropdown">
+                        <div class="btn btn-sm btn-light dropdown-toggle">
+                          Actions
+                        </div>
+                        <div class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{building.id}" } %>
+                          </div>
+                          <div class="dropdown-item">
+                            <% if building.complaints.blank? && building.violations.blank? %>
+                              <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{building.id}" } %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                   <%= render 'edit', building: building %>

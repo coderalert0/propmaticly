@@ -45,6 +45,6 @@ class PortfoliosController < ApplicationController
   private
 
   def portfolio_params
-    params.require(:portfolio).permit(:name, :description, :user_id).merge({ organization: current_user.organization })
+    params.require(:portfolio).permit(:name, :description, :user_id).merge({ organization: current_organization })
   end
 end

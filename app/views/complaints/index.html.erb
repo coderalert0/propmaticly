@@ -31,7 +31,7 @@
           <!--begin::Card body-->
           <div class="card-body pt-0">
             <!--begin::Table-->
-            <table class="table table-hover align-middle table-row-dashed gy-5" id="kt_customers_table">
+            <table class="table align-middle table-row-dashed gy-5" id="kt_customers_table">
               <thead>
               <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                 <th class="min-w-125px">Complaint ID</th>
@@ -58,9 +58,20 @@
                   <td><%= complaint&.state %></td>
                   <td><%= complaint&.severity %></td>
                   <td><%= complaint.updated_at.strftime("%D") %></td>
-                  <td>
-                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
-                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
+                  <td class="text-end">
+                    <div class="dropdown">
+                      <div class="btn btn-sm btn-light dropdown-toggle">
+                        Actions
+                      </div>
+                      <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                          <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
+                        </div>
+                        <div class="dropdown-item">
+                          <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
+                        </div>
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <!-- Render the Edit Modal Partial -->

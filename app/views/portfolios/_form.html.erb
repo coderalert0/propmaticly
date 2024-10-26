@@ -1,28 +1,28 @@
 <!--begin::Card body-->
-<div class="card-body p-9">
+<div class="card-body">
   <!--begin::Input group-->
-  <div class="row mb-6">
-    <label class="col-lg-4 col-form-label required">Name</label>
-    <div class="col-lg-8 fv-row">
+  <div class="row mb-6 align-items-center">
+    <label class="col-lg-4 required">Name</label>
+    <div class="col-lg-8">
       <%= f.text_field :name, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Billionaires Row' %>
     </div>
   </div>
   <!--end::Input group-->
 
   <!--begin::Input group-->
-  <div class="row mb-6">
-    <label class="col-lg-4 col-form-label">Description</label>
-    <div class="col-lg-8 fv-row">
+  <div class="row mb-6 align-items-center">
+    <label class="col-lg-4">Description</label>
+    <div class="col-lg-8">
       <%= f.text_area :description, rows: 4, class: 'form-control form-control-lg form-control-solid', placeholder: '57th Street between Columbus Circle and Park Avenue' %>
     </div>
   </div>
   <!--end::Input group-->
 
   <!--begin::Input group-->
-  <div class="row mb-6">
-    <label class="col-lg-4 col-form-label">Contacts</label>
-    <div class="col-lg-8 fv-row">
-      <%= f.select(:user_ids, User.pluck(:email, :id), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' }) %>
+  <div class="row mb-6 align-items-center">
+    <label class="col-lg-4">Contacts</label>
+    <div class="col-lg-8">
+      <%= f.select(:user_ids, @users.pluck(:email, :id), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' }) %>
     </div>
   </div>
   <!--end::Input group-->

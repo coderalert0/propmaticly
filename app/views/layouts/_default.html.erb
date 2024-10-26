@@ -1,27 +1,7 @@
-<!--begin::App-->
-<div class="d-flex flex-column flex-root app-root" id="kt_app_root">
-    <!--begin::Page-->
-    <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
-<%= render 'layouts/partials/header' %>
-        <!--begin::Wrapper-->
-        <div class="app-wrapper  flex-column flex-row-fluid " id="kt_app_wrapper">
-                            <!--begin::Wrapper container-->
-                <div class="container-xxl d-flex flex-row flex-column-fluid ">
-            <!--begin::Main-->
-            <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-                <!--begin::Content wrapper-->
-                <div class="d-flex flex-column flex-column-fluid">
-<%= render 'layouts/partials/content' %>
-                </div>
-                <!--end::Content wrapper-->
-<%= render 'layouts/partials/footer' %>
-                            </div>
-            <!--end:::Main-->
-                            </div>
-                <!--end::Wrapper container-->
-                    </div>
-        <!--end::Wrapper-->
-            </div>
-    <!--end::Page-->
+<div class="container-xxl">
+  <div class="mb-20">
+    <%= render 'layouts/partials/header' %>
+  </div>
+  <%= render 'layouts/partials/content' %>
+  <%= render 'layouts/partials/footer' %>
 </div>
-<!--end::App-->

@@ -49199,3 +49199,18 @@ body,
     border-radius: 0 !important;
   }
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* Ensures there's no gap */
+}
+
+.ss-main .ss-values .ss-value {
+    background-color: #a1a7ad;
+    border-radius: 0;
+}
+
+.ss-content .ss-list .ss-option:hover,
+.ss-content .ss-list .ss-option.ss-selected:not(.ss-disabled) {
+    background-color: #a1a7ad;
+}

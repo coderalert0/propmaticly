@@ -15,7 +15,7 @@ class Portfolio < ApplicationRecord
     ActiveRecord::Base.transaction do
       asset_contacts.where(assignable_type: 'Portfolio').destroy_all
 
-      user_ids.reject(&:blank?).each do |user_id|
+      user_ids&.reject(&:blank?)&.each do |user_id|
         asset_contacts.create!(user_id: user_id, assignable: self)
       end
     end

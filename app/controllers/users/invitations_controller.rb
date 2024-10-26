@@ -15,7 +15,7 @@ module Users
       yield resource if block_given?
 
       if resource_invited
-        invite_params[:building_ids].each do |building_id|
+        invite_params[:building_ids]&.reject(&:blank?)&.each do |building_id|
           AssetContact.create(user: resource, assignable: Building.find(building_id))
         end
 
@@ -30,11 +30,7 @@ module Users
 
     def invite_params
       params.require(:user).permit(:first_name, :last_name, :email, :sms, :admin,
-                                   building_ids: []).merge(organization: organization)
-    end
-
-    def organization
-      current_user.organization
+                                   building_ids: []).merge(organization: current_organization)
     end
   end
 end

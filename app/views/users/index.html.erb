@@ -44,8 +44,19 @@
                   <td><%= user.confirmed? %></td>
                   <td><%= user.admin? %></td>
                   <td class="text-end">
-                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{user.id}" } %>
-                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { bs_toggle: 'modal', bs_target: "#deleteModal#{user.id}" } %>
+                    <div class="dropdown">
+                      <div class="btn btn-sm btn-light dropdown-toggle">
+                        Actions
+                      </div>
+                      <div class="dropdown-menu">
+                        <div class="dropdown-item">
+                          <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{user.id}" } %>
+                        </div>
+                        <div class="dropdown-item">
+                          <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{user.id}" } %>
+                        </div>
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <%= render 'edit', user: user, buildings: @buildings %>

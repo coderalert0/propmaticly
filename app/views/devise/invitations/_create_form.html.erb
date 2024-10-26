@@ -1,72 +1,57 @@
 <!--begin::Card body-->
 <div class="card-body p-9">
   <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="row">
-    <div class='col-6'>
-      <!--begin::Input group-->
-      <div class="input-group mb-5">
-        <span class="input-group-text" id="basic-addon1">
-          <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-        </span>
+    <!--begin::Input group-->
+    <div class="row mb-6 align-items-center">
+      <label class="col-lg-4">First Name</label>
+      <div class="col-lg-8">
         <%= f.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
       </div>
-      <!--end::Input group-->
+    </div>
+    <!--end::Input group-->
 
-      <!--begin::Input group-->
-      <div class="input-group mb-5">
-        <span class="input-group-text" id="basic-addon1">
-          <i class="ki-duotone ki-profile-circle fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-        </span>
+    <!--begin::Input group-->
+    <div class="row mb-6 align-items-center">
+      <label class="col-lg-4">Last Name</label>
+      <div class="col-lg-8">
         <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
       </div>
-      <!--end::Input group-->
+    </div>
+    <!--end::Input group-->
 
-      <!--begin::Input group-->
-      <div class="input-group mb-5">
-        <span class="input-group-text" id="basic-addon1">
-          <i class="ki-duotone ki-sms fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-        </span>
+    <!--begin::Input group-->
+    <div class="row mb-6 align-items-center">
+      <label class="col-lg-4">Email</label>
+      <div class="col-lg-8">
         <%= f.text_field :email, class: 'form-control', placeholder: 'Email' %>
       </div>
-      <!--end::Input group-->
+    </div>
+    <!--end::Input group-->
 
-      <!--begin::Input group-->
-      <div class="input-group mb-5">
-        <span class="input-group-text" id="basic-addon1">
-          <i class="ki-duotone ki-message-notif fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-        </span>
+    <!--begin::Input group-->
+    <div class="row mb-6 align-items-center">
+      <label class="col-lg-4">SMS</label>
+      <div class="col-lg-8">
         <%= f.text_field :sms, class: 'form-control', placeholder: 'SMS' %>
       </div>
-      <!--end::Input group-->
-
-      <!--begin::Input group-->
-      <div class="form-check">
-        <%= f.check_box :admin, class: 'form-check-input' %>
-        <%= f.label :admin, "Admin", class: 'form-check-label' %>
-      </div>
-      <!--end::Input group-->
     </div>
+    <!--end::Input group-->
 
-    <!-- Right Column (Buildings) -->
-    <div class="col-lg-6">
-      <!-- Place the label above the checkboxes -->
-      <label for="buildings" class="form-label required">Buildings</label>
-      <div class="row">
-        <% @buildings.each_slice(6).with_index do |building_slice, index| %>
-          <div class="col-lg-6">
-            <% building_slice.each do |building| %>
-              <div class="form-check mb-3">
-                <!-- Check if @user is nil and handle it -->
-                <% building_checked =  f.object && f.object.building_ids.include?(building.id) %>
-                <%= check_box_tag "user[building_ids][]", building.id, building_checked, class: 'form-check-input' %>
-                <%= label_tag "user_building_ids_#{building.id}", building.name, class: 'form-check-label' %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+  <!--begin::Input group-->
+  <div class="row mb-6 align-items-center">
+    <label class="col-lg-4">Buildings</label>
+    <div class="col-lg-8">
+      <%= f.select :building_ids, grouped_options_for_select(@grouped_buildings), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' } %>
     </div>
   </div>
+  <!--end::Input group-->
+
+    <!--begin::Input group-->
+    <div class="form-check">
+      <%= f.check_box :admin, class: 'form-check-input' %>
+      <%= f.label :admin, "Admin", class: 'form-check-label' %>
+    </div>
+    <!--end::Input group-->
 </div>
 <!--end::Card body-->
 
