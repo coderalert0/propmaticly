@@ -9,44 +9,44 @@ class BuildingsController < ApplicationController
   def index
     @buildings = @portfolio.buildings
     @buildings = @buildings.order(:name, :asc).page(params[:page])
+    @buildings = PaginationDecorator.decorate(@buildings)
   end
 
   def create
-    address = AddressHelper.normalize({ address1: building_params[:address1].to_s.strip,
+    address = AddressHelper.normalize({ number: building_params[:number].strip, street: building_params[:street].strip,
                                         zip5: building_params[:zip5].strip })
+
+    number, street = address.address1.split(' ', 2)
+
     building = Building.new(name: building_params[:name],
-                            address1: address.address1,
+                            number: number,
+                            street: street,
                             city: address.city,
                             state: address.state,
                             zip5: address.zip5,
                             portfolio_id: building_params[:portfolio_id])
 
-    if building.save!
-      flash[:success] = t(:building_create_success)
-      redirect_to portfolio_buildings_path(building.portfolio)
-    end
+    flash[:success] = t(:building_create_success) if building.save!
   rescue USPS::InvalidStateError
-    flash[:danger] = t(:invalid_state_error)
-    redirect_to portfolio_buildings_path(@portfolio)
+    flash[:danger] = I18n.t(:invalid_state_error)
   rescue StandardError => e
     flash[:danger] = e
-    redirect_to portfolio_buildings_path(@portfolio)
   end
 
   def update
-    address = AddressHelper.normalize({ address1: building_params[:address1].to_s.strip,
+    address = AddressHelper.normalize({ number: building_params[:number].strip, street: building_params[:street].strip,
                                         zip5: building_params[:zip5].strip })
-    return unless @building.update(name: building_params[:name], address1: address.address1, city: address.city,
+
+    number, street = address.address1.split(' ', 2)
+
+    return unless @building.update(name: building_params[:name], number: number, street: street, city: address.city,
                                    state: address.state, zip5: address.zip5)
 
     flash[:success] = t(:building_update_success)
-    redirect_to portfolio_buildings_path(@building.portfolio)
   rescue USPS::InvalidStateError
-    flash[:danger] = t(:invalid_state_error)
-    redirect_to portfolio_buildings_path(@building.portfolio)
+    flash[:danger] = I18n.t(:invalid_state_error)
   rescue StandardError => e
     flash[:danger] = e
-    redirect_to portfolio_buildings_path(@building.portfolio)
   end
 
   def destroy
@@ -61,6 +61,6 @@ class BuildingsController < ApplicationController
   private
 
   def building_params
-    params.require(:building).permit(:portfolio_id, :name, :address1, :zip5)
+    params.require(:building).permit(:name, :number, :street, :zip5, :portfolio_id)
   end
 end

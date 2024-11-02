@@ -21,7 +21,8 @@ class FetchHpdViolationsJob < FetchJob
 
   def normalize_address_params(violation)
     {
-      address1: "#{violation['housenumber']&.strip} #{violation['streetname']&.strip} ##{violation['apartment']&.strip}",
+      number: violation['housenumber']&.strip,
+      street: "#{violation['streetname']&.strip} #{violation['apartment']&.strip}",
       city: nil,
       state: nil,
       zip5: violation['zip']&.strip

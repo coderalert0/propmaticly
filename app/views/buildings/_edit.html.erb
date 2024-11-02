@@ -6,11 +6,12 @@
         <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!--begin::Form-->
-        <%= form_for(building) do |f| %>
+        <div id="error">
+        </div>
+
+        <%= form_for(building, remote: true) do |f| %>
           <%= render partial: 'form', locals: { f: f } %>
         <% end %>
-        <!--end::Form-->
       </div>
     </div>
   </div>

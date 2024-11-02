@@ -14,7 +14,7 @@ class Ability
     return unless user.admin?
 
     [Building, Complaint, Violation, Portfolio].each do |resource|
-      can :create, resource
+      can :manage, resource
     end
 
     can :manage, Building, id: user.organization.buildings.pluck(:id)

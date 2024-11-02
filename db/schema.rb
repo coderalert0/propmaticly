@@ -21,16 +21,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
     t.index ["user_id"], name: "index_asset_contacts_on_user_id"
   end
 
-  create_table "building_users", force: :cascade do |t|
-    t.integer "building_id"
-    t.integer "user_id"
-    t.index ["building_id"], name: "index_building_users_on_building_id"
-    t.index ["user_id"], name: "index_building_users_on_user_id"
-  end
-
   create_table "buildings", force: :cascade do |t|
     t.string "name"
-    t.string "address1", null: false
+    t.string "number"
+    t.string "street", null: false
     t.string "city", null: false
     t.string "state"
     t.string "zip5"
@@ -45,8 +39,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
     t.datetime "filed_date"
     t.string "description"
     t.string "category_code"
-    t.datetime "disposition_date"
-    t.string "disposition_code"
     t.datetime "inspection_date"
     t.string "link"
     t.integer "state", default: 0
@@ -54,6 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "building_id"
+    t.datetime "disposition_date"
+    t.string "disposition_code"
     t.index ["building_id"], name: "index_complaints_on_building_id"
   end
 
@@ -148,8 +142,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
   end
 
   add_foreign_key "asset_contacts", "users"
-  add_foreign_key "building_users", "buildings"
-  add_foreign_key "building_users", "users"
   add_foreign_key "buildings", "portfolios"
   add_foreign_key "complaints", "buildings"
   add_foreign_key "inspections", "buildings"

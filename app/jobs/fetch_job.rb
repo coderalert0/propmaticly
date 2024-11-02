@@ -15,7 +15,7 @@ class FetchJob < ApplicationJob
         next
       end
 
-      next unless (buildings = Building.where(address1: normalized_address['address1'],
+      next unless (buildings = Building.where(number: normalized_address['number'], street: normalized_address['street'],
                                               zip5: normalized_address['zip5']))
 
       buildings.each do |building|

@@ -3,10 +3,11 @@
 FactoryBot.define do
   factory :building do
     name { 'The Lombardi' }
-    address1 { '9631 Scott Rd' }
-    city { 'Surrey' }
-    state { 'BC' }
-    zip5 { 95_123 }
+    number { '1500' }
+    street { 'Pelham Parkway S' }
+    city { 'New York' }
+    state { 'NY' }
+    zip5 { 10_461 }
     portfolio
   end
 end

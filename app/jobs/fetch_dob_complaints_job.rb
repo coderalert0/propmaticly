@@ -22,7 +22,8 @@ class FetchDobComplaintsJob < FetchJob
 
   def normalize_address_params(complaint)
     {
-      address1: "#{complaint['house_number']&.strip}, #{complaint['house_street']&.strip}",
+      number: complaint['house_number']&.strip,
+      street: complaint['house_street']&.strip,
       city: nil,
       state: nil,
       zip5: complaint['zip_code']&.strip

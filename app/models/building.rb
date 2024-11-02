@@ -7,5 +7,5 @@ class Building < ApplicationRecord
   has_many :complaints, dependent: :destroy
   has_many :violations, dependent: :destroy
 
-  validates_presence_of :name, :address1, :zip5
+  validates_presence_of :name, :number, :street, :zip5
 end

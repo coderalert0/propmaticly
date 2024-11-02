@@ -11,9 +11,18 @@
 
   <!--begin::Input group-->
   <div class="row mb-6 align-items-center">
-    <label class="col-lg-4 required">Street Number & Street Name</label>
+    <label class="col-lg-4 required">Building Number</label>
     <div class="col-lg-8">
-      <%= f.text_field :address1, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: '11 Park Place' %>
+      <%= f.text_field :number, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: '1500' %>
+    </div>
+  </div>
+  <!--end::Input group-->
+
+  <!--begin::Input group-->
+  <div class="row mb-6 align-items-center">
+    <label class="col-lg-4 required">Street Name</label>
+    <div class="col-lg-8">
+      <%= f.text_field :street, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Pelham Parkway' %>
     </div>
   </div>
   <!--end::Input group-->

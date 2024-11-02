@@ -1,0 +1,7 @@
+<% if flash[:success] %>
+  window.location.href = "<%= portfolio_buildings_path(@building.portfolio) %>";
+<% else %>
+  <% flash.each do |key, message| %>
+    document.getElementById('error').innerHTML += "<div class='alert alert-primary alert-dismissible'><%= j(message) %></div>";
+  <% end %>
+<% end %>

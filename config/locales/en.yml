@@ -36,7 +36,7 @@ en:
     3: Brooklyn
     4: Queens
     5: Staten Island
-  building_create_success: Building has been added successfully! We are now monitoring it for any complaints
+  building_create_success: Building has been added successfully! We are now monitoring it for any complaints and violations
   building_delete_success: Building has been deleted successfully
   building_update_success: Building has been updated successfully
   complaint_create_success: Complaint has been added successfully
