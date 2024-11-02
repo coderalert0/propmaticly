@@ -4,7 +4,7 @@ class FetchDobSafetyViolationsJob < FetchJob
   private
 
   def url
-    'https://data.cityofnewyork.us/resource/855j-jady.json?bin=2056302'
+    'https://data.cityofnewyork.us/resource/855j-jady.json'
   end
 
   def resource_where_params(violation, building)
@@ -19,16 +19,6 @@ class FetchDobSafetyViolationsJob < FetchJob
       device_number: violation['device_number'],
       device_type: violation['device_type'],
       state: resource_clazz.mapped_state(violation['violation_status'])
-    }
-  end
-
-  def normalize_address_params(violation)
-    {
-      number: violation['house_number']&.strip,
-      street: violation['street']&.strip,
-      city: violation['city']&.strip,
-      state: nil,
-      zip5: violation['zip']&.strip
     }
   end
 

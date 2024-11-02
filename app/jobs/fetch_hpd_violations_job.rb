@@ -4,7 +4,7 @@ class FetchHpdViolationsJob < FetchJob
   private
 
   def url
-    'https://data.cityofnewyork.us/resource/wvxf-dwi5.json?violationid=10000824'
+    'https://data.cityofnewyork.us/resource/wvxf-dwi5.json'
   end
 
   def resource_where_params(violation, building)
@@ -16,16 +16,6 @@ class FetchHpdViolationsJob < FetchJob
       description: violation['novdescription'],
       issue_date: violation['novissueddate'],
       state: resource_clazz.mapped_state(violation['violationstatus'])
-    }
-  end
-
-  def normalize_address_params(violation)
-    {
-      number: violation['housenumber']&.strip,
-      street: "#{violation['streetname']&.strip} #{violation['apartment']&.strip}",
-      city: nil,
-      state: nil,
-      zip5: violation['zip']&.strip
     }
   end
 

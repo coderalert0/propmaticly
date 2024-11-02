@@ -4,7 +4,7 @@ class FetchDobComplaintsJob < FetchJob
   private
 
   def url
-    'https://data.cityofnewyork.us/resource/eabe-havv.json?date_entered=08/01/2023'
+    'https://data.cityofnewyork.us/resource/eabe-havv.json'
   end
 
   def resource_where_params(complaint, building)
@@ -18,16 +18,6 @@ class FetchDobComplaintsJob < FetchJob
       category_code: complaint['complaint_category'],
       inspection_date: (Date.strptime(complaint['inspection_date'], '%m/%d/%Y') if complaint['inspection_date']),
       state: resource_clazz.mapped_state(complaint['status']) }
-  end
-
-  def normalize_address_params(complaint)
-    {
-      number: complaint['house_number']&.strip,
-      street: complaint['house_street']&.strip,
-      city: nil,
-      state: nil,
-      zip5: complaint['zip_code']&.strip
-    }
   end
 
   def resource_clazz

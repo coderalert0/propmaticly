@@ -8,7 +8,7 @@ class FetchHpdComplaintsJob < FetchJob
   end
 
   def url
-    'https://data.cityofnewyork.us/resource/ygpa-z7cr.json?house_number=2664&apartment=5A'
+    'https://data.cityofnewyork.us/resource/ygpa-z7cr.json'
   end
 
   def resource_where_params(complaint, building)
@@ -24,16 +24,6 @@ class FetchHpdComplaintsJob < FetchJob
       ].join("\n\n"),
       state: resource_clazz.mapped_state(complaint['complaint_status']),
       severity: resource_clazz.mapped_severity(complaint['type'])
-    }
-  end
-
-  def normalize_address_params(complaint)
-    {
-      number: complaint['house_number']&.strip,
-      street: complaint['street_name']&.strip,
-      city: nil,
-      state: nil,
-      zip5: complaint['post_code']&.strip
     }
   end
 
