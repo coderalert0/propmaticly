@@ -3,14 +3,15 @@
 require 'faraday'
 
 class FetchJob < ApplicationJob
-  def perform
-    response = Faraday.get(url, { '$where' => "bin IN (#{where_bin_ids.map { |bin| "'#{bin}'" }.join(', ')})" })
+  def perform(bin_id = nil)
+    bin_ids = where_bin_ids(bin_id)
+    query_string = { '$where' => "bin IN (#{bin_ids.map { |bin| "'#{bin}'" }.join(', ')})" }
 
+    response = Faraday.get(url, query_string)
     return unless response.status == 200
 
+    buildings = Building.where(bin: bin_ids)
     JSON.parse(response.body).each do |resource|
-      next unless (buildings = Building.where(bin: where_bin_ids))
-
       buildings.each do |building|
         find_or_initialize_and_update(resource, building)
       end
@@ -25,7 +26,7 @@ class FetchJob < ApplicationJob
     resource_clazz.find_or_initialize_by(resource_params).update(resource_attributes)
   end
 
-  def where_bin_ids
-    Building.all.pluck(:bin)
+  def where_bin_ids(bin_id = nil)
+    bin_id ? [bin_id] : Building.all.pluck(:bin)
   end
 end

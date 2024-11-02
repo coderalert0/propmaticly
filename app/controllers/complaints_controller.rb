@@ -2,7 +2,7 @@
 
 class ComplaintsController < ApplicationController
   load_and_authorize_resource
-  load_and_authorize_resource :building
+  load_and_authorize_resource :building, only: :index
   load_and_authorize_resource :portfolio, only: :index
 
   def index

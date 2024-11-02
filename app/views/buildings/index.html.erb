@@ -17,8 +17,8 @@
             <th class="min-w-125px">Building Name</th>
             <th class="min-w-125px">Portfolio</th>
             <th class="min-w-125px">Address</th>
-            <th class="min-w-125px">Complaints</th>
-            <th class="min-w-125px">Violations</th>
+            <th class="min-w-125px">Open Complaints</th>
+            <th class="min-w-125px">Open Violations</th>
             <th class="min-w-125px">Contacts</th>
           </tr>
           </thead>
@@ -28,8 +28,8 @@
               <td><div class="text-gray-800 mb-1"><%= building.name %></div></td>
               <td><%= building.portfolio.name %></td>
               <td><div class="text-gray-600 mb-1"><%= building.address1.titleize %>, <%= building.city.titleize %>, <%= building.state %></div></td>
-              <td><%= link_to building.complaints.size, building_complaints_path(building) %></td>
-              <td><%= link_to building.violations.size, building_violations_path(building_id: building.id) %></td>
+              <td><%= link_to building.complaints.open.size, building_complaints_path(building, state: 'open') %></h5></td>
+              <td><%= link_to building.violations.open.size, building_violations_path(building, state: 'open') %></h5></td>
               <td></td>
               <td class="text-end">
                 <div class="dropdown">

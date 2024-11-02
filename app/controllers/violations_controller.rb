@@ -3,11 +3,20 @@
 class ViolationsController < ApplicationController
   load_and_authorize_resource
   load_and_authorize_resource :building, only: :index
+  load_and_authorize_resource :portfolio, only: :index
 
   def index
-    @violations = @building.violations if @building
-    @violations = @violations.order(issue_date: :desc).page(params[:page])
-    @violations = PaginationDecorator.decorate(@violations)
+    def index
+      if @building
+        @violations = @building.violations
+      elsif @portfolio
+        @violations = @portfolio.violations
+      end
+
+      @violations = @violations.send(params[:state]) if params[:state]
+      @violations = @violations.order(issue_date: :desc).page(params[:page])
+      @violations = PaginationDecorator.decorate(@violations)
+    end
   end
 
   def create

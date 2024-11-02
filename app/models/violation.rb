@@ -2,7 +2,7 @@
 
 class Violation < ApplicationRecord
   belongs_to :building
-  after_commit :send_notification, on: :create
+  # after_commit :send_notification, on: :create
 
   enum severity: {
     non_hazardous: 0,

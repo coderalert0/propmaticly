@@ -60,7 +60,6 @@ class BuildingsController < ApplicationController
 
   def destroy
     return unless @building.complaints.blank?
-
     return unless @building.destroy
 
     flash[:success] = t(:building_delete_success)

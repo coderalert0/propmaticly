@@ -16,8 +16,14 @@ Rails.application.routes.draw do
   resource :fetch_complaints, only: :show
   resource :fetch_violations, only: :show
   resources :portfolios do
-    resources :buildings
     resources :complaints
+    resources :violations
+  end
+  resources :portfolios do
+    resources :buildings do
+      resources :complaints
+      resources :violations
+    end
   end
   resources :buildings do
     resources :complaints

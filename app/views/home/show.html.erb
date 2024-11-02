@@ -8,7 +8,7 @@
             <i class="bi bi-folder fs-3hx me-4 text-danger"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.violations.open.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Active Violations</span>
+          <span class="fs-6 text-gray-400">Total Open Violations</span>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
             <i class="bi bi-hammer fs-3hx me-4 text-primary"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.violations.in_progress.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Violations Being Addressed</span>
+          <span class="fs-6 text-gray-400">Total Violations Being Addressed</span>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
             <i class="bi bi-check-circle fs-3hx me-4 text-success"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.violations.closed.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Violations Closed</span>
+          <span class="fs-6 text-gray-400">Total Violations Closed</span>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
             <i class="bi bi-folder fs-3hx me-4 text-danger"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.open.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Active Complaints</span>
+          <span class="fs-6 text-gray-400">Total Active Complaints</span>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
             <i class="bi bi-hammer fs-3hx me-4 text-primary"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.in_progress.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Complaints Being Addressed</span>
+          <span class="fs-6 text-gray-400">Total Complaints Being Addressed</span>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
             <i class="bi bi-check-circle fs-3hx me-4 text-success"></i>
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.closed.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Closed Complaints</span>
+          <span class="fs-6 text-gray-400">Total Closed Complaints</span>
         </div>
       </div>
     </div>
@@ -98,8 +98,8 @@
         <thead>
         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
           <th class="min-w-200px">Portfolio Name</th>
-          <th class="min-w-100px">Active Complaints</th>
-          <th class="min-w-100px">Closed this Month</th>
+          <th class="min-w-100px">Open Complaints</th>
+          <th class="min-w-100px">Open Violations</th>
           <th class="min-w-100px">Number of Buildings</th>
         </tr>
         </thead>
@@ -108,8 +108,8 @@
           <tr>
             <td><%= portfolio.name %></td>
             <td><%= link_to portfolio.complaints.open.size, portfolio_complaints_path(portfolio, state: 'open') %></td>
-            <td><%= link_to portfolio.complaints.closed.size, portfolio_complaints_path(portfolio, state: 'closed') %></td>
-            <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio) %></td>
+            <td><%= link_to portfolio.violations.open.size, portfolio_violations_path(portfolio, state: 'open') %></td>
+            <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio) %></h4></td>
             <td class="text-end">
               <div class="dropdown">
                 <div class="btn btn-sm btn-light dropdown-toggle">
