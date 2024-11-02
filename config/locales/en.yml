@@ -38,6 +38,7 @@ en:
     5: Staten Island
   building_create_success: Building has been added successfully! We are now monitoring it for any complaints and violations
   building_delete_success: Building has been deleted successfully
+  building_input_message: Providing complete and accurate information about the building is essential, as these details determine the required monthly, quarterly, annual, and quinquennial inspections you must file with the city. Based on this information, we’ll send you timely reminders for inspection filings. Missing or incomplete information could lead to missed inspection deadlines, resulting in potential violations and penalties.
   building_update_success: Building has been updated successfully
   complaint_create_success: Complaint has been added successfully
   complaint_delete_success: Complaint has been deleted successfully
