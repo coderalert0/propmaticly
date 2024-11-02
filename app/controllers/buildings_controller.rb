@@ -6,47 +6,44 @@ class BuildingsController < ApplicationController
   load_and_authorize_resource
   load_and_authorize_resource :portfolio
 
+  def save_building
+    @building = Building.find_or_initialize_by(id: params[:id])
+
+    address = AddressHelper.normalize(
+      number: building_params[:number].strip,
+      street: building_params[:street].strip,
+      zip5: building_params[:zip5].strip
+    )
+
+    number, street = address.address1.split(' ', 2)
+    bbl_bin = BuildingHelper.get_bbl_bin(number, street, address.zip5)
+
+    attributes = { name: building_params[:name],
+                   number: number,
+                   street: street,
+                   city: address.city,
+                   state: address.state,
+                   zip5: address.zip5,
+                   portfolio_id: building_params[:portfolio_id] }.merge!(bbl_bin)
+
+    @building.assign_attributes(attributes)
+
+    if @building.save
+      flash[:success] = @building.persisted? ? t(:building_update_success) : t(:building_create_success)
+    end
+  rescue USPS::InvalidStateError
+    flash[:danger] = t(:invalid_state_error)
+  rescue StandardError => e
+    flash[:danger] = e.message
+  end
+
+  alias create save_building
+  alias update save_building
+
   def index
     @buildings = @portfolio.buildings
     @buildings = @buildings.order(:name, :asc).page(params[:page])
     @buildings = PaginationDecorator.decorate(@buildings)
-  end
-
-  def create
-    address = AddressHelper.normalize({ number: building_params[:number].strip, street: building_params[:street].strip,
-                                        zip5: building_params[:zip5].strip })
-
-    number, street = address.address1.split(' ', 2)
-
-    building = Building.new(name: building_params[:name],
-                            number: number,
-                            street: street,
-                            city: address.city,
-                            state: address.state,
-                            zip5: address.zip5,
-                            portfolio_id: building_params[:portfolio_id])
-
-    flash[:success] = t(:building_create_success) if building.save!
-  rescue USPS::InvalidStateError
-    flash[:danger] = I18n.t(:invalid_state_error)
-  rescue StandardError => e
-    flash[:danger] = e
-  end
-
-  def update
-    address = AddressHelper.normalize({ number: building_params[:number].strip, street: building_params[:street].strip,
-                                        zip5: building_params[:zip5].strip })
-
-    number, street = address.address1.split(' ', 2)
-
-    return unless @building.update(name: building_params[:name], number: number, street: street, city: address.city,
-                                   state: address.state, zip5: address.zip5)
-
-    flash[:success] = t(:building_update_success)
-  rescue USPS::InvalidStateError
-    flash[:danger] = I18n.t(:invalid_state_error)
-  rescue StandardError => e
-    flash[:danger] = e
   end
 
   def destroy

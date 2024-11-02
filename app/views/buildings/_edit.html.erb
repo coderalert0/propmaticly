@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div id="error">
+        <div id="error-<%= building.id %>">
         </div>
 
         <%= form_for(building, remote: true) do |f| %>

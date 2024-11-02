@@ -9,6 +9,8 @@ class CreateBuildings < ActiveRecord::Migration[7.0]
       t.string :city, null: false
       t.string :state
       t.string :zip5
+      t.integer :bbl
+      t.integer :bin
       t.references :portfolio, foreign_key: true
       t.timestamps
     end
