@@ -7,13 +7,8 @@ class ViolationsController < ApplicationController
 
   def index
     def index
-      if @building
-        @violations = @building.violations
-      elsif @portfolio
-        @violations = @portfolio.violations
-      end
-
-      @violations = @violations.send(params[:state]) if params[:state]
+      @violations = @building.violations
+      @violations = @violations.send(params[:state]) if params[:state].present?
       @violations = @violations.order(issue_date: :desc).page(params[:page])
       @violations = PaginationDecorator.decorate(@violations)
     end

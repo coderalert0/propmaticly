@@ -107,8 +107,8 @@
         <% @portfolios.each do |portfolio| %>
           <tr>
             <td><%= portfolio.name %></td>
-            <td><%= link_to portfolio.complaints.open.size, portfolio_complaints_path(portfolio, state: 'open') %></td>
-            <td><%= link_to portfolio.violations.open.size, portfolio_violations_path(portfolio, state: 'open') %></td>
+            <td><%= portfolio.complaints.open.size %></td>
+            <td><%= portfolio.violations.open.size %></td>
             <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio) %></h4></td>
             <td class="text-end">
               <div class="dropdown">

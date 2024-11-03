@@ -1,104 +1,106 @@
 <div>
-  <div>
-    <div class="py-lg-8">
-      <h2>Complaint List</h2>
-    </div>
-
-    <div class="card">
-      <div class="card-header border-0 pt-6">
-        <div class="card-toolbar">
-          <div class="d-flex justify-content-end">
-            <%= link_to 'Add Complaint', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <table class="table align-middle table-row-dashed gy-3">
-          <thead>
-          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-            <th class="min-w-125px">Complaint ID</th>
-            <th class="min-w-100px">Filed Date</th>
-            <th class="min-w-250px">Description</th>
-            <th class="min-w-100px">Status</th>
-            <th class="min-w-125px">Severity</th>
-            <th class="min-w-100px">Updated On</th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @complaints.each do |complaint| %>
-            <tr>
-              <td>
-                <div class="mb-1">
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#complaintModal<%= complaint.id %>">
-                    <%= complaint.complaint_id %>
-                  </a>
-                </div>
-                <div><%= complaint.building.name %></div>
-              </td>
-              <td><%= complaint&.filed_date&.strftime("%D") %></td>
-              <td><%= complaint&.description&.[](0..120) || complaint&.category_code %></td>
-              <td><%= complaint&.state %></td>
-              <td><%= complaint&.severity %></td>
-              <td><%= complaint.updated_at.strftime("%D") %></td>
-              <td class="text-end">
-                <div class="dropdown">
-                  <div class="btn btn-sm btn-light dropdown-toggle">
-                    Actions
-                  </div>
-                  <div class="dropdown-menu">
-                    <div class="dropdown-item">
-                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
-                    </div>
-                    <div class="dropdown-item">
-                      <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <%= render 'edit', complaint: complaint %>
-            <%= render 'delete', complaint: complaint %>
-          <% end %>
-          </tbody>
-        </table>
-
-        <div class="d-flex justify-content-center mt-4">
-          <%= paginate @complaints, theme: 'bootstrap4' %>
-        </div>
-
-        <%= render 'new' %>
-      </div>
-    </div>
-
-    <% @complaints.each do |complaint| %>
-      <div class="modal fade" id="complaintModal<%= complaint.id %>" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2 class="fw-bold">Complaint Details</h2>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body py-10 px-lg-17">
-              <div>
-                <p><strong>Complaint ID:</strong> <%= complaint.complaint_id %></p>
-                <p><strong>Description:</strong> <%= simple_format(complaint.description) %></p>
-                <p><strong>Status:</strong> <%= complaint.state %></p>
-                <p><strong>Category:</strong> <%= complaint.category_code %></p>
-                <p><strong>Severity:</strong> <%= complaint.severity %></p>
-                <p><strong>Filed Date:</strong> <%= complaint.filed_date&.strftime("%D") %></p>
-                <p><strong>Inspection Date:</strong> <%= complaint.inspection_date&.strftime("%D") %></p>
-                <p><strong>Disposition:</strong> <%= complaint.disposition_code %></p>
-                <p><strong>Disposition Date:</strong> <%= complaint.disposition_date&.strftime("%D") if complaint.disposition_date %></p>
-                <p><strong>Updated On:</strong> <%= complaint.updated_at&.strftime("%D") %></p>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
+  <div class="py-lg-8">
+    <h2>Complaint List (<%= @complaints.total_count %>)</h2>
   </div>
+
+  <div class="card">
+    <div class="d-flex border-0 p-6">
+      <div class="me-auto">
+        <%= form_with url: building_complaints_path(@building), method: :get, local: true do %>
+          <%= select_tag :state, options_for_select(ComplaintDecorator.states_select, params[:state]),
+                         class: "form-select",
+                         onchange: "this.form.submit();" %>
+        <% end %>
+      </div>
+
+      <%= link_to 'Add Complaint', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+    </div>
+
+    <div class="card-body">
+      <table class="table align-middle table-row-dashed gy-3">
+        <thead>
+        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+          <th class="min-w-125px">Complaint ID</th>
+          <th class="min-w-100px">Filed Date</th>
+          <th class="min-w-250px">Description</th>
+          <th class="min-w-100px">Status</th>
+          <th class="min-w-125px">Severity</th>
+          <th class="min-w-100px">Updated On</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @complaints.each do |complaint| %>
+          <tr>
+            <td>
+              <div class="mb-1">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#complaintModal<%= complaint.id %>">
+                  <%= complaint.complaint_id %>
+                </a>
+              </div>
+              <div><%= complaint.building.name %></div>
+            </td>
+            <td><%= complaint&.filed_date&.strftime("%D") %></td>
+            <td><%= complaint&.description&.[](0..120) || complaint&.category_code %></td>
+            <td><%= complaint&.state %></td>
+            <td><%= complaint&.severity %></td>
+            <td><%= complaint.updated_at.strftime("%D") %></td>
+            <td class="text-end">
+              <div class="dropdown">
+                <div class="btn btn-sm btn-light dropdown-toggle">
+                  Actions
+                </div>
+                <div class="dropdown-menu">
+                  <div class="dropdown-item">
+                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
+                  </div>
+                  <div class="dropdown-item">
+                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <%= render 'edit', complaint: complaint %>
+          <%= render 'delete', complaint: complaint %>
+        <% end %>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @complaints, theme: 'bootstrap4' %>
+      </div>
+
+      <%= render 'new' %>
+    </div>
+  </div>
+
+  <% @complaints.each do |complaint| %>
+    <div class="modal fade" id="complaintModal<%= complaint.id %>" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="fw-bold">Complaint Details</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-10 px-lg-17">
+            <div>
+              <p><strong>Complaint ID:</strong> <%= complaint.complaint_id %></p>
+              <p><strong>Description:</strong> <%= simple_format(complaint.description) %></p>
+              <p><strong>Status:</strong> <%= complaint.state %></p>
+              <p><strong>Category:</strong> <%= complaint.category_code %></p>
+              <p><strong>Severity:</strong> <%= complaint.severity %></p>
+              <p><strong>Filed Date:</strong> <%= complaint.filed_date&.strftime("%D") %></p>
+              <p><strong>Inspection Date:</strong> <%= complaint.inspection_date&.strftime("%D") %></p>
+              <p><strong>Disposition:</strong> <%= complaint.disposition_code %></p>
+              <p><strong>Disposition Date:</strong> <%= complaint.disposition_date&.strftime("%D") if complaint.disposition_date %></p>
+              <p><strong>Updated On:</strong> <%= complaint.updated_at&.strftime("%D") %></p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

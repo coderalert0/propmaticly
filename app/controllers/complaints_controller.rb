@@ -6,13 +6,8 @@ class ComplaintsController < ApplicationController
   load_and_authorize_resource :portfolio, only: :index
 
   def index
-    if @building
-      @complaints = @building.complaints
-    elsif @portfolio
-      @complaints = @portfolio.complaints
-    end
-
-    @complaints = @complaints.send(params[:state]) if params[:state]
+    @complaints = @building.complaints
+    @complaints = @complaints.send(params[:state]) if params[:state].present?
     @complaints = @complaints.order(filed_date: :desc).page(params[:page])
     @complaints = PaginationDecorator.decorate(@complaints)
   end
