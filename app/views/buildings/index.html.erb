@@ -28,8 +28,8 @@
               <td><div class="text-gray-800 mb-1"><%= building.name %></div></td>
               <td><%= building.portfolio.name %></td>
               <td><div class="text-gray-600 mb-1"><%= building.address1.titleize %>, <%= building.city.titleize %>, <%= building.state %></div></td>
-              <td><%= link_to building.complaints.open.size, building_complaints_path(building, state: 'open') %></h5></td>
-              <td><%= link_to building.violations.open.size, building_violations_path(building, state: 'open') %></h5></td>
+              <td><%= building.open_complaints_link %></td>
+              <td><%= building.open_violations_link %></td>
               <td></td>
               <td class="text-end">
                 <div class="dropdown">

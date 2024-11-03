@@ -109,7 +109,7 @@
             <td><%= portfolio.name %></td>
             <td><%= portfolio.complaints.open.size %></td>
             <td><%= portfolio.violations.open.size %></td>
-            <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio) %></h4></td>
+            <td><%= link_to portfolio.buildings.size, portfolio_buildings_path(portfolio), class: 'badge bg-primary text-white rounded-0' %></td>
             <td class="text-end">
               <div class="dropdown">
                 <div class="btn btn-sm btn-light dropdown-toggle">

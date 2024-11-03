@@ -9,6 +9,10 @@ class ViolationsController < ApplicationController
     def index
       @violations = @building.violations
       @violations = @violations.send(params[:state]) if params[:state].present?
+      if params[:search].present?
+        search = "%#{params[:search].strip}%"
+        @violations = @violations.where('violation_id LIKE ? OR description LIKE ?', search, search)
+      end
       @violations = @violations.order(issue_date: :desc).page(params[:page])
       @violations = PaginationDecorator.decorate(@violations)
     end

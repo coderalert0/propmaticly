@@ -29,10 +29,6 @@ class ComplaintDecorator < Draper::Decorator
     end
   end
 
-  def category_code
-    I18n.t("complaint_category.#{object.category_code}") unless object.category_code.blank?
-  end
-
   def disposition_code
     I18n.t("disposition_code.#{object.disposition_code}") unless object.disposition_code.blank?
   end
