@@ -7,7 +7,7 @@ class Building < ApplicationRecord
   has_many :complaints, dependent: :destroy
   has_many :violations, dependent: :destroy
 
-  validates_presence_of :name, :number, :street, :zip5
+  validates :name, :street, :city, :bin, :portfolio_id, presence: true
   after_commit :trigger_fetch_jobs, on: %i[create update]
 
   private

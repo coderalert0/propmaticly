@@ -3,9 +3,11 @@
 class CreateInspections < ActiveRecord::Migration[7.0]
   def change
     create_table :inspections do |t|
-      t.integer :state, default: 0
-      t.string :description
-      t.references :building, foreign_key: true
+      t.datetime :date, null: false
+      t.string :device_number
+      t.integer :device_status
+      t.references :inspection_rule, foreign_key: true, null: false
+      t.references :building, foreign_key: true, null: false
       t.timestamps
     end
   end

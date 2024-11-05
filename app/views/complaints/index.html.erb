@@ -1,6 +1,6 @@
 <div>
   <div class="py-lg-8">
-    <h2><%= @building&.name %> Complaint List (<%= @complaints&.total_count %>)</h2>
+    <h2><%= @building&.name %> Complaint List (<%= @complaints.try(:total_count) %>)</h2>
   </div>
 
   <div class="card">

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FetchDobComplaintsJob < FetchJob
+class FetchDobComplaintsJob < FetchComplaintsViolationsJob
   private
 
   def url

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FetchHpdComplaintsJob < FetchJob
+class FetchHpdComplaintsJob < FetchComplaintsViolationsJob
   private
 
   def hpd_severity_enum(status)

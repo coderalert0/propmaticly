@@ -2,7 +2,7 @@
 
 require 'faraday'
 
-class FetchJob < ApplicationJob
+class FetchComplaintsViolationsJob < ApplicationJob
   def perform(bin_id = nil)
     bin_ids = where_bin_ids(bin_id)
     query_string = { '$where' => "bin IN (#{bin_ids.map { |bin| "'#{bin}'" }.join(', ')})" }

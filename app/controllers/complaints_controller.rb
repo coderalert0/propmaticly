@@ -8,7 +8,7 @@ class ComplaintsController < ApplicationController
   def index
     @complaints = @building.complaints
     @complaints = @complaints.send(params[:state]) if params[:state].present?
-    binding.break
+
     if params[:search].present?
       search = "%#{params[:search].strip}%"
       @complaints = @complaints.where('complaint_id LIKE ? OR description LIKE ?', search, search)

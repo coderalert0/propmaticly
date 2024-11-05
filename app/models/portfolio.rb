@@ -8,5 +8,5 @@ class Portfolio < ApplicationRecord
   has_many :asset_contacts, as: :assignable, dependent: :destroy
   has_many :users, through: :asset_contacts
 
-  validates :name, presence: true
+  validates :name, :organization_id, presence: true
 end

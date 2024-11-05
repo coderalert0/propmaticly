@@ -2,6 +2,8 @@
 
 class Complaint < ApplicationRecord
   belongs_to :building
+
+  validates :complaint_id, :building_id, presence: true
   # after_commit :send_notification, on: :create
 
   enum severity: {

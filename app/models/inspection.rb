@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class Inspection < ApplicationRecord
+  belongs_to :inspection_rule
   belongs_to :building
 
-  enum state: {
-    failed: 0,
-    passed: 1,
-    in_progress: 2
+  validates :date, :inspection_rule_id, :building_id, presence: true
+
+  enum device_status: {
+    active: 0
   }
 end

@@ -1,6 +1,6 @@
 <div>
   <div class="py-lg-8">
-    <h2><%= @building&.name %> Violations List (<%= @violations&.total_count %>)</h2>
+    <h2><%= @building&.name %> Violations List (<%= @violations.try(:total_count) %>)</h2>
   </div>
   <div class="card">
     <div class="d-flex border-0 p-6">

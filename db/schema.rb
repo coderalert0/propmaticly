@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_05_055334) do
   create_table "asset_contacts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "assignable_type", null: false
@@ -22,46 +22,35 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
   end
 
   create_table "buildings", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "number"
     t.string "street", null: false
     t.string "city", null: false
     t.string "state"
     t.string "zip5"
     t.integer "bbl"
-    t.integer "bin"
-    t.integer "square_feet"
-    t.integer "tax_lot_square_feet"
-    t.integer "number_of_stories"
-    t.integer "boiler_btus"
-    t.boolean "has_elevator"
-    t.boolean "has_sprinklers"
-    t.boolean "has_standpipe"
-    t.boolean "has_backflow"
-    t.boolean "has_cooling_tower"
-    t.integer "number_of_residential_units"
-    t.boolean "has_gas_piping"
-    t.boolean "has_units_with_children_under_10"
-    t.integer "portfolio_id"
+    t.integer "bin", null: false
+    t.json "has_properties", default: {}
+    t.json "numerical_properties", default: {}
+    t.integer "portfolio_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["portfolio_id"], name: "index_buildings_on_portfolio_id"
   end
 
   create_table "complaints", force: :cascade do |t|
-    t.string "complaint_id"
+    t.string "complaint_id", null: false
     t.datetime "filed_date"
     t.string "description"
     t.string "category_code"
+    t.datetime "disposition_date"
+    t.string "disposition_code"
     t.datetime "inspection_date"
-    t.string "link"
     t.integer "state", default: 0
     t.integer "severity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "building_id"
-    t.datetime "disposition_date"
-    t.string "disposition_code"
+    t.integer "building_id", null: false
     t.index ["building_id"], name: "index_complaints_on_building_id"
   end
 
@@ -80,13 +69,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "inspection_rules", force: :cascade do |t|
+    t.integer "compliance_item", null: false
+    t.string "description"
+    t.integer "frequency_in_months", null: false
+    t.json "has_properties", default: {}
+    t.json "numerical_properties", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "inspections", force: :cascade do |t|
-    t.integer "state", default: 0
-    t.string "comment"
-    t.integer "building_id"
+    t.datetime "date", null: false
+    t.string "device_number"
+    t.integer "device_status"
+    t.integer "inspection_rule_id", null: false
+    t.integer "building_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_inspections_on_building_id"
+    t.index ["inspection_rule_id"], name: "index_inspections_on_inspection_rule_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -140,7 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
   end
 
   create_table "violations", force: :cascade do |t|
-    t.string "violation_id"
+    t.string "violation_id", null: false
     t.integer "state", default: 0
     t.datetime "issue_date"
     t.integer "severity"
@@ -148,7 +150,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
     t.string "description"
     t.string "device_number"
     t.string "device_type"
-    t.integer "building_id"
+    t.integer "building_id", null: false
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -159,6 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_08_023601) do
   add_foreign_key "buildings", "portfolios"
   add_foreign_key "complaints", "buildings"
   add_foreign_key "inspections", "buildings"
+  add_foreign_key "inspections", "inspection_rules"
   add_foreign_key "portfolios", "organizations"
   add_foreign_key "users", "organizations"
   add_foreign_key "violations", "buildings"
