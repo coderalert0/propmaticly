@@ -8,11 +8,25 @@ class Building < ApplicationRecord
   has_many :violations, dependent: :destroy
 
   validates :name, :street, :city, :bin, :portfolio_id, presence: true
-  after_commit :trigger_fetch_jobs, on: %i[create update]
+  after_commit :trigger_fetch_complaints_violations_jobs, on: %i[create update]
+
+  def inspection_rules
+    InspectionRule.all.select do |rule|
+      rule_keys = rule.has_properties.select { |_, value| value == true }.keys
+      has_properties_match = rule_keys.all? { |key| has_properties[key] == true }
+
+      numerical_properties_match = rule.numerical_properties.all? do |key, condition|
+        building_value = numerical_properties[key]
+        building_value&.send(condition['operator'], condition['value'])
+      end
+
+      has_properties_match && numerical_properties_match
+    end
+  end
 
   private
 
-  def trigger_fetch_jobs
+  def trigger_fetch_complaints_violations_jobs
     return unless bin.present?
 
     FetchDobComplaintsJob.perform_later bin

@@ -10,8 +10,8 @@
         <div id="error">
         </div>
 
-        <%= form_for(Building.new, remote: true) do |f| %>
-          <%= render partial: 'form', locals: { f: f } %>
+        <%= form_for(building = Building.new, remote: true) do |f| %>
+          <%= render partial: 'form', locals: { f: f, building: building } %>
         <% end %>
       </div>
     </div>

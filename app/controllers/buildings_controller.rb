@@ -18,25 +18,17 @@ class BuildingsController < ApplicationController
     number, street = address.address1.split(' ', 2)
     bbl_bin = BuildingHelper.get_bbl_bin(number, street, address.zip5)
 
-    attributes = { name: building_params[:name],
-                   number: number,
-                   street: street,
-                   city: address.city,
-                   state: address.state,
-                   zip5: address.zip5,
-                   square_feet: building_params[:square_feet],
-                   tax_lot_square_feet: building_params[:tax_lot_square_feet],
-                   number_of_stories: building_params[:number_of_stories],
-                   boiler_btus: building_params[:boiler_btus],
-                   has_elevator: building_params[:has_elevator],
-                   has_sprinklers: building_params[:has_sprinklers],
-                   has_standpipe: building_params[:has_standpipe],
-                   has_backflow: building_params[:has_backflow],
-                   has_cooling_tower: building_params[:has_cooling_tower],
-                   number_of_residential_units: building_params[:number_of_residential_units],
-                   has_gas_piping: building_params[:has_gas_piping],
-                   has_units_with_children_under_10: building_params[:has_units_with_children_under_10],
-                   portfolio_id: building_params[:portfolio_id] }.merge!(bbl_bin)
+    attributes = {
+      name: building_params[:name],
+      number: number,
+      street: street,
+      city: address.city,
+      state: address.state,
+      zip5: address.zip5,
+      numerical_properties: building_params[:numerical_properties],
+      has_properties: building_params[:has_properties],
+      portfolio_id: building_params[:portfolio_id]
+    }.merge!(bbl_bin)
 
     @building.assign_attributes(attributes)
 
@@ -69,9 +61,10 @@ class BuildingsController < ApplicationController
   private
 
   def building_params
-    params.require(:building).permit(:name, :number, :street, :zip5, :square_feet, :tax_lot_square_feet, :number_of_stories,
-                                     :boiler_btus, :has_elevator, :has_sprinklers, :has_standpipe, :has_gas_piping, :has_backflow,
-                                     :has_cooling_tower, :number_of_residential_units, :has_units_with_children_under_10,
-                                     :portfolio_id)
+    params.require(:building).permit(:name, :number, :street, :zip5, :portfolio_id, numerical_properties: {},
+                                                                                    has_properties: {}).tap do |whitelisted|
+      whitelisted[:has_properties]&.transform_values! { |v| v == '1' }
+      whitelisted[:numerical_properties]&.transform_values!(&:to_i)
+    end
   end
 end

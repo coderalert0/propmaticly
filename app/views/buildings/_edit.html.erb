@@ -11,7 +11,7 @@
         </div>
 
         <%= form_for(building, remote: true) do |f| %>
-          <%= render partial: 'form', locals: { f: f } %>
+          <%= render partial: 'form', locals: { f: f, building: building } %>
         <% end %>
       </div>
     </div>
