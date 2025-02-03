@@ -13,6 +13,14 @@ class InspectionRule < ApplicationRecord
     sprinkler_system: 6,
     standpipe_system: 7,
     window_guard: 8,
-    energy_efficiency_ratings: 9
+    energy_efficiency_ratings: 9,
+    annual_property_registration: 10,
+    parking_structure: 11,
+    gas_line: 12,
+    energy_efficiency_ll_87: 13,
+    low_pressure_boiler: 14,
+    high_pressure_boiler: 15,
+    energy_benchmarking: 16,
+    energy_efficiency_ll_133: 17
   }
 end
