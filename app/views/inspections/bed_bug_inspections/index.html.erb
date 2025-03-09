@@ -1,0 +1,107 @@
+<div>
+  <div class="py-lg-8">
+    <h2><%= @building&.name %> Bed Bug Inspections List (<%= @bed_bug_inspections.try(:total_count) %>)</h2>
+  </div>
+  <div class="card">
+    <div class="d-flex border-0 p-6">
+      <div class="me-auto">
+        <%= form_with url: building_inspections_bed_bug_inspections_path(@building), method: :get, local: true do %>
+          <div class="d-flex">
+            <div class="col-lg-12 me-2">
+              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control me-2" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <%= link_to 'Add Bed Bug Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+    </div>
+    <div class="card-body">
+      <table class="table align-middle table-row-dashed gy-3">
+        <thead>
+        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+          <th class="min-w-125px">Inspection ID</th>
+          <th class="min-w-125px">Registration ID</th>
+          <th class="min-w-100px">Of Dwelling Units</th>
+          <th class="min-w-200px">Infested Dwelling Unit Count</th>
+          <th class="min-w-100px">Eradicated Unit Count</th>
+          <th class="min-w-125px">Re-Infested Dwelling Unit</th>
+          <th class="min-w-100px">Filing Date</th>
+          <th class="min-w-125px">Filing Period Start Date</th>
+          <th class="min-w-100px">Filing Period End Date</th>
+          <th class="text-end min-w-100px">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @bed_bug_inspections.each do |bed_bug_inspection| %>
+          <tr>
+            <td>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#inspectionModal<%= bed_bug_inspection.id %>">
+                <div class="mb-1"><%= bed_bug_inspection&.id %></div>
+              </a>
+            </td>
+            <td><%= bed_bug_inspection&.registration_id %></td>
+            <td><%= bed_bug_inspection&.of_dwelling_units %></td>
+            <td><%= bed_bug_inspection&.infested_dwelling_unit_count %></td>
+            <td><%= bed_bug_inspection&.eradicated_unit_count %></td>
+            <td><%= bed_bug_inspection&.re_infested_dwelling_unit %></td>
+            <td><%= bed_bug_inspection&.filing_date&.strftime("%D") %></td>
+            <td><%= bed_bug_inspection&.filing_period_start_date&.strftime("%D") %></td>
+            <td><%= bed_bug_inspection&.filling_period_end_date&.strftime("%D") %></td>
+            <td>
+              <div class="dropdown">
+                <div class="btn btn-sm btn-light dropdown-toggle">
+                  Actions
+                </div>
+                <div class="dropdown-menu">
+                  <div class="dropdown-item">
+                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{bed_bug_inspection.id}" } %>
+                  </div>
+                  <div class="dropdown-item">
+                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{bed_bug_inspection.id}" } %>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <%= render 'edit', bed_bug_inspection: bed_bug_inspection %>
+          <%= render 'delete', bed_bug_inspection: bed_bug_inspection %>
+        <% end %>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @bed_bug_inspections, theme: 'bootstrap4' %>
+      </div>
+      <%= render 'new' %>
+    </div>
+  </div>
+
+  <% @bed_bug_inspections.each do |bed_bug_inspection| %>
+    <div class="modal fade" id="inspectionModal<%= bed_bug_inspection.id %>" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="fw-bold">Inspection Details</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-10 px-lg-17">
+            <div>
+              <p><strong>Registration ID:</strong> <%= bed_bug_inspection.registration_id %></p>
+              <p><strong>Of Dwelling Units:</strong> <%= bed_bug_inspection.of_dwelling_units %></p>
+              <p><strong>Infested Dwelling Unit Count:</strong> <%= bed_bug_inspection.infested_dwelling_unit_count %></p>
+              <p><strong>Eradicated Unit Count:</strong> <%= bed_bug_inspection.eradicated_unit_count %></p>
+              <p><strong>Re-Infested Dwelling Unit:</strong> <%= bed_bug_inspection.re_infested_dwelling_unit %></p>
+              <p><strong>Filing Date:</strong> <%= bed_bug_inspection.filing_date&.strftime("%D") %></p>
+              <p><strong>Filing Period Start Date:</strong> <%= bed_bug_inspection.filing_period_start_date&.strftime("%D") %></p>
+              <p><strong>Filing Period End Date:</strong> <%= bed_bug_inspection.filling_period_end_date&.strftime("%D") %></p>
+              <p><strong>Updated On:</strong> <%= bed_bug_inspection.updated_at&.strftime("%D") %></p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

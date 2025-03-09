@@ -1,0 +1,72 @@
+<div>
+  <div>
+    <div class="py-lg-8">
+      <h2>Elevator Inspections List</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-header border-0 pt-6">
+        <div class="card-toolbar">
+          <%= link_to 'Create Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class="table align-middle table-row-dashed gy-3">
+          <thead>
+          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+            <th class="min-w-125px">Device Number</th>
+            <th class="min-w-125px">Device Type</th>
+            <th class="min-w-125px">Device Status</th>
+            <th class="min-w-125px">Status Date</th>
+            <th class="min-w-125px">Equipment Type</th>
+            <th class="min-w-125px">Periodic Report Year</th>
+            <th class="min-w-125px">Cat1 Report Year</th>
+            <th class="min-w-125px">Cat1 Latest Report Filed</th>
+            <th class="min-w-125px">Cat5 Latest Report Filed</th>
+            <th class="min-w-125px">Periodic Latest Inspection</th>
+          </tr>
+          </thead>
+          <tbody class="text-gray-600">
+          <% @inspections.each do |inspection| %>
+            <tr>
+              <td><%= inspection.device_number %></td>
+              <td><%= inspection.device_type %></td>
+              <td><%= inspection.device_status %></td>
+              <td><%= inspection.status_date %></td>
+              <td><%= inspection.equipment_type %></td>
+              <td><%= inspection.periodic_report_year %></td>
+              <td><%= inspection.cat1_report_year %></td>
+              <td><%= inspection.cat1_latest_report_filed %></td>
+              <td><%= inspection.cat5_latest_report_filed %></td>
+              <td><%= inspection.periodic_latest_inspection %></td>
+
+              <td></td>
+              <td class="text-end">
+                <div class="dropdown">
+                  <div class="btn btn-sm btn-light dropdown-toggle">
+                    Actions
+                  </div>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
+                    </div>
+                    <div class="dropdown-item">
+                      <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{inspection.id}" } %>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <%#= render 'edit', inspection: inspection %>
+            <%#= render 'delete', inspection: inspection %>
+          <% end %>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center mt-4">
+          <%= paginate @inspections, theme: 'bootstrap4' %>
+        </div>
+        <%#= render 'new' %>
+      </div>
+    </div>
+  </div>
+</div>

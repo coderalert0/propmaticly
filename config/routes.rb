@@ -28,7 +28,13 @@ Rails.application.routes.draw do
   resources :buildings do
     resources :complaints
     resources :violations
-    resources :inspections
+    namespace :inspections do
+      resources :bed_bug_inspections
+      resources :boiler_inspections
+      resources :cooling_tower_inspections
+      resources :elevator_inspections
+      resources :facade_inspections
+    end
   end
   resources :complaints
   resources :violations

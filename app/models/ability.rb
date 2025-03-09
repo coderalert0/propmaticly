@@ -10,7 +10,7 @@ class Ability
     can :manage, Complaint, id: user.buildings.map(&:complaints).flatten.pluck(:id)
     can :manage, Violation, id: user.buildings.map(&:violations).flatten.pluck(:id)
     can :manage, Portfolio, id: user.buildings.map(&:portfolio).flatten.pluck(:id)
-    can :manage, Inspection, id: user.buildings.map(&:inspections).flatten.pluck(:id)
+    can :manage, BedBugInspection, id: user.buildings.map(&:bed_bug_inspections).flatten.pluck(:id)
 
     return unless user.admin?
 
@@ -22,5 +22,6 @@ class Ability
     can :manage, Complaint, id: user.organization.complaints.pluck(:id)
     can :manage, Violation, id: user.organization.violations.pluck(:id)
     can :manage, Portfolio, id: user.organization.portfolios.pluck(:id)
+    can :manage, BedBugInspection, id: user.organization.bed_bug_inspections.pluck(:id)
   end
 end

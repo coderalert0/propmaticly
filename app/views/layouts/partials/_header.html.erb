@@ -6,8 +6,9 @@
       <% if user_signed_in? %>
         <li><h4><%= link_to "Dashboard", root_path, class: 'me-10' %></h4></li>
         <% if current_user&.admin? %>
-          <li><h4><%= link_to "Users", users_path %></h4></li>
+          <li><h4><%= link_to "Users", users_path, class: 'me-10'  %></h4></li>
         <% end %>
+        <li><h4><%= link_to "Inspections", root_path %></h4></li>
       <% end %>
     </ul>
 

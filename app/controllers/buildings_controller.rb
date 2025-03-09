@@ -46,7 +46,7 @@ class BuildingsController < ApplicationController
 
   def index
     @buildings = @portfolio.buildings
-    @buildings = @buildings.order(:name, :asc).page(params[:page])
+    @buildings = @buildings.order(:name).page(params[:page])
     @buildings = PaginationDecorator.decorate(@buildings)
   end
 

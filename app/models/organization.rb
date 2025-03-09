@@ -6,4 +6,5 @@ class Organization < ApplicationRecord
   has_many :buildings, through: :portfolios
   has_many :complaints, through: :buildings
   has_many :violations, through: :buildings
+  has_many :bed_bug_inspections, through: :buildings
 end

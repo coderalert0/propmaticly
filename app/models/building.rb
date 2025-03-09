@@ -6,7 +6,12 @@ class Building < ApplicationRecord
   has_many :users, through: :asset_contacts
   has_many :complaints, dependent: :destroy
   has_many :violations, dependent: :destroy
-  has_many :inspections, dependent: :destroy
+
+  has_many :bed_bug_inspections, dependent: :destroy
+  has_many :boiler_inspections, dependent: :destroy
+  has_many :cooling_tower_inspections, dependent: :destroy
+  has_many :elevator_inspections, dependent: :destroy
+  has_many :facade_inspections, dependent: :destroy
 
   validates :name, :street, :city, :bin, :portfolio_id, presence: true
   after_commit :trigger_fetch_complaints_violations_jobs, on: %i[create update]
