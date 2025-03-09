@@ -11,7 +11,7 @@ module Inspections
     end
 
     def inspection_rule
-      InspectionRule.find_by(compliance_item: :cooling_tower)
+      InspectionRules::InspectionRule.find_by(compliance_item: :cooling_tower)
     end
 
     def existing_record

@@ -13,7 +13,7 @@ class Building < ApplicationRecord
   after_commit :trigger_fetch_complaints_violations_jobs, on: %i[create update]
 
   def inspection_rules
-    InspectionRule.all.select do |rule|
+    InspectionRules::InspectionRule.all.select do |rule|
       rule_keys = rule.has_properties.select { |_, value| value == true }.keys
       has_properties_match = rule_keys.all? { |key| has_properties[key] == true }
 

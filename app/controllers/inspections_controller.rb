@@ -3,7 +3,7 @@
 class InspectionsController < ApplicationController
   load_and_authorize_resource only: %i[update destroy]
   load_and_authorize_resource :building, only: :index
-  load_and_authorize_resource :inspection_rule, only: :index
+  load_and_authorize_resource :inspection_rule, class: 'InspectionRules::InspectionRule', only: :index
 
   def index
     @inspections = @building.inspections.where(inspection_rule_id: @inspection_rule.id)
@@ -15,6 +15,7 @@ class InspectionsController < ApplicationController
     end
 
     @inspections = @inspections.order(filing_date: :desc).page(params[:page])
+    @inspection_rule = @inspection_rule.decorate
   end
 
   def create
@@ -63,6 +64,6 @@ class InspectionsController < ApplicationController
 
   def inspection_rule
     # probably will be input from a form dropdown for creating only
-    InspectionRule.find_by(compliance_item: :bed_bug).id
+    InspectionRules::InspectionRule.find_by(compliance_item: :bed_bug).id
   end
 end

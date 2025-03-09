@@ -14,11 +14,13 @@
         <% end %>
       </div>
 
-      <%= link_to 'Add Bed Bug Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+      <% if can?(:create, Inspection) %>
+        <%= link_to 'Add Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+      <% end %>
     </div>
     <div class="card-body">
       <table class="table align-middle table-row-dashed gy-3">
-        <%= @inspection_rule.decorate.header&.html_safe %>
+        <%= @inspection_rule.header&.html_safe %>
         <tbody>
         <% @inspections.each do |inspection| %>
           <tr>
@@ -32,15 +34,21 @@
                   Actions
                 </div>
                 <div class="dropdown-menu">
-                  <div class="dropdown-item">
-                    <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
-                  </div>
-                  <div class="dropdown-item">
-                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
-                  </div>
-                  <div class="dropdown-item">
-                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{inspection.id}" } %>
-                  </div>
+                  <% if can?(:read, inspection) %>
+                    <div class="dropdown-item">
+                      <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
+                    </div>
+                  <% end %>
+                  <% if can?(:edit, inspection) %>
+                    <div class="dropdown-item">
+                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
+                    </div>
+                  <% end %>
+                  <% if can?(:delete, inspection) %>
+                    <div class="dropdown-item">
+                      <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{inspection.id}" } %>
+                    </div>
+                  <% end %>
                 </div>
               </div>
             </td>
