@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class InspectionRule < ApplicationRecord
+  has_many :inspections, dependent: :destroy
+
   validates :compliance_item, :frequency_in_months, presence: true
 
   enum compliance_item: {
@@ -19,9 +21,7 @@ class InspectionRule < ApplicationRecord
     parking_structure: 12,
     gas_line: 13,
     energy_efficiency_ll_87: 14,
-    low_pressure_boiler: 15,
-    high_pressure_boiler: 16,
-    energy_benchmarking: 17,
-    energy_efficiency_ll_133: 18
+    energy_benchmarking: 15,
+    energy_efficiency_ll_133: 16
   }
 end

@@ -5,7 +5,7 @@
   <div class="card">
     <div class="d-flex border-0 p-6">
       <div class="me-auto">
-        <%= form_with url: building_inspections_path(@building), method: :get, local: true do %>
+        <%= form_with url: building_inspection_rule_inspections_path(@building, @inspection_rule), method: :get, local: true do %>
           <div class="d-flex">
             <div class="col-lg-12 me-2">
               <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control me-2" %>
@@ -18,36 +18,13 @@
     </div>
     <div class="card-body">
       <table class="table align-middle table-row-dashed gy-3">
-        <thead>
-        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-          <th class="min-w-125px">Inspection ID</th>
-          <th class="min-w-125px">Registration ID</th>
-          <th class="min-w-100px">Of Dwelling Units</th>
-          <th class="min-w-200px">Infested Dwelling Unit Count</th>
-          <th class="min-w-100px">Eradicated Unit Count</th>
-          <th class="min-w-125px">Re-Infested Dwelling Unit</th>
-          <th class="min-w-100px">Filing Date</th>
-          <th class="min-w-125px">Filing Period Start Date</th>
-          <th class="min-w-100px">Filing Period End Date</th>
-          <th class="text-end min-w-100px">Actions</th>
-        </tr>
-        </thead>
+        <%= @inspection_rule.decorate.header&.html_safe %>
         <tbody>
         <% @inspections.each do |inspection| %>
           <tr>
-            <td>
-              <a href="#" data-bs-toggle="modal" data-bs-target="#inspectionModal<%= inspection.id %>">
-                <div class="mb-1"><%= inspection&.id %></div>
-              </a>
-            </td>
-
-            <% if inspection&.data.present? %>
-              <% inspection.data.values.each do |value| %>
-                <td><%= value %></td>
-              <% end %>
+            <% inspection.inspection_rule.class.highlighted_attributes.each do |attribute| %>
+              <td><%= inspection.data[attribute.to_s] %></td>
             <% end %>
-
-
 
             <td>
               <div class="dropdown">
@@ -55,6 +32,9 @@
                   Actions
                 </div>
                 <div class="dropdown-menu">
+                  <div class="dropdown-item">
+                    <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
+                  </div>
                   <div class="dropdown-item">
                     <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
                   </div>
@@ -90,7 +70,7 @@
           <div class="modal-body">
             <div class="row">
               <% inspection.data.keys.sort.each_slice(10) do |chunk| %>
-                <div class="col-lg-6"> <!-- Removed mb-4 to avoid vertical spacing -->
+                <div class="col-lg-6">
                   <% chunk.each do |key| %>
                     <p><strong><%= key.titleize %>: </strong><%= inspection.data[key] %></p> <!-- Capitalized Keys -->
                   <% end %>

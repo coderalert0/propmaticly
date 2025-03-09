@@ -36,37 +36,37 @@
         </tr>
         </thead>
         <tbody>
-        <% @violations.each do |violation| %>
-          <tr>
-            <td>
-              <a href="#" data-bs-toggle="modal" data-bs-target="#violationModal<%= violation.id %>">
-                <div class="mb-1"><%= violation&.violation_id %></div>
-              </a>
-            </td>
-            <td><%= violation&.issue_date&.strftime("%D") %></td>
-            <td><%= violation&.description&.[](0..120) %></td>
-            <td><%= violation&.state %></td>
-            <td><%= violation&.severity %></td>
-            <td><%= violation.updated_at.strftime("%D") %></td>
-            <td>
-              <div class="dropdown">
-                <div class="btn btn-sm btn-light dropdown-toggle">
-                  Actions
-                </div>
-                <div class="dropdown-menu">
-                  <div class="dropdown-item">
-                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
+          <% @violations.each do |violation| %>
+            <tr>
+              <td>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#violationModal<%= violation.id %>">
+                  <div class="mb-1"><%= violation&.violation_id %></div>
+                </a>
+              </td>
+              <td><%= violation&.issue_date&.strftime("%D") %></td>
+              <td><%= violation&.description&.[](0..120) %></td>
+              <td><%= violation&.state %></td>
+              <td><%= violation&.severity %></td>
+              <td><%= violation.updated_at.strftime("%D") %></td>
+              <td>
+                <div class="dropdown">
+                  <div class="btn btn-sm btn-light dropdown-toggle">
+                    Actions
                   </div>
-                  <div class="dropdown-item">
-                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{violation.id}" } %>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
+                    </div>
+                    <div class="dropdown-item">
+                      <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{violation.id}" } %>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-          <%= render 'edit', violation: violation %>
-          <%= render 'delete', violation: violation %>
-        <% end %>
+              </td>
+            </tr>
+            <%= render 'edit', violation: violation %>
+            <%= render 'delete', violation: violation %>
+          <% end %>
         </tbody>
       </table>
       <div class="d-flex justify-content-center mt-4">

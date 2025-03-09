@@ -6,6 +6,7 @@ class CreateInspectionRules < ActiveRecord::Migration[7.0]
       t.integer :frequency_in_months, null: false
       t.json :has_properties, default: {}
       t.json :numerical_properties, default: {}
+      t.string :type, null: false
       t.timestamps
     end
   end

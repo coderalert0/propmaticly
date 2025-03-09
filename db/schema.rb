@@ -106,6 +106,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_09_054717) do
     t.integer "frequency_in_months", null: false
     t.json "has_properties", default: {}
     t.json "numerical_properties", default: {}
+    t.string "type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

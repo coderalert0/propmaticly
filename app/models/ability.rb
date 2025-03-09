@@ -11,6 +11,7 @@ class Ability
     can :manage, Complaints::Complaint, id: user.buildings.map(&:complaints).flatten.pluck(:id)
     can :manage, Violations::Violation, id: user.buildings.map(&:violations).flatten.pluck(:id)
     can :manage, Inspection, id: user.buildings.map(&:inspections).flatten.pluck(:id)
+    can :read, InspectionRule
 
     return unless user.admin?
 

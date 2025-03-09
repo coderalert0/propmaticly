@@ -3,9 +3,10 @@
 class InspectionsController < ApplicationController
   load_and_authorize_resource only: %i[update destroy]
   load_and_authorize_resource :building, only: :index
+  load_and_authorize_resource :inspection_rule, only: :index
 
   def index
-    @inspections = @building.inspections
+    @inspections = @building.inspections.where(inspection_rule_id: @inspection_rule.id)
 
     if params[:search].present?
       search = "%#{params[:search].strip}%"

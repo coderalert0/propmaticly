@@ -1,0 +1,32 @@
+<div>
+  <div class="py-lg-8">
+    <h2><%= @building&.name %> Compliance Items List (<%= @inspection_rules.try(:total_count) %>)</h2>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <table class="table align-middle table-row-dashed gy-3">
+        <thead>
+        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+          <th class="min-w-125px">Compliance Item</th>
+          <th class="min-w-125px">Description</th>
+          <th class="min-w-100px">Frequency in Months</th>
+          <th class="min-w-200px">For Buildings With</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @inspection_rules.each do |inspection_rule| %>
+          <tr>
+            <td><%= inspection_rule&.compliance_item_inspections_link(@building) %></td>
+            <td><%= inspection_rule&.description %></td>
+            <td><%= inspection_rule&.frequency_in_months %></td>
+            <td><%= inspection_rule&.building_properties %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @inspection_rules, theme: 'bootstrap4' %>
+      </div>
+    </div>
+  </div>
+</div>

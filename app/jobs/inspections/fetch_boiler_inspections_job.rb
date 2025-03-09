@@ -16,7 +16,7 @@ module Inspections
 
     def inspection_rule
       compliance_item = @resource['pressure_type'].downcase.gsub(' ', '_') << '_boiler'
-      InspectionRule.find_by(compliance_item: compliance_item.to_sym)
+      BoilerInspectionRule.find_by(compliance_item: compliance_item.to_sym)
     end
 
     def existing_record
