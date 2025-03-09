@@ -10,18 +10,18 @@ module Inspections
       'https://data.cityofnewyork.us/resource/wz6d-d3jb.json'
     end
 
-    def model_clazz
-      BedBugInspection
-    end
-
     def inspection_rule
       InspectionRule.find_by(compliance_item: :bed_bug)
     end
 
     def existing_record
-      model_clazz.find_by(registration_id: @resource['registration_id'],
-                          filing_date: @resource['filing_date'],
-                          building_id: @building.id)
+      Inspection.find_by("data ->> 'registration_id' = ? AND data ->> 'filing_date' = ? AND building_id = ?",
+                         @resource['registration_id'], @resource['filing_date'], @building.id)
+    end
+
+    def filtered_columns
+      %i[registration_id of_dwelling_units infested_dwelling_unit_count eradicated_unit_count
+         re_infested_dwelling_unit filing_date filing_period_start_date filling_period_end_date]
     end
   end
 end

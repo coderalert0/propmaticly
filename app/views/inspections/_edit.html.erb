@@ -1,4 +1,4 @@
-<div class="modal fade modal-xl" id="editModal<%= bed_bug_inspection.id %>" tabindex="-1" aria-hidden="true" data-controller="modal">
+<div class="modal fade modal-xl" id="editModal<%= inspection.id %>" tabindex="-1" aria-hidden="true" data-controller="modal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,8 +7,8 @@
       </div>
       <div class="modal-body">
         <!--begin::Form-->
-        <%= form_for(bed_bug_inspection, url: building_inspections_bed_bug_inspection_path(@building, bed_bug_inspection)) do |f| %>
-          <%= render partial: 'form', locals: { f: f } %>
+        <%= form_for(inspection, url: building_inspection_path(@building, inspection)) do |f| %>
+          <%#= render partial: 'form', locals: { f: f } %>
         <% end %>
         <!--end::Form-->
       </div>

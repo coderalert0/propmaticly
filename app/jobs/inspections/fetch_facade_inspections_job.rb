@@ -10,19 +10,19 @@ module Inspections
       'https://data.cityofnewyork.us/resource/xubg-57si.json'
     end
 
-    def model_clazz
-      FacadeInspection
-    end
-
     def inspection_rule
       InspectionRule.find_by(compliance_item: :facade)
     end
 
     def existing_record
-      model_clazz.find_by(tr6_no: @resource['tr6_no'],
-                          control_no: @resource['control_no'],
-                          filing_type: @resource['filing_type'],
-                          building_id: @building.id)
+      Inspection.find_by("data ->> 'tr6_no' = ? AND data ->> 'control_no' = ? AND data ->> 'filing_type' = ? AND building_id = ?",
+                         @resource['tr6_no'], @resource['control_no'], @resource['filing_type'], @building.id)
+    end
+
+    def filtered_columns
+      %i[tr6_no control_no filing_type cycle sequence_no submitted_on current_status qewi_name
+         qewi_bus_name qewi_nys_lic_no filing_date filing_status field_inspection_completed_date
+         qewi_signed_date late_filing_amt failure_to_file_amt failure_to_collect_amt comments]
     end
   end
 end

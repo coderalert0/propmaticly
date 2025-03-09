@@ -10,18 +10,18 @@ module Inspections
       'https://data.cityofnewyork.us/resource/e5aq-a4j2.json'
     end
 
-    def model_clazz
-      ElevatorInspection
-    end
-
     def inspection_rule
       InspectionRule.find_by(compliance_item: :elevator)
     end
 
     def existing_record
-      model_clazz.find_by(device_number: @resource['device_number'],
-                          periodic_report_year: @resource['periodic_report_year'],
-                          building_id: @building.id)
+      Inspection.find_by("data ->> 'device_number' = ? AND data ->> 'periodic_report_year' = ? AND building_id = ?",
+                         @resource['device_number'], @resource['periodic_report_year'], @building.id)
+    end
+
+    def filtered_columns
+      %i[device_number device_type device_status status_date equipment_type periodic_report_year
+         cat1_report_year cat1_latest_report_filed cat5_latest_report_filed periodic_latest_inspection]
     end
   end
 end

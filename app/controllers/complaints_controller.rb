@@ -44,7 +44,7 @@ class ComplaintsController < ApplicationController
 
   def complaint_params
     params.require(:complaints_complaint).permit(:id, :complaint_id, :state, :filed_date, :description, :category_code, :severity,
-                                      :inspection_date, :state, :disposition_date, :disposition_code, :building_id)
+                                                 :inspection_date, :state, :disposition_date, :disposition_code, :building_id)
   end
 
   def create_update_hash

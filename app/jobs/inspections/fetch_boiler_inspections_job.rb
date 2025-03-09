@@ -14,20 +14,21 @@ module Inspections
       { '$where' => "bin_number = '#{@bin_id}'" }
     end
 
-    def model_clazz
-      BoilerInspection
-    end
-
     def inspection_rule
       compliance_item = @resource['pressure_type'].downcase.gsub(' ', '_') << '_boiler'
       InspectionRule.find_by(compliance_item: compliance_item.to_sym)
     end
 
     def existing_record
-      model_clazz.find_by(tracking_number: @resource['tracking_number'],
-                          boiler_id: @resource['boiler_id'],
-                          report_type: @resource['report_type'],
-                          building_id: @building.id)
+      Inspection.find_by("data ->> 'tracking_number' = ? AND data ->> 'boiler_id' = ? AND data ->> 'report_type' = ? AND building_id = ?",
+                         @resource['tracking_number'], @resource['boiler_id'], @resource['report_type'], @building.id)
+    end
+
+    def filtered_columns
+      %i[tracking_number boiler_id report_type applicantfirst_name applicant_last_name
+         applicant_license_type applicant_license_number boiler_make boiler_model pressure_type
+         inspection_type inspection_date defects_exist lff_45_days lff_180_days filing_fee
+         total_amount_paid report_status]
     end
   end
 end

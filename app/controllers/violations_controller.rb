@@ -42,7 +42,7 @@ class ViolationsController < ApplicationController
 
   def violation_params
     params.require(:violations_violation).permit(:id, :violation_id, :violation_type, :description, :issue_date,
-                                      :device_number, :device_type, :state, :severity, :building_id)
+                                                 :device_number, :device_type, :state, :severity, :building_id)
   end
 
   def create_update_hash

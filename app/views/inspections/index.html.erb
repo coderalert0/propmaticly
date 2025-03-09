@@ -1,0 +1,117 @@
+<div>
+  <div class="py-lg-8">
+    <h2><%= @building&.name %> Inspections List (<%= @inspections.try(:total_count) %>)</h2>
+  </div>
+  <div class="card">
+    <div class="d-flex border-0 p-6">
+      <div class="me-auto">
+        <%= form_with url: building_inspections_path(@building), method: :get, local: true do %>
+          <div class="d-flex">
+            <div class="col-lg-12 me-2">
+              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control me-2" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <%= link_to 'Add Bed Bug Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+    </div>
+    <div class="card-body">
+      <table class="table align-middle table-row-dashed gy-3">
+        <thead>
+        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+          <th class="min-w-125px">Inspection ID</th>
+          <th class="min-w-125px">Registration ID</th>
+          <th class="min-w-100px">Of Dwelling Units</th>
+          <th class="min-w-200px">Infested Dwelling Unit Count</th>
+          <th class="min-w-100px">Eradicated Unit Count</th>
+          <th class="min-w-125px">Re-Infested Dwelling Unit</th>
+          <th class="min-w-100px">Filing Date</th>
+          <th class="min-w-125px">Filing Period Start Date</th>
+          <th class="min-w-100px">Filing Period End Date</th>
+          <th class="text-end min-w-100px">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @inspections.each do |inspection| %>
+          <tr>
+            <td>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#inspectionModal<%= inspection.id %>">
+                <div class="mb-1"><%= inspection&.id %></div>
+              </a>
+            </td>
+
+            <% if inspection&.data.present? %>
+              <% inspection.data.values.each do |value| %>
+                <td><%= value %></td>
+              <% end %>
+            <% end %>
+
+
+
+            <td>
+              <div class="dropdown">
+                <div class="btn btn-sm btn-light dropdown-toggle">
+                  Actions
+                </div>
+                <div class="dropdown-menu">
+                  <div class="dropdown-item">
+                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
+                  </div>
+                  <div class="dropdown-item">
+                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{inspection.id}" } %>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <%= render 'edit', inspection: inspection %>
+          <%= render 'delete', inspection: inspection %>
+        <% end %>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @inspections, theme: 'bootstrap4' %>
+      </div>
+      <%= render 'new' %>
+    </div>
+  </div>
+
+  <% @inspections.each do |inspection| %>
+    <div class="modal fade" id="inspectionModal<%= inspection.id %>" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="fw-bold"><%= inspection.inspection_rule.compliance_item.humanize.titleize %> Inspection Details</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+
+          <div class="modal-body">
+            <div class="row">
+              <% inspection.data.keys.sort.each_slice(10) do |chunk| %>
+                <div class="col-lg-6"> <!-- Removed mb-4 to avoid vertical spacing -->
+                  <% chunk.each do |key| %>
+                    <p><strong><%= key.titleize %>: </strong><%= inspection.data[key] %></p> <!-- Capitalized Keys -->
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+
+            <p><strong>Updated On:</strong> <%= inspection&.updated_at&.strftime("%D") %></p>
+          </div>
+
+
+
+
+
+        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

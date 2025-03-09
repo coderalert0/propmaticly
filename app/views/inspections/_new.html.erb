@@ -7,8 +7,8 @@
       </div>
       <div class="modal-body">
         <!--begin::Form-->
-        <%= form_for(Inspections::BedBugInspection.new, url: building_inspections_bed_bug_inspections_path(@building)) do |f| %>
-          <%= render partial: 'form', locals: { f: f } %>
+        <%= form_for(Inspection.new, url: building_inspections_path(@building)) do |f| %>
+          <%#= render partial: 'form', locals: { f: f } %>
         <% end %>
         <!--end::Form-->
       </div>

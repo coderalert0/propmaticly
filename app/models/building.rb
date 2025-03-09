@@ -7,7 +7,7 @@ class Building < ApplicationRecord
   has_many :complaints, class_name: 'Complaints::Complaint', dependent: :destroy
   has_many :violations, class_name: 'Violations::Violation', dependent: :destroy
 
-  has_many :bed_bug_inspections, class_name: 'Inspections::BedBugInspection', dependent: :destroy
+  has_many :inspections, dependent: :destroy
 
   validates :name, :street, :city, :bin, :portfolio_id, presence: true
   after_commit :trigger_fetch_complaints_violations_jobs, on: %i[create update]

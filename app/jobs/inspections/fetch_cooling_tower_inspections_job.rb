@@ -10,19 +10,19 @@ module Inspections
       'https://data.cityofnewyork.us/resource/f9wb-g8mb.json'
     end
 
-    def model_clazz
-      CoolingTowerInspection
-    end
-
     def inspection_rule
       InspectionRule.find_by(compliance_item: :cooling_tower)
     end
 
     def existing_record
-      model_clazz.find_by(system_id: @resource['system_id'],
-                          inspection_date: @resource['inspection_date'],
-                          inspection_type: @resource['inspection_type'],
-                          building_id: @building.id)
+      Inspection.find_by("data ->> 'system_id' = ? AND data ->> 'inspection_date' = ? AND data ->> 'inspection_type' = ? AND building_id = ?",
+                         @resource['system_id'], @resource['inspection_date'], @resource['inspection_type'], @building.id)
+    end
+
+    def filtered_columns
+      %i[system_id status active_equip inspection_date violation_code
+         law_section violation_text violation_type citation_text summons_number
+         inspection_type]
     end
   end
 end
