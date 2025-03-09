@@ -6,22 +6,22 @@ class Ability
   def initialize(user)
     return unless user.present?
 
-    can :manage, Building, id: user.buildings.pluck(:id)
-    can :manage, Complaint, id: user.buildings.map(&:complaints).flatten.pluck(:id)
-    can :manage, Violation, id: user.buildings.map(&:violations).flatten.pluck(:id)
     can :manage, Portfolio, id: user.buildings.map(&:portfolio).flatten.pluck(:id)
-    can :manage, BedBugInspection, id: user.buildings.map(&:bed_bug_inspections).flatten.pluck(:id)
+    can :manage, Building, id: user.buildings.pluck(:id)
+    can :manage, Complaints::Complaint, id: user.buildings.map(&:complaints).flatten.pluck(:id)
+    can :manage, Violations::Violation, id: user.buildings.map(&:violations).flatten.pluck(:id)
+    can :manage, Inspections::BedBugInspection, id: user.buildings.map(&:bed_bug_inspections).flatten.pluck(:id)
 
     return unless user.admin?
 
-    [Building, Complaint, Violation, Portfolio].each do |resource|
+    [Building, Complaints::Complaint, Violations::Violation, Portfolio].each do |resource|
       can :manage, resource
     end
 
-    can :manage, Building, id: user.organization.buildings.pluck(:id)
-    can :manage, Complaint, id: user.organization.complaints.pluck(:id)
-    can :manage, Violation, id: user.organization.violations.pluck(:id)
     can :manage, Portfolio, id: user.organization.portfolios.pluck(:id)
-    can :manage, BedBugInspection, id: user.organization.bed_bug_inspections.pluck(:id)
+    can :manage, Building, id: user.organization.buildings.pluck(:id)
+    can :manage, Complaints::Complaint, id: user.organization.complaints.pluck(:id)
+    can :manage, Violations::Violation, id: user.organization.violations.pluck(:id)
+    can :manage, Inspections::BedBugInspection, id: user.organization.bed_bug_inspections.pluck(:id)
   end
 end

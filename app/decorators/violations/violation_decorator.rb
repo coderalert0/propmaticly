@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ViolationDecorator < Draper::Decorator
+class Violations::ViolationDecorator < Draper::Decorator
   delegate_all
 
   STATE_CLASSES = {

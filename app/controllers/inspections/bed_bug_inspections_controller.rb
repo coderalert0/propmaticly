@@ -41,9 +41,9 @@ module Inspections
     private
 
     def inspection_params
-      params.require(:bed_bug_inspection).permit(:registration_id, :of_dwelling_units, :infested_dwelling_unit_count,
-                                                 :eradicated_unit_count, :re_infested_dwelling_unit, :filing_date,
-                                                 :filing_period_start_date, :filling_period_end_date, :building_id)
+      params.require(:inspections_bed_bug_inspection).permit(:registration_id, :of_dwelling_units, :infested_dwelling_unit_count,
+                                                             :eradicated_unit_count, :re_infested_dwelling_unit, :filing_date,
+                                                             :filing_period_start_date, :filling_period_end_date, :building_id)
     end
 
     def create_update_hash

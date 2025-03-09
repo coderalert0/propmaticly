@@ -25,7 +25,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4">Status</label>
         <div class="col-lg-8">
-          <%= f.collection_select :state, ComplaintDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
+          <%= f.collection_select :state, Complaints::ComplaintDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
       </div>
       <!--end::Input group 4-->
@@ -39,7 +39,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4">Category</label>
         <div class="col-lg-8">
-          <%= f.collection_select :category_code, ComplaintDecorator.categories_code_select, :last, :first, { selected: f.try(:object).try(:object).try(:category_code) }, class: 'form-select form-select-lg form-select-solid' %>
+          <%= f.collection_select :category_code, Complaints::ComplaintDecorator.categories_code_select, :last, :first, { selected: f.try(:object).try(:object).try(:category_code) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
       </div>
       <!--end::Input group 4-->
@@ -48,7 +48,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4">Severity</label>
         <div class="col-lg-8">
-          <%= f.collection_select :severity, ComplaintDecorator.severities_select, :last, :first, { selected: f.try(:object).try(:object).try(:severity) }, class: 'form-select form-select-lg form-select-solid' %>
+          <%= f.collection_select :severity, Complaints::ComplaintDecorator.severities_select, :last, :first, { selected: f.try(:object).try(:object).try(:severity) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
       </div>
       <!--end::Input group 4-->
@@ -75,7 +75,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4">Disposition</label>
         <div class="col-lg-8">
-          <%= f.collection_select :disposition_code, ComplaintDecorator.disposition_codes_select, :last, :first, { selected: f.try(:object).try(:object).try(:disposition_code) }, class: 'form-select form-select-lg form-select-solid' %>
+          <%= f.collection_select :disposition_code, Complaints::ComplaintDecorator.disposition_codes_select, :last, :first, { selected: f.try(:object).try(:object).try(:disposition_code) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
       </div>
       <!--end::Input group 4-->

@@ -12,7 +12,7 @@
               <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control me-2" %>
             </div>
             <div class="col-lg-4 me-2">
-              <%= select_tag :state, options_for_select(ComplaintDecorator.states_select, params[:state]), class: "form-select me-2" %>
+              <%= select_tag :state, options_for_select(Complaints::ComplaintDecorator.states_select, params[:state]), class: "form-select me-2" %>
             </div>
             <div class="col-lg-2">
               <%= submit_tag "Filter", class: "btn btn-primary" %>

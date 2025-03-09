@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ComplaintsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource class: 'Complaints::Complaint'
   load_and_authorize_resource :building, only: :index
   load_and_authorize_resource :portfolio, only: :index
 
@@ -18,7 +18,7 @@ class ComplaintsController < ApplicationController
   end
 
   def create
-    complaint = Complaint.new(**create_update_hash)
+    complaint = Complaints::Complaint.new(**create_update_hash)
 
     return unless complaint.save!
 
@@ -43,7 +43,7 @@ class ComplaintsController < ApplicationController
   private
 
   def complaint_params
-    params.require(:complaint).permit(:id, :complaint_id, :state, :filed_date, :description, :category_code, :severity,
+    params.require(:complaints_complaint).permit(:id, :complaint_id, :state, :filed_date, :description, :category_code, :severity,
                                       :inspection_date, :state, :disposition_date, :disposition_code, :building_id)
   end
 

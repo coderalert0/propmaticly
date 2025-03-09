@@ -10,11 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
+ActiveRecord::Schema[7.0].define(version: 2025_03_09_054717) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
   create_table "asset_contacts", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "assignable_type", null: false
-    t.integer "assignable_id", null: false
+    t.bigint "assignable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assignable_type", "assignable_id"], name: "index_asset_contacts_on_assignable"
@@ -30,8 +61,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.datetime "filing_date"
     t.datetime "filing_period_start_date"
     t.datetime "filling_period_end_date"
-    t.integer "building_id", null: false
-    t.integer "inspection_rule_id", null: false
+    t.bigint "building_id", null: false
+    t.bigint "inspection_rule_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_bed_bug_inspections_on_building_id"
@@ -57,8 +88,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.integer "filing_fee"
     t.integer "total_amount_paid"
     t.string "report_status"
-    t.integer "building_id", null: false
-    t.integer "inspection_rule_id", null: false
+    t.bigint "building_id", null: false
+    t.bigint "inspection_rule_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_boiler_inspections_on_building_id"
@@ -76,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.integer "bin", null: false
     t.json "has_properties", default: {}
     t.json "numerical_properties", default: {}
-    t.integer "portfolio_id", null: false
+    t.bigint "portfolio_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["portfolio_id"], name: "index_buildings_on_portfolio_id"
@@ -94,7 +125,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.integer "severity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "building_id", null: false
+    t.bigint "building_id", null: false
     t.index ["building_id"], name: "index_complaints_on_building_id"
   end
 
@@ -110,8 +141,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.string "citation_text"
     t.string "summons_number"
     t.string "inspection_type"
-    t.integer "building_id", null: false
-    t.integer "inspection_rule_id", null: false
+    t.bigint "building_id", null: false
+    t.bigint "inspection_rule_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_cooling_tower_inspections_on_building_id"
@@ -144,8 +175,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.datetime "cat1_latest_report_filed"
     t.datetime "cat5_latest_report_filed"
     t.datetime "periodic_latest_inspection"
-    t.integer "building_id", null: false
-    t.integer "inspection_rule_id", null: false
+    t.bigint "building_id", null: false
+    t.bigint "inspection_rule_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_elevator_inspections_on_building_id"
@@ -171,8 +202,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.integer "failure_to_file_amt"
     t.integer "failure_to_collect_amt"
     t.string "comments"
-    t.integer "building_id", null: false
-    t.integer "inspection_rule_id", null: false
+    t.bigint "building_id", null: false
+    t.bigint "inspection_rule_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_facade_inspections_on_building_id"
@@ -189,17 +220,27 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "inspections", force: :cascade do |t|
+    t.jsonb "data", default: {}
+    t.datetime "filing_date"
+    t.bigint "building_id", null: false
+    t.bigint "inspection_rule_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["building_id"], name: "index_inspections_on_building_id"
+    t.index ["inspection_rule_id"], name: "index_inspections_on_inspection_rule_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "portfolios", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "description"
-    t.string "email_address"
-    t.integer "organization_id", null: false
+    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_portfolios_on_organization_id"
@@ -219,7 +260,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.boolean "admin"
-    t.integer "organization_id", null: false
+    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "invitation_token"
@@ -228,7 +269,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.datetime "invitation_accepted_at"
     t.integer "invitation_limit"
     t.string "invited_by_type"
-    t.integer "invited_by_id"
+    t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -248,13 +289,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
     t.string "description"
     t.string "device_number"
     t.string "device_type"
-    t.integer "building_id", null: false
+    t.bigint "building_id", null: false
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_violations_on_building_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "asset_contacts", "users"
   add_foreign_key "bed_bug_inspections", "buildings"
   add_foreign_key "bed_bug_inspections", "inspection_rules"
@@ -268,6 +311,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_08_191313) do
   add_foreign_key "elevator_inspections", "inspection_rules"
   add_foreign_key "facade_inspections", "buildings"
   add_foreign_key "facade_inspections", "inspection_rules"
+  add_foreign_key "inspections", "buildings"
+  add_foreign_key "inspections", "inspection_rules"
   add_foreign_key "portfolios", "organizations"
   add_foreign_key "users", "organizations"
   add_foreign_key "violations", "buildings"

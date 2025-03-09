@@ -28,7 +28,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4">Status</label>
         <div class="col-lg-8">
-          <%= f.collection_select :state, ViolationDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
+          <%= f.collection_select :state, Violations::ViolationDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
       </div>
       <!--end::Input group 2-->
@@ -55,7 +55,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4">Severity</label>
         <div class="col-lg-8">
-          <%= f.collection_select :severity, ViolationDecorator.severity_select, :last, :first, { selected: f.try(:object).try(:object).try(:severity) }, class: 'form-select form-select-lg form-select-solid' %>
+          <%= f.collection_select :severity, Violations::ViolationDecorator.severity_select, :last, :first, { selected: f.try(:object).try(:object).try(:severity) }, class: 'form-select form-select-lg form-select-solid' %>
         </div>
       </div>
       <!--end::Input group 4-->

@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <!--begin::Form-->
-        <%= form_for(Complaint.new) do |f| %>
+        <%= form_for(Complaints::Complaint.new, url: building_complaints_path) do |f| %>
           <%= render partial: 'form', locals: { f: f } %>
         <% end %>
         <!--end::Form-->

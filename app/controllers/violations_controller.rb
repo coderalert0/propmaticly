@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ViolationsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource class: 'Violations::Violation'
   load_and_authorize_resource :building, only: :index
   load_and_authorize_resource :portfolio, only: :index
 
@@ -41,7 +41,7 @@ class ViolationsController < ApplicationController
   private
 
   def violation_params
-    params.require(:violation).permit(:id, :violation_id, :violation_type, :description, :issue_date,
+    params.require(:violations_violation).permit(:id, :violation_id, :violation_type, :description, :issue_date,
                                       :device_number, :device_type, :state, :severity, :building_id)
   end
 
