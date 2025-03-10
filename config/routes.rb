@@ -13,27 +13,26 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'home#show'
 
-  resource :fetch_complaints, only: :show
-  resource :fetch_violations, only: :show
   resources :portfolios do
-    resources :complaints
-    resources :violations
+    resources :complaints, only: :index
+    resources :violations, only: :index
   end
   resources :portfolios do
-    resources :buildings do
-      resources :complaints
-      resources :violations
-    end
+    resources :buildings
   end
   resources :buildings do
-    resources :inspection_rules do
+    resources :inspection_rules, only: :index do
       resources :inspections
     end
-    resources :complaints
-    resources :violations
+    resources :complaints, only: :index
+    resources :violations, only: :index
     resources :inspections
   end
-  resources :complaints
-  resources :violations
+
   resources :users
+
+  # daily cron jobs
+  resource :fetch_complaints, only: :show
+  resource :fetch_violations, only: :show
+  resource :fetch_inspections, only: :show
 end

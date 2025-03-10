@@ -4,17 +4,19 @@ require 'faraday'
 
 module Inspections
   class FetchInspectionsJob < ApplicationJob
-    attr_accessor :bin_id
-
-    def initialize(bin_id)
-      @bin_id = bin_id
+    def perform(bin_id = nil)
+      if bin_id.nil?
+        Building.all.each { |building| create_or_update_inspection(building.bin) }
+      else
+        create_or_update_inspection(bin_id)
+      end
     end
 
-    def perform
-      response = Faraday.get(url, query_string)
+    def create_or_update_inspection(bin_id)
+      response = Faraday.get(url, query_string(bin_id))
       return unless response.status == 200
 
-      @building = Building.find_by(bin: @bin_id)
+      @building = Building.find_by(bin: bin_id)
 
       JSON.parse(response.body).each do |resource|
         @resource = resource
@@ -37,8 +39,8 @@ module Inspections
       end
     end
 
-    def query_string
-      { '$where' => "bin = '#{@bin_id}'" }
+    def query_string(bin_id)
+      { '$where' => "bin = '#{bin_id}'" }
     end
   end
 end

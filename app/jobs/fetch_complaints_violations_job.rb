@@ -4,17 +4,21 @@ require 'faraday'
 
 class FetchComplaintsViolationsJob < ApplicationJob
   def perform(bin_id = nil)
-    bin_ids = where_bin_ids(bin_id)
-    query_string = { '$where' => "bin IN (#{bin_ids.map { |bin| "'#{bin}'" }.join(', ')})" }
+    if bin_id.nil?
+      Building.all.each { |building| create_or_update_complaints_violations(building.bin) }
+    else
+      create_or_update_complaints_violations(bin_id)
+    end
+  end
 
-    response = Faraday.get(url, query_string)
+  def create_or_update_complaints_violations(bin_id)
+    response = Faraday.get(url, { '$where' => "bin = '#{bin_id}'" })
     return unless response.status == 200
 
-    buildings = Building.where(bin: bin_ids)
+    building = Building.find_by(bin: bin_id)
+
     JSON.parse(response.body).each do |resource|
-      buildings.each do |building|
-        find_or_initialize_and_update(resource, building)
-      end
+      find_or_initialize_and_update(resource, building)
     end
   end
 
@@ -24,9 +28,5 @@ class FetchComplaintsViolationsJob < ApplicationJob
     resource_params = resource_where_params(resource, building)
     resource_attributes = resource_update_attributes(resource)
     resource_clazz.find_or_initialize_by(resource_params).update(resource_attributes)
-  end
-
-  def where_bin_ids(bin_id = nil)
-    bin_id ? [bin_id] : Building.all.pluck(:bin)
   end
 end

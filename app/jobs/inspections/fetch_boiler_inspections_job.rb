@@ -10,10 +10,6 @@ module Inspections
       'https://data.cityofnewyork.us/resource/52dp-yji6.json'
     end
 
-    def query_string
-      { '$where' => "bin_number = '#{@bin_id}'" }
-    end
-
     def inspection_rule
       compliance_item = @resource['pressure_type'].downcase.gsub(' ', '_') << '_boiler'
       InspectionRules::BoilerInspectionRule.find_by(compliance_item: compliance_item.to_sym)
@@ -29,6 +25,10 @@ module Inspections
          applicant_license_type applicant_license_number boiler_make boiler_model pressure_type
          inspection_type inspection_date defects_exist lff_45_days lff_180_days filing_fee
          total_amount_paid report_status]
+    end
+
+    def query_string(bin_id)
+      { '$where' => "bin_number = '#{bin_id}'" }
     end
   end
 end

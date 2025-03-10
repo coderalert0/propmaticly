@@ -21,7 +21,7 @@
         <% end %>
       </div>
 
-      <%= link_to 'Add Complaint', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+      <%#= link_to 'Add Complaint', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
     </div>
 
     <div class="card-body">
@@ -34,6 +34,7 @@
           <th class="min-w-100px">Status</th>
           <th class="min-w-125px">Severity</th>
           <th class="min-w-100px">Updated On</th>
+<!--      <th class="text-end min-w-100px">Actions</th>-->
         </tr>
         </thead>
         <tbody>
@@ -49,24 +50,24 @@
             <td><%= complaint&.state %></td>
             <td><%= complaint&.severity %></td>
             <td><%= complaint.updated_at.strftime("%D") %></td>
-            <td class="text-end">
-              <div class="dropdown">
-                <div class="btn btn-sm btn-light dropdown-toggle">
-                  Actions
-                </div>
-                <div class="dropdown-menu">
-                  <div class="dropdown-item">
-                    <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
-                  </div>
-                  <div class="dropdown-item">
-                    <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
-                  </div>
-                </div>
-              </div>
-            </td>
+<!--            <td class="text-end">-->
+<!--              <div class="dropdown">-->
+<!--                <div class="btn btn-sm btn-light dropdown-toggle">-->
+<!--                  Actions-->
+<!--                </div>-->
+<!--                <div class="dropdown-menu">-->
+<!--                  <div class="dropdown-item">-->
+                    <%#= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
+<!--                  </div>-->
+<!--                  <div class="dropdown-item">-->
+                    <%#= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </td>-->
           </tr>
-          <%= render 'edit', complaint: complaint %>
-          <%= render 'delete', complaint: complaint %>
+          <%#= render 'edit', complaint: complaint %>
+          <%#= render 'delete', complaint: complaint %>
         <% end %>
         </tbody>
       </table>

@@ -2,7 +2,11 @@
 
 class FetchViolationsController < ApplicationController
   def show
-    Delayed::Job.enqueue FetchDobViolationsJob.new
-    render json: nil
+    Violations::FetchDobEcbViolationsJob.perform_later
+    Violations::FetchDobSafetyViolationsJob.perform_later
+    Violations::FetchDobViolationsJob.perform_later
+    Violations::FetchHpdViolationsJob.perform_later
+
+    render json: { messages: 'triggering fetch violations jobs...' }
   end
 end

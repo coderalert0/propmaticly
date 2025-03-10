@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
 
   create_table "complaints", force: :cascade do |t|
     t.string "complaint_id", null: false
+    t.string "problem_id"
     t.datetime "filed_date"
     t.string "description"
     t.string "category_code"
@@ -103,7 +104,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
   create_table "inspection_rules", force: :cascade do |t|
     t.integer "compliance_item", null: false
     t.string "description"
+    t.integer "department"
     t.integer "frequency_in_months", null: false
+    t.integer "next_inspection_date_methodology", null: false
     t.json "has_properties", default: {}
     t.json "numerical_properties", default: {}
     t.string "type", null: false

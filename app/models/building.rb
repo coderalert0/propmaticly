@@ -11,6 +11,7 @@ class Building < ApplicationRecord
 
   validates :name, :street, :city, :bin, :portfolio_id, presence: true
   after_commit :trigger_fetch_complaints_violations_jobs, on: %i[create update]
+  after_commit :trigger_fetch_inspections_jobs, on: %i[create update]
 
   def inspection_rules
     InspectionRules::InspectionRule.all.select do |rule|
@@ -32,10 +33,21 @@ class Building < ApplicationRecord
     return unless bin.present?
 
     Complaints::FetchDobComplaintsJob.perform_later bin
+    Complaints::FetchHpdComplaintsJob.perform_later bin
+    #
     Violations::FetchDobEcbViolationsJob.perform_later bin
     Violations::FetchDobSafetyViolationsJob.perform_later bin
     Violations::FetchDobViolationsJob.perform_later bin
-    Complaints::FetchHpdComplaintsJob.perform_later bin
     Violations::FetchHpdViolationsJob.perform_later bin
+  end
+
+  def trigger_fetch_inspections_jobs
+    nil unless bin.present?
+
+    Inspections::FetchBedBugInspectionsJob.perform_later bin
+    Inspections::FetchBoilerInspectionsJob.perform_later bin
+    Inspections::FetchCoolingTowerInspectionsJob.perform_later bin
+    Inspections::FetchFacadeInspectionsJob.perform_later bin
+    Inspections::FetchElevatorInspectionsJob.perform_later bin
   end
 end
