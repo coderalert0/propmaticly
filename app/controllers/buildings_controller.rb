@@ -16,7 +16,7 @@ class BuildingsController < ApplicationController
     )
 
     number, street = address.address1.split(' ', 2)
-    bbl_bin_community_district = BuildingHelper.get_bbl_bin_community_district(number, street, address.zip5)
+    building_details = BuildingHelper.get_building_details(number, street, address.zip5)
 
     attributes = {
       name: building_params[:name],
@@ -28,7 +28,7 @@ class BuildingsController < ApplicationController
       numerical_properties: building_params[:numerical_properties],
       has_properties: building_params[:has_properties],
       portfolio_id: building_params[:portfolio_id]
-    }.merge!(bbl_bin_community_district)
+    }.merge!(building_details)
 
     @building.assign_attributes(attributes)
 

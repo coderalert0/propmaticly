@@ -27,6 +27,19 @@ class Building < ApplicationRecord
     end
   end
 
+  def upcoming_inspections(start_date: Date.today, end_date: 1.year.from_now)
+    inspection_rules.map do |rule|
+      next_inspection_date = InspectionRuleHelper.calculate_fixed_deadline_date(rule, start_date)
+      next unless next_inspection_date && next_inspection_date <= end_date
+
+      {
+        inspection_rule: rule,
+        due_date: next_inspection_date,
+        overdue: next_inspection_date < Date.today
+      }
+    end.compact
+  end
+
   private
 
   def trigger_fetch_complaints_violations_jobs
@@ -34,7 +47,7 @@ class Building < ApplicationRecord
 
     Complaints::FetchDobComplaintsJob.perform_later bin
     Complaints::FetchHpdComplaintsJob.perform_later bin
-    #
+
     Violations::FetchDobEcbViolationsJob.perform_later bin
     Violations::FetchDobSafetyViolationsJob.perform_later bin
     Violations::FetchDobViolationsJob.perform_later bin

@@ -61,6 +61,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
     t.string "zip5"
     t.integer "bbl"
     t.integer "bin", null: false
+    t.integer "community_district_borough_code", null: false
+    t.integer "community_district_number", null: false
     t.json "has_properties", default: {}
     t.json "numerical_properties", default: {}
     t.bigint "portfolio_id", null: false
@@ -106,7 +108,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
     t.string "description"
     t.integer "department"
     t.integer "frequency_in_months", null: false
-    t.integer "next_inspection_date_methodology", null: false
+    t.integer "fixed_day"
+    t.integer "fixed_month"
+    t.jsonb "cycle_schedule"
     t.json "has_properties", default: {}
     t.json "numerical_properties", default: {}
     t.string "type", null: false

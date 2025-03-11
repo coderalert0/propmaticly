@@ -3,7 +3,7 @@
 require 'faraday'
 
 module BuildingHelper
-  def self.get_bbl_bin_community_district(number, street, zip)
+  def self.get_building_details(number, street, zip)
     response = Faraday.get('https://api.nyc.gov/geo/geoclient/v1/address.json', {
                              houseNumber: number,
                              street: street,
@@ -14,14 +14,19 @@ module BuildingHelper
 
     return unless response.status == 200
 
+    puts response.body
+
     result = JSON.parse(response.body)['address'].slice('bbl',
                                                         'buildingIdentificationNumber',
                                                         'communityDistrictBoroughCode',
-                                                        'communityDistrictNumber')
+                                                        'communityDistrictNumber',
+                                                        'bblTaxBlock')
 
     result['bin'] = result.delete('buildingIdentificationNumber')
     result['community_district_borough_code'] = result.delete('communityDistrictBoroughCode')
     result['community_district_number'] = result.delete('communityDistrictNumber')
+    result['tax_block_number'] = results.delete('bblTaxBlock')
+
     result
   rescue StandardError => e
     raise e

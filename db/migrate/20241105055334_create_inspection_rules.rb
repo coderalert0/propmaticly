@@ -5,7 +5,9 @@ class CreateInspectionRules < ActiveRecord::Migration[7.0]
       t.string :description
       t.integer :department
       t.integer :frequency_in_months, null: false
-      t.integer :next_inspection_date_methodology, null: false
+      t.integer :fixed_day
+      t.integer :fixed_month
+      t.jsonb :cycle_schedule
       t.json :has_properties, default: {}
       t.json :numerical_properties, default: {}
       t.string :type, null: false

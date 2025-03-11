@@ -4,7 +4,7 @@ module InspectionRules
   class InspectionRule < ApplicationRecord
     has_many :inspections, dependent: :destroy
 
-    validates :compliance_item, :frequency_in_months, :next_inspection_date_methodology, presence: true
+    validates :compliance_item, :frequency_in_months, presence: true
 
     enum compliance_item: {
       backflow_prevention: 0,
@@ -20,7 +20,7 @@ module InspectionRules
       energy_efficiency_ratings: 10,
       annual_property_registration: 11,
       parking_structure: 12,
-      gas_line: 13,
+      gas_piping: 13,
       energy_efficiency_ll_87: 14,
       energy_benchmarking: 15,
       energy_efficiency_ll_133: 16
@@ -32,12 +32,6 @@ module InspectionRules
       department_of_health_and_mental_hygiene: 2,
       department_of_environmental_protection: 3,
       department_of_housing_preservation_and_development: 4
-    }
-
-    enum next_inspection_date_methodology: {
-      fixed_deadline: 0,
-      relative: 1,
-      staggered: 2
     }
   end
 end
