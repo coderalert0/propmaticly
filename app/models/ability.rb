@@ -12,6 +12,7 @@ class Ability
     can :manage, Violations::Violation, id: user.buildings.map(&:violations).flatten.pluck(:id)
     can :read, InspectionRule
     can :manage, Inspection
+    can :manage, ActiveStorage::Attachment
 
     return unless user.admin?
 

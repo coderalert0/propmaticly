@@ -3,7 +3,7 @@
 class Inspection < ApplicationRecord
   belongs_to :inspection_rule
   belongs_to :building
-  has_many_attached :files
+  has_many_attached :attachments
 
   scope :filed, -> { where.not(data: {}) }
   scope :upcoming, -> { where(data: {}) }

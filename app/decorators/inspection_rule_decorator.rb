@@ -27,7 +27,7 @@ class InspectionRuleDecorator < Draper::Decorator
   end
 
   def compliance_item_inspections_link(building)
-    h.link_to object.compliance_item.humanize.titleize,
+    h.link_to compliance_item_humanize,
               h.building_inspection_rule_inspections_path(building, object)
   end
 
@@ -48,5 +48,9 @@ class InspectionRuleDecorator < Draper::Decorator
         </tr>
       </thead>
     HTML
+  end
+
+  def compliance_item_humanize
+    object.compliance_item.humanize.titleize
   end
 end

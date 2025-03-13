@@ -58,7 +58,7 @@
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h2 class="fw-bold"><%= inspection.inspection_rule.compliance_item.humanize.titleize %> Inspection Details</h2>
+            <h2 class="fw-bold"><%= inspection.inspection_rule.compliance_item_humanize %> Inspection Details</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
@@ -76,11 +76,6 @@
 
             <p><strong>Updated On:</strong> <%= inspection&.updated_at&.strftime("%D") %></p>
           </div>
-
-
-
-
-
         </div>
           </div>
           <div class="modal-footer">

@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     resources :upcoming_inspections, only: %i[index update]
   end
 
+  resources :attachments, only: [:destroy]
+
   resources :users
 
   # daily cron jobs

@@ -40,13 +40,13 @@
         <tbody>
         <% @inspections.each do |inspection| %>
           <tr>
-            <td><%= inspection.inspection_rule.compliance_item.humanize.titleize %></td>
+            <td><%= inspection.inspection_rule.decorate.compliance_item_humanize %></td>
             <td><%= inspection.inspection_rule.description %></td>
             <td><%= inspection.filing_date&.strftime("%D") %></td>
             <td><%= inspection.due_date&.strftime("%D") %></td>
-            <td><% inspection.files.each do |file| %>
-              <a href="<%= url_for(file) %>" download title="<%= file.filename.to_s %>">
-                <i class="<%= file_icon_class(file) %>"></i>
+            <td><% inspection.attachments.each do |attachment| %>
+              <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
+                <i class="<%= file_icon_class(attachment) %>"></i>
               </a>
             <% end %></td>
             <td><%= inspection.state %></td>
@@ -56,6 +56,11 @@
                   Actions
                 </div>
                 <div class="dropdown-menu">
+                  <% if can?(:view, inspection.object) %>
+                    <div class="dropdown-item">
+                      <%= link_to 'View', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
+                    </div>
+                  <% end %>
                   <% if can?(:edit, inspection.object) %>
                     <div class="dropdown-item">
                       <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
@@ -74,4 +79,41 @@
       </div>
     </div>
   </div>
+  <% @inspections.each do |inspection| %>
+    <div class="modal fade" id="inspectionModal<%= inspection.id %>" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="fw-bold"><%= inspection.inspection_rule.decorate.compliance_item_humanize %> Inspection Details</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+              <div>
+                <p><strong>Inspection:</strong> <%= inspection.inspection_rule.decorate.compliance_item_humanize %></p>
+                <p><strong>Description:</strong> <%= inspection.inspection_rule.description %></p>
+                <p><strong>Filing Date:</strong> <%= inspection.filing_date&.strftime("%D") %></p>
+                <p><strong>Due Date:</strong> <%= inspection.due_date&.strftime("%D") %></p>
+                <p><strong>Status:</strong> <%= inspection.state %></p>
+              </div>
+
+            <% inspection.attachments.each do |attachment| %>
+                <li class="list-group-item">
+                  <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
+                  <%= link_to '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
+                    <i class="bi bi-trash"></i>
+                  <% end %>
+                </li>
+              <%= render 'delete', attachment: attachment %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+    </div>
+    </div>
+  <% end %>
 </div>
