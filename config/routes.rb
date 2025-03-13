@@ -26,8 +26,8 @@ Rails.application.routes.draw do
     end
     resources :complaints, only: :index
     resources :violations, only: :index
-    resources :inspections
-    resources :upcoming_inspections, only: :index
+    resources :inspections, only: :index
+    resources :upcoming_inspections, only: %i[index update]
   end
 
   resources :users

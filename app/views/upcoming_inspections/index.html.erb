@@ -7,8 +7,14 @@
       <div class="me-auto">
         <%= form_with method: :get, local: true do %>
           <div class="d-flex">
-            <div class="col-lg-12 me-2">
+            <div class="col-lg-7 me-2">
               <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control me-2" %>
+            </div>
+            <div class="col-lg-4 me-2">
+              <%= select_tag :state, options_for_select(InspectionDecorator.states_select, params[:state]), class: "form-select me-2" %>
+            </div>
+            <div class="col-lg-2">
+              <%= submit_tag "Filter", class: "btn btn-primary" %>
             </div>
           </div>
         <% end %>
@@ -22,12 +28,12 @@
       <table class="table align-middle table-row-dashed gy-3">
         <thead>
         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-          <th class="min-w-125px">Inspection</th>
-          <th class="min-w-125px">Description</th>
-          <th class="min-w-100px">Filed Date</th>
-          <th class="min-w-250px">Due Date</th>
+          <th class="min-w-200px">Inspection</th>
+          <th class="min-w-400px">Description</th>
+          <th class="min-w-100px">Filing Date</th>
+          <th class="min-w-100px">Due Date</th>
+          <th class="min-w-100px">Attachments</th>
           <th class="min-w-100px">Status</th>
-          <th class="min-w-100px">Created On</th>
         </tr>
         </thead>
 
@@ -36,17 +42,21 @@
           <tr>
             <td><%= inspection.inspection_rule.compliance_item.humanize.titleize %></td>
             <td><%= inspection.inspection_rule.description %></td>
-            <td><%= inspection.filing_date %></td>
+            <td><%= inspection.filing_date&.strftime("%D") %></td>
             <td><%= inspection.due_date&.strftime("%D") %></td>
-            <td><%= inspection.status %></td>
-            <td><%= inspection.created_at&.strftime("%D") %></td>
+            <td><% inspection.files.each do |file| %>
+              <a href="<%= url_for(file) %>" download title="<%= file.filename.to_s %>">
+                <i class="<%= file_icon_class(file) %>"></i>
+              </a>
+            <% end %></td>
+            <td><%= inspection.state %></td>
             <td>
               <div class="dropdown">
                 <div class="btn btn-sm btn-light dropdown-toggle">
                   Actions
                 </div>
                 <div class="dropdown-menu">
-                  <% if can?(:edit, inspection) %>
+                  <% if can?(:edit, inspection.object) %>
                     <div class="dropdown-item">
                       <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
                     </div>
@@ -55,7 +65,7 @@
               </div>
             </td>
           </tr>
-          <%#= render 'edit', inspection: inspection %>
+          <%= render 'edit', inspection: inspection %>
         <% end %>
         </tbody>
       </table>

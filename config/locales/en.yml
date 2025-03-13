@@ -53,7 +53,8 @@ en:
   complaint_update_success: The complaint has been updated
   inspection_create_success: Inspection has been added successfully
   inspection_delete_success: Inspection has been deleted successfully
-  inspection_status:
+  inspection_state:
+    overdue: Overdue
     pending: Pending
     completed: Completed
   inspection_update_success: Inspection has been updated successfully

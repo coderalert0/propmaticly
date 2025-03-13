@@ -39,29 +39,17 @@
                       <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
                     </div>
                   <% end %>
-                  <% if can?(:edit, inspection) %>
-                    <div class="dropdown-item">
-                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
-                    </div>
-                  <% end %>
-                  <% if can?(:delete, inspection) %>
-                    <div class="dropdown-item">
-                      <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{inspection.id}" } %>
-                    </div>
-                  <% end %>
                 </div>
               </div>
             </td>
           </tr>
-          <%= render 'edit', inspection: inspection %>
-          <%= render 'delete', inspection: inspection %>
         <% end %>
         </tbody>
       </table>
       <div class="d-flex justify-content-center mt-4">
-        <%#= paginate @inspections, theme: 'bootstrap4' %>
+        <%= paginate @inspections, theme: 'bootstrap4' %>
       </div>
-      <%= render 'new' %>
+      <%#= render 'new' %>
     </div>
   </div>
 

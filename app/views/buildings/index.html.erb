@@ -19,6 +19,7 @@
             <th class="min-w-125px">Address</th>
             <th class="min-w-125px">Open Complaints</th>
             <th class="min-w-125px">Open Violations</th>
+            <th class="min-w-125px">Upcoming Inspections</th>
             <th class="min-w-125px">Contacts</th>
           </tr>
           </thead>
@@ -30,6 +31,7 @@
               <td><div class="text-gray-600 mb-1"><%= building.address1.titleize %>, <%= building.city.titleize %>, <%= building.state %></div></td>
               <td><%= building.open_complaints_link %></td>
               <td><%= building.open_violations_link %></td>
+              <td><%= building.upcoming_inspections_link %></td>
               <td></td>
               <td class="text-end">
                 <div class="dropdown">

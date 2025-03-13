@@ -1,6 +1,6 @@
 <div class="fw-bold fs-2hx mb-5"><%= @organization.name %></div>
 <div class="row g-5 g-xl-8">
-  <div class="col-xl-4">
+  <div class="col-xl-3">
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
@@ -13,7 +13,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-4">
+  <div class="col-xl-3">
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
@@ -26,7 +26,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-4">
+  <div class="col-xl-3">
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
@@ -39,10 +39,23 @@
       </div>
     </div>
   </div>
+  <div class="col-xl-3">
+    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+      <div class="card-body">
+        <div>
+          <div>
+            <i class="bi bi-clipboard-check fs-3hx me-4 text-warning"></i>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.inspections.upcoming.pending.size %></span>
+          </div>
+          <span class="fs-6 text-gray-400">Upcoming Inspections (Annual)</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="row g-5 g-xl-8">
-  <div class="col-xl-4">
+  <div class="col-xl-3">
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
@@ -55,7 +68,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-4">
+  <div class="col-xl-3">
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
@@ -68,7 +81,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-4">
+  <div class="col-xl-3">
     <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
@@ -77,6 +90,19 @@
             <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.complaints.closed.size %></span>
           </div>
           <span class="fs-6 text-gray-400">Total Closed Complaints</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3">
+    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+      <div class="card-body">
+        <div>
+          <div>
+            <i class="bi bi-clipboard-check fs-3hx me-4 text-danger"></i>
+            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @organization.inspections.overdue.size %></span>
+          </div>
+          <span class="fs-6 text-gray-400">Overdue Inspections</span>
         </div>
       </div>
     </div>

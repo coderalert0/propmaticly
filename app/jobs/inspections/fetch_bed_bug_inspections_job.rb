@@ -15,8 +15,8 @@ module Inspections
     end
 
     def existing_record
-      Inspection.find_by("data ->> 'registration_id' = ? AND data ->> 'filing_date' = ? AND building_id = ?",
-                         @resource['registration_id'], @resource['filing_date'], @building.id)
+      Inspection.find_by("data ->> 'registration_id' = ? AND data ->> 'filing_date' = ? AND building_id = ? AND inspection_rule_id = ?",
+                         @resource['registration_id'], @resource['filing_date'], @building.id, inspection_rule)
     end
 
     def filtered_columns

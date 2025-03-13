@@ -1,0 +1,36 @@
+<!--begin::Card body-->
+<div class="card-body p-9">
+  <div class="row">
+    <!--begin::First Column - Non-date fields-->
+    <div class="col-md-12">
+      <!--begin::Input group 1-->
+      <div class="row mb-4 align-items-center">
+        <label class="col-lg-3 required">Filing Date</label>
+        <div class="col-lg-9">
+          <%= f.date_field :filing_date, class: 'form-control form-control-lg form-control-solid' %>
+        </div>
+      </div>
+      <!--end::Input group 1-->
+
+      <!--begin::Input group 2-->
+      <div class="row mb-12 align-items-center">
+        <label class="col-lg-3">File</label>
+        <div class="col-lg-9">
+          <%= f.file_field :files, multiple: true, class: 'form-control form-control-lg' %>
+        </div>
+      </div>
+      <!--end::Input group 2-->
+    </div>
+    <!--end::First Column-->
+  </div>
+
+  <%= f.hidden_field :building_id, value: @building&.id %>
+</div>
+<!--end::Card body-->
+
+<!--begin::Actions-->
+<div class="card-footer d-flex justify-content-end">
+  <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-light me-2' %>
+  <%= f.submit 'Save', class: "btn btn-success" %>
+</div>
+<!--end::Actions-->

@@ -5,9 +5,11 @@ class Inspection < ApplicationRecord
   belongs_to :building
   has_many_attached :files
 
-  scope :pending, -> { where(status: 'pending') }
+  scope :filed, -> { where.not(data: {}) }
+  scope :upcoming, -> { where(data: {}) }
+  scope :pending, -> { where(filing_date: nil) }
+  scope :completed, -> { where.not(filing_date: nil) }
+  scope :overdue, -> { where('due_date <= ?', Date.today) }
 
-  enum status: { pending: 0, completed: 1 }
-
-  validates :inspection_rule_id, :building_id, :status, presence: true
+  validates :inspection_rule_id, :building_id, presence: true
 end

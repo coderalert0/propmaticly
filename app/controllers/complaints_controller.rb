@@ -16,49 +16,4 @@ class ComplaintsController < ApplicationController
     @complaints = @complaints.order(filed_date: :desc).page(params[:page])
     @complaints = PaginationDecorator.decorate(@complaints)
   end
-
-  def create
-    complaint = Complaints::Complaint.new(**create_update_hash)
-
-    return unless complaint.save!
-
-    flash[:success] = t(:complaint_create_success)
-    redirect_to building_complaints_path(complaint.building)
-  end
-
-  def update
-    return unless @complaint.update(create_update_hash)
-
-    flash[:success] = t(:complaint_update_success)
-    redirect_to building_complaints_path(@complaint.building)
-  end
-
-  def destroy
-    return unless @complaint.destroy
-
-    flash[:success] = t(:complaint_delete_success)
-    redirect_to building_complaints_path(@complaint.building)
-  end
-
-  private
-
-  def complaint_params
-    params.require(:complaints_complaint).permit(:id, :complaint_id, :state, :filed_date, :description, :category_code, :severity,
-                                                 :inspection_date, :state, :disposition_date, :disposition_code, :building_id)
-  end
-
-  def create_update_hash
-    {
-      complaint_id: complaint_params[:complaint_id],
-      filed_date: complaint_params[:filed_date],
-      description: complaint_params[:description],
-      category_code: complaint_params[:category_code],
-      inspection_date: complaint_params[:inspection_date],
-      disposition_date: complaint_params[:disposition_date],
-      disposition_code: complaint_params[:disposition_code],
-      state: complaint_params[:state],
-      severity: complaint_params[:severity],
-      building_id: complaint_params[:building_id]
-    }
-  end
 end
