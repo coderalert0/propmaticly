@@ -4,11 +4,8 @@ require 'faraday'
 
 class FetchComplaintsViolationsJob < ApplicationJob
   def perform(bin_id = nil)
-    if bin_id.nil?
-      Building.all.each { |building| create_or_update_complaints_violations(building.bin) }
-    else
-      create_or_update_complaints_violations(bin_id)
-    end
+    bin_ids = bin_id ? [bin_id] : Building.all.pluck(:bin)
+    bin_ids.each { |bin_id| create_or_update_complaints_violations(bin_id) }
   end
 
   def create_or_update_complaints_violations(bin_id)

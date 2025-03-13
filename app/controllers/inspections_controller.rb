@@ -10,12 +10,10 @@ class InspectionsController < ApplicationController
 
     if params[:search].present?
       search = "%#{params[:search].strip}%"
-      # update boiler_id to dynamic attribute search
       @inspections = @inspections.where('data::text ILIKE ?', "%#{search}%")
     end
 
     @inspections = @inspections.order(filing_date: :desc).page(params[:page])
-    @inspections = @inspections.decorate
     @inspection_rule = @inspection_rule.decorate
   end
 

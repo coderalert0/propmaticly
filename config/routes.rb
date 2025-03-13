@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :complaints, only: :index
     resources :violations, only: :index
     resources :inspections
+    resources :upcoming_inspections, only: :index
   end
 
   resources :users

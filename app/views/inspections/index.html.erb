@@ -14,17 +14,17 @@
         <% end %>
       </div>
 
-      <% if can?(:create, Inspection) %>
-        <%= link_to 'Add Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
-      <% end %>
+      <%# if can?(:create, Inspection) %>
+        <%#= link_to 'Add Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+      <%# end %>
     </div>
     <div class="card-body">
       <table class="table align-middle table-row-dashed gy-3">
-        <%= @inspections.first.header_html %>
+        <%= @inspection_rule.header_html %>
         <tbody>
         <% @inspections.each do |inspection| %>
           <tr>
-            <% inspection.headers.each do |attribute| %>
+            <% @inspection_rule.headers.each do |attribute| %>
               <td><%= inspection.data[attribute.to_s] %></td>
             <% end %>
 

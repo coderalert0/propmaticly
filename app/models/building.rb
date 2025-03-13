@@ -6,12 +6,13 @@ class Building < ApplicationRecord
   has_many :users, through: :asset_contacts
   has_many :complaints, class_name: 'Complaints::Complaint', dependent: :destroy
   has_many :violations, class_name: 'Violations::Violation', dependent: :destroy
-
   has_many :inspections, dependent: :destroy
 
   validates :name, :street, :city, :bin, :portfolio_id, presence: true
+
   after_commit :trigger_fetch_complaints_violations_jobs, on: %i[create update]
   after_commit :trigger_fetch_inspections_jobs, on: %i[create update]
+  after_commit :trigger_create_upcoming_inspections_job, on: %i[create update]
 
   def inspection_rules
     InspectionRule.all.select do |rule|
@@ -25,19 +26,6 @@ class Building < ApplicationRecord
 
       has_properties_match && numerical_properties_match
     end
-  end
-
-  def upcoming_inspections(start_date: Date.today, end_date: 1.year.from_now)
-    inspection_rules.map do |rule|
-      next_inspection_date = InspectionRuleHelper.calculate_fixed_due_date(rule, start_date)
-      next unless next_inspection_date && next_inspection_date <= end_date
-
-      {
-        inspection_rule: rule,
-        due_date: next_inspection_date,
-        overdue: next_inspection_date < Date.today
-      }
-    end.compact
   end
 
   private
@@ -62,5 +50,9 @@ class Building < ApplicationRecord
     Inspections::FetchCoolingTowerInspectionsJob.perform_later bin
     Inspections::FetchFacadeInspectionsJob.perform_later bin
     Inspections::FetchElevatorInspectionsJob.perform_later bin
+  end
+
+  def trigger_create_upcoming_inspections_job
+    CreateUpcomingInspectionsJob.perform_later
   end
 end
