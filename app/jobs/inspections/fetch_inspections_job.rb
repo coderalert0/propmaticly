@@ -29,7 +29,7 @@ module Inspections
             Rails.logger.info "Updated existing inspection record: #{existing_record.id}"
           else
             Inspection.create!(data: inspection_params, building_id: @building.id,
-                               inspection_rule_id: inspection_rule.id)
+                               inspection_rule_id: inspection_rule.id, status: :completed)
             Rails.logger.info "Created new inspection: #{inspection_params}"
           end
         rescue StandardError => e

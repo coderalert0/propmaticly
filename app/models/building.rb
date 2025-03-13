@@ -14,7 +14,7 @@ class Building < ApplicationRecord
   after_commit :trigger_fetch_inspections_jobs, on: %i[create update]
 
   def inspection_rules
-    InspectionRules::InspectionRule.all.select do |rule|
+    InspectionRule.all.select do |rule|
       rule_keys = rule.has_properties.select { |_, value| value == true }.keys
       has_properties_match = rule_keys.all? { |key| has_properties[key] == true }
 
@@ -29,7 +29,7 @@ class Building < ApplicationRecord
 
   def upcoming_inspections(start_date: Date.today, end_date: 1.year.from_now)
     inspection_rules.map do |rule|
-      next_inspection_date = InspectionRuleHelper.calculate_fixed_deadline_date(rule, start_date)
+      next_inspection_date = InspectionRuleHelper.calculate_fixed_due_date(rule, start_date)
       next unless next_inspection_date && next_inspection_date <= end_date
 
       {

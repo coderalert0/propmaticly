@@ -20,11 +20,11 @@
     </div>
     <div class="card-body">
       <table class="table align-middle table-row-dashed gy-3">
-        <%= @inspection_rule.header&.html_safe %>
+        <%= @inspections.first.header_html %>
         <tbody>
         <% @inspections.each do |inspection| %>
           <tr>
-            <% inspection.inspection_rule.class.highlighted_attributes.each do |attribute| %>
+            <% inspection.headers.each do |attribute| %>
               <td><%= inspection.data[attribute.to_s] %></td>
             <% end %>
 
@@ -59,7 +59,7 @@
         </tbody>
       </table>
       <div class="d-flex justify-content-center mt-4">
-        <%= paginate @inspections, theme: 'bootstrap4' %>
+        <%#= paginate @inspections, theme: 'bootstrap4' %>
       </div>
       <%= render 'new' %>
     </div>

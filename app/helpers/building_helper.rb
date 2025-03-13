@@ -14,8 +14,6 @@ module BuildingHelper
 
     return unless response.status == 200
 
-    puts response.body
-
     result = JSON.parse(response.body)['address'].slice('bbl',
                                                         'buildingIdentificationNumber',
                                                         'communityDistrictBoroughCode',
@@ -25,10 +23,28 @@ module BuildingHelper
     result['bin'] = result.delete('buildingIdentificationNumber')
     result['community_district_borough_code'] = result.delete('communityDistrictBoroughCode')
     result['community_district_number'] = result.delete('communityDistrictNumber')
-    result['tax_block_number'] = results.delete('bblTaxBlock')
+    result['tax_block_number'] = result.delete('bblTaxBlock')
 
     result
   rescue StandardError => e
     raise e
+  end
+
+  def self.create_upcoming_inspections(building: nil, start_date: Date.today, end_date: 1.year.from_now)
+    buildings = building ? [building] : Building.all
+
+    buildings.each do |current_building|
+      current_building.inspection_rules.each do |rule|
+        next_inspection_date = InspectionRuleHelper.calculate_fixed_due_date(rule, start_date)
+        next unless next_inspection_date && next_inspection_date <= end_date
+
+        current_building.inspections.find_or_create_by(
+          inspection_rule: rule,
+          due_date: next_inspection_date
+        ) do |inspection|
+          inspection.status = :pending
+        end
+      end
+    end
   end
 end

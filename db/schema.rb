@@ -61,8 +61,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
     t.string "zip5"
     t.integer "bbl"
     t.integer "bin", null: false
-    t.integer "community_district_borough_code", null: false
-    t.integer "community_district_number", null: false
+    t.integer "community_district_borough_code"
+    t.integer "community_district_number"
+    t.integer "tax_block_number"
     t.json "has_properties", default: {}
     t.json "numerical_properties", default: {}
     t.bigint "portfolio_id", null: false
@@ -113,7 +114,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
     t.jsonb "cycle_schedule"
     t.json "has_properties", default: {}
     t.json "numerical_properties", default: {}
-    t.string "type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -121,6 +121,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
   create_table "inspections", force: :cascade do |t|
     t.jsonb "data", default: {}
     t.datetime "filing_date"
+    t.datetime "due_date"
+    t.integer "status", null: false
     t.bigint "building_id", null: false
     t.bigint "inspection_rule_id", null: false
     t.datetime "created_at", null: false

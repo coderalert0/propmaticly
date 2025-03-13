@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class Inspection < ApplicationRecord
-  belongs_to :inspection_rule, class_name: 'InspectionRules::InspectionRule'
+  belongs_to :inspection_rule
   belongs_to :building
   has_many_attached :files
 
-  validates :inspection_rule_id, :building_id, presence: true
+  enum status: { pending: 0, completed: 1 }
+
+  validates :inspection_rule_id, :building_id, :status, presence: true
 end
