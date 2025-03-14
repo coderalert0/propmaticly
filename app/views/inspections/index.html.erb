@@ -1,6 +1,6 @@
 <div>
   <div class="py-lg-8">
-    <h2><%= @building&.name %> Inspections List (<%= @inspections.try(:total_count) %>)</h2>
+    <h2><%= @building&.name %>: <%= @inspection_rule&.compliance_item_humanize %> Inspections List (<%= @inspections.try(:total_count) %>)</h2>
   </div>
   <div class="card">
     <div class="d-flex border-0 p-6">
@@ -27,7 +27,6 @@
             <% @inspection_rule.headers.each do |attribute| %>
               <td><%= inspection.data[attribute.to_s] %></td>
             <% end %>
-
             <td>
               <div class="dropdown">
                 <div class="btn btn-sm btn-light dropdown-toggle">

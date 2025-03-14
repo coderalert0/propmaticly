@@ -13,8 +13,12 @@ module InspectionRules
                                    inspection_date defects_exist report_status],
       'cooling_tower' => %i[system_id status active_equip inspection_type inspection_date violation_code violation_type
                             law_section],
-      'elevator' => %i[device_number device_type device_status status_date equipment_type periodic_report_year
-                       cat1_report_year cat1_latest_report_filed cat5_latest_report_filed periodic_latest_inspection],
+      'elevator_cat_1' => %i[device_number device_type device_status status_date equipment_type periodic_report_year
+                             filing_date],
+      'elevator_cat_5' => %i[device_number device_type device_status status_date equipment_type periodic_report_year
+                             filing_date],
+      'elevator_periodic' => %i[device_number device_type device_status status_date equipment_type periodic_report_year
+                                filing_date],
       'facade' => %i[tr6_no control_no filing_type cycle sequence_no submitted_on filing_date current_status
                      filing_status],
       'drinking_water_storage_tank' => %i[confirmation_num reporting_year tank_num inspection_date sample_collected
@@ -47,7 +51,7 @@ module InspectionRules
         <thead>
           <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
             #{header_cells}
-            <th class="text-end min-w-100px">Actions</th>
+            <th class="text min-w-100px">Actions</th>
           </tr>
         </thead>
       HTML

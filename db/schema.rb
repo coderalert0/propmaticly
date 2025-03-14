@@ -131,6 +131,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_13_185818) do
     t.string "description"
     t.integer "department"
     t.integer "frequency_in_months", null: false
+    t.boolean "based_on_date_of_install"
     t.json "fixed_day_month"
     t.jsonb "cycle_schedule"
     t.json "has_properties", default: {}
@@ -142,6 +143,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_13_185818) do
 
   create_table "inspections", force: :cascade do |t|
     t.jsonb "data", default: {}
+    t.string "device_id"
     t.datetime "filing_date"
     t.datetime "due_date"
     t.integer "state"

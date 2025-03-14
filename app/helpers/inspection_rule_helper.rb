@@ -2,10 +2,12 @@
 
 module InspectionRuleHelper
   def self.calculate_due_date(rule, building)
-    if rule.fixed_day_month
+    if rule.fixed_day_month.present?
       calculate_fixed_due_date(rule)
-    elsif rule.cycle_schedule
-      calculate_cycle_inspection_due_date(rule, building)
+    elsif rule.based_on_date_of_install == true
+      calculate_based_on_install_due_date(rule, building)
+    elsif rule.cycle_schedule.present?
+      calculate_cycle_due_date(rule, building)
     end
   end
 
@@ -22,7 +24,16 @@ module InspectionRuleHelper
     Date.new(current_date.year + 1, month, day)
   end
 
-  def self.calculate_cycle_inspection_due_date(rule, building)
+  def self.calculate_based_on_install_due_date(rule, building)
+    # this is specific to elevators, may need to adapt in future for other inspections
+    latest_filing_dates = Inspection.filed.where(inspection_rule_id: rule.id,
+                                                 building: building).group("data->>'device_number'").maximum(:filing_date)
+    latest_filing_dates.transform_values do |filing_date|
+      filing_date + rule.frequency_in_months.months
+    end
+  end
+
+  def self.calculate_cycle_due_date(rule, building)
     rule.cycle_schedule.each do |entry|
       matches = entry.all? do |key, value|
         next true if ['end_date'].include?(key)

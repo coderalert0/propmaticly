@@ -13,12 +13,15 @@ module Inspections
     end
 
     def create_or_update_inspection(bin_id)
-      response = Faraday.get(url, query_string(bin_id))
-      return unless response.status == 200
+      @response = Faraday.get(url, query_string(bin_id))
+      return unless @response.status == 200
 
       @building = Building.find_by(bin: bin_id)
+      process_resources
+    end
 
-      JSON.parse(response.body).each do |resource|
+    def process_resources
+      JSON.parse(@response.body).each do |resource|
         @resource = resource
 
         begin

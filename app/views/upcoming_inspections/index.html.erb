@@ -29,11 +29,13 @@
         <thead>
         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
           <th class="min-w-200px">Inspection</th>
+          <th class="min-w-100px">Device ID:</th>
           <th class="min-w-400px">Description</th>
           <th class="min-w-100px">Filing Date</th>
           <th class="min-w-100px">Due Date</th>
           <th class="min-w-100px">Attachments</th>
           <th class="min-w-100px">Status</th>
+          <th></th>
         </tr>
         </thead>
 
@@ -41,6 +43,7 @@
         <% @inspections.each do |inspection| %>
           <tr>
             <td><%= inspection.inspection_rule.decorate.compliance_item_humanize %></td>
+            <td><%= inspection.device_id %></td>
             <td><%= inspection.inspection_rule.description %></td>
             <td><%= inspection.filing_date&.strftime("%D") %></td>
             <td><%= inspection.due_date&.strftime("%D") %></td>
@@ -93,6 +96,9 @@
               <!-- First Column: Inspection Details -->
               <div class="col-md-6">
                 <h5>Details</h5>
+                <% if inspection.device_id.present? %>
+                  <p><strong>Device ID:</strong> <%= inspection.device_id %></p>
+                <% end %>
                 <p><strong>Description:</strong> <%= inspection.inspection_rule.description %></p>
                 <p><strong>Filing Date:</strong> <%= inspection.filing_date&.strftime("%D") %></p>
                 <p><strong>Due Date:</strong> <%= inspection.due_date&.strftime("%D") %></p>
@@ -114,26 +120,29 @@
                 </ul>
               </div>
             </div>
-            <div class="row">
-              <hr>
-              <div class="col-lg-12">
-                <h5>Comments</h5>
-                  <% inspection.audits.each do |audit| %>
-                    <div>
-                      <% if audit.comment.present? %>
-                        <i><%= "#{audit.user.first_name}:" %></i> <%= audit.comment %>
-                        <span class="text-muted">(<%= time_ago_in_words(audit.created_at) %> ago)</span>
-                      <% end %>
-                    </div>
-                  <% end %>
+            <% if inspection.audits.any? { |audit| audit.comment.present? } %>
+              <div class="row">
+                <hr>
+                <div class="col-lg-12">
+                  <h5>Comments</h5>
+                    <% inspection.audits.each do |audit| %>
+                      <div>
+                        <% if audit.comment.present? %>
+                          <i><%= "#{audit.user.first_name}:" %></i> <%= audit.comment %>
+                          <span class="text-muted">(<%= time_ago_in_words(audit.created_at) %> ago)</span>
+                        <% end %>
+                      </div>
+                    <% end %>
+                </div>
               </div>
+            <% end %>
           </div>
         </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
     </div>
     </div>
   <% end %>
