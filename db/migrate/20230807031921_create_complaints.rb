@@ -13,6 +13,7 @@ class CreateComplaints < ActiveRecord::Migration[7.0]
       t.datetime :inspection_date
       t.integer :state, default: 0
       t.integer :severity
+      t.datetime :resolved_date
       t.timestamps
       t.references :building, foreign_key: true, null: false
     end

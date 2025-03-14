@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_13_185818) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_14_221648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_13_185818) do
     t.string "city", null: false
     t.string "state"
     t.string "zip5"
-    t.integer "bbl"
+    t.bigint "bbl"
     t.integer "bin", null: false
     t.integer "borough_code"
     t.integer "community_district_number"
@@ -105,6 +105,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_13_185818) do
     t.datetime "inspection_date"
     t.integer "state", default: 0
     t.integer "severity"
+    t.datetime "resolved_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "building_id", null: false
@@ -146,7 +147,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_13_185818) do
     t.string "device_id"
     t.datetime "filing_date"
     t.datetime "due_date"
-    t.integer "state"
     t.bigint "building_id", null: false
     t.bigint "inspection_rule_id", null: false
     t.datetime "created_at", null: false
@@ -213,6 +213,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_13_185818) do
     t.string "description"
     t.string "device_number"
     t.string "device_type"
+    t.datetime "resolved_date"
     t.bigint "building_id", null: false
     t.string "type"
     t.datetime "created_at", null: false

@@ -16,11 +16,11 @@ class BuildingDecorator < Draper::Decorator
   def open_violations_link
     color_clazz = 'bg-danger text-white' if violations.open.size.positive?
     h.link_to violations.open.size, h.building_violations_path(object, state: 'open'),
-              class: "badge #{color_clazz} rounded-0 bg-opacity-75"
+              class: "badge #{color_clazz} border rounded-0 bg-opacity-75"
   end
 
   def upcoming_inspections_link
-    color_clazz = 'bg-danger text-white' if inspections.upcoming.size.positive?
+    color_clazz = 'bg-warning text-white' if inspections.upcoming.size.positive?
     h.link_to inspections.upcoming.pending.size, h.building_upcoming_inspections_path(object),
               class: "badge #{color_clazz} rounded-0 bg-opacity-75"
   end

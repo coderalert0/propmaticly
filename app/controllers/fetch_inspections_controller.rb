@@ -8,6 +8,8 @@ class FetchInspectionsController < ApplicationController
     Inspections::FetchElevatorInspectionsJob.perform_later
     Inspections::FetchFacadeInspectionsJob.perform_later
 
+    CreateUpcomingInspectionsJob.perform_later
+
     render json: { messages: 'triggering fetch inspection jobs...' }
   end
 end

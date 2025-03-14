@@ -12,7 +12,6 @@ class Building < ApplicationRecord
 
   after_commit :trigger_fetch_complaints_violations_jobs, on: %i[create update]
   after_commit :trigger_fetch_inspections_jobs, on: %i[create update]
-  after_commit :trigger_create_upcoming_inspections_job, on: %i[create update]
 
   def inspection_rules
     InspectionRules::InspectionRule.all.select do |rule|
@@ -43,17 +42,15 @@ class Building < ApplicationRecord
   end
 
   def trigger_fetch_inspections_jobs
-    nil unless bin.present?
+    return unless bin.present?
 
+    Inspections::FetchElevatorInspectionsJob.perform_later bin
     Inspections::FetchBedBugInspectionsJob.perform_later bin
     Inspections::FetchBoilerInspectionsJob.perform_later bin
     Inspections::FetchCoolingTowerInspectionsJob.perform_later bin
     Inspections::FetchFacadeInspectionsJob.perform_later bin
-    Inspections::FetchElevatorInspectionsJob.perform_later bin
     Inspections::FetchDrinkingTankInspectionsJob.perform_later bin
-  end
 
-  def trigger_create_upcoming_inspections_job
-    CreateUpcomingInspectionsJob.perform_later
+    CreateUpcomingInspectionsJob.perform_later(building: self)
   end
 end
