@@ -15,7 +15,7 @@ class Building < ApplicationRecord
   after_commit :trigger_create_upcoming_inspections_job, on: %i[create update]
 
   def inspection_rules
-    InspectionRule.all.select do |rule|
+    InspectionRules::InspectionRule.all.select do |rule|
       rule_keys = rule.has_properties.select { |_, value| value == true }.keys
       has_properties_match = rule_keys.all? { |key| has_properties[key] == true }
 
@@ -50,6 +50,7 @@ class Building < ApplicationRecord
     Inspections::FetchCoolingTowerInspectionsJob.perform_later bin
     Inspections::FetchFacadeInspectionsJob.perform_later bin
     Inspections::FetchElevatorInspectionsJob.perform_later bin
+    Inspections::FetchDrinkingTankInspectionsJob.perform_later bin
   end
 
   def trigger_create_upcoming_inspections_job

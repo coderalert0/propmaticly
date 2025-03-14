@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_13_185818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,28 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
     t.datetime "updated_at", null: false
     t.index ["assignable_type", "assignable_id"], name: "index_asset_contacts_on_assignable"
     t.index ["user_id"], name: "index_asset_contacts_on_user_id"
+  end
+
+  create_table "audits", force: :cascade do |t|
+    t.integer "auditable_id"
+    t.string "auditable_type"
+    t.integer "associated_id"
+    t.string "associated_type"
+    t.integer "user_id"
+    t.string "user_type"
+    t.string "username"
+    t.string "action"
+    t.jsonb "audited_changes"
+    t.integer "version", default: 0
+    t.string "comment"
+    t.string "remote_address"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["associated_type", "associated_id"], name: "associated_index"
+    t.index ["auditable_type", "auditable_id", "version"], name: "auditable_index"
+    t.index ["created_at"], name: "index_audits_on_created_at"
+    t.index ["request_uuid"], name: "index_audits_on_request_uuid"
+    t.index ["user_id", "user_type"], name: "user_index"
   end
 
   create_table "buildings", force: :cascade do |t|
@@ -113,6 +135,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
     t.jsonb "cycle_schedule"
     t.json "has_properties", default: {}
     t.json "numerical_properties", default: {}
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -121,7 +144,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_09_054717) do
     t.jsonb "data", default: {}
     t.datetime "filing_date"
     t.datetime "due_date"
-    t.integer "status", null: false
+    t.integer "state"
     t.bigint "building_id", null: false
     t.bigint "inspection_rule_id", null: false
     t.datetime "created_at", null: false

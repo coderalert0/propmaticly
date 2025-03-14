@@ -11,7 +11,7 @@ module Inspections
     end
 
     def inspection_rule
-      InspectionRule.find_by(compliance_item: :bed_bug)
+      InspectionRules::InspectionRule.find_by(compliance_item: :bed_bug)
     end
 
     def existing_record

@@ -146,6 +146,15 @@
         </div>
       </div>
       <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row mb-6 align-items-center">
+        <label class="col-lg-8">Has Drinking Water Storage Tank?</label>
+        <div class="col-lg-4">
+          <%= f.check_box :has_properties, { checked: building.has_properties['drinking_water_storage_tank'] == true, name: 'building[has_properties][drinking_water_storage_tank]', class: 'form-check-input' } %>
+        </div>
+      </div>
+      <!--end::Input group-->
     </div>
 
     <!-- Fourth Column -->
@@ -191,6 +200,15 @@
         <label class="col-lg-8">Has a Parking Structure?</label>
         <div class="col-lg-4">
           <%= f.check_box :has_properties, { checked: building.has_properties['parking_structure'] == true, name: 'building[has_properties][parking_structure]', class: 'form-check-input' } %>
+        </div>
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row mb-6 align-items-center">
+        <label class="col-lg-8">Has Retaining Wall (>10 ft) Facing Public Right-of-Way?</label>
+        <div class="col-lg-4">
+          <%= f.check_box :has_properties, { checked: building.has_properties['retaining_wall'] == true, name: 'building[has_properties][retaining_wall]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->

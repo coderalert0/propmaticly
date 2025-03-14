@@ -24,11 +24,13 @@ module InspectionRuleHelper
 
   def self.calculate_cycle_inspection_due_date(rule, building)
     rule.cycle_schedule.each do |entry|
-      boroughs = entry['boroughs']
-      districts = entry['districts']
-      borough_match = boroughs == 'all' || boroughs.include?(building.borough_code)
-      district_match = districts == 'all' || districts.include?(building.community_district_number)
-      return Date.parse(entry['end_date']) if borough_match && district_match
+      matches = entry.all? do |key, value|
+        next true if ['end_date'].include?(key)
+
+        key = rule.send(key) if rule.respond_to?(key)
+        value == 'all' || Array(value).include?(building.instance_eval(key.to_s))
+      end
+      return Date.parse(entry['end_date']) if matches
     end
   end
 end

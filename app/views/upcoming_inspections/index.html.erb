@@ -81,7 +81,7 @@
   </div>
   <% @inspections.each do |inspection| %>
     <div class="modal fade" id="inspectionModal<%= inspection.id %>" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="fw-bold"><%= inspection.inspection_rule.decorate.compliance_item_humanize %> Inspection Details</h2>
@@ -89,23 +89,44 @@
           </div>
 
           <div class="modal-body">
-              <div>
-                <p><strong>Inspection:</strong> <%= inspection.inspection_rule.decorate.compliance_item_humanize %></p>
+            <div class="row">
+              <!-- First Column: Inspection Details -->
+              <div class="col-md-6">
+                <h5>Details</h5>
                 <p><strong>Description:</strong> <%= inspection.inspection_rule.description %></p>
                 <p><strong>Filing Date:</strong> <%= inspection.filing_date&.strftime("%D") %></p>
                 <p><strong>Due Date:</strong> <%= inspection.due_date&.strftime("%D") %></p>
                 <p><strong>Status:</strong> <%= inspection.state %></p>
               </div>
-
-            <% inspection.attachments.each do |attachment| %>
-                <li class="list-group-item">
-                  <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
-                  <%= link_to '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
-                    <i class="bi bi-trash"></i>
+              <!-- Second Column: Audit Logs -->
+              <div class="col-md-6">
+                <h5>Attachments</h5>
+                <ul class="list-group">
+                  <% inspection.attachments.each do |attachment| %>
+                    <li class="list-group-item">
+                      <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
+                      <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
+                        <i class="bi bi-trash"></i>
+                      <% end %>
+                    </li>
+                    <%= render 'delete', attachment: attachment %>
                   <% end %>
-                </li>
-              <%= render 'delete', attachment: attachment %>
-            <% end %>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <hr>
+              <div class="col-lg-12">
+                <h5>Comments</h5>
+                  <% inspection.audits.each do |audit| %>
+                    <div>
+                      <% if audit.comment.present? %>
+                        <i><%= "#{audit.user.first_name}:" %></i> <%= audit.comment %>
+                        <span class="text-muted">(<%= time_ago_in_words(audit.created_at) %> ago)</span>
+                      <% end %>
+                    </div>
+                  <% end %>
+              </div>
           </div>
         </div>
       </div>

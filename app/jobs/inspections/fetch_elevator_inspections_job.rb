@@ -11,7 +11,7 @@ module Inspections
     end
 
     def inspection_rule
-      InspectionRule.find_by(compliance_item: :elevator)
+      InspectionRules::InspectionRule.find_by(compliance_item: :elevator)
     end
 
     def existing_record

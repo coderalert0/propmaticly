@@ -9,6 +9,7 @@ class CreateInspectionRules < ActiveRecord::Migration[7.0]
       t.jsonb :cycle_schedule
       t.json :has_properties, default: {}
       t.json :numerical_properties, default: {}
+      t.string :type
       t.timestamps
     end
   end

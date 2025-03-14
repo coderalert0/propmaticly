@@ -10,7 +10,7 @@ class Ability
     can :manage, Building, id: user.buildings.pluck(:id)
     can :manage, Complaints::Complaint, id: user.buildings.map(&:complaints).flatten.pluck(:id)
     can :manage, Violations::Violation, id: user.buildings.map(&:violations).flatten.pluck(:id)
-    can :read, InspectionRule
+    can :read, InspectionRules::InspectionRule
     can :manage, Inspection
     can :manage, ActiveStorage::Attachment
 

@@ -3,8 +3,7 @@
 class InspectionsController < ApplicationController
   load_and_authorize_resource only: %i[update destroy]
   load_and_authorize_resource :building, only: :index
-  load_and_authorize_resource :inspection_rule, only: :index
-
+  load_and_authorize_resource :inspection_rule, class: 'InspectionRules::InspectionRule', only: :index
   def index
     @inspections = @building.inspections.filed.where(inspection_rule_id: @inspection_rule.id)
 
