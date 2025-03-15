@@ -3,6 +3,9 @@
 module Complaints
   class Complaint < ApplicationRecord
     belongs_to :building
+    has_many_attached :attachments
+
+    audited
 
     validates :complaint_id, :building_id, presence: true
     # after_commit :send_notification, on: :create

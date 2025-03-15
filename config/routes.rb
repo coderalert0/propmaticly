@@ -24,8 +24,8 @@ Rails.application.routes.draw do
     resources :inspection_rules, only: :index do
       resources :inspections
     end
-    resources :complaints, only: :index
-    resources :violations, only: :index
+    resources :complaints, only: %i[index update]
+    resources :violations, only: %i[index update]
     resources :inspections, only: :index
     resources :upcoming_inspections, only: %i[index update]
   end

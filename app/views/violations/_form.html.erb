@@ -1,84 +1,32 @@
 <!--begin::Card body-->
 <div class="card-body">
   <div class="row">
-    <!--begin::First Column - Non-date fields-->
-    <div class="col-lg-6">
-      <!--begin::Input group 1-->
+      <!--begin::Input group 2-->
       <div class="row mb-6 align-items-center">
-        <label class="col-lg-4 required">Violation ID</label>
-        <div class="col-lg-8">
-          <%= f.text_field :violation_id, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'ABC123' %>
+        <label class="col-lg-3">Resolved Date</label>
+        <div class="col-lg-9">
+          <%= f.date_field :resolved_date, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
         </div>
       </div>
-      <!--end::Input group 1-->
-      <!--begin::Input group 4-->
-      <div class="row mb-6 align-items-center">
-        <label class="col-lg-4 required">Description</label>
-        <div class="col-lg-8">
-          <%= f.text_area :description, rows: 12, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
-        </div>
+      <!--end::Input group 2-->
+
+    <!--begin::Input group 2-->
+    <div class="row mb-12 align-items-center">
+      <label class="col-lg-3">File</label>
+      <div class="col-lg-9">
+        <%= f.file_field :attachments, multiple: true, class: 'form-control form-control-lg' %>
       </div>
-      <!--end::Input group 4-->
     </div>
-    <!--end::First Column-->
+    <!--end::Input group 2-->
 
-    <!--begin::Second Column - Date fields and State-->
-    <div class="col-lg-6">
-      <!--begin::Input group 2-->
-      <div class="row mb-6 align-items-center">
-        <label class="col-lg-4">Status</label>
-        <div class="col-lg-8">
-          <%= f.collection_select :state, Violations::ViolationDecorator.states_select, :last, :first, { selected: f.try(:object).try(:object).try(:state) }, class: 'form-select form-select-lg form-select-solid' %>
-        </div>
+    <!--begin::Input group 3-->
+    <div class="row align-items-center">
+      <label class="col-lg-3">Comment</label>
+      <div class="col-lg-9">
+        <%= f.text_area :audit_comment, class: 'form-control form-control-lg', rows: 3 %>
       </div>
-      <!--end::Input group 2-->
-
-      <!--begin::Input group 2-->
-      <div class="row mb-6 align-items-center">
-        <label class="col-lg-4">Type</label>
-        <div class="col-lg-8">
-          <%= f.text_field :violation_type, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
-        </div>
-      </div>
-      <!--end::Input group 2-->
-
-      <!--begin::Input group 2-->
-      <div class="row mb-6 align-items-center">
-        <label class="col-lg-4">Issue Date</label>
-        <div class="col-lg-8">
-          <%= f.date_field :issue_date, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
-        </div>
-      </div>
-      <!--end::Input group 2-->
-
-      <!--begin::Input group 4 - State Field-->
-      <div class="row mb-6 align-items-center">
-        <label class="col-lg-4">Severity</label>
-        <div class="col-lg-8">
-          <%= f.collection_select :severity, Violations::ViolationDecorator.severity_select, :last, :first, { selected: f.try(:object).try(:object).try(:severity) }, class: 'form-select form-select-lg form-select-solid' %>
-        </div>
-      </div>
-      <!--end::Input group 4-->
-
-      <!--begin::Input group 2-->
-      <div class="row mb-6 align-items-center">
-        <label class="col-lg-4">Device Number</label>
-        <div class="col-lg-8">
-          <%= f.text_field :device_number, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
-        </div>
-      </div>
-      <!--end::Input group 2-->
-
-      <!--begin::Input group 2-->
-      <div class="row mb-6 align-items-center">
-        <label class="col-lg-4">Device Type</label>
-        <div class="col-lg-8">
-          <%= f.text_field :device_type, class: 'form-control form-control-lg form-control-solid', placeholder: '' %>
-        </div>
-      </div>
-      <!--end::Input group 2-->
     </div>
-    <!--end::Second Column-->
+    <!--end::Input group 3-->
   </div>
 
   <%= f.hidden_field :building_id, value: @building&.id %>

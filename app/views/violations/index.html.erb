@@ -19,8 +19,6 @@
           </div>
         <% end %>
       </div>
-
-      <%#= link_to 'Add Violation', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
     </div>
     <div class="card-body">
       <table class="table align-middle table-row-dashed gy-3">
@@ -31,71 +29,109 @@
           <th class="min-w-200px">Description</th>
           <th class="min-w-100px">Status</th>
           <th class="min-w-125px">Severity</th>
-          <th class="min-w-100px">Updated On</th>
-<!--      <th class="text-end min-w-100px">Actions</th>-->
+          <th class="min-w-100px">Resolved Date</th>
+          <th class="min-w-100px">Attachments</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
           <% @violations.each do |violation| %>
             <tr>
-              <td>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#violationModal<%= violation.id %>">
-                  <div class="mb-1"><%= violation&.violation_id %></div>
-                </a>
-              </td>
+              <td><%= violation&.violation_id %></td>
               <td><%= violation&.issue_date&.strftime("%D") %></td>
               <td><%= violation&.description&.[](0..120) %></td>
               <td><%= violation&.state %></td>
               <td><%= violation&.severity %></td>
-              <td><%= violation.updated_at.strftime("%D") %></td>
-<!--              <td>-->
-<!--                <div class="dropdown">-->
-<!--                  <div class="btn btn-sm btn-light dropdown-toggle">-->
-<!--                    Actions-->
-<!--                  </div>-->
-<!--                  <div class="dropdown-menu">-->
-<!--                    <div class="dropdown-item">-->
-                      <%#= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
-<!--                    </div>-->
+              <td><%= violation&.resolved_date&.strftime("%D") %></td>
+              <td><% violation.attachments.each do |attachment| %>
+                  <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
+                    <i class="<%= file_icon_class(attachment) %>"></i>
+                  </a>
+                <% end %></td>
+              <td>
+                <div class="dropdown">
+                  <div class="btn btn-sm btn-light dropdown-toggle">
+                    Actions
+                  </div>
+                  <div class="dropdown-menu">
+                    <% if can?(:view, violation.object) %>
+                      <div class="dropdown-item">
+                        <%= link_to 'View', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#violationModal#{violation.id}" } %>
+                      </div>
+                    <% end %>
+                    <div class="dropdown-item">
+                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
+                    </div>
 <!--                    <div class="dropdown-item">-->
                       <%#= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{violation.id}" } %>
 <!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </td>-->
+                  </div>
+                </div>
+              </td>
             </tr>
-            <%#= render 'edit', violation: violation %>
-            <%#= render 'delete', violation: violation %>
+            <%= render 'edit', violation: violation %>
           <% end %>
         </tbody>
       </table>
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @violations, theme: 'bootstrap4' %>
       </div>
-      <%= render 'new' %>
     </div>
   </div>
 
   <% @violations.each do |violation| %>
     <div class="modal fade" id="violationModal<%= violation.id %>" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered mw-650px">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="fw-bold">Violation Details</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body py-10 px-lg-17">
-            <div>
-              <p><strong>Violation ID:</strong> <%= violation.violation_id %></p>
-              <p><strong>Description:</strong> <%= simple_format(violation.description) %></p>
-              <p><strong>Status:</strong> <%= violation.state %></p>
-              <p><strong>Type:</strong> <%= violation.violation_type %></p>
-              <p><strong>Issue Date:</strong> <%= violation.issue_date&.strftime("%D") %></p>
-              <p><strong>Severity:</strong> <%= violation.severity %></p>
-              <p><strong>Device Number:</strong> <%= violation.device_number %></p>
-              <p><strong>Device Type:</strong> <%= violation.device_type %></p>
-              <p><strong>Updated On:</strong> <%= violation.updated_at&.strftime("%D") %></p>
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Violation ID:</strong> <%= violation.violation_id %></p>
+                <p><strong>Device Number:</strong> <%= violation.device_number %></p>
+                <p><strong>Device Type:</strong> <%= violation.device_type %></p>
+                <p><strong>Description:</strong> <%= simple_format(violation.description) %></p>
+                <p><strong>Status:</strong> <%= violation.state %></p>
+                <p><strong>Issue Date:</strong> <%= violation.issue_date&.strftime("%D") %></p>
+                <p><strong>Severity:</strong> <%= violation.severity %></p>
+                <p><strong>Updated On:</strong> <%= violation.updated_at&.strftime("%D") %></p>
+              </div>
+              <div class="col-md-6">
+                <div class="col-md-6">
+                  <h5>Attachments</h5>
+                  <ul class="list-group">
+                    <% violation.attachments.each do |attachment| %>
+                      <li class="list-group-item">
+                        <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
+                        <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
+                          <i class="bi bi-trash"></i>
+                        <% end %>
+                      </li>
+                      <%= render 'attachments/delete', attachment: attachment %>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
             </div>
+            <% if violation.audits.any? { |audit| audit.comment.present? } %>
+              <div class="row">
+                <hr>
+                <div class="col-lg-12">
+                  <h5>Comments</h5>
+                  <% violation.audits.each do |audit| %>
+                    <div>
+                      <% if audit.comment.present? %>
+                        <i><%= "#{audit.user.first_name}:" %></i> <%= audit.comment %>
+                        <span class="text-muted">(<%= time_ago_in_words(audit.created_at) %> ago)</span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>

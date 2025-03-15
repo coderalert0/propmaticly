@@ -17,9 +17,10 @@ module Violations
     }.freeze
 
     def state
-      clazz = STATE_CLASSES[object.state]
+      state = object.resolved_date.present? ? 'closed' : object.state
+      clazz = STATE_CLASSES[state]
       h.content_tag(:span, class: "badge py-3 px-4 fs-7 #{clazz}") do
-        I18n.t("violation_state.#{object.state}")
+        I18n.t("violation_state.#{state}")
       end
     end
 

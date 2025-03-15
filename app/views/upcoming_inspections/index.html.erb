@@ -84,7 +84,7 @@
   </div>
   <% @inspections.each do |inspection| %>
     <div class="modal fade" id="inspectionModal<%= inspection.id %>" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="fw-bold"><%= inspection.inspection_rule.decorate.compliance_item_humanize %> Inspection Details</h2>
@@ -115,7 +115,7 @@
                         <i class="bi bi-trash"></i>
                       <% end %>
                     </li>
-                    <%= render 'delete', attachment: attachment %>
+                    <%= render 'attachments/delete', attachment: attachment %>
                   <% end %>
                 </ul>
               </div>

@@ -28,7 +28,6 @@ class UpcomingInspectionsController < ApplicationController
   private
 
   def inspection_params
-    params.require(:inspection).permit(:filing_date, :attachments, :audit_comment, :state, :building_id,
-                                       attachments: [])
+    params.require(:inspection).permit(:filing_date, :attachments, :audit_comment, :building_id, attachments: [])
   end
 end

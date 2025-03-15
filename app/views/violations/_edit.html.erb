@@ -1,4 +1,4 @@
-<div class="modal fade modal-xl" id="editModal<%= violation.id %>" tabindex="-1" aria-hidden="true" data-controller="modal">
+<div class="modal fade modal-md" id="editModal<%= violation.id %>" tabindex="-1" aria-hidden="true" data-controller="modal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <!--begin::Form-->
-        <%= form_for(violation, url: violation_path(violation)) do |f| %>
+        <%= form_for(violation, url: building_violation_path(@building, violation)) do |f| %>
           <%= render partial: 'form', locals: { f: f } %>
         <% end %>
         <!--end::Form-->

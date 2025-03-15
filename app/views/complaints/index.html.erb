@@ -26,12 +26,12 @@
       <table class="table align-middle table-row-dashed gy-3">
         <thead>
         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-          <th class="min-w-125px">Complaint ID</th>
+          <th class="min-w-100px">Complaint ID</th>
           <th class="min-w-100px">Filed Date</th>
-          <th class="min-w-250px">Description</th>
+          <th class="min-w-200px">Description</th>
           <th class="min-w-100px">Status</th>
-          <th class="min-w-125px">Severity</th>
-          <th class="min-w-100px">Updated On</th>
+          <th class="min-w-100px">Severity</th>
+          <th class="min-w-100px">Resolved Date</th>
         </tr>
         </thead>
         <tbody>
@@ -46,25 +46,28 @@
             <td><%= complaint&.description&.[](0..120) %></td>
             <td><%= complaint&.state %></td>
             <td><%= complaint&.severity %></td>
-            <td><%= complaint.updated_at.strftime("%D") %></td>
-<!--            <td class="text-end">-->
-<!--              <div class="dropdown">-->
-<!--                <div class="btn btn-sm btn-light dropdown-toggle">-->
-<!--                  Actions-->
-<!--                </div>-->
-<!--                <div class="dropdown-menu">-->
-<!--                  <div class="dropdown-item">-->
-                    <%#= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
-<!--                  </div>-->
-<!--                  <div class="dropdown-item">-->
-                    <%#= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{complaint.id}" } %>
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </td>-->
+            <td><%= complaint&.resolved_date&.strftime("%D") %></td>
+            <td class="text-end">
+              <div class="dropdown">
+                <div class="btn btn-sm btn-light dropdown-toggle">
+                  Actions
+                </div>
+                <div class="dropdown-menu">
+                  <% if can?(:view, complaint.object) %>
+                    <div class="dropdown-item">
+                      <%= link_to 'View', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#complaintModal#{complaint.id}" } %>
+                    </div>
+                  <% end %>
+                  <% if can?(:edit, complaint.object) %>
+                    <div class="dropdown-item">
+                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </td>
           </tr>
-          <%#= render 'edit', complaint: complaint %>
-          <%#= render 'delete', complaint: complaint %>
+          <%= render 'edit', complaint: complaint %>
         <% end %>
         </tbody>
       </table>
@@ -72,14 +75,12 @@
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @complaints, theme: 'bootstrap4' %>
       </div>
-
-      <%= render 'new' %>
     </div>
   </div>
 
   <% @complaints.each do |complaint| %>
     <div class="modal fade" id="complaintModal<%= complaint.id %>" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered mw-650px">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h2 class="fw-bold">Complaint Details</h2>

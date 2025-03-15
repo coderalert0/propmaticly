@@ -16,4 +16,18 @@ class ComplaintsController < ApplicationController
     @complaints = @complaints.order(filed_date: :desc).page(params[:page])
     @complaints = PaginationDecorator.decorate(@complaints)
   end
+
+  def update
+    return unless @complaint.update(complaint_params)
+
+    flash[:success] = t(:complaint_update_success)
+    redirect_to building_complaints_path(@complaint.building)
+  end
+
+  private
+
+  def complaint_params
+    params.require(:complaints_complaint).permit(:resolved_date, :attachments, :audit_comment, :building_id,
+                                                 attachments: [])
+  end
 end

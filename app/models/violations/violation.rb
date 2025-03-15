@@ -3,6 +3,9 @@
 module Violations
   class Violation < ApplicationRecord
     belongs_to :building
+    has_many_attached :attachments
+
+    audited
 
     validates :violation_id, :building_id, presence: true
     # after_commit :send_notification, on: :create
