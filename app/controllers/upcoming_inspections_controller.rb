@@ -6,7 +6,7 @@ class UpcomingInspectionsController < ApplicationController
 
   def index
     @inspections = @building.inspections.internal
-    @inspections = @inspections.send(params[:state]) if params[:state].present?
+    @inspections = @inspections.internal.send(params[:state]) if params[:state].present?
 
     if params[:search].present?
       search_term = "%#{params[:search].strip}%"
