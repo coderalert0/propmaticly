@@ -62,7 +62,7 @@ en:
   invalid_state_error: Please enter a valid zip code
   "no": "No"
   no_permission: You do not have permission to access this page.
-  portfolio_create_success: Portfolio has been added successfully! Now you can add a building to the portfolio to monitor complaints
+  portfolio_create_success: Portfolio has been added successfully! Add a building to the portfolio to monitor complaints, violations, and see upcoming inspections
   portfolio_update_success: Portfolio has been updated successfully
   portfolio_delete_success: Portfolio has been deleted successfully
   user_delete_success: User has been deleted successfully

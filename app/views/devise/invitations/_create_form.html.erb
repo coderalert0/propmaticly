@@ -5,7 +5,7 @@
     <div class="row mb-6 align-items-center">
       <label class="col-lg-4 required">First Name</label>
       <div class="col-lg-8">
-        <%= f.text_field :first_name, required: true, class: 'form-control', placeholder: 'First Name' %>
+        <%= f.text_field :first_name, required: true, class: 'form-control' %>
       </div>
     </div>
     <!--end::Input group-->
@@ -14,16 +14,25 @@
     <div class="row mb-6 align-items-center">
       <label class="col-lg-4 required">Last Name</label>
       <div class="col-lg-8">
-        <%= f.text_field :last_name, required: true, class: 'form-control', placeholder: 'Last Name' %>
+        <%= f.text_field :last_name, required: true, class: 'form-control' %>
       </div>
     </div>
     <!--end::Input group-->
+
+  <!--begin::Input group-->
+  <div class="row mb-6 align-items-center">
+    <label class="col-lg-4">Title</label>
+    <div class="col-lg-8">
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+  </div>
+  <!--end::Input group-->
 
     <!--begin::Input group-->
     <div class="row mb-6 align-items-center">
       <label class="col-lg-4 required">Email</label>
       <div class="col-lg-8">
-        <%= f.text_field :email, required: true, class: 'form-control', placeholder: 'Email' %>
+        <%= f.text_field :email, required: true, class: 'form-control' %>
       </div>
     </div>
     <!--end::Input group-->
@@ -32,7 +41,7 @@
     <div class="row mb-6 align-items-center">
       <label class="col-lg-4">SMS</label>
       <div class="col-lg-8">
-        <%= f.text_field :sms, class: 'form-control', placeholder: 'SMS' %>
+        <%= f.text_field :sms, class: 'form-control' %>
       </div>
     </div>
     <!--end::Input group-->

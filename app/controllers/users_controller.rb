@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :sms, :admin, portfolio_ids: [], building_ids: [])
+    params.require(:user).permit(:first_name, :last_name, :sms, :title, :admin, portfolio_ids: [], building_ids: [])
   end
 
   def validate_admin

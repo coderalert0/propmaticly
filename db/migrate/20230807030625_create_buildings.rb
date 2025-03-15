@@ -14,8 +14,8 @@ class CreateBuildings < ActiveRecord::Migration[7.0]
       t.integer :borough_code
       t.integer :community_district_number
       t.integer :tax_block_number
-      t.json :has_properties, default: {}
-      t.json :numerical_properties, default: {}
+      t.jsonb :has_properties, default: {}
+      t.jsonb :numerical_properties, default: {}
       t.references :portfolio, foreign_key: true, null: false
       t.timestamps
     end

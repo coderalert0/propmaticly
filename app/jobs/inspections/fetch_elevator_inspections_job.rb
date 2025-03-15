@@ -26,7 +26,7 @@ module Inspections
     end
 
     def filtered_columns
-      %i[device_number device_type device_status status_date equipment_type periodic_report_year]
+      %i[device_number device_type device_status equipment_type periodic_report_year]
     end
 
     def process_resources

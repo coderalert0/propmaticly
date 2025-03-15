@@ -48,7 +48,6 @@
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @inspections, theme: 'bootstrap4' %>
       </div>
-      <%#= render 'new' %>
     </div>
   </div>
 
@@ -60,22 +59,17 @@
             <h2 class="fw-bold"><%= inspection.inspection_rule.decorate.compliance_item_humanize %> Inspection Details</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-
-
           <div class="modal-body">
             <div class="row">
               <% inspection.data.keys.sort.each_slice(10) do |chunk| %>
                 <div class="col-lg-6">
                   <% chunk.each do |key| %>
-                    <p><strong><%= key.titleize %>: </strong><%= inspection.data[key] %></p> <!-- Capitalized Keys -->
+                    <p><strong><%= key.titleize %>: </strong><%= inspection.data[key] %></p>
                   <% end %>
                 </div>
               <% end %>
             </div>
-
             <p><strong>Updated On:</strong> <%= inspection&.updated_at&.strftime("%D") %></p>
-          </div>
-        </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>

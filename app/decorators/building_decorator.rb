@@ -24,4 +24,10 @@ class BuildingDecorator < Draper::Decorator
     h.link_to inspections.upcoming.pending.size, h.building_upcoming_inspections_path(object),
               class: "badge #{color_clazz} rounded-0 bg-opacity-75"
   end
+
+  def past_inspections_link
+    color_clazz = 'bg-primary text-white' if inspections.filed.size.positive?
+    h.link_to inspections.filed.pending.size, h.building_inspection_rules_path(object),
+              class: "badge #{color_clazz} rounded-0 bg-opacity-75"
+  end
 end

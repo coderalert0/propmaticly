@@ -37,11 +37,7 @@
         <tbody>
         <% @complaints.each do |complaint| %>
           <tr>
-            <td>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#complaintModal<%= complaint.id %>">
-                  <%= complaint.complaint_id %>
-                </a>
-            </td>
+            <td><%= complaint.complaint_id %></td>
             <td><%= complaint&.filed_date&.strftime("%D") %></td>
             <td><%= complaint&.description&.[](0..120) %></td>
             <td><%= complaint&.state %></td>

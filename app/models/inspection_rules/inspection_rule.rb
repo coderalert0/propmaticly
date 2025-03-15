@@ -30,7 +30,8 @@ module InspectionRules
       energy_efficiency_ll_133: 20,
       drinking_water_storage_tank: 21,
       greenhouse_gas_emissions: 22,
-      retaining_wall: 23
+      retaining_wall: 23,
+      energy_audits_retro_commissioning: 24
     }
 
     enum :department, {
@@ -40,5 +41,40 @@ module InspectionRules
       department_of_environmental_protection: 3,
       department_of_housing_preservation_and_development: 4
     }
+
+    def calculate_due_date(building)
+      @building = building
+      @current_date = Date.today
+
+      if fixed_day_month.present?
+        calculate_fixed_due_date
+      elsif based_on_last_inspection == true
+        calculate_due_date_based_on_last_inspection
+      elsif cycle_schedule.present?
+        calculate_cycle_due_date
+      end
+    end
+
+    def calculate_fixed_due_date
+      day = fixed_day_month['day']
+      month = fixed_day_month['month']
+
+      due_date = Date.new(@current_date.year, month, day)
+
+      due_date += frequency_in_months.months while due_date < @current_date
+      due_date
+    end
+
+    def calculate_cycle_due_date
+      cycle_schedule.each do |entry|
+        matches = entry.all? do |key, value|
+          next true if ['end_date'].include?(key)
+
+          key = send(key) if respond_to?(key)
+          value == 'all' || Array(value).include?(@building.instance_eval(key.to_s))
+        end
+        return Date.parse(entry['end_date']) if matches
+      end
+    end
   end
 end

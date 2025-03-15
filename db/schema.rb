@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_14_221648) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_15_011219) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,8 +86,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_14_221648) do
     t.integer "borough_code"
     t.integer "community_district_number"
     t.integer "tax_block_number"
-    t.json "has_properties", default: {}
-    t.json "numerical_properties", default: {}
+    t.jsonb "has_properties", default: {}
+    t.jsonb "numerical_properties", default: {}
     t.bigint "portfolio_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -132,14 +132,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_14_221648) do
     t.string "description"
     t.integer "department"
     t.integer "frequency_in_months", null: false
-    t.boolean "based_on_date_of_install"
-    t.json "fixed_day_month"
+    t.boolean "based_on_last_inspection"
+    t.jsonb "fixed_day_month"
     t.jsonb "cycle_schedule"
-    t.json "has_properties", default: {}
-    t.json "numerical_properties", default: {}
+    t.jsonb "has_properties", default: {}
+    t.jsonb "numerical_properties", default: {}
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["compliance_item"], name: "index_inspection_rules_on_compliance_item", unique: true
   end
 
   create_table "inspections", force: :cascade do |t|
@@ -195,6 +196,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_14_221648) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.string "title"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

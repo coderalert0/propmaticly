@@ -3,7 +3,6 @@
 class Building < ApplicationRecord
   belongs_to :portfolio
   has_many :asset_contacts, as: :assignable, dependent: :destroy
-  has_many :users, through: :asset_contacts
   has_many :complaints, class_name: 'Complaints::Complaint', dependent: :destroy
   has_many :violations, class_name: 'Violations::Violation', dependent: :destroy
   has_many :inspections, dependent: :destroy
@@ -25,6 +24,13 @@ class Building < ApplicationRecord
 
       has_properties_match && numerical_properties_match
     end
+  end
+
+  def users
+    User.joins(:asset_contacts).where(asset_contacts: { assignable_type: 'Building', assignable_id: id })
+        .or(User.joins(:asset_contacts).where(asset_contacts: { assignable_type: 'Portfolio',
+                                                                assignable_id: portfolio_id }))
+        .distinct
   end
 
   private

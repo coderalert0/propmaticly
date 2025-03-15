@@ -31,11 +31,5 @@ Rails.application.routes.draw do
   end
 
   resources :attachments, only: [:destroy]
-
   resources :users
-
-  # daily cron jobs
-  resource :fetch_complaints, only: :show
-  resource :fetch_violations, only: :show
-  resource :fetch_inspections, only: :show
 end

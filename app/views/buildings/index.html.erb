@@ -1,7 +1,7 @@
 <div>
   <div>
     <div class="py-lg-8">
-      <h2>Building List</h2>
+      <h2><%= @portfolio.name %>: Building List</h2>
     </div>
 
     <div class="card">
@@ -15,23 +15,22 @@
           <thead>
           <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
             <th class="min-w-125px">Building Name</th>
-            <th class="min-w-125px">Portfolio</th>
             <th class="min-w-125px">Address</th>
-            <th class="min-w-125px">Open Complaints</th>
             <th class="min-w-125px">Open Violations</th>
+            <th class="min-w-125px">Open Complaints</th>
             <th class="min-w-125px">Upcoming Inspections</th>
-            <th class="min-w-125px">Contacts</th>
+            <th class="min-w-125px">Past Inspections</th>
           </tr>
           </thead>
           <tbody class="text-gray-600">
           <% @buildings.each do |building| %>
             <tr>
               <td><div class="text-gray-800 mb-1"><%= building.name %></div></td>
-              <td><%= building.portfolio.name %></td>
               <td><div class="text-gray-600 mb-1"><%= building.address1.titleize %>, <%= building.city.titleize %>, <%= building.state %></div></td>
-              <td><%= building.open_complaints_link %></td>
               <td><%= building.open_violations_link %></td>
+              <td><%= building.open_complaints_link %></td>
               <td><%= building.upcoming_inspections_link %></td>
+              <td><%= building.past_inspections_link %></td>
               <td></td>
               <td class="text-end">
                 <div class="dropdown">
@@ -39,6 +38,9 @@
                     Actions
                   </div>
                   <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <%= link_to 'View Contacts', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#contactsModal#{building.id}" } %>
+                    </div>
                     <div class="dropdown-item">
                       <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{building.id}" } %>
                     </div>
@@ -63,4 +65,33 @@
       </div>
     </div>
   </div>
+  <% @buildings.each do |building| %>
+    <div class="modal fade" id="contactsModal<%= building.id %>" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="fw-bold"><%= building.name %>: Contact Details</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+
+          <div class="modal-body">
+            <div class="row">
+              <% building.users.each do |user| %>
+                <p>
+                  <div><%= user.first_name %> <%= user.last_name %></div>
+                  <div><%= user.title %></div>
+                  <div><%= user.sms %></div>
+                  <div><%= user.email %></div>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  <% end %>
 </div>

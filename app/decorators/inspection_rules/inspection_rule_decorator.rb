@@ -13,11 +13,11 @@ module InspectionRules
                                    inspection_date defects_exist report_status],
       'cooling_tower' => %i[system_id status active_equip inspection_type inspection_date violation_code violation_type
                             law_section],
-      'elevator_cat_1' => %i[device_number device_type device_status status_date equipment_type periodic_report_year
+      'elevator_cat_1' => %i[device_number device_type device_status equipment_type periodic_report_year
                              filing_date],
-      'elevator_cat_5' => %i[device_number device_type device_status status_date equipment_type periodic_report_year
+      'elevator_cat_5' => %i[device_number device_type device_status equipment_type periodic_report_year
                              filing_date],
-      'elevator_periodic' => %i[device_number device_type device_status status_date equipment_type periodic_report_year
+      'elevator_periodic' => %i[device_number device_type device_status equipment_type periodic_report_year
                                 filing_date],
       'facade' => %i[tr6_no control_no filing_type cycle sequence_no submitted_on filing_date current_status
                      filing_status],
