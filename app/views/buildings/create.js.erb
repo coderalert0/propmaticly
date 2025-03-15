@@ -1,8 +1,12 @@
-
 <% if flash[:success] %>
-  window.location.href = "<%= portfolio_buildings_path(@building.portfolio) %>";
+  <% if @compliance_items_based_on_last_inspection.present? %>
+    <% redirect_url = building_inspection_rules_path(@building) %>
+  <% else %>
+    <% redirect_url = portfolio_buildings_path(@building.portfolio) %>
+  <% end %>
+  window.location.href = "<%= redirect_url %>";
 <% else %>
   <% flash.each do |key, message| %>
-    document.getElementById('error').innerHTML += "<div class='alert alert-primary alert-dismissible'><%= j(message) %></div>";
+    document.getElementById('error-<%= @building.id %>').innerHTML += "<div class='alert alert-primary alert-dismissible'><%= j(message) %></div>";
   <% end %>
 <% end %>

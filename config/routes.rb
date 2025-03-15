@@ -22,14 +22,15 @@ Rails.application.routes.draw do
   end
   resources :buildings do
     resources :inspection_rules, only: :index do
-      resources :inspections
+      resources :inspections, only: :index
     end
     resources :complaints, only: %i[index update]
     resources :violations, only: %i[index update]
-    resources :inspections, only: :index
+    resources :inspections, only: %i[index]
     resources :upcoming_inspections, only: %i[index update]
   end
 
+  resources :inspections, only: %i[create]
   resources :attachments, only: [:destroy]
   resources :users
 end

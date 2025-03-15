@@ -1,0 +1,36 @@
+<!--begin::Card body-->
+<div class="card-body">
+  <!--begin::Input group row-->
+  <div class="row">
+    <!-- First Column -->
+      <!--begin::Input group-->
+      <div class="row mb-6 align-items-center">
+        <label class="col-lg-4 required">Device ID</label>
+        <div class="col-lg-8">
+          <%= f.text_field :device_id, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Montefiore Residents' %>
+        </div>
+      </div>
+      <!--end::Input group-->
+
+      <!--begin::Input group-->
+      <div class="row mb-6 align-items-center">
+        <label class="col-lg-4 required">Last Inspection Date</label>
+        <div class="col-lg-8">
+          <%= f.date_field :filing_date, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: '3450' %>
+        </div>
+      </div>
+      <!--end::Input group-->
+    <!-- End First Column -->
+  </div>
+  <!--end::Input group row-->
+  <%= f.hidden_field :inspection_rule_id, value: @inspection_rule&.id %>
+  <%= f.hidden_field :building_id, value: @building&.id %>
+</div>
+<!--end::Card body-->
+
+<!--begin::Actions-->
+<div class="card-footer d-flex justify-content-end py-6 px-9">
+  <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-light me-2' %>
+  <%= f.submit 'Save', class: "btn btn-success" %>
+</div>
+<!--end::Actions-->

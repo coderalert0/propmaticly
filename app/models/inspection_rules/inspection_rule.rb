@@ -65,6 +65,14 @@ module InspectionRules
       due_date
     end
 
+    def calculate_due_date_based_on_last_inspection
+      latest_filing_dates = Inspection.completed.where(inspection_rule_id: id,
+                                                       building: @building).group(:device_id).maximum(:filing_date)
+      latest_filing_dates.transform_values do |filing_date|
+        filing_date + frequency_in_months.months
+      end
+    end
+
     def calculate_cycle_due_date
       cycle_schedule.each do |entry|
         matches = entry.all? do |key, value|

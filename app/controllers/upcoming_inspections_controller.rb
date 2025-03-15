@@ -5,7 +5,7 @@ class UpcomingInspectionsController < ApplicationController
   load_and_authorize_resource class: 'Inspection', instance_name: :inspection
 
   def index
-    @inspections = @building.inspections.upcoming
+    @inspections = @building.inspections.internal
     @inspections = @inspections.send(params[:state]) if params[:state].present?
 
     if params[:search].present?

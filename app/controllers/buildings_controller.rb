@@ -33,6 +33,7 @@ class BuildingsController < ApplicationController
     @building.assign_attributes(attributes)
 
     if @building.save
+      @compliance_items_based_on_last_inspection = @building.inspection_rules.select(&:based_on_last_inspection).map(&:compliance_item)
       flash[:success] = @building.persisted? ? t(:building_update_success) : t(:building_create_success)
     end
   rescue USPS::InvalidStateError

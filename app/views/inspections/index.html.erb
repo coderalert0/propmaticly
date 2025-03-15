@@ -13,10 +13,11 @@
           </div>
         <% end %>
       </div>
-
-      <%# if can?(:create, Inspection) %>
-        <%#= link_to 'Add Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
-      <%# end %>
+      <% if can?(:create, Inspection) %>
+        <% if @inspection_rule.based_on_last_inspection? %>
+          <%= link_to 'Add Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+        <% end %>
+      <% end %>
     </div>
     <div class="card-body">
       <table class="table align-middle table-row-dashed gy-3">
@@ -48,6 +49,7 @@
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @inspections, theme: 'bootstrap4' %>
       </div>
+      <%= render 'new' %>
     </div>
   </div>
 

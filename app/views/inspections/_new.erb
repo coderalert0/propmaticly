@@ -1,0 +1,18 @@
+<div class="modal fade modal-md" id="newModal" tabindex="-1" aria-hidden="true" data-controller="modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Inspection</h5>
+        <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="error">
+        </div>
+
+        <%= form_for(inspection = Inspection.new, remote: true) do |f| %>
+          <%= render partial: 'form', locals: { f: f, inspection: inspection, inspection_rule_id: @inspection_rule&.id, building_id: @building&.id } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
