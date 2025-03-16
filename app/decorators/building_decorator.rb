@@ -20,8 +20,8 @@ class BuildingDecorator < Draper::Decorator
   end
 
   def upcoming_inspections_link
-    color_clazz = 'bg-warning text-white' if inspections.internal.pending.size.positive?
-    h.link_to inspections.internal.pending.size, h.building_upcoming_inspections_path(object, state: 'pending'),
+    color_clazz = 'bg-warning text-white' if inspections.internal.open.size.positive?
+    h.link_to inspections.internal.open.size, h.building_upcoming_inspections_path(object, state: 'open'),
               class: "badge #{color_clazz} rounded-0 bg-opacity-75"
   end
 

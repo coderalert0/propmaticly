@@ -19,7 +19,11 @@ class UpcomingInspectionsController < ApplicationController
   end
 
   def update
-    if @inspection.update(inspection_params)
+    modifiable_params = inspection_params.dup
+
+    modifiable_params[:filing_date] = nil unless modifiable_params[:state] == 'closed'
+
+    if @inspection.update(modifiable_params)
       flash[:success] = t(:inspection_update_success)
     else
       flash[:danger] = @inspection.errors.full_messages
@@ -29,6 +33,8 @@ class UpcomingInspectionsController < ApplicationController
   private
 
   def inspection_params
-    params.require(:inspection).permit(:filing_date, :attachments, :audit_comment, :building_id, attachments: [])
+    permitted_params = %i[state audit_comment building_id filing_date]
+    permitted_params << { attachments: [] }
+    params.require(:inspection).permit(permitted_params)
   end
 end

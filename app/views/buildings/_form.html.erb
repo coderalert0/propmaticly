@@ -48,7 +48,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Square Feet</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: building.numerical_properties['square_feet'], required: true, name: 'building[numerical_properties][square_feet]', class: 'form-control form-control-lg form-control-solid', placeholder: '15,000' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['square_feet'], required: true, name: 'building[numerical_properties][square_feet]', class: 'form-control form-control-lg form-control-solid', placeholder: '15,000' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -57,7 +57,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Total Square Feet of All Buildings on Tax Lot</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: building.numerical_properties['tax_lot_square_feet'], required: true, name: 'building[numerical_properties][tax_lot_square_feet]', class: 'form-control form-control-lg form-control-solid', placeholder: '75,000' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['tax_lot_square_feet'], required: true, name: 'building[numerical_properties][tax_lot_square_feet]', class: 'form-control form-control-lg form-control-solid', placeholder: '75,000' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -66,7 +66,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Number of Stories</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: building.numerical_properties['number_of_stories'], required: true, name: 'building[numerical_properties][number_of_stories]', class: 'form-control form-control-lg form-control-solid', placeholder: '21' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['number_of_stories'], required: true, name: 'building[numerical_properties][number_of_stories]', class: 'form-control form-control-lg form-control-solid', placeholder: '21' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -75,7 +75,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Number of Residential Units</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: building.numerical_properties['number_of_residential_units'], required: true, name: 'building[numerical_properties][number_of_residential_units]', class: 'form-control form-control-lg form-control-solid', placeholder: '130' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['number_of_residential_units'], required: true, name: 'building[numerical_properties][number_of_residential_units]', class: 'form-control form-control-lg form-control-solid', placeholder: '130' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -84,7 +84,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Boiler BTUs</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: building.numerical_properties['boiler_btus'], required: true, name: 'building[numerical_properties][boiler_btus]', class: 'form-control form-control-lg form-control-solid', placeholder: '350,000' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['boiler_btus'], required: true, name: 'building[numerical_properties][boiler_btus]', class: 'form-control form-control-lg form-control-solid', placeholder: '350,000' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -97,7 +97,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has Elevator(s)?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['elevator'] == true, name: 'building[has_properties][elevator]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['elevator'] == true, name: 'building[has_properties][elevator]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -106,7 +106,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has Sprinkler System?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['sprinkler_system'] == true, name: 'building[has_properties][sprinkler_system]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['sprinkler_system'] == true, name: 'building[has_properties][sprinkler_system]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -115,7 +115,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has Standpipes?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['standpipe'] == true, name: 'building[has_properties][standpipe]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['standpipe'] == true, name: 'building[has_properties][standpipe]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -124,7 +124,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has Gas Piping?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['gas_piping'] == true, name: 'building[has_properties][gas_piping]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['gas_piping'] == true, name: 'building[has_properties][gas_piping]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -133,7 +133,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has Backflow Device?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['backflow'] == true, name: 'building[has_properties][backflow]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['backflow'] == true, name: 'building[has_properties][backflow]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -142,7 +142,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has Cooling Tower?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['cooling_tower'] == true, name: 'building[has_properties][cooling_tower]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['cooling_tower'] == true, name: 'building[has_properties][cooling_tower]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -151,7 +151,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has Drinking Water Storage Tank?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['drinking_water_storage_tank'] == true, name: 'building[has_properties][drinking_water_storage_tank]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['drinking_water_storage_tank'] == true, name: 'building[has_properties][drinking_water_storage_tank]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -163,7 +163,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has Residential Units with Children Under Age of 10?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['units_with_children_age'] == true, name: 'building[has_properties][units_with_children_age]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['units_with_children_age'] == true, name: 'building[has_properties][units_with_children_age]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -172,7 +172,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has a Gas Line?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['gas_line'] == true, name: 'building[has_properties][gas_line]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['gas_line'] == true, name: 'building[has_properties][gas_line]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -181,7 +181,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has a Low-Pressure Boiler?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['low_pressure_boiler'] == true, name: 'building[has_properties][low_pressure_boiler]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['low_pressure_boiler'] == true, name: 'building[has_properties][low_pressure_boiler]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -190,7 +190,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has a High-Pressure Boiler?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['high_pressure_boiler'] == true, name: 'building[has_properties][high_pressure_boiler]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['high_pressure_boiler'] == true, name: 'building[has_properties][high_pressure_boiler]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -199,7 +199,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has a Parking Structure?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['parking_structure'] == true, name: 'building[has_properties][parking_structure]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['parking_structure'] == true, name: 'building[has_properties][parking_structure]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->
@@ -208,7 +208,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-8">Has Retaining Wall (>10 ft) Facing Public Right-of-Way?</label>
         <div class="col-lg-4">
-          <%= f.check_box :has_properties, { checked: building.has_properties['retaining_wall'] == true, name: 'building[has_properties][retaining_wall]', class: 'form-check-input' } %>
+          <%= f.check_box :has_properties, { checked: f.object.has_properties['retaining_wall'] == true, name: 'building[has_properties][retaining_wall]', class: 'form-check-input' } %>
         </div>
       </div>
       <!--end::Input group-->

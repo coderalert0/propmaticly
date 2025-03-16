@@ -2,5 +2,6 @@
 import "controllers"
 import "popper"
 import "bootstrap"
+import "inspection_form"
 import Rails from "@rails/ujs";
 Rails.start();

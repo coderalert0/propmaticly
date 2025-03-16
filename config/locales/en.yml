@@ -55,9 +55,9 @@ en:
   inspection_create_success: Inspection has been added successfully, we will use the the provided last inspection date to determine when future inspections are due.
   inspection_delete_success: Inspection has been deleted successfully
   inspection_state:
-    overdue: Overdue
-    pending: Pending
-    completed: Completed
+    open: Open
+    in_progress: In Progress
+    closed: Complete
   inspection_update_success: Inspection has been updated successfully
   invalid_state_error: Please enter a valid zip code
   last_inspection_input_message: >

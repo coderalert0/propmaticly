@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'faraday'
-
 module Inspections
   class FetchElevatorInspectionsJob < FetchInspectionsJob
     INSPECTION_TYPES = {

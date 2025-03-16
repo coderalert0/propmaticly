@@ -4,22 +4,15 @@ class InspectionDecorator < Draper::Decorator
   delegate_all
 
   STATUS_CLASSES = {
-    'pending' => 'badge-light-warning',
-    'completed' => 'badge-light-success',
-    'overdue' => 'badge-light-danger'
+    'open' => 'badge-light-warning',
+    'closed' => 'badge-light-success',
+    'in_progress' => 'badge-light-primary'
   }.freeze
 
   def state
-    state = if object.filing_date.present?
-              'completed'
-            elsif object.due_date.present? && object.due_date < Date.today
-              'overdue'
-            else
-              'pending'
-            end
-    clazz = STATUS_CLASSES[state]
+    clazz = STATUS_CLASSES[object.state]
     h.content_tag(:span, class: "badge py-3 px-4 fs-7 #{clazz}") do
-      I18n.t("inspection_state.#{state}")
+      I18n.t("inspection_state.#{object.state}")
     end
   end
 

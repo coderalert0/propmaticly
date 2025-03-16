@@ -5,18 +5,30 @@
     <div class="col-md-12">
       <!--begin::Input group 1-->
       <div class="row mb-4 align-items-center">
-        <label class="col-lg-3 required">Filing Date</label>
+        <label class="col-lg-3">Status</label>
         <div class="col-lg-9">
-          <%= f.date_field :filing_date, class: 'form-control form-control-lg form-control-solid' %>
+          <%= f.select :state, Inspection.states.keys.map { |state| [state.titleize, state] }, { selected: f.object.object.state }, { class: 'form-control form-control-lg form-select', id: "state-select-#{f.object.id}" } %>
+
         </div>
       </div>
       <!--end::Input group 1-->
 
       <!--begin::Input group 2-->
+      <div class="row mb-4 align-items-center" id="filing-date-group-<%= f.object.id %>">
+        <label class="col-lg-3">Filing Date</label>
+        <div class="col-lg-9">
+          <%= f.date_field :filing_date, class: 'form-control form-control-lg form-control-solid' %>
+        </div>
+      </div>
+      <!--end::Input group 2-->
+
+      <!--begin::Input group 2-->
       <div class="row mb-12 align-items-center">
-        <label class="col-lg-3">File</label>
+        <label class="col-lg-3">Attachments</label>
         <div class="col-lg-9">
           <%= f.file_field :attachments, multiple: true, class: 'form-control form-control-lg' %>
+          <div class="form-text">In the file dialog Control Click (Windows) or Command Click (Mac) to select multiple files</div>
+
         </div>
       </div>
       <!--end::Input group 2-->
@@ -34,6 +46,10 @@
   </div>
 
   <%= f.hidden_field :building_id, value: @building&.id %>
+
+  <% f.object.attachments.each do |attachment| %>
+    <%= hidden_field_tag 'inspection[attachments][]', attachment.signed_id %>
+  <% end %>
 </div>
 <!--end::Card body-->
 
