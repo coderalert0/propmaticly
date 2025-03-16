@@ -23,13 +23,16 @@ module Complaints
           ["LOCATION: #{complaint['space_type']&.capitalize}", "CATEGORY: #{complaint['major_category']&.capitalize}/#{complaint['minor_category']&.capitalize}",
            "PROBLEM: #{complaint['problem_code']&.capitalize}"].join(', '), complaint['status_description']
         ].join("\n\n"),
-        state: resource_clazz.mapped_state(complaint['complaint_status']),
         severity: resource_clazz.mapped_severity(complaint['type'])
       }
     end
 
     def resource_clazz
       Complaints::HpdComplaint
+    end
+
+    def state
+      resource_clazz.mapped_state(complaint['complaint_status'])
     end
   end
 end

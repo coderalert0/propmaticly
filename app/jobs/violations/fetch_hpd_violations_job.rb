@@ -15,13 +15,16 @@ module Violations
     def resource_update_attributes(violation)
       {
         description: violation['novdescription'],
-        issue_date: violation['novissueddate'],
-        state: resource_clazz.mapped_state(violation['violationstatus'])
+        issue_date: violation['novissueddate']
       }
     end
 
     def resource_clazz
       Violations::HpdViolation
+    end
+
+    def state
+      resource_clazz.mapped_state(violation['violationstatus'])
     end
   end
 end

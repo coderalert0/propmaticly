@@ -27,6 +27,7 @@
         <thead>
         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
           <th class="min-w-100px">Complaint ID</th>
+          <th class="min-w-100px">Problem ID</th>
           <th class="min-w-100px">Filed Date</th>
           <th class="min-w-200px">Description</th>
           <th class="min-w-100px">Status</th>
@@ -39,6 +40,7 @@
         <% @complaints.each do |complaint| %>
           <tr>
             <td><%= complaint.complaint_id %></td>
+            <td><%= complaint&.problem_id %></td>
             <td><%= complaint&.filed_date&.strftime("%D") %></td>
             <td><%= complaint&.description&.[](0..120) %></td>
             <td><%= complaint&.state %></td>

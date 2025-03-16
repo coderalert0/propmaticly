@@ -11,7 +11,8 @@ class ComplaintsController < ApplicationController
 
     if params[:search].present?
       search = "%#{params[:search].strip}%"
-      @complaints = @complaints.where('complaint_id LIKE ? OR description LIKE ?', search, search)
+      @complaints = @complaints.where('complaint_id LIKE ? OR problem_id LIKE ? OR description LIKE ?', search, search,
+                                      search)
     end
     @complaints = @complaints.order(filed_date: :desc).page(params[:page])
     @complaints = PaginationDecorator.decorate(@complaints)

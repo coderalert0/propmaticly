@@ -17,13 +17,16 @@ module Violations
         issue_date: violation['issue_date'],
         violation_type: violation['violation_type_code'],
         device_number: violation['device_number'],
-        description: violation['description'],
-        state: violation['number'].include?('*') ? :closed : :open
+        description: violation['description']
       }
     end
 
     def resource_clazz
       Violations::Violation
+    end
+
+    def state
+      violation['number'].include?('*') ? :closed : :open
     end
   end
 end

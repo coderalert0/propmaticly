@@ -22,8 +22,14 @@ class FetchComplaintsViolationsJob < ApplicationJob
   private
 
   def find_or_initialize_and_update(resource, building)
-    resource_params = resource_where_params(resource, building)
+    resource_unique_params = resource_where_params(resource, building)
     resource_attributes = resource_update_attributes(resource)
-    resource_clazz.find_or_initialize_by(resource_params).update(resource_attributes)
+    resource_clazz.find_or_initialize_by(resource_unique_params).update(resource_attributes)
+
+    resource = resource_clazz.find_or_initialize_by(resource_unique_params) do |new_resource|
+      new_resource.state = state
+    end
+
+    resource.update(resource_attributes)
   end
 end

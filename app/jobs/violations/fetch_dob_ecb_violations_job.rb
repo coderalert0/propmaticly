@@ -17,13 +17,16 @@ module Violations
         issue_date: violation['issue_date'],
         severity: resource_clazz.mapped_severity(violation['severity']),
         violation_type: violation['violation_type'],
-        description: violation['violation_description'],
-        state: resource_clazz.mapped_state(violation['ecb_violation_status'])
+        description: violation['violation_description']
       }
     end
 
     def resource_clazz
       Violations::DobEcbViolation
+    end
+
+    def state
+      resource_clazz.mapped_state(violation['ecb_violation_status'])
     end
   end
 end
