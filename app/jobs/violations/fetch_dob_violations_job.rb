@@ -8,16 +8,16 @@ module Violations
       'https://data.cityofnewyork.us/resource/3h2n-5cm9.json'
     end
 
-    def resource_where_params(violation, building)
-      { violation_id: violation['number'], building: building }
+    def resource_where_params
+      { violation_id: @resource['number'], building: @building }
     end
 
-    def resource_update_attributes(violation)
+    def resource_update_attributes
       {
-        issue_date: violation['issue_date'],
-        violation_type: violation['violation_type_code'],
-        device_number: violation['device_number'],
-        description: violation['description']
+        issue_date: @resource['issue_date'],
+        violation_type: @resource['violation_type_code'],
+        device_number: @resource['device_number'],
+        description: @resource['description']
       }
     end
 
@@ -26,7 +26,7 @@ module Violations
     end
 
     def state
-      violation['number'].include?('*') ? :closed : :open
+      @resource['number'].include?('*') ? :closed : :open
     end
   end
 end

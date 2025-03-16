@@ -8,14 +8,14 @@ module Violations
       'https://data.cityofnewyork.us/resource/wvxf-dwi5.json'
     end
 
-    def resource_where_params(violation, building)
-      { violation_id: violation['violationid'], building: building }
+    def resource_where_params
+      { violation_id: @resource['violationid'], building: @building }
     end
 
-    def resource_update_attributes(violation)
+    def resource_update_attributes
       {
-        description: violation['novdescription'],
-        issue_date: violation['novissueddate']
+        description: @resource['novdescription'],
+        issue_date: @resource['novissueddate']
       }
     end
 
@@ -24,7 +24,7 @@ module Violations
     end
 
     def state
-      resource_clazz.mapped_state(violation['violationstatus'])
+      resource_clazz.mapped_state(@resource['violationstatus'])
     end
   end
 end

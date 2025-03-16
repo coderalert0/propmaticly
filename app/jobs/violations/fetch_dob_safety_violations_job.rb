@@ -8,17 +8,17 @@ module Violations
       'https://data.cityofnewyork.us/resource/855j-jady.json'
     end
 
-    def resource_where_params(violation, building)
-      { violation_id: violation['violation_number'], building: building }
+    def resource_where_params
+      { violation_id: @resource['violation_number'], building: @building }
     end
 
-    def resource_update_attributes(violation)
+    def resource_update_attributes
       {
-        issue_date: violation['violation_issue_date'],
-        violation_type: violation['violation_type'],
-        description: violation['violation_remarks'],
-        device_number: violation['device_number'],
-        device_type: violation['device_type']
+        issue_date: @resource['violation_issue_date'],
+        violation_type: @resource['violation_type'],
+        description: @resource['violation_remarks'],
+        device_number: @resource['device_number'],
+        device_type: @resource['device_type']
       }
     end
 
@@ -27,7 +27,7 @@ module Violations
     end
 
     def state
-      resource_clazz.mapped_state(violation['violation_status'])
+      resource_clazz.mapped_state(@resource['violation_status'])
     end
   end
 end

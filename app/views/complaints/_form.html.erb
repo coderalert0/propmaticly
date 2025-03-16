@@ -48,7 +48,7 @@
   <%= f.hidden_field :building_id, value: @building&.id %>
 
   <% f.object.attachments.each do |attachment| %>
-    <%= hidden_field_tag 'complaint[attachments][]', attachment.signed_id %>
+    <%= hidden_field_tag 'complaints_complaint[attachments][]', attachment.signed_id %>
   <% end %>
 </div>
 <!--end::Card body-->

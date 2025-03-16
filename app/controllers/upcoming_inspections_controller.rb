@@ -33,8 +33,6 @@ class UpcomingInspectionsController < ApplicationController
   private
 
   def inspection_params
-    permitted_params = %i[state audit_comment building_id filing_date]
-    permitted_params << { attachments: [] }
-    params.require(:inspection).permit(permitted_params)
+    params.require(:inspection).permit(:state, :audit_comment, :building_id, :filing_date, attachments: [])
   end
 end

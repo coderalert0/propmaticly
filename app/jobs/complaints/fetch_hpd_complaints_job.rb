@@ -12,18 +12,18 @@ module Complaints
       'https://data.cityofnewyork.us/resource/ygpa-z7cr.json'
     end
 
-    def resource_where_params(complaint, building)
-      { problem_id: complaint['problem_id'], complaint_id: complaint['complaint_id'], building: building }
+    def resource_where_params
+      { problem_id: @resource['problem_id'], complaint_id: @resource['complaint_id'], building: @building }
     end
 
-    def resource_update_attributes(complaint)
+    def resource_update_attributes
       {
-        filed_date: complaint['received_date'],
+        filed_date: @resource['received_date'],
         description: [
-          ["LOCATION: #{complaint['space_type']&.capitalize}", "CATEGORY: #{complaint['major_category']&.capitalize}/#{complaint['minor_category']&.capitalize}",
-           "PROBLEM: #{complaint['problem_code']&.capitalize}"].join(', '), complaint['status_description']
+          ["LOCATION: #{@resource['space_type']&.capitalize}", "CATEGORY: #{@resource['major_category']&.capitalize}/#{@resource['minor_category']&.capitalize}",
+           "PROBLEM: #{@resource['problem_code']&.capitalize}"].join(', '), @resource['status_description']
         ].join("\n\n"),
-        severity: resource_clazz.mapped_severity(complaint['type'])
+        severity: resource_clazz.mapped_severity(@resource['type'])
       }
     end
 
@@ -32,7 +32,7 @@ module Complaints
     end
 
     def state
-      resource_clazz.mapped_state(complaint['complaint_status'])
+      resource_clazz.mapped_state(@resource['complaint_status'])
     end
   end
 end

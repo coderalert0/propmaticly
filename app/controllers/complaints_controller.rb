@@ -33,7 +33,6 @@ class ComplaintsController < ApplicationController
   private
 
   def complaint_params
-    params.require(:complaints_complaint).permit(:state, :resolved_date, :attachments, :audit_comment, :building_id,
-                                                 attachments: [])
+    params.require(:complaints_complaint).permit(:state, :resolved_date, :audit_comment, :building_id, attachments: [])
   end
 end

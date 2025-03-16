@@ -9,22 +9,22 @@ class FetchComplaintsViolationsJob < ApplicationJob
   end
 
   def create_or_update_complaints_violations(bin_id)
-    response = Faraday.get(url, { '$where' => "bin = '#{bin_id}'", '$limit' => "10_000" })
+    response = Faraday.get(url, { '$where' => "bin = '#{bin_id}'", '$limit' => 10_000 })
     return unless response.status == 200
 
-    building = Building.find_by(bin: bin_id)
+    @building = Building.find_by(bin: bin_id)
 
     JSON.parse(response.body).each do |resource|
-      find_or_initialize_and_update(resource, building)
+      @resource = resource
+      find_or_initialize_and_update
     end
   end
 
   private
 
-  def find_or_initialize_and_update(resource, building)
-    resource_unique_params = resource_where_params(resource, building)
-    resource_attributes = resource_update_attributes(resource)
-    resource_clazz.find_or_initialize_by(resource_unique_params).update(resource_attributes)
+  def find_or_initialize_and_update
+    resource_unique_params = resource_where_params
+    resource_attributes = resource_update_attributes
 
     resource = resource_clazz.find_or_initialize_by(resource_unique_params) do |new_resource|
       new_resource.state = state
