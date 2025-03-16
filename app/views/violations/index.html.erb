@@ -43,7 +43,7 @@
               <td><%= violation&.state %></td>
               <td><%= violation&.severity %></td>
               <td><%= violation&.resolved_date&.strftime("%D") %></td>
-              <td><% violation.attachments.each do |attachment| %>
+              <td><% violation&.attachments.each do |attachment| %>
                   <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
                     <i class="<%= file_icon_class(attachment) %>"></i>
                   </a>

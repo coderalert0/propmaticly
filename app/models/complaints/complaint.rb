@@ -2,6 +2,8 @@
 
 module Complaints
   class Complaint < ApplicationRecord
+    include Attachable
+
     belongs_to :building
     has_many_attached :attachments
 

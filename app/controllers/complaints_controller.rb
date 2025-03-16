@@ -18,10 +18,11 @@ class ComplaintsController < ApplicationController
   end
 
   def update
-    return unless @complaint.update(complaint_params)
-
-    flash[:success] = t(:complaint_update_success)
-    redirect_to building_complaints_path(@complaint.building)
+    if @complaint.update(complaint_params)
+      flash[:success] = t(:complaint_update_success)
+    else
+      flash[:danger] = @complaint.errors.full_messages
+    end
   end
 
   private

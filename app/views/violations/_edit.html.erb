@@ -6,8 +6,10 @@
         <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div id="error-<%= violation.id %>"></div>
+
         <!--begin::Form-->
-        <%= form_for(violation, url: building_violation_path(@building, violation)) do |f| %>
+        <%= form_for(violation, url: building_violation_path(@building, violation), remote: true) do |f| %>
           <%= render partial: 'form', locals: { f: f } %>
         <% end %>
         <!--end::Form-->

@@ -1,0 +1,7 @@
+<% if flash[:success] %>
+  window.location.href = "<%= building_complaints_path(@complaint.building) %>";
+<% else %>
+  <% flash[:danger].each do |message| %>
+    document.getElementById('error-<%= @complaint.id %>').innerHTML += "<div class='alert alert-primary alert-dismissible'><%= j(message) %></div>";
+  <% end %>
+<% end %>

@@ -6,8 +6,10 @@
         <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div id="error-<%= complaint.id %>"></div>
+
         <!--begin::Form-->
-        <%= form_for(complaint, url: building_complaint_path(@building, complaint)) do |f| %>
+        <%= form_for(complaint, url: building_complaint_path(@building, complaint), remote: true) do |f| %>
           <%= render partial: 'form', locals: { f: f } %>
         <% end %>
         <!--end::Form-->

@@ -42,12 +42,12 @@
         <tbody>
         <% @inspections.each do |inspection| %>
           <tr>
-            <td><%= inspection.inspection_rule.decorate.compliance_item_humanize %></td>
-            <td><%= inspection.device_id %></td>
-            <td><%= inspection.inspection_rule.description %></td>
+            <td><%= inspection&.inspection_rule.decorate.compliance_item_humanize %></td>
+            <td><%= inspection&.device_id %></td>
+            <td><%= inspection&.inspection_rule.description %></td>
             <td><%= inspection.filing_date&.strftime("%D") %></td>
-            <td><%= inspection.due_date&.strftime("%D") %></td>
-            <td><% inspection.attachments.each do |attachment| %>
+            <td><%= inspection&.due_date&.strftime("%D") %></td>
+            <td><% inspection&.attachments.each do |attachment| %>
               <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
                 <i class="<%= file_icon_class(attachment) %>"></i>
               </a>

@@ -17,10 +17,11 @@ class ViolationsController < ApplicationController
   end
 
   def update
-    return unless @violation.update(violation_params)
-
-    flash[:success] = t(:violation_update_success)
-    redirect_to building_violations_path(@violation.building)
+    if @violation.update(violation_params)
+      flash[:success] = t(:violation_update_success)
+    else
+      flash[:danger] = @violation.errors.full_messages
+    end
   end
 
   private

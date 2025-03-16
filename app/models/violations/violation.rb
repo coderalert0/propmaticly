@@ -2,6 +2,8 @@
 
 module Violations
   class Violation < ApplicationRecord
+    include Attachable
+
     belongs_to :building
     has_many_attached :attachments
 

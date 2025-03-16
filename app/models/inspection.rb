@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Inspection < ApplicationRecord
+  include Attachable
+
   belongs_to :inspection_rule, class_name: 'InspectionRules::InspectionRule'
   belongs_to :building
   has_many_attached :attachments
@@ -8,7 +10,7 @@ class Inspection < ApplicationRecord
   audited
 
   scope :external, -> { where.not(data: {}) }
-  scope :internal, -> { where(data: {}) }
+  scope :internal, -> { where(data: {}).and(where.not(due_date: nil)) }
   scope :pending, -> { where(filing_date: nil) }
   scope :overdue, -> { where('due_date <= ?', Date.today) }
   scope :completed, -> { where.not(filing_date: nil) }

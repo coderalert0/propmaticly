@@ -32,6 +32,7 @@
           <th class="min-w-100px">Status</th>
           <th class="min-w-100px">Severity</th>
           <th class="min-w-100px">Resolved Date</th>
+          <th class="min-w-100px">Attachments</th>
         </tr>
         </thead>
         <tbody>
@@ -43,6 +44,11 @@
             <td><%= complaint&.state %></td>
             <td><%= complaint&.severity %></td>
             <td><%= complaint&.resolved_date&.strftime("%D") %></td>
+            <td><% complaint&.attachments.each do |attachment| %>
+                <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
+                  <i class="<%= file_icon_class(attachment) %>"></i>
+                </a>
+              <% end %></td>
             <td class="text-end">
               <div class="dropdown">
                 <div class="btn btn-sm btn-light dropdown-toggle">

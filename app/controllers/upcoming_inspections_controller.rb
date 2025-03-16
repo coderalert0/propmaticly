@@ -19,10 +19,11 @@ class UpcomingInspectionsController < ApplicationController
   end
 
   def update
-    return unless @inspection.update(inspection_params)
-
-    flash[:success] = t(:inspection_update_success)
-    redirect_to building_upcoming_inspections_path(@building)
+    if @inspection.update(inspection_params)
+      flash[:success] = t(:inspection_update_success)
+    else
+      flash[:danger] = @inspection.errors.full_messages
+    end
   end
 
   private

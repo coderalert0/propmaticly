@@ -6,11 +6,10 @@
         <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!--begin::Form-->
-        <%= form_for(inspection, url: building_upcoming_inspection_path(@building, inspection), html: { multipart: true }) do |f| %>
+        <div id="error-<%= inspection.id %>"></div>
+        <%= form_for(inspection, url: building_upcoming_inspection_path(@building, inspection), remote: true, html: { multipart: true }) do |f| %>
           <%= render partial: 'form', locals: { f: f } %>
         <% end %>
-        <!--end::Form-->
       </div>
     </div>
   </div>
