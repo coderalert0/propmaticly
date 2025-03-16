@@ -9,7 +9,7 @@ class FetchComplaintsViolationsJob < ApplicationJob
   end
 
   def create_or_update_complaints_violations(bin_id)
-    response = Faraday.get(url, { '$where' => "bin = '#{bin_id}'" })
+    response = Faraday.get(url, { '$where' => "bin = '#{bin_id}'", '$limit' => "10_000" })
     return unless response.status == 200
 
     building = Building.find_by(bin: bin_id)

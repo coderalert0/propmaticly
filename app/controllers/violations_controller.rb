@@ -17,7 +17,11 @@ class ViolationsController < ApplicationController
   end
 
   def update
-    if @violation.update(violation_params)
+    modifiable_params = violation_params.dup
+
+    modifiable_params[:resolved_date] = nil unless modifiable_params[:state] == 'closed'
+
+    if @violation.update(modifiable_params)
       flash[:success] = t(:violation_update_success)
     else
       flash[:danger] = @violation.errors.full_messages
@@ -27,7 +31,7 @@ class ViolationsController < ApplicationController
   private
 
   def violation_params
-    params.require(:violations_violation).permit(:resolved_date, :attachments, :audit_comment, :building_id,
+    params.require(:violations_violation).permit(:state, :resolved_date, :attachments, :audit_comment, :building_id,
                                                  attachments: [])
   end
 end

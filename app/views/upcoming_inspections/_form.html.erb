@@ -17,7 +17,7 @@
       <div class="row mb-4 align-items-center" id="filing-date-group-<%= f.object.id %>">
         <label class="col-lg-3">Filing Date</label>
         <div class="col-lg-9">
-          <%= f.date_field :filing_date, class: 'form-control form-control-lg form-control-solid' %>
+          <%= f.date_field :filing_date, class: 'form-control form-control-lg' %>
         </div>
       </div>
       <!--end::Input group 2-->
@@ -35,9 +35,9 @@
 
       <!--begin::Input group 3-->
       <div class="row align-items-center">
-        <label class="col-lg-3">Comment</label>
+        <label class="col-lg-3 required">Comment</label>
         <div class="col-lg-9">
-          <%= f.text_area :audit_comment, class: 'form-control form-control-lg', rows: 3 %>
+          <%= f.text_area :audit_comment, class: 'form-control form-control-lg', required: true, rows: 4 %>
         </div>
       </div>
       <!--end::Input group 3-->
@@ -53,7 +53,6 @@
 </div>
 <!--end::Card body-->
 
-<!--begin::Actions-->
 <div class="card-footer d-flex justify-content-end">
   <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-light me-2' %>
   <%= f.submit 'Save', class: "btn btn-success" %>

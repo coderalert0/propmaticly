@@ -43,7 +43,7 @@ module Inspections
     end
 
     def query_string(bin_id)
-      { '$where' => "bin = '#{bin_id}'" }
+      { '$where' => "bin = '#{bin_id}'", '$limit' => "10_000" }
     end
   end
 end

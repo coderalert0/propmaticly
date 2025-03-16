@@ -19,7 +19,11 @@ class ComplaintsController < ApplicationController
   end
 
   def update
-    if @complaint.update(complaint_params)
+    modifiable_params = complaint_params.dup
+
+    modifiable_params[:resolved_date] = nil unless modifiable_params[:state] == 'closed'
+
+    if @complaint.update(modifiable_params)
       flash[:success] = t(:complaint_update_success)
     else
       flash[:danger] = @complaint.errors.full_messages
@@ -29,7 +33,7 @@ class ComplaintsController < ApplicationController
   private
 
   def complaint_params
-    params.require(:complaints_complaint).permit(:resolved_date, :attachments, :audit_comment, :building_id,
+    params.require(:complaints_complaint).permit(:state, :resolved_date, :attachments, :audit_comment, :building_id,
                                                  attachments: [])
   end
 end
