@@ -82,10 +82,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_15_011219) do
     t.string "state"
     t.string "zip5"
     t.bigint "bbl"
-    t.integer "bin", null: false
+    t.bigint "bin", null: false
     t.integer "borough_code"
     t.integer "community_district_number"
-    t.integer "tax_block_number"
+    t.bigint "tax_block_number"
     t.jsonb "has_properties", default: {}
     t.jsonb "numerical_properties", default: {}
     t.bigint "portfolio_id", null: false
@@ -148,6 +148,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_15_011219) do
     t.string "device_id"
     t.datetime "filing_date"
     t.datetime "due_date"
+    t.integer "state", default: 0
     t.bigint "building_id", null: false
     t.bigint "inspection_rule_id", null: false
     t.datetime "created_at", null: false

@@ -23,5 +23,9 @@ module Inspections
       %i[registration_id of_dwelling_units infested_dwelling_unit_count eradicated_unit_count
          re_infested_dwelling_unit filing_date filing_period_start_date filling_period_end_date]
     end
+
+    def filing_date
+      Date.parse(@resource['filing_date'])
+    end
   end
 end

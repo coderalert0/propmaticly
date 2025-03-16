@@ -38,7 +38,6 @@ module Inspections
 
           inspection_date = DateTime.parse(@resource[report_field])
           inspection_params = @resource.transform_keys(&:to_sym).slice(*filtered_columns)
-          inspection_params.merge!(filing_date: inspection_date)
 
           if existing_record
             existing_record.update!(data: inspection_params)

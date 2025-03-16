@@ -42,34 +42,50 @@ module InspectionRules
       department_of_housing_preservation_and_development: 4
     }
 
+    DEVICE_IDENTIFIER = {
+      high_pressure_boiler_internal: "data->>'boiler_id'",
+      high_pressure_boiler_external: "data->>'boiler_id'",
+      low_pressure_boiler: "data->>'boiler_id'",
+      cooling_tower: "data->>'system_id'",
+      drinking_water_storage_tank: "data->>'tank_num'",
+      elevator_cat_1: "data->>'device_number'",
+      elevator_cat_3: "data->>'device_number'",
+      elevator_cat_5: "data->>'device_number'",
+      backflow_prevention: 'device_id',
+      sprinkler_system: 'device_id',
+      standpipe_system: 'device_id'
+    }.freeze
+
     def calculate_due_date(building)
       @building = building
       @current_date = Date.today
 
-      if fixed_day_month.present?
-        calculate_fixed_due_date
-      elsif based_on_last_inspection == true
-        calculate_due_date_based_on_last_inspection
-      elsif cycle_schedule.present?
+      if cycle_schedule.present?
         calculate_cycle_due_date
+      else
+        calculate_fixed_due_date
       end
     end
 
+    private
+
     def calculate_fixed_due_date
-      day = fixed_day_month['day']
-      month = fixed_day_month['month']
+      if fixed_day_month.present?
+        day = fixed_day_month['day']
+        month = fixed_day_month['month']
 
-      due_date = Date.new(@current_date.year, month, day)
+        due_date = Date.new(@current_date.year, month, day)
+        due_date += frequency_in_months.months while due_date < @current_date
+      end
 
-      due_date += frequency_in_months.months while due_date < @current_date
-      due_date
-    end
-
-    def calculate_due_date_based_on_last_inspection
-      latest_filing_dates = Inspection.completed.where(inspection_rule_id: id,
-                                                       building: @building).group(:device_id).maximum(:filing_date)
-      latest_filing_dates.transform_values do |filing_date|
-        filing_date + frequency_in_months.months
+      if DEVICE_IDENTIFIER[compliance_item.to_sym]
+        latest_filing_dates = Inspection.completed.where(inspection_rule_id: id,
+                                                         building: @building).group(DEVICE_IDENTIFIER[compliance_item.to_sym]).maximum(:filing_date)
+        latest_filing_dates.transform_values do |filing_date|
+          based_on_last_inspection? ? filing_date + frequency_in_months.months : due_date
+        end
+      else
+        due_date
       end
     end
 
@@ -81,7 +97,11 @@ module InspectionRules
           key = send(key) if respond_to?(key)
           value == 'all' || Array(value).include?(@building.instance_eval(key.to_s))
         end
-        return Date.parse(entry['end_date']) if matches
+        next unless matches
+
+        due_date = Date.parse(entry['end_date'])
+        due_date += frequency_in_months.months while due_date < @current_date
+        return due_date
       end
     end
   end

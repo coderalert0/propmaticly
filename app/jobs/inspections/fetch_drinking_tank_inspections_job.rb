@@ -23,5 +23,9 @@ module Inspections
       %i[confirmation_num reporting_year tank_num inspection_date sample_collected
          inspection_by_firm]
     end
+
+    def filing_date
+      Date.parse(@resource['inspection_date'])
+    end
   end
 end

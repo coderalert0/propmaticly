@@ -9,11 +9,11 @@ class CreateBuildings < ActiveRecord::Migration[7.0]
       t.string :city, null: false
       t.string :state
       t.string :zip5
-      t.integer :bbl
-      t.integer :bin, null: false
+      t.bigint :bbl
+      t.bigint :bin, null: false
       t.integer :borough_code
       t.integer :community_district_number
-      t.integer :tax_block_number
+      t.bigint :tax_block_number
       t.jsonb :has_properties, default: {}
       t.jsonb :numerical_properties, default: {}
       t.references :portfolio, foreign_key: true, null: false

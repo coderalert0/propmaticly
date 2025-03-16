@@ -30,5 +30,9 @@ module Inspections
     def query_string(bin_id)
       { '$where' => "bin_number = '#{bin_id}'" }
     end
+
+    def filing_date
+      Date.parse(@resource['inspection_date'])
+    end
   end
 end

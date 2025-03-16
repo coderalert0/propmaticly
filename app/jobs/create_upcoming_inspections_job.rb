@@ -8,7 +8,7 @@ class CreateUpcomingInspectionsJob < ApplicationJob
       building.inspection_rules.each do |rule|
         next_inspection = rule.calculate_due_date(building)
 
-        if rule.based_on_last_inspection == true
+        if next_inspection.is_a? Hash
           next_inspection.each do |device_id, next_inspection_date|
             next unless next_inspection_date && next_inspection_date <= end_date
 

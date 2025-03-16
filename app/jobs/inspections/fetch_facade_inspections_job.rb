@@ -24,5 +24,9 @@ module Inspections
          qewi_bus_name qewi_nys_lic_no filing_date filing_status field_inspection_completed_date
          qewi_signed_date late_filing_amt failure_to_file_amt failure_to_collect_amt comments]
     end
+
+    def filing_date
+      Date.parse(@resource['filing_date'])
+    end
   end
 end

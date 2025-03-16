@@ -16,4 +16,10 @@ class Inspection < ApplicationRecord
   scope :completed, -> { where.not(filing_date: nil) }
 
   validates :inspection_rule_id, :building_id, presence: true
+
+  enum state: {
+    open: 0,
+    in_progress: 1,
+    closed: 2
+  }
 end

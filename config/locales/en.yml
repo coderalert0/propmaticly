@@ -54,16 +54,17 @@ en:
   complaint_update_success: The complaint has been updated
   inspection_create_success: Inspection has been added successfully, we will use the the provided last inspection date to determine when future inspections are due.
   inspection_delete_success: Inspection has been deleted successfully
-  inspection_last_inspection_input_message: >
-    Please enter the last inspection dates for %{compliance_items}.
-    Please click on the respective compliance item below and then click the Add Inspection button.
-    Future inspection due dates are based on the last inspection dates.
   inspection_state:
     overdue: Overdue
     pending: Pending
     completed: Completed
   inspection_update_success: Inspection has been updated successfully
   invalid_state_error: Please enter a valid zip code
+  last_inspection_input_message: >
+    Please enter the last inspection dates for %{compliance_items}.
+    Please click on the respective compliance item below and then click the Add Inspection button.
+    Future inspection due dates are based on the last inspection dates,
+    without them we can not determine future inspection dates
   "no": "No"
   no_permission: You do not have permission to access this page.
   portfolio_create_success: Portfolio has been added successfully! Add a building to the portfolio to monitor complaints, violations, and see upcoming inspections

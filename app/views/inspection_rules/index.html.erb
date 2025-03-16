@@ -2,9 +2,9 @@
   <div class="py-lg-8">
     <h2><%= @building&.name %> Compliance Items List (<%= @inspection_rules.try(:total_count) %>)</h2>
   </div>
-  <% if @compliance_items_missing_last_inspection_dates.present? %>
+  <% if @missing_inspections.present? %>
     <div class='alert alert-danger alert-dismissible'>
-      <%= I18n.t(:inspection_last_inspection_input_message, compliance_items: @compliance_items_missing_last_inspection_dates)  %>
+      <%= I18n.t(:last_inspection_input_message, compliance_items: @missing_inspections) %>
     </div>
   <% end %>
   <div class="card">

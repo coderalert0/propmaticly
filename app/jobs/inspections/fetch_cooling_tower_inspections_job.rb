@@ -24,5 +24,9 @@ module Inspections
          law_section violation_text violation_type citation_text summons_number
          inspection_type]
     end
+
+    def filing_date
+      Date.parse(@resource['inspection_date'])
+    end
   end
 end
