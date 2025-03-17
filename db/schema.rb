@@ -105,7 +105,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_15_011219) do
     t.datetime "inspection_date"
     t.integer "state", default: 0
     t.integer "severity"
-    t.datetime "resolved_date"
+    t.date "resolved_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "building_id", null: false
@@ -146,8 +146,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_15_011219) do
   create_table "inspections", force: :cascade do |t|
     t.jsonb "data", default: {}
     t.string "device_id"
-    t.datetime "filing_date"
-    t.datetime "due_date"
+    t.date "filing_date"
+    t.date "due_date"
     t.integer "state", default: 0
     t.bigint "building_id", null: false
     t.bigint "inspection_rule_id", null: false
@@ -216,7 +216,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_15_011219) do
     t.string "description"
     t.string "device_number"
     t.string "device_type"
-    t.datetime "resolved_date"
+    t.date "resolved_date"
     t.bigint "building_id", null: false
     t.string "type"
     t.datetime "created_at", null: false

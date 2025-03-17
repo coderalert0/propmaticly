@@ -85,7 +85,7 @@ module InspectionRules
           based_on_last_inspection? ? filing_date + frequency_in_months.months : due_date
         end
       else
-        due_date
+        { nil => due_date }
       end
     end
 
@@ -101,7 +101,7 @@ module InspectionRules
 
         due_date = Date.parse(entry['end_date'])
         due_date += frequency_in_months.months while due_date < @current_date
-        return due_date
+        return { nil: due_date }
       end
     end
   end

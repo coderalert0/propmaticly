@@ -18,6 +18,7 @@
             <th class="min-w-125px">Email Address</th>
             <th class="min-w-125px">SMS</th>
             <th class="min-w-125px">Portfolios</th>
+            <th class="min-w-125px">Buildings</th>
             <th class="min-w-125px">Accepted Invite</th>
             <th class="min-w-125px">Admin</th>
           </tr>
@@ -29,6 +30,7 @@
               <td><div class="text-gray-800 mb-1"><%= user.email %></div></td>
               <td><%= user.sms %></td>
               <td><%= user.portfolios.map(&:name).join(', ') %></td>
+              <td><%= user.buildings.map(&:name).join(', ') %></td>
               <td><%= user.confirmed? %></td>
               <td><%= user.admin? %></td>
               <td class="text-end">

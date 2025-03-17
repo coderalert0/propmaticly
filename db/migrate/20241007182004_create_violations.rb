@@ -11,7 +11,7 @@ class CreateViolations < ActiveRecord::Migration[7.0]
       t.string :description
       t.string :device_number
       t.string :device_type
-      t.datetime :resolved_date
+      t.date :resolved_date
       t.references :building, foreign_key: true, null: false
       t.string :type
       t.timestamps

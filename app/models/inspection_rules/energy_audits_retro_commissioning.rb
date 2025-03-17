@@ -11,7 +11,7 @@ module InspectionRules
       due_date = Date.new(base_year, month, day)
 
       due_date += frequency_in_months.months while due_date < @current_date
-      due_date
+      { nil => due_date }
     end
   end
 end

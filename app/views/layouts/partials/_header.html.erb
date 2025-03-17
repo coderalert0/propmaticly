@@ -8,7 +8,6 @@
         <% if current_user&.admin? %>
           <li><h4><%= link_to "Users", users_path, class: 'me-10'  %></h4></li>
         <% end %>
-        <li><h4><%= link_to "Inspections", root_path %></h4></li>
       <% end %>
     </ul>
 
@@ -24,7 +23,6 @@
               <!--begin::Username-->
               <div class="fw-bold">
                 <%= current_user&.first_name %> <%= current_user&.last_name %>
-                <span class="bg-success fw-bold px-2 py-1 ms-2 text-white">Pro</span>
               </div>
               <div class="text-muted">
                 <%= current_user&.email %>
@@ -32,19 +30,13 @@
               <!--end::Username-->
             </div>
             <!--end::Menu item-->
-
-            <!--begin::Menu separator-->
+<!--
             <div class="dropdown-divider my-2"></div>
-            <!--end::Menu separator-->
 
-            <!--begin::Menu item-->
             <a href="#" class="dropdown-item">My Subscription</a>
-            <!--end::Menu item-->
 
-            <!--begin::Menu separator-->
             <div class="dropdown-divider"></div>
-            <!--end::Menu separator-->
-
+-->
             <!--begin::Menu item-->
             <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
             <!--end::Menu item-->

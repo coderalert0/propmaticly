@@ -42,6 +42,7 @@
       <label class="col-lg-4">SMS</label>
       <div class="col-lg-8">
         <%= f.text_field :sms, class: 'form-control' %>
+        <div class="form-text">Enter only if you want to receive alerts for new complaints, violations, or upcoming inspections</div>
       </div>
     </div>
     <!--end::Input group-->
@@ -64,12 +65,14 @@
   </div>
   <!--end::Input group-->
 
-    <!--begin::Input group-->
-    <div class="form-check">
+  <!--begin::Input group-->
+  <div class="row mb-6 align-items-center">
+    <label class="col-lg-4">Admin</label>
+    <div class="col-lg-8">
       <%= f.check_box :admin, class: 'form-check-input' %>
-      <%= f.label :admin, "Admin", class: 'form-check-label' %>
     </div>
-    <!--end::Input group-->
+  </div>
+  <!--end::Input group-->
 </div>
 <!--end::Card body-->
 

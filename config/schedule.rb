@@ -20,5 +20,5 @@ every 1.day, at: '12:00 am' do
   runner 'Violations::FetchDobViolationsJob.perform_later(notify: true)'
   runner 'Violations::FetchHpdViolationsJob.perform_later(notify: true)'
 
-  runner 'CreateUpcomingInspectionsJob.perform_later'
+  runner 'CreateUpcomingInspectionsJob.perform_later(notify: true)'
 end

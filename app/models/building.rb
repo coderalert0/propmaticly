@@ -9,8 +9,8 @@ class Building < ApplicationRecord
 
   validates :name, :street, :city, :bin, :portfolio_id, presence: true
 
-  after_commit :trigger_fetch_complaints_violations_jobs, on: %i[create update]
-  after_commit :trigger_fetch_inspections_jobs, on: %i[create update]
+  after_commit :trigger_fetch_complaints_violations, on: %i[create update]
+  after_commit :trigger_fetch_inspections, on: %i[create update]
 
   def inspection_rules
     InspectionRules::InspectionRule.all.select do |rule|
@@ -35,7 +35,7 @@ class Building < ApplicationRecord
 
   private
 
-  def trigger_fetch_complaints_violations_jobs
+  def trigger_fetch_complaints_violations
     return unless bin.present?
 
     Complaints::FetchDobComplaintsJob.perform_later(bin_id: bin)
@@ -47,7 +47,7 @@ class Building < ApplicationRecord
     Violations::FetchHpdViolationsJob.perform_later(bin_id: bin)
   end
 
-  def trigger_fetch_inspections_jobs
+  def trigger_fetch_inspections
     return unless bin.present?
 
     Inspections::FetchElevatorInspectionsJob.perform_later(bin_id: bin)
