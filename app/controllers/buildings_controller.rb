@@ -36,8 +36,6 @@ class BuildingsController < ApplicationController
       @compliance_items_based_on_last_inspection = @building.inspection_rules.select(&:based_on_last_inspection).map(&:compliance_item)
       flash[:success] = @building.persisted? ? t(:building_update_success) : t(:building_create_success)
     end
-  rescue USPS::InvalidStateError
-    flash[:danger] = t(:invalid_state_error)
   rescue StandardError => e
     flash[:danger] = e.message
   end
@@ -46,7 +44,6 @@ class BuildingsController < ApplicationController
   alias update save_building
 
   def index
-    @buildings = @portfolio.buildings
     @buildings = @buildings.order(:name).page(params[:page])
     @buildings = PaginationDecorator.decorate(@buildings)
   end

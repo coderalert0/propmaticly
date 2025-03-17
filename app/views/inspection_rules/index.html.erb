@@ -4,7 +4,7 @@
   </div>
   <% if @missing_inspections.present? %>
     <div class='alert alert-danger alert-dismissible'>
-      <%= I18n.t(:last_inspection_input_message, compliance_items: @missing_inspections) %>
+      <%= t(:last_inspection_input_message, compliance_items: @missing_inspections).html_safe %>
     </div>
   <% end %>
   <div class="card">

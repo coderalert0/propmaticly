@@ -57,9 +57,9 @@
                   Actions
                 </div>
                 <div class="dropdown-menu">
-                  <% if can?(:view, complaint.object) %>
+                  <% if can?(:read, complaint.object) %>
                     <div class="dropdown-item">
-                      <%= link_to 'View', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#complaintModal#{complaint.id}" } %>
+                      <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#complaintModal#{complaint.id}" } %>
                     </div>
                   <% end %>
                   <% if can?(:edit, complaint.object) %>

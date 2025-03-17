@@ -54,17 +54,16 @@
                     Actions
                   </div>
                   <div class="dropdown-menu">
-                    <% if can?(:view, violation.object) %>
+                    <% if can?(:read, violation.object) %>
                       <div class="dropdown-item">
-                        <%= link_to 'View', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#violationModal#{violation.id}" } %>
+                        <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#violationModal#{violation.id}" } %>
                       </div>
                     <% end %>
-                    <div class="dropdown-item">
-                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
-                    </div>
-<!--                    <div class="dropdown-item">-->
-                      <%#= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{violation.id}" } %>
-<!--                    </div>-->
+                    <% if can?(:edit, violation.object) %>
+                      <div class="dropdown-item">
+                        <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
               </td>
@@ -100,20 +99,20 @@
                 <p><strong>Updated On:</strong> <%= violation.updated_at&.strftime("%D") %></p>
               </div>
               <div class="col-md-6">
-                <div class="col-md-6">
-                  <h5>Attachments</h5>
-                  <ul class="list-group">
-                    <% violation.attachments.each do |attachment| %>
-                      <li class="list-group-item">
-                        <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
+                <h5>Attachments</h5>
+                <ul class="list-group">
+                  <% violation.attachments.each do |attachment| %>
+                    <li class="list-group-item">
+                      <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
+                      <% if can?(:destroy, attachment) %>
                         <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
                           <i class="bi bi-trash"></i>
                         <% end %>
-                      </li>
-                      <%= render 'attachments/delete', attachment: attachment %>
-                    <% end %>
-                  </ul>
-                </div>
+                      <% end %>
+                    </li>
+                    <%= render 'attachments/delete', attachment: attachment %>
+                  <% end %>
+                </ul>
               </div>
             </div>
             <% if violation.audits.any? { |audit| audit.comment.present? } %>

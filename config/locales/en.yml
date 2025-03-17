@@ -31,6 +31,7 @@
 
 en:
   attachment_delete_success: Attachment was successfully deleted
+  attachment_delete_failure: Attachment could not be deleted
   boro:
     1: Manhattan
     2: Bronx
@@ -60,11 +61,11 @@ en:
     closed: Complete
   inspection_update_success: Inspection has been updated successfully
   invalid_state_error: Please enter a valid zip code
-  last_inspection_input_message: >
-    Please enter the last inspection dates for %{compliance_items}.
+  last_inspection_input_message: |
+    Please enter the last inspection dates for <strong>%{compliance_items}</strong>.
     Please click on the respective compliance item below and then click the Add Inspection button.
-    Future inspection due dates are based on the last inspection dates,
-    without them we can not determine future inspection dates
+    Future inspection due dates for <strong>%{compliance_items}</strong> are based on the last inspection dates,
+    without this information we can not determine future inspection dates
   "no": "No"
   no_permission: You do not have permission to access this page.
   portfolio_create_success: Portfolio has been added successfully! Add a building to the portfolio to monitor complaints, violations, and see upcoming inspections

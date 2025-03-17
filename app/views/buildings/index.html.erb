@@ -7,7 +7,9 @@
     <div class="card">
       <div class="card-header border-0 pt-6">
         <div class="card-toolbar">
-          <%= link_to 'Add Building', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+          <% if can?(:create, Building) %>
+            <%= link_to 'Add Building', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+          <% end %>
         </div>
       </div>
       <div class="card-body">
@@ -41,10 +43,12 @@
                     <div class="dropdown-item">
                       <%= link_to 'View Contacts', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#contactsModal#{building.id}" } %>
                     </div>
-                    <div class="dropdown-item">
-                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{building.id}" } %>
-                    </div>
-                    <% if building.complaints.blank? && building.violations.blank? %>
+                    <% if can?(:edit, building.object) %>
+                      <div class="dropdown-item">
+                        <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{building.id}" } %>
+                      </div>
+                    <% end %>
+                    <% if can?(:destroy, building.object) && building.complaints.blank? && building.violations.blank? && building.inspections.blank? %>
                       <div class="dropdown-item">
                         <%= link_to 'Delete', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{building.id}" } %>
                       </div>

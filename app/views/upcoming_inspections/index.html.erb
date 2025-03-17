@@ -19,10 +19,6 @@
           </div>
         <% end %>
       </div>
-
-      <%# if can?(:create, Inspection) %>
-      <%#= link_to 'Add Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
-      <%# end %>
     </div>
     <div class="card-body">
       <table class="table align-middle table-row-dashed gy-3">
@@ -59,9 +55,9 @@
                   Actions
                 </div>
                 <div class="dropdown-menu">
-                  <% if can?(:view, inspection.object) %>
+                  <% if can?(:read, inspection.object) %>
                     <div class="dropdown-item">
-                      <%= link_to 'View', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
+                      <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
                     </div>
                   <% end %>
                   <% if can?(:edit, inspection.object) %>
@@ -78,7 +74,7 @@
         </tbody>
       </table>
       <div class="d-flex justify-content-center mt-4">
-        <%#= paginate @inspections, theme: 'bootstrap4' %>
+        <%= paginate @inspections, theme: 'bootstrap4' %>
       </div>
     </div>
   </div>
@@ -109,12 +105,14 @@
                 <h5>Attachments</h5>
                 <ul class="list-group">
                   <% inspection.attachments.each do |attachment| %>
-                    <li class="list-group-item">
-                      <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
-                      <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
-                        <i class="bi bi-trash"></i>
-                      <% end %>
-                    </li>
+                      <li class="list-group-item">
+                        <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
+                        <% if can?(:destroy, attachment) %>
+                          <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
+                          <i class="bi bi-trash"></i>
+                        <% end %>
+                      </li>
+                    <% end %>
                     <%= render 'attachments/delete', attachment: attachment %>
                   <% end %>
                 </ul>

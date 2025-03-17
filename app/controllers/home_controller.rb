@@ -2,9 +2,10 @@
 
 class HomeController < ApplicationController
   def show
-    @complaints = current_organization.complaints
-    @portfolios = current_organization.portfolios.order(:name).page(params[:page])
-    @users = current_organization.users.order('LOWER(first_name)', 'LOWER(last_name)').decorate
     @organization = current_organization
+    @portfolios = current_organization.portfolios.accessible_by(current_ability).order(:name).page(params[:page])
+    @violations = current_organization.violations.accessible_by(current_ability)
+    @complaints = current_organization.complaints.accessible_by(current_ability)
+    @inspections = current_organization.inspections.accessible_by(current_ability)
   end
 end

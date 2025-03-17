@@ -7,6 +7,6 @@
   window.location.href = "<%= redirect_url %>";
 <% else %>
   <% flash.each do |key, message| %>
-    document.getElementById('error-<%= @building.id %>').innerHTML += "<div class='alert alert-primary alert-dismissible'><%= j(message) %></div>";
+    document.getElementById('error').innerHTML += "<div class='alert alert-primary alert-dismissible'><%= j(message) %></div>";
   <% end %>
 <% end %>

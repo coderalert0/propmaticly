@@ -15,7 +15,8 @@ class UpcomingInspectionsController < ApplicationController
                                  .where('inspection_rules.description::text ILIKE :search OR inspection_rules.compliance_item::text ILIKE :search', search: search_term)
     end
 
-    @inspections = @inspections.order(:due_date).decorate
+    @inspections = @inspections.order(:due_date).page(params[:page])
+    @inspections = PaginationDecorator.decorate(@inspections)
   end
 
   def update

@@ -5,7 +5,7 @@ class Inspection < ApplicationRecord
 
   belongs_to :inspection_rule, class_name: 'InspectionRules::InspectionRule'
   belongs_to :building
-  has_many_attached :attachments
+  has_many_attached :attachments, dependent: :destroy
 
   audited
 

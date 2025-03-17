@@ -13,10 +13,8 @@
           </div>
         <% end %>
       </div>
-      <% if can?(:create, Inspection) %>
-        <% if @inspection_rule.based_on_last_inspection? %>
-          <%= link_to 'Add Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
-        <% end %>
+      <% if can?(:create, Inspection) && @inspection_rule.based_on_last_inspection? %>
+        <%= link_to 'Add Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
       <% end %>
     </div>
     <div class="card-body">

@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class='alert alert-danger alert-dismissible'><%= I18n.t(:building_input_message)  %></div>
+        <div class='alert alert-danger alert-dismissible'><%= t(:building_input_message)  %></div>
         <div id="error-<%= building.id %>"></div>
 
         <%= form_for(building, remote: true) do |f| %>

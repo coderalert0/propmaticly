@@ -6,9 +6,8 @@
         <button type="button" class="btn-close" data-action="modal#close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class='alert alert-danger alert-dismissible'><%= I18n.t(:building_input_message)  %></div>
-        <div id="error">
-        </div>
+        <div class='alert alert-danger alert-dismissible'><%= t(:building_input_message)  %></div>
+        <div id="error"></div>
 
         <%= form_for(building = Building.new, remote: true) do |f| %>
           <%= render partial: 'form', locals: { f: f, building: building } %>

@@ -15,6 +15,7 @@ module AddressHelper
     response = req.send!
     response.get(address)
   rescue StandardError => e
+    Rails.logger.error("Error retrieving address #{hash}: #{e.message}")
     raise e
   end
 end

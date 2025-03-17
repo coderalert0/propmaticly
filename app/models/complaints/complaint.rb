@@ -5,7 +5,7 @@ module Complaints
     include Attachable
 
     belongs_to :building
-    has_many_attached :attachments
+    has_many_attached :attachments, dependent: :destroy
 
     audited
 
