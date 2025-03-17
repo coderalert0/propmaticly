@@ -4,7 +4,7 @@ require 'faraday'
 
 module Inspections
   class FetchInspectionsJob < ApplicationJob
-    def perform(bin_id = nil)
+    def perform(bin_id: nil)
       if bin_id.nil?
         Building.all.each { |building| create_or_update_inspection(building.bin) }
       else

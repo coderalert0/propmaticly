@@ -38,25 +38,25 @@ class Building < ApplicationRecord
   def trigger_fetch_complaints_violations_jobs
     return unless bin.present?
 
-    Complaints::FetchDobComplaintsJob.perform_later bin
-    Complaints::FetchHpdComplaintsJob.perform_later bin
+    Complaints::FetchDobComplaintsJob.perform_later(bin_id: bin)
+    Complaints::FetchHpdComplaintsJob.perform_later(bin_id: bin)
 
-    Violations::FetchDobEcbViolationsJob.perform_later bin
-    Violations::FetchDobSafetyViolationsJob.perform_later bin
-    Violations::FetchDobViolationsJob.perform_later bin
-    Violations::FetchHpdViolationsJob.perform_later bin
+    Violations::FetchDobEcbViolationsJob.perform_later(bin_id: bin)
+    Violations::FetchDobSafetyViolationsJob.perform_later(bin_id: bin)
+    Violations::FetchDobViolationsJob.perform_later(bin_id: bin)
+    Violations::FetchHpdViolationsJob.perform_later(bin_id: bin)
   end
 
   def trigger_fetch_inspections_jobs
     return unless bin.present?
 
-    Inspections::FetchElevatorInspectionsJob.perform_later bin
-    Inspections::FetchBedBugInspectionsJob.perform_later bin
-    Inspections::FetchBoilerInspectionsJob.perform_later bin
-    Inspections::FetchCoolingTowerInspectionsJob.perform_later bin
-    Inspections::FetchFacadeInspectionsJob.perform_later bin
-    Inspections::FetchDrinkingTankInspectionsJob.perform_later bin
+    Inspections::FetchElevatorInspectionsJob.perform_later(bin_id: bin)
+    Inspections::FetchBedBugInspectionsJob.perform_later(bin_id: bin)
+    Inspections::FetchBoilerInspectionsJob.perform_later(bin_id: bin)
+    Inspections::FetchCoolingTowerInspectionsJob.perform_later(bin_id: bin)
+    Inspections::FetchFacadeInspectionsJob.perform_later(bin_id: bin)
+    Inspections::FetchDrinkingTankInspectionsJob.perform_later(bin_id: bin)
 
-    CreateUpcomingInspectionsJob.perform_later(building: self)
+    CreateUpcomingInspectionsJob.perform_later(building_id: self)
   end
 end

@@ -33,6 +33,6 @@ class InspectionsController < ApplicationController
   end
 
   def trigger_create_upcoming_inspections_job
-    CreateUpcomingInspectionsJob.perform_later(building: @building)
+    CreateUpcomingInspectionsJob.perform_later(building_id: @building)
   end
 end

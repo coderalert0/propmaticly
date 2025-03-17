@@ -3,7 +3,7 @@
 require 'faraday'
 
 class FetchComplaintsViolationsJob < ApplicationJob
-  def perform(bin_id = nil, notify = false)
+  def perform(bin_id: nil, notify: false)
     @notify = notify
 
     bin_ids = bin_id ? [bin_id] : Building.all.pluck(:bin)
