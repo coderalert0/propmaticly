@@ -3,7 +3,9 @@
 require 'faraday'
 
 class FetchComplaintsViolationsJob < ApplicationJob
-  def perform(bin_id = nil)
+  def perform(bin_id = nil, notify = false)
+    @notify = notify
+
     bin_ids = bin_id ? [bin_id] : Building.all.pluck(:bin)
     bin_ids.each { |bin_id| create_or_update_complaints_violations(bin_id) }
   end
@@ -30,6 +32,9 @@ class FetchComplaintsViolationsJob < ApplicationJob
       new_resource.state = state
     end
 
-    resource.update(resource_attributes)
+    return unless resource.new_record? && resource.update(resource_attributes)
+    return unless resource.state == 'open' && @notify
+
+    NewComplaintViolationNotifierJob.perform_later(resource.class.name, resource.id)
   end
 end
