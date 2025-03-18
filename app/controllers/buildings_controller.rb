@@ -44,7 +44,7 @@ class BuildingsController < ApplicationController
   alias update save_building
 
   def index
-    @buildings = @buildings.order(:name).page(params[:page])
+    @buildings = @buildings.includes(:complaints, :violations, :inspections).order(:name).page(params[:page])
     @buildings = PaginationDecorator.decorate(@buildings)
   end
 

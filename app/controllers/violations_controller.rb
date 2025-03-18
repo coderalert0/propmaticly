@@ -6,7 +6,7 @@ class ViolationsController < ApplicationController
   load_and_authorize_resource :portfolio, only: :index
 
   def index
-    @violations = @building.violations
+    @violations = @building.violations.includes(:attachments_attachments, :audits)
     @violations = @violations.send(params[:state]) if params[:state].present?
     if params[:search].present?
       search = "%#{params[:search].strip}%"

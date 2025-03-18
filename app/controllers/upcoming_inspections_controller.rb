@@ -5,8 +5,8 @@ class UpcomingInspectionsController < ApplicationController
   load_and_authorize_resource class: 'Inspection', instance_name: :inspection
 
   def index
-    @inspections = @building.inspections.internal
-    @inspections = @inspections.internal.send(params[:state]) if params[:state].present?
+    @inspections = @building.inspections.includes(:attachments_attachments, :inspection_rule, :audits).internal
+    @inspections = @inspections.send(params[:state]) if params[:state].present?
 
     if params[:search].present?
       search_term = "%#{params[:search].strip}%"

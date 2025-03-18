@@ -6,7 +6,7 @@ class ComplaintsController < ApplicationController
   load_and_authorize_resource :portfolio, only: :index
 
   def index
-    @complaints = @building.complaints
+    @complaints = @building.complaints.includes(:attachments_attachments, :audits)
     @complaints = @complaints.send(params[:state]) if params[:state].present?
 
     if params[:search].present?

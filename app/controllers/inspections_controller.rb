@@ -8,7 +8,8 @@ class InspectionsController < ApplicationController
   after_action :trigger_create_upcoming_inspections_job, only: :create
 
   def index
-    @inspections = @building.inspections.external.where(inspection_rule_id: @inspection_rule.id)
+    @inspections = @building.inspections.includes(:attachments_attachments,
+                                                  :audits).external.where(inspection_rule_id: @inspection_rule.id)
 
     if params[:search].present?
       search = "%#{params[:search].strip}%"

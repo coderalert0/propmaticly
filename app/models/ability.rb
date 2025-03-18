@@ -35,11 +35,13 @@ class Ability
       can :create, model
     end
 
+    organization_building_ids = user.organization.building_ids
+
     can %i[read update destroy], Portfolio, id: user.organization.portfolio_ids
-    can %i[read update destroy], Building, id: user.organization.building_ids
-    can %i[read update], Complaints::Complaint, building_id: user.organization.building_ids
-    can %i[read update], Violations::Violation, building_id: user.organization.building_ids
-    can %i[read update], Inspection, building_id: user.organization.building_ids
+    can %i[read update destroy], Building, id: organization_building_ids
+    can %i[read update], Complaints::Complaint, building_id: organization_building_ids
+    can %i[read update], Violations::Violation, building_id: organization_building_ids
+    can %i[read update], Inspection, building_id: organization_building_ids
 
     can :manage, ActiveStorage::Attachment, record_type: 'Complaints::Complaint', record_id: organization_complaint_ids
     can :manage, ActiveStorage::Attachment, record_type: 'Violations::Violation', record_id: organization_violation_ids

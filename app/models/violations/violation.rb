@@ -7,10 +7,10 @@ module Violations
     belongs_to :building
     has_many_attached :attachments, dependent: :destroy
 
-    audited
-
     validates :violation_id, :building_id, presence: true
     # after_commit :send_notification, on: :create
+
+    audited
 
     enum severity: {
       non_hazardous: 0,
