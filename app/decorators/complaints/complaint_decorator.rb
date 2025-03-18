@@ -5,28 +5,28 @@ module Complaints
     delegate_all
 
     STATE_CLASSES = {
-      'open' => 'badge-light-danger',
-      'in_progress' => 'badge-light-primary',
-      'closed' => 'badge-light-success'
+      'open' => 'badge bg-warning',
+      'closed' => 'badge bg-success',
+      'in_progress' => 'badge bg-primary'
     }.freeze
 
     SEVERITY_CLASSES = {
-      'emergency' => 'badge-light-warning',
-      'immediate_emergency' => 'badge-light-danger',
-      'non_emergency' => 'badge-light-primary'
+      'emergency' => 'badge bg-warning',
+      'immediate_emergency' => 'badge bg-danger',
+      'non_emergency' => 'badge bg-primary'
     }.freeze
 
     def state
       state = object.resolved_date.present? ? 'closed' : object.state
       clazz = STATE_CLASSES[state]
-      h.content_tag(:span, class: "badge py-3 px-4 fs-7 #{clazz}") do
+      h.content_tag(:span, class: "badge text-white rounded-0 #{clazz}") do
         I18n.t("complaint_state.#{state}")
       end
     end
 
     def severity
       clazz = SEVERITY_CLASSES[object.severity]
-      h.content_tag(:span, class: "badge py-3 px-4 fs-7 #{clazz}") do
+      h.content_tag(:span, class: "badge text-white rounded-0 #{clazz}") do
         I18n.t("complaint_severity.#{object.severity}")
       end
     end

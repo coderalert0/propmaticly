@@ -1,53 +1,53 @@
 <div class="fw-bold fs-2hx mb-5"><%= @organization.name %></div>
 <div class="row g-5 g-xl-8">
   <div class="col-xl-3">
-    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+    <div class="card bg-body  card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
           <div>
             <i class="bi bi-folder fs-3hx me-4 text-danger"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @violations.open.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2"><%= @violations.open.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Total Open Violations</span>
+          <span class="fs-6 text-muted">Total Open Violations</span>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3">
-    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+    <div class="card bg-body  card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
           <div>
             <i class="bi bi-hammer fs-3hx me-4 text-primary"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @violations.in_progress.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2"><%= @violations.in_progress.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Total Violations Being Addressed</span>
+          <span class="fs-6 text-muted">Total Violations Being Addressed</span>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3">
-    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+    <div class="card bg-body  card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
           <div>
             <i class="bi bi-check-circle fs-3hx me-4 text-success"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @violations.closed.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2"><%= @violations.closed.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Total Violations Closed</span>
+          <span class="fs-6 text-muted">Total Violations Closed</span>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3">
-    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+    <div class="card bg-body  card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
           <div>
             <i class="bi bi-clipboard-check fs-3hx me-4 text-warning"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @inspections.internal.open.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2"><%= @inspections.internal.open.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Upcoming Inspections (Annual)</span>
+          <span class="fs-6 text-muted">Upcoming Inspections (Annual)</span>
         </div>
       </div>
     </div>
@@ -56,53 +56,53 @@
 
 <div class="row g-5 g-xl-8">
   <div class="col-xl-3">
-    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+    <div class="card bg-body  card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
           <div>
             <i class="bi bi-folder fs-3hx me-4 text-danger"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @complaints.open.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2"><%= @complaints.open.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Total Active Complaints</span>
+          <span class="fs-6 text-muted">Total Active Complaints</span>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3">
-    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+    <div class="card bg-body  card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
           <div>
             <i class="bi bi-hammer fs-3hx me-4 text-primary"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @complaints.in_progress.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2"><%= @complaints.in_progress.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Total Complaints Being Addressed</span>
+          <span class="fs-6 text-muted">Total Complaints Being Addressed</span>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3">
-    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+    <div class="card bg-body  card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
           <div>
             <i class="bi bi-check-circle fs-3hx me-4 text-success"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @complaints.closed.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2"><%= @complaints.closed.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Total Closed Complaints</span>
+          <span class="fs-6 text-muted">Total Closed Complaints</span>
         </div>
       </div>
     </div>
   </div>
   <div class="col-xl-3">
-    <div class="card bg-body hoverable card-xl-stretch mb-xl-8">
+    <div class="card bg-body  card-xl-stretch mb-xl-8">
       <div class="card-body">
         <div>
           <div>
             <i class="bi bi-clipboard-check fs-3hx me-4 text-danger"></i>
-            <span class="fs-2hx fw-bold text-gray-800 me-2 ls-n2"><%= @inspections.overdue.size %></span>
+            <span class="fs-2hx fw-bold text-gray-800 me-2"><%= @inspections.overdue.size %></span>
           </div>
-          <span class="fs-6 text-gray-400">Overdue Inspections</span>
+          <span class="fs-6 text-muted">Overdue Inspections</span>
         </div>
       </div>
     </div>
@@ -120,13 +120,13 @@
       </div>
     </div>
     <div class="card-body">
-      <table class="table align-middle table-row-dashed fs-6 gy-3">
+      <table class="table align-middle table-row-dashed gy-3">
         <thead>
-        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-          <th class="min-w-200px">Portfolio Name</th>
-          <th class="min-w-100px">Open Complaints</th>
-          <th class="min-w-100px">Open Violations</th>
-          <th class="min-w-100px">Number of Buildings</th>
+        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+          <th class="w-25">Portfolio Name</th>
+          <th class="w-25">Open Complaints</th>
+          <th class="w-25">Open Violations</th>
+          <th class="w-25">Number of Buildings</th>
         </tr>
         </thead>
         <tbody>

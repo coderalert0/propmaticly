@@ -61,9 +61,9 @@ en:
     closed: Complete
   inspection_update_success: Inspection has been updated successfully
   invalid_state_error: Please enter a valid zip code
-  last_inspection_input_message: |
+  last_inspection_input_message:
     Please enter the last inspection dates for <strong>%{compliance_items}</strong>.
-    Please click on the respective compliance item below and then click the Add Inspection button.
+    Please click on the respective compliance item below and then click the Add Inspection button.<br/>
     Future inspection due dates for <strong>%{compliance_items}</strong> are based on the last inspection dates,
     without this information we can not determine future inspection dates
   "no": "No"
@@ -71,6 +71,7 @@ en:
   portfolio_create_success: Portfolio has been added successfully! Add a building to the portfolio to monitor complaints, violations, and see upcoming inspections
   portfolio_update_success: Portfolio has been updated successfully
   portfolio_delete_success: Portfolio has been deleted successfully
+  unauthorized_access_error: You are not authorized to access this page
   user_delete_success: User has been deleted successfully
   user_update_success: User has been updated successfully
   violation_severity:

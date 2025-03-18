@@ -1,6 +1,6 @@
 <div>
   <div class="py-lg-8">
-    <h2><%= @building&.name %> Compliance Items List (<%= @inspection_rules.try(:total_count) %>)</h2>
+    <h2><%= @building&.name %> Compliance Items List</h2>
   </div>
   <% if @missing_inspections.present? %>
     <div class='alert alert-danger alert-dismissible'>
@@ -11,11 +11,11 @@
     <div class="card-body">
       <table class="table align-middle table-row-dashed gy-3">
         <thead>
-          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-            <th class="w-30">Compliance Item</th>
+          <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+            <th>Compliance Item</th>
             <th class="w-50">Description</th>
-            <th class="w-10">Frequency in Months</th>
-            <th class="w-10">For Buildings With</th>
+            <th>Frequency in Months</th>
+            <th>For Buildings With</th>
           </tr>
         </thead>
         <tbody>

@@ -15,13 +15,13 @@
       <div class="card-body">
         <table class="table align-middle table-row-dashed gy-3">
           <thead>
-          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-            <th class="min-w-125px">Building Name</th>
-            <th class="min-w-125px">Address</th>
-            <th class="min-w-125px">Open Violations</th>
-            <th class="min-w-125px">Open Complaints</th>
-            <th class="min-w-125px">Upcoming Inspections</th>
-            <th class="min-w-125px">Past Inspections</th>
+          <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+            <th>Building Name</th>
+            <th>Address</th>
+            <th>Open Violations</th>
+            <th>Open Complaints</th>
+            <th>Upcoming Inspections</th>
+            <th>Past Inspections</th>
           </tr>
           </thead>
           <tbody class="text-gray-600">
@@ -33,7 +33,6 @@
               <td><%= building.open_complaints_link %></td>
               <td><%= building.upcoming_inspections_link %></td>
               <td><%= building.past_inspections_link %></td>
-              <td></td>
               <td class="text-end">
                 <div class="dropdown">
                   <div class="btn btn-sm btn-light dropdown-toggle">

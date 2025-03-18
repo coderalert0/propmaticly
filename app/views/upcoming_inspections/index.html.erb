@@ -23,15 +23,14 @@
     <div class="card-body">
       <table class="table align-middle table-row-dashed gy-3">
         <thead>
-        <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-          <th class="min-w-200px">Inspection</th>
-          <th class="min-w-100px">Device ID:</th>
-          <th class="min-w-400px">Description</th>
-          <th class="min-w-100px">Filing Date</th>
-          <th class="min-w-100px">Due Date</th>
-          <th class="min-w-100px">Attachments</th>
-          <th class="min-w-100px">Status</th>
-          <th></th>
+        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+          <th>Inspection</th>
+          <th>Device ID:</th>
+          <th>Description</th>
+          <th>Filing Date</th>
+          <th>Due Date</th>
+          <th>Attachments</th>
+          <th>Status</th>
         </tr>
         </thead>
 
@@ -105,7 +104,7 @@
                 <h5>Attachments</h5>
                 <ul class="list-group">
                   <% inspection.attachments.each do |attachment| %>
-                      <li class="list-group-item">
+                      <li>
                         <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
                         <% if can?(:destroy, attachment) %>
                           <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
@@ -140,7 +139,6 @@
           </div>
         </div>
       </div>
-    </div>
     </div>
   <% end %>
 </div>

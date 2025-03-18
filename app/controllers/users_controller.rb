@@ -5,10 +5,10 @@ class UsersController < ApplicationController
   before_action :validate_admin
 
   def index
-    @users = current_organization.users.page(params[:page])
+    @users = current_organization.users.includes(buildings: :portfolio).page(params[:page])
     @users = PaginationDecorator.decorate(@users)
     @portfolios = current_organization.portfolios.order('LOWER(name)')
-    @grouped_buildings = current_organization.buildings.group_by(&:portfolio).transform_keys(&:name).transform_values do |buildings|
+    @grouped_buildings = current_organization.buildings.includes(:portfolio).group_by(&:portfolio).transform_keys(&:name).transform_values do |buildings|
       buildings.map do |b|
         [b.name, b.id]
       end
