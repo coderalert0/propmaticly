@@ -1,5 +1,5 @@
 <% if flash[:success] %>
-  window.location.href = "<%= building_upcoming_inspections_path(@inspection.building) %>";
+  window.location.href = "<%= building_upcoming_inspections_path(@inspection.building, state: params[:state]) %>";
 <% else %>
   <% flash[:danger].each do |message| %>
     document.getElementById('error-<%= @inspection.id %>').innerHTML += "<div class='alert alert-primary alert-dismissible'><%= j(message) %></div>";

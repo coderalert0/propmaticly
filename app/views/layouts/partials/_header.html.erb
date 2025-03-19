@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg">
-  <div class="container-fluid p-0 align-items-end">
+  <div class="container-fluid p-0 align-items-center">
     <!-- Left-aligned items -->
-    <ul class="navbar-nav align-items-end">
-      <li><%= link_to image_tag('logo.png', size: '100x50', alt: 'MyApp Logo'), root_path, class: 'nav-link me-10' %></li>
+    <ul class="navbar-nav align-items-center">
+      <li><%= link_to image_tag('logo.png', height: '50', alt: 'MyApp Logo'), root_path, class: 'nav-link me-10' %></li>
       <% if user_signed_in? %>
         <li><h4><%= link_to "Dashboard", root_path, class: 'me-10' %></h4></li>
         <% if current_user&.admin? %>
@@ -38,7 +38,9 @@
             <div class="dropdown-divider"></div>
 -->
             <!--begin::Menu item-->
-            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+            <div class="dropdown-item">
+              <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'menu-link px-3' %>
+            </div>
             <!--end::Menu item-->
           </div>
         </li>

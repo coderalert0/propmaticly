@@ -124,8 +124,8 @@
         <thead>
         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
           <th class="w-25">Portfolio Name</th>
-          <th class="w-25">Open Complaints</th>
           <th class="w-25">Open Violations</th>
+          <th class="w-25">Open Complaints</th>
           <th class="w-25">Number of Buildings</th>
         </tr>
         </thead>
@@ -133,8 +133,8 @@
         <% @portfolios.each do |portfolio| %>
           <tr>
             <td><%= portfolio.name %></td>
-            <td><%= portfolio.complaints.accessible_by(current_ability).open.size %></td>
-            <td><%= portfolio.violations.accessible_by(current_ability).open.size %></td>
+            <td><div class="badge border rounded-0"><%= portfolio.violations.accessible_by(current_ability).open.size %></div></td>
+            <td><div class="badge border rounded-0"><%= portfolio.complaints.accessible_by(current_ability).open.size %></div></td>
             <td><%= link_to portfolio.buildings.accessible_by(current_ability).size, portfolio_buildings_path(portfolio), class: 'badge bg-primary text-white rounded-0' %></td>
             <td class="text-end">
               <div class="dropdown">

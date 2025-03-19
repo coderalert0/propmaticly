@@ -1,4 +1,4 @@
-<h2>Resend confirmation instructions</h2>
+<h2>Resend Confirmation Instructions</h2>
 
 <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
   <div class="card-body border-top py-9">
@@ -7,7 +7,7 @@
     <div class="row mb-6">
       <%= f.label :email, class: 'col-lg-1 col-form-label' %><br />
       <div class="col-lg-4 fv-row">
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'form-control form-control-lg form-control-solid' %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'form-control form-control-lg' %>
       </div>
     </div>
 

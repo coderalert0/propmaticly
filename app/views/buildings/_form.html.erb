@@ -8,7 +8,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4 required">Name</label>
         <div class="col-lg-8">
-          <%= f.text_field :name, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Montefiore Residents' %>
+          <%= f.text_field :name, required: true, class: 'form-control form-control-lg', placeholder: 'Montefiore Residents' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -17,7 +17,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4 required">Number</label>
         <div class="col-lg-8">
-          <%= f.text_field :number, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: '3450' %>
+          <%= f.text_field :number, required: true, class: 'form-control form-control-lg', placeholder: '3450' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -26,7 +26,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4 required">Street Name</label>
         <div class="col-lg-8">
-          <%= f.text_field :street, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: 'Wayne Ave' %>
+          <%= f.text_field :street, required: true, class: 'form-control form-control-lg', placeholder: 'Wayne Ave' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -35,7 +35,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-4 required">Zip Code</label>
         <div class="col-lg-8">
-          <%= f.text_field :zip5, required: true, class: 'form-control form-control-lg form-control-solid', placeholder: '10467' %>
+          <%= f.text_field :zip5, required: true, class: 'form-control form-control-lg', placeholder: '10467' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -48,7 +48,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Square Feet</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['square_feet'], required: true, name: 'building[numerical_properties][square_feet]', class: 'form-control form-control-lg form-control-solid', placeholder: '15,000' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['square_feet'], required: true, name: 'building[numerical_properties][square_feet]', class: 'form-control form-control-lg', placeholder: '15,000' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -57,7 +57,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Total Square Feet of All Buildings on Tax Lot</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['tax_lot_square_feet'], required: true, name: 'building[numerical_properties][tax_lot_square_feet]', class: 'form-control form-control-lg form-control-solid', placeholder: '75,000' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['tax_lot_square_feet'], required: true, name: 'building[numerical_properties][tax_lot_square_feet]', class: 'form-control form-control-lg', placeholder: '75,000' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -66,7 +66,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Number of Stories</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['number_of_stories'], required: true, name: 'building[numerical_properties][number_of_stories]', class: 'form-control form-control-lg form-control-solid', placeholder: '21' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['number_of_stories'], required: true, name: 'building[numerical_properties][number_of_stories]', class: 'form-control form-control-lg', placeholder: '21' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -75,7 +75,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Number of Residential Units</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['number_of_residential_units'], required: true, name: 'building[numerical_properties][number_of_residential_units]', class: 'form-control form-control-lg form-control-solid', placeholder: '130' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['number_of_residential_units'], required: true, name: 'building[numerical_properties][number_of_residential_units]', class: 'form-control form-control-lg', placeholder: '130' %>
         </div>
       </div>
       <!--end::Input group-->
@@ -84,7 +84,7 @@
       <div class="row mb-6 align-items-center">
         <label class="col-lg-6 required">Boiler BTUs</label>
         <div class="col-lg-6">
-          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['boiler_btus'], required: true, name: 'building[numerical_properties][boiler_btus]', class: 'form-control form-control-lg form-control-solid', placeholder: '350,000' %>
+          <%= f.number_field :numerical_properties, value: f.object.numerical_properties['boiler_btus'], required: true, name: 'building[numerical_properties][boiler_btus]', class: 'form-control form-control-lg', placeholder: '350,000' %>
         </div>
       </div>
       <!--end::Input group-->

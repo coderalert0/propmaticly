@@ -1,6 +1,6 @@
 <div>
   <div class="py-lg-8">
-    <h2><%= @building&.name %> Compliance Items List</h2>
+    <h2><%= @building&.name %>: Synced Past Inspections (By Compliance Item)</h2>
   </div>
   <% if @missing_inspections.present? %>
     <div class='alert alert-danger alert-dismissible'>
@@ -23,7 +23,7 @@
           <tr>
             <td><%= inspection_rule&.compliance_item_inspections_link(@building) %></td>
             <td><%= inspection_rule&.description %></td>
-            <td><%= inspection_rule&.frequency_in_months %></td>
+            <td><div class="badge border rounded-0"><%= inspection_rule&.frequency_in_months %></div></td>
             <td><%= inspection_rule&.building_properties %></td>
           </tr>
           <% end %>

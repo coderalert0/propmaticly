@@ -50,6 +50,8 @@
   <% f.object.attachments.each do |attachment| %>
     <%= hidden_field_tag 'complaints_complaint[attachments][]', attachment.signed_id %>
   <% end %>
+
+  <%= hidden_field_tag :state, params[:state] %>
 </div>
 <!--end::Card body-->
 

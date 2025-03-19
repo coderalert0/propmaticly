@@ -10,7 +10,7 @@ class Inspection < ApplicationRecord
   audited
 
   scope :external, -> { where.not(data: {}) }
-  scope :internal, -> { where(data: {}).and(where.not(due_date: nil)) }
+  scope :internal, -> { where(data: {}) }
   scope :open, -> { where(state: :open) }
   scope :overdue, -> { where('due_date <= ?', Date.today) }
   scope :completed, -> { where.not(filing_date: nil) }

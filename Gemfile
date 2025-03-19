@@ -87,3 +87,9 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+
+group :production do
+  gem 'daemons'
+  gem 'aws-sdk-s3'
+  gem 'ruby-vips'
+end

@@ -1,7 +1,7 @@
 <div>
   <div>
     <div class="py-lg-8">
-      <h2><%= @portfolio.name %>: Building List</h2>
+      <h2><%= @portfolio.name %>: Buildings</h2>
     </div>
 
     <div class="card">
@@ -28,7 +28,7 @@
           <% @buildings.each do |building| %>
             <tr>
               <td><div class="text-gray-800 mb-1"><%= building.name %></div></td>
-              <td><div class="text-gray-600 mb-1"><%= building.address1.titleize %>, <%= building.city.titleize %>, <%= building.state %></div></td>
+              <td class="w-25"><div class="text-gray-600 mb-1"><%= building.address1.titleize %>, <%= building.city.titleize %>, <%= building.state %></div></td>
               <td><%= building.open_violations_link %></td>
               <td><%= building.open_complaints_link %></td>
               <td><%= building.upcoming_inspections_link %></td>

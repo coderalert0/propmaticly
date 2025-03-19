@@ -40,8 +40,9 @@ en:
     5: Staten Island
   building_create_success: Building has been added successfully! We are now monitoring it for any complaints and violations
   building_delete_success: Building has been deleted successfully
-  building_input_message: Providing complete and accurate information about the building is essential, as these details determine the required monthly, quarterly, annual, and quinquennial inspections you must file with the city. Based on this information, we’ll send you timely reminders for inspection filings. Missing or incomplete information could lead to missed inspection deadlines, resulting in potential violations and penalties.
+  building_input_message: Providing complete and accurate information about the building is essential, as these details determine the required inspections you must file with various city agencies. Based on this information, we’ll send you timely reminders for inspection filings. Missing or incomplete information could lead to missed inspection deadlines, resulting in potential violations and penalties.
   building_update_success: Building has been updated successfully
+  click_to_view_internal_inspections_message: Click here to view upcoming and manually added inspections
   complaint_create_success: Complaint has been added successfully
   complaint_delete_success: Complaint has been deleted successfully
   complaint_severity:
@@ -53,6 +54,8 @@ en:
     in_progress: In Progress
     closed: Closed
   complaint_update_success: The complaint has been updated
+  external_inspections_message: "The inspections seen here are synced daily with the Department of Building, Housing Preservation & Development, Environmental Control Board, & Department of Health and Mental Hygiene.<br/>
+    Please add any missing past inspections for %{compliance_item}, if any, here as they will determine future due dates. %{link}"
   inspection_create_success: Inspection has been added successfully, we will use the the provided last inspection date to determine when future inspections are due.
   inspection_delete_success: Inspection has been deleted successfully
   inspection_state:
@@ -63,7 +66,7 @@ en:
   invalid_state_error: Please enter a valid zip code
   last_inspection_input_message:
     Please enter the last inspection dates for <strong>%{compliance_items}</strong>.
-    Please click on the respective compliance item below and then click the Add Inspection button.<br/>
+    Click on the respective compliance item below and then click the Add Inspection button.<br/>
     Future inspection due dates for <strong>%{compliance_items}</strong> are based on the last inspection dates,
     without this information we can not determine future inspection dates
   "no": "No"

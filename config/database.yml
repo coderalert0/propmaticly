@@ -8,14 +8,15 @@ default: &default
 
 development:
   <<: *default
-  database: propmatically_development
+  database: propmaticly_development
 
 test:
   <<: *default
-  database: propmatically_test
+  database: propmaticly_test
 
 production:
   <<: *default
-  database: propmatically_production
+  host: propmaticly-production.crce46og4nsn.us-east-2.rds.amazonaws.com
+  database: propmaticly_production
   username: gopi
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  password: fr33d0m2025

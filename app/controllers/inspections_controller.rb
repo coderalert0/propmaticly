@@ -30,7 +30,8 @@ class InspectionsController < ApplicationController
   private
 
   def inspection_params
-    params.require(:inspection).permit(:device_id, :filing_date, :inspection_rule_id, :building_id)
+    params.require(:inspection).permit(:device_id, :filing_date, :inspection_rule_id,
+                                       :building_id).merge({ state: :closed })
   end
 
   def trigger_create_upcoming_inspections_job

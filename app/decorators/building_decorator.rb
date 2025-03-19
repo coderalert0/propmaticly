@@ -25,13 +25,13 @@ class BuildingDecorator < Draper::Decorator
     upcoming_inspections = inspections.select { |i| i.data == {} && !i.due_date.nil? && i.state == 'open' }
     color_clazz = 'bg-warning text-white' if upcoming_inspections.size.positive?
     h.link_to upcoming_inspections.size, h.building_upcoming_inspections_path(object, state: 'open'),
-              class: "badge #{color_clazz} rounded-0 bg-opacity-75"
+              class: "badge #{color_clazz} border rounded-0 bg-opacity-75"
   end
 
   def past_inspections_link
     past_inspections = inspections.reject { |i| i.data == {} }
     color_clazz = 'bg-primary text-white' if past_inspections.size.positive?
     h.link_to past_inspections.size, h.building_inspection_rules_path(object),
-              class: "badge #{color_clazz} rounded-0 bg-opacity-75"
+              class: "badge #{color_clazz} border rounded-0 bg-opacity-75"
   end
 end
