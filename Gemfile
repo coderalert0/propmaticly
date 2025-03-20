@@ -89,7 +89,7 @@ group :test do
 end
 
 group :production do
-  gem 'daemons'
   gem 'aws-sdk-s3'
+  gem 'daemons'
   gem 'ruby-vips'
 end

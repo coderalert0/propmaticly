@@ -1,51 +1,54 @@
 <nav class="navbar navbar-expand-lg">
-  <div class="container-fluid p-0 align-items-center">
-    <!-- Left-aligned items -->
-    <ul class="navbar-nav align-items-center">
-      <li><%= link_to image_tag('logo.png', height: '50', alt: 'MyApp Logo'), root_path, class: 'nav-link me-10' %></li>
-      <% if user_signed_in? %>
-        <li><h4><%= link_to "Dashboard", root_path, class: 'me-10' %></h4></li>
-        <% if current_user&.admin? %>
-          <li><h4><%= link_to "Users", users_path, class: 'me-10'  %></h4></li>
+  <div class="container-fluid p-2 d-flex align-items-center">
+
+    <!-- Logo: Full Width on Mobile, Normal on Larger Screens -->
+    <div class="d-flex align-items-center w-100 w-lg-auto">
+      <%= link_to root_path, class: "flex-grow-1 text-center text-lg-start" do %>
+        <%= image_tag('logo.png', height: '50') %>
+      <% end %>
+
+      <!-- Waffle Icon (Navbar Toggler) for Mobile -->
+      <button class="navbar-toggler ms-2 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- Collapsible Navbar Content -->
+    <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
+      <!-- Navigation Links -->
+      <ul class="navbar-nav align-items-center">
+        <% if user_signed_in? %>
+          <li class="nav-item h5">
+            <%= link_to "Dashboard", root_path, class: "me-4" %>
+          </li>
+          <% if current_user&.admin? %>
+            <li class="nav-item h5">
+              <%= link_to "Users", users_path, class: "me-4" %>
+            </li>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
+      </ul>
 
-    <!-- Right-aligned item -->
-    <ul class="navbar-nav">
-      <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <span class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-            Hello <%= current_user&.first_name %>
-          </span>
-          <div class="dropdown-menu p-5">
-            <div>
-              <!--begin::Username-->
-              <div class="fw-bold">
+      <!-- Right-Aligned User Dropdown (Hidden on Mobile) -->
+      <ul class="navbar-nav ms-auto d-none d-lg-block">
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Hello, <%= current_user&.first_name %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li class="dropdown-header fw-bold">
                 <%= current_user&.first_name %> <%= current_user&.last_name %>
-              </div>
-              <div class="text-muted">
-                <%= current_user&.email %>
-              </div>
-              <!--end::Username-->
-            </div>
-            <!--end::Menu item-->
-<!--
-            <div class="dropdown-divider my-2"></div>
-
-            <a href="#" class="dropdown-item">My Subscription</a>
-
-            <div class="dropdown-divider"></div>
--->
-            <!--begin::Menu item-->
-            <div class="dropdown-item">
-              <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'menu-link px-3' %>
-            </div>
-            <!--end::Menu item-->
-          </div>
-        </li>
-      <% end %>
-    </ul>
+              </li>
+              <li class="dropdown-item text-muted"><%= current_user&.email %></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" %>
+              </li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </nav>
-

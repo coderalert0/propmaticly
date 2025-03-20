@@ -2,81 +2,85 @@
   <div class="py-lg-8">
     <h2><%= @building&.name %>: Upcoming and Manually Added Inspections (<%= @inspections.try(:total_count) %>)</h2>
   </div>
+
+  <!-- Filter Form -->
   <div class="card">
     <div class="d-flex border-0 p-6">
       <div class="me-auto">
         <%= form_with method: :get, local: true do %>
-          <div class="d-flex">
-            <div class="col-lg-7 me-2">
-              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control me-2" %>
+          <div class="d-flex flex-wrap gap-2">
+            <div class="search-container">
+              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
             </div>
-            <div class="col-lg-4 me-2">
-              <%= select_tag :state, options_for_select(InspectionDecorator.states_select, params[:state]), class: "form-select me-2" %>
+            <div class="filter-container">
+              <%= select_tag :state, options_for_select(InspectionDecorator.states_select, params[:state]), class: "form-select" %>
             </div>
-            <div class="col-lg-2">
-              <%= submit_tag "Filter", class: "btn btn-primary" %>
+            <div class="button-container">
+              <%= submit_tag "Filter", class: "btn btn-primary w-100" %>
             </div>
           </div>
         <% end %>
       </div>
     </div>
-    <div class="card-body">
-      <table class="table align-middle table-row-dashed gy-3">
-        <thead>
-        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-          <th>Inspection</th>
-          <th>Device ID:</th>
-          <th>Description</th>
-          <th>Filing Date</th>
-          <th>Due Date</th>
-          <th>Attachments</th>
-          <th>Status</th>
-        </tr>
-        </thead>
 
-        <tbody>
-        <% @inspections.each do |inspection| %>
-          <tr>
-            <td><%= inspection&.inspection_rule.decorate.compliance_item_humanize %></td>
-            <td><%= inspection&.device_id %></td>
-            <td><%= inspection&.inspection_rule.description %></td>
-            <td><%= inspection.filing_date&.strftime("%D") %></td>
-            <td><%= inspection&.due_date&.strftime("%D") %></td>
-            <td><% inspection&.attachments.each do |attachment| %>
-              <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
-                <i class="<%= file_icon_class(attachment) %>"></i>
-              </a>
-            <% end %></td>
-            <td><%= inspection.state %></td>
-            <td>
-              <div class="dropdown">
-                <div class="btn btn-sm btn-light dropdown-toggle">
-                  Actions
-                </div>
-                <div class="dropdown-menu">
-                  <% if can?(:read, inspection.object) %>
-                    <div class="dropdown-item">
-                      <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
-                    </div>
-                  <% end %>
-                  <% if can?(:edit, inspection.object) %>
-                    <div class="dropdown-item">
-                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            </td>
+    <div class="card-body">
+      <div>
+        <table class="table align-middle table-row-dashed gy-3">
+          <thead>
+          <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+            <th>Inspection</th>
+            <th class="d-none d-md-table-cell">Device ID</th>
+            <th>Description</th>
+            <th class="d-none d-md-table-cell">Filing Date</th>
+            <th>Due Date</th>
+            <th class="d-none d-md-table-cell">Attachments</th>
+            <th>Status</th>
+            <th></th>
           </tr>
-          <%= render 'edit', inspection: inspection %>
-        <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+          <% @inspections.each do |inspection| %>
+            <tr>
+              <td><%= inspection&.inspection_rule.decorate.compliance_item_humanize %></td>
+              <td class="d-none d-md-table-cell"><%= inspection&.device_id %></td>
+              <td><%= inspection&.inspection_rule.description %></td>
+              <td class="d-none d-md-table-cell"><%= inspection.filing_date&.strftime("%D") %></td>
+              <td><%= inspection&.due_date&.strftime("%D") %></td>
+              <td class="d-none d-md-table-cell">
+                <% inspection&.attachments.each do |attachment| %>
+                  <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
+                    <i class="<%= file_icon_class(attachment) %>"></i>
+                  </a>
+                <% end %>
+              </td>
+              <td><%= inspection.state %></td>
+              <td class="text-end d-none d-lg-table-cell">
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-light dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
+                  <div class="dropdown-menu">
+                    <% if can?(:read, inspection.object) %>
+                      <%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
+                    <% end %>
+                    <% if can?(:edit, inspection.object) %>
+                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <%= render 'edit', inspection: inspection %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @inspections, theme: 'bootstrap4' %>
       </div>
     </div>
   </div>
+
   <% @inspections.each do |inspection| %>
     <div class="modal fade" id="inspectionModal<%= inspection.id %>" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg">
@@ -99,41 +103,45 @@
                 <p><strong>Due Date:</strong> <%= inspection.due_date&.strftime("%D") %></p>
                 <p><strong>Status:</strong> <%= inspection.state %></p>
               </div>
-              <!-- Second Column: Audit Logs -->
+
+              <!-- Second Column: Attachments -->
               <div class="col-md-6">
                 <h5>Attachments</h5>
                 <ul class="list-group">
                   <% inspection.attachments.each do |attachment| %>
-                      <li>
-                        <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
-                        <% if can?(:destroy, attachment) %>
-                          <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
+                    <li>
+                      <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
+                      <% if can?(:destroy, attachment) %>
+                        <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
                           <i class="bi bi-trash"></i>
                         <% end %>
-                      </li>
-                    <% end %>
+                      <% end %>
+                    </li>
                     <%= render 'attachments/delete', attachment: attachment %>
                   <% end %>
                 </ul>
               </div>
             </div>
+
+            <!-- Comments Section -->
             <% if inspection.audits.any? { |audit| audit.comment.present? } %>
               <div class="row">
                 <hr>
                 <div class="col-lg-12">
                   <h5>Comments</h5>
-                    <% inspection.audits.includes(:user).each do |audit| %>
+                  <% inspection.audits.includes(:user).each do |audit| %>
+                    <% if audit.comment.present? %>
                       <div>
-                        <% if audit.comment.present? %>
-                          <i><%= "#{audit.user.first_name}:" %></i> <%= audit.comment %>
-                          <span class="text-muted">(<%= time_ago_in_words(audit.created_at) %> ago)</span>
-                        <% end %>
+                        <i><%= "#{audit.user.first_name}:" %></i> <%= audit.comment %>
+                        <span class="text-muted">(<%= time_ago_in_words(audit.created_at) %> ago)</span>
                       </div>
                     <% end %>
+                  <% end %>
                 </div>
               </div>
             <% end %>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
           </div>

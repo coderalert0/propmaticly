@@ -1,52 +1,65 @@
 <div>
+  <!-- Page Header -->
   <div class="py-lg-8">
     <h2><%= @building&.name %>: Synced <%= @inspection_rule&.compliance_item_humanize %> Inspections (<%= @inspections.try(:total_count) %>)</h2>
   </div>
-  <div class='alert alert-primary alert-dismissible'>
+
+  <!-- Alert for External Inspections -->
+  <div class="alert alert-primary alert-dismissible">
     <%= t(:external_inspections_message, compliance_item: @inspection_rule.compliance_item_humanize, link: link_to(t(:click_to_view_internal_inspections_message), building_upcoming_inspections_path(@building))).html_safe %>
   </div>
+
+  <!-- Inspection Search & Add Button -->
   <div class="card">
-    <div class="d-flex border-0 p-6">
+    <div class="d-flex flex-wrap justify-content-between p-6">
       <div class="me-auto">
         <%= form_with url: building_inspection_rule_inspections_path(@building, @inspection_rule), method: :get, local: true do %>
-          <div class="d-flex">
-            <div class="col-lg-12 me-2">
-              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control me-2" %>
+          <div class="d-flex flex-wrap gap-2">
+            <div class="search-container">
+              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+            </div>
+            <div class="button-container">
+              <%= submit_tag "Search", class: "btn btn-primary w-100" %>
             </div>
           </div>
         <% end %>
       </div>
+
       <% if can?(:create, Inspection) && @inspection_rule.based_on_last_inspection? %>
-        <%= link_to 'Add Inspection', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
+        <%= link_to 'Add Inspection', '#', class: 'btn btn-success' , data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
       <% end %>
     </div>
+
+    <!-- Inspections Table -->
     <div class="card-body">
-      <table class="table align-middle table-row-dashed gy-3">
-        <%= @inspection_rule.header_html %>
-        <tbody>
-        <% @inspections.each do |inspection| %>
-          <tr>
-            <% @inspection_rule.headers.each do |attribute| %>
-              <td><%= inspection.data[attribute.to_s] %></td>
-            <% end %>
-            <td>
-              <div class="dropdown">
-                <div class="btn btn-sm btn-light dropdown-toggle">
-                  Actions
+      <div class="table-responsive">
+        <table class="table align-middle table-row-dashed gy-3">
+          <%= @inspection_rule.header_html %>
+          <tbody>
+          <% @inspections.each do |inspection| %>
+            <tr>
+              <% @inspection_rule.headers.each do |attribute| %>
+                <td><%= inspection.data[attribute.to_s] %></td>
+              <% end %>
+              <td class="d-none d-md-table-cell">
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Actions
+                  </button>
+                  <ul class="dropdown-menu">
+                    <% if can?(:read, inspection) %>
+                      <li><%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %></li>
+                    <% end %>
+                  </ul>
                 </div>
-                <div class="dropdown-menu">
-                  <% if can?(:read, inspection) %>
-                    <div class="dropdown-item">
-                      <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @inspections, theme: 'bootstrap4' %>
       </div>
@@ -54,6 +67,7 @@
     </div>
   </div>
 
+  <!-- Modals for Inspection Details -->
   <% @inspections.each do |inspection| %>
     <div class="modal fade" id="inspectionModal<%= inspection.id %>" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -65,7 +79,7 @@
           <div class="modal-body">
             <div class="row">
               <% inspection.data.keys.sort.each_slice(10) do |chunk| %>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <% chunk.each do |key| %>
                     <p><strong><%= key.titleize %>: </strong><%= inspection.data[key] %></p>
                   <% end %>

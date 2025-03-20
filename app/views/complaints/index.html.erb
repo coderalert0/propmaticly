@@ -1,21 +1,21 @@
 <div>
   <div class="py-lg-8">
-    <h2><%= @building&.name %> Complaint List (<%= @complaints.try(:total_count) %>)</h2>
+    <h2><%= @building&.name %> Complaint (<%= @complaints.try(:total_count) %>)</h2>
   </div>
 
   <div class="card">
     <div class="d-flex border-0 p-6">
       <div class="me-auto">
         <%= form_with url: building_complaints_path(@building), method: :get, local: true do %>
-          <div class="d-flex">
-            <div class="col-lg-7 me-2">
-              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control me-2" %>
+          <div class="d-flex flex-wrap gap-2">
+            <div class="search-container">
+              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
             </div>
-            <div class="col-lg-4 me-2">
-              <%= select_tag :state, options_for_select(Complaints::ComplaintDecorator.states_select, params[:state]), class: "form-select me-2" %>
+            <div class="filter-container">
+              <%= select_tag :state, options_for_select(Complaints::ComplaintDecorator.states_select, params[:state]), class: "form-select" %>
             </div>
-            <div class="col-lg-2">
-              <%= submit_tag "Filter", class: "btn btn-primary" %>
+            <div class="button-container">
+              <%= submit_tag "Filter", class: "btn btn-primary w-100" %>
             </div>
           </div>
         <% end %>
@@ -23,58 +23,57 @@
     </div>
 
     <div class="card-body">
-      <table class="table align-middle table-row-dashed gy-3">
-        <thead>
-        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-          <th>Complaint ID</th>
-          <th>Problem ID</th>
-          <th>Filed Date</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Severity</th>
-          <th>Resolved Date</th>
-          <th>Attachments</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @complaints.each do |complaint| %>
-          <tr>
-            <td><%= complaint.complaint_id %></td>
-            <td><%= complaint&.problem_id %></td>
-            <td><%= complaint&.filed_date&.strftime("%D") %></td>
-            <td><%= complaint&.description&.[](0..120) %></td>
-            <td><%= complaint&.state %></td>
-            <td><%= complaint&.severity %></td>
-            <td><%= complaint&.resolved_date&.strftime("%D") %></td>
-            <td><% complaint&.attachments.each do |attachment| %>
-                <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
-                  <i class="<%= file_icon_class(attachment) %>"></i>
-                </a>
-              <% end %></td>
-            <td class="text-end">
-              <div class="dropdown">
-                <div class="btn btn-sm btn-light dropdown-toggle">
-                  Actions
-                </div>
-                <div class="dropdown-menu">
-                  <% if can?(:read, complaint.object) %>
-                    <div class="dropdown-item">
-                      <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#complaintModal#{complaint.id}" } %>
-                    </div>
-                  <% end %>
-                  <% if can?(:edit, complaint.object) %>
-                    <div class="dropdown-item">
-                      <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            </td>
+      <div>
+        <table class="table align-middle table-row-dashed gy-3">
+          <thead>
+          <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+            <th>Complaint ID</th>
+            <th class="d-none d-sm-table-cell">Problem ID</th>
+            <th>Filed Date</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th class="d-none d-md-table-cell">Severity</th>
+            <th class="d-none d-md-table-cell">Resolved Date</th>
+            <th class="d-none d-md-table-cell">Attachments</th>
+            <th></th>
           </tr>
-          <%= render 'edit', complaint: complaint %>
-        <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+          <% @complaints.each do |complaint| %>
+            <tr>
+              <td><%= complaint.complaint_id %></td>
+              <td class="d-none d-sm-table-cell"><%= complaint&.problem_id %></td>
+              <td><%= complaint&.filed_date&.strftime("%D") %></td>
+              <td><%= complaint&.description&.[](0..120) %></td>
+              <td><%= complaint&.state %></td>
+              <td class="d-none d-md-table-cell"><%= complaint&.severity %></td>
+              <td class="d-none d-md-table-cell"><%= complaint&.resolved_date&.strftime("%D") %></td>
+              <td class="d-none d-md-table-cell">
+                <% complaint&.attachments.each do |attachment| %>
+                  <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
+                    <i class="<%= file_icon_class(attachment) %>"></i>
+                  </a>
+                <% end %>
+              </td>
+              <td class="text-end d-none d-lg-table-cell">
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-light dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
+                  <div class="dropdown-menu">
+                    <% if can?(:read, complaint.object) %>
+                      <%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#complaintModal#{complaint.id}" } %>
+                    <% end %>
+                    <% if can?(:edit, complaint.object) %>
+                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <%= render 'edit', complaint: complaint %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
 
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @complaints, theme: 'bootstrap4' %>
@@ -101,7 +100,6 @@
                 <p><strong>Filed Date:</strong> <%= complaint.filed_date&.strftime("%D") %></p>
                 <p><strong>Inspection Date:</strong> <%= complaint.inspection_date&.strftime("%D") %></p>
                 <p><strong>Disposition:</strong> <%= complaint.disposition_code %></p>
-                <p><strong>Disposition Date:</strong> <%= complaint.disposition_date&.strftime("%D") if complaint.disposition_date %></p>
                 <p><strong>Updated On:</strong> <%= complaint.updated_at&.strftime("%D") %></p>
               </div>
               <div class="col-md-6">
@@ -110,33 +108,11 @@
                   <% complaint.attachments.each do |attachment| %>
                     <li>
                       <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
-                      <% if can?(:destroy, attachment) %>
-                        <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
-                          <i class="bi bi-trash"></i>
-                        <% end %>
-                      <% end %>
                     </li>
-                    <%= render 'attachments/delete', attachment: attachment %>
                   <% end %>
                 </ul>
               </div>
             </div>
-            <% if complaint.audits.any? { |audit| audit.comment.present? } %>
-              <div class="row">
-                <hr>
-                <div class="col-lg-12">
-                  <h5>Comments</h5>
-                  <% complaint.audits.each do |audit| %>
-                    <div>
-                      <% if audit.comment.present? %>
-                        <i><%= "#{audit.user.first_name}:" %></i> <%= audit.comment %>
-                        <span class="text-muted">(<%= time_ago_in_words(audit.created_at) %> ago)</span>
-                      <% end %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>

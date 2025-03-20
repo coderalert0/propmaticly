@@ -51,7 +51,7 @@ module InspectionRules
         <thead>
           <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
             #{header_cells}
-            <th class="text min-w-100px">Actions</th>
+            <th></th>
           </tr>
         </thead>
       HTML

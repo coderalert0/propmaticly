@@ -1,68 +1,72 @@
 <div>
   <div class="py-lg-8">
-    <h2><%= @building&.name %> Violations List (<%= @violations.try(:total_count) %>)</h2>
+    <h2><%= @building&.name %> Violations (<%= @violations.try(:total_count) %>)</h2>
   </div>
+
+  <!-- Filter Form -->
   <div class="card">
     <div class="d-flex border-0 p-6">
       <div class="me-auto">
-        <%= form_with url: building_violations_path(@building), method: :get, local: true do %>
-          <div class="d-flex">
-            <div class="col-lg-7 me-2">
-              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control me-2" %>
+        <%= form_with method: :get, local: true do %>
+          <div class="d-flex flex-wrap gap-2">
+            <div class="search-container">
+              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
             </div>
-            <div class="col-lg-4 me-2">
-              <%= select_tag :state, options_for_select(Violations::ViolationDecorator.states_select, params[:state]), class: "form-select me-2" %>
+            <div class="filter-container">
+              <%= select_tag :state, options_for_select(Violations::ViolationDecorator.states_select, params[:state]), class: "form-select" %>
             </div>
-            <div class="col-lg-2">
-              <%= submit_tag "Filter", class: "btn btn-primary" %>
+            <div class="button-container">
+              <%= submit_tag "Filter", class: "btn btn-primary w-100" %>
             </div>
           </div>
         <% end %>
       </div>
     </div>
+
+
+    <!-- Violations Table -->
     <div class="card-body">
-      <table class="table align-middle table-row-dashed gy-3">
-        <thead>
-        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-          <th>Violation ID</th>
-          <th>Issue Date</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Severity</th>
-          <th>Resolved Date</th>
-          <th>Attachments</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
+      <div>
+        <table class="table align-middle table-row-dashed gy-3">
+          <thead>
+          <tr class="text-muted fw-bold text-uppercase">
+            <th>Violation ID</th>
+            <th>Issue Date</th>
+            <th>Description</th>
+            <th class="d-none d-md-table-cell">Resolved Date</th> <!-- Hidden on mobile -->
+            <th class="d-none d-md-table-cell">Attachments</th>
+            <th class="d-none d-md-table-cell">Severity</th> <!-- Hidden on mobile -->
+            <th>Status</th>
+            <th></th> <!-- Hidden on mobile -->
+          </tr>
+          </thead>
+          <tbody>
           <% @violations.each do |violation| %>
             <tr>
-              <td><%= violation&.violation_id %></td>
-              <td><%= violation&.issue_date&.strftime("%D") %></td>
-              <td><%= violation&.description&.[](0..120) %></td>
-              <td><%= violation&.state %></td>
-              <td><%= violation&.severity %></td>
-              <td><%= violation&.resolved_date&.strftime("%D") %></td>
-              <td><% violation&.attachments.each do |attachment| %>
+              <td><%= violation.violation_id %></td>
+              <td><%= violation.issue_date&.strftime("%D") %></td>
+              <td><%= violation.description&.truncate(100) %></td>
+              <td class="d-none d-md-table-cell"><%= violation.resolved_date&.strftime("%D") %></td>
+              <td class="d-none d-md-table-cell">
+                <% violation.attachments.each do |attachment| %>
                   <a href="<%= url_for(attachment) %>" download title="<%= attachment.filename.to_s %>">
                     <i class="<%= file_icon_class(attachment) %>"></i>
                   </a>
-                <% end %></td>
-              <td>
+                <% end %>
+              </td>
+              <td class="d-none d-md-table-cell"><%= violation.severity %></td>
+              <td><%= violation.state %></td>
+              <td class="text-end d-none d-md-table-cell">
                 <div class="dropdown">
-                  <div class="btn btn-sm btn-light dropdown-toggle">
+                  <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
                     Actions
-                  </div>
+                  </button>
                   <div class="dropdown-menu">
                     <% if can?(:read, violation.object) %>
-                      <div class="dropdown-item">
-                        <%= link_to 'View Details', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#violationModal#{violation.id}" } %>
-                      </div>
+                      <%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#violationModal#{violation.id}" } %>
                     <% end %>
                     <% if can?(:edit, violation.object) %>
-                      <div class="dropdown-item">
-                        <%= link_to 'Edit', '#', class: 'menu-link px-3', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
-                      </div>
+                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
                     <% end %>
                   </div>
                 </div>
@@ -70,14 +74,16 @@
             </tr>
             <%= render 'edit', violation: violation %>
           <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @violations, theme: 'bootstrap4' %>
       </div>
     </div>
   </div>
-
+  <!-- Violation Modals -->
   <% @violations.each do |violation| %>
     <div class="modal fade" id="violationModal<%= violation.id %>" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg">
@@ -86,7 +92,7 @@
             <h2 class="fw-bold">Violation Details</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body py-10 px-lg-17">
+          <div class="modal-body">
             <div class="row">
               <div class="col-md-6">
                 <p><strong>Violation ID:</strong> <%= violation.violation_id %></p>
@@ -102,11 +108,11 @@
                 <h5>Attachments</h5>
                 <ul class="list-group">
                   <% violation.attachments.each do |attachment| %>
-                    <li>
+                    <li class="list-group-item">
                       <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
                       <% if can?(:destroy, attachment) %>
                         <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
-                          <i class="bi bi-trash"></i>
+                          <i class="bi bi-trash text-danger"></i>
                         <% end %>
                       <% end %>
                     </li>
@@ -115,18 +121,19 @@
                 </ul>
               </div>
             </div>
+
             <% if violation.audits.any? { |audit| audit.comment.present? } %>
-              <div class="row">
+              <div class="row mt-4">
                 <hr>
                 <div class="col-lg-12">
                   <h5>Comments</h5>
                   <% violation.audits.each do |audit| %>
-                    <div>
-                      <% if audit.comment.present? %>
+                    <% if audit.comment.present? %>
+                      <div>
                         <i><%= "#{audit.user.first_name}:" %></i> <%= audit.comment %>
                         <span class="text-muted">(<%= time_ago_in_words(audit.created_at) %> ago)</span>
-                      <% end %>
-                    </div>
+                      </div>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
