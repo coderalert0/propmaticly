@@ -33,23 +33,19 @@
               <td><%= user.sms %></td>
               <td><%= user.portfolios.map(&:name).join(', ') %></td>
               <td><%= user.buildings.map(&:name).join(', ') %></td>
-              <td><%= user.confirmed? ? 'Yes' : 'No' %></td>
+              <td><%= user.confirmed? %></td>
               <td class="d-none d-md-table-cell"><%= user.admin? ? 'Yes' : 'No' %></td>
-              <td class="d-none d-md-table-cell text-end">
-                <div class="dropdown">
+              <td class="d-none d-md-table-cell">
+                <div class="dropdown ">
                   <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
                     Actions
                   </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{user.id}" } %>
-                    </li>
+                  <div class="dropdown-menu">
+                    <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{user.id}" } %>
                     <% unless current_user == user %>
-                      <li>
-                        <%= link_to 'Delete', '#', class: 'dropdown-item text-danger', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{user.id}" } %>
-                      </li>
+                      <%= link_to 'Delete', '#', class: 'dropdown-item text-danger', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{user.id}" } %>
                     <% end %>
-                  </ul>
+                  </div>
                 </div>
               </td>
             </tr>

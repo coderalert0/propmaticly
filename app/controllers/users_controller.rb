@@ -17,9 +17,7 @@ class UsersController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      @user.update(user_params.except(:portfolio_ids, :building_ids))
-      AssetContact.assign_assets_to_user('Portfolio', user_params[:portfolio_ids], @user)
-      AssetContact.assign_assets_to_user('Building', user_params[:building_ids], @user)
+      @user.update(user_params)
       flash[:success] = t(:user_update_success)
       redirect_to users_path
     end

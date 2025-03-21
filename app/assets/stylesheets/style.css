@@ -1215,7 +1215,7 @@ button:not(:disabled),
 .badge {
   --bs-badge-padding-x: 0.5rem;
   --bs-badge-padding-y: 0.325rem;
-  --bs-badge-font-size: 0.85rem;
+  --bs-badge-font-size: 1rem;
   --bs-badge-font-weight: 600;
   --bs-badge-color: var(--bs-body-color);
   --bs-badge-border-radius: 0.425rem;

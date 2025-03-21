@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :portfolios, through: :asset_contacts, source: :assignable, source_type: 'Portfolio'
 
   validates :first_name, :last_name, :email, :encrypted_password, presence: true
+  validates :email, uniqueness: true
 
   # Accepts nested attributes for organizations and assignable models
   accepts_nested_attributes_for :buildings, :portfolios, :organization

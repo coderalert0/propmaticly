@@ -3,7 +3,7 @@
 ## Setup Instructions
 
 ```
-ssh -i key.pem ubuntu@ec2.us-east-2.compute.amazonaws.com
+ssh -i key.pem ubuntu@ec2-3-143-142-188.us-east-2.compute.amazonaws.com
 ```
 
 #### Install packages
@@ -182,8 +182,18 @@ sudo systemctl enable delayed_job
 sudo systemctl start delayed_job
 ```
 
+#### Setup CloudWatch agent
+```
+wget https://amazoncloudwatch-agent.s3.amazonaws.com/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
+sudo dpkg -i amazon-cloudwatch-agent.deb
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+```
+
 #### Start server
 ```
+scp -i ~propmaticly/config/master.key ubuntu@ec2-3-143-142-188.us-east-2.compute.amazonaws.com:/home/ubuntu/propmaticly/config/
+whenever --update-crontab
 bundle exec rails assets:precompile
 bundle exec rails s
 ```

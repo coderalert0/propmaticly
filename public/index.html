@@ -1,2 +1,619 @@
-<p>This is the landing page</p>
-<a href="https://app.propmaticly.com">Click here for the app</a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Propmaticly - NYC Building Compliance Software</title>
+  <link rel="icon" href="favicon.ico"><link href="landing_assets/stylesheets/style.css" rel="stylesheet"></head>
+  <body
+    x-data="{ page: 'home', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
+    x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+    :class="{'a lf': darkMode === true}"
+  >
+
+
+    <!-- ===== Header Start ===== -->
+    <header
+  class="f l i pc y hh"
+  :class="{ 'mf kl pj ih rj yj' : stickyMenu }"
+  @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false"
+>
+  <div class="aa jd sg cn 2xl:ud-px-0 tn ae de h">
+    <div class="pc _n/4 pb ae de">
+      <a href="/">
+        <img class="el" src="landing_assets/images/logo.png", width="80%" alt="Logo Light" />
+      </a>
+
+      <!-- Hamburger Toggle BTN -->
+      <button class="un nb" @click="navigationOpen = !navigationOpen">
+        <span class="nb h ud bd fc">
+          <span class="nb g pc gc">
+            <span
+              class="nb h i l lf ll _e cd hc ca _j zj sj"
+              :class="{ 'dd tj': !navigationOpen }"
+            ></span>
+            <span
+              class="nb h i l lf ll _e cd hc ca _j zj uj"
+              :class="{ 'dd er': !navigationOpen }"
+            ></span>
+            <span
+              class="nb h i l lf ll _e cd hc ca _j zj vj"
+              :class="{ 'dd wj': !navigationOpen }"
+            ></span>
+          </span>
+          <span class="nb g pc gc qd">
+            <span
+              class="nb lf ll _e _j zj tj g r i ed gc"
+              :class="{ 'ic sj': !navigationOpen }"
+            ></span>
+            <span
+              class="nb lf ll _e _j zj er g l top-2.5 pc hc"
+              :class="{ 'ic vj': !navigationOpen }"
+            ></span>
+          </span>
+        </span>
+      </button>
+      <!-- Hamburger Toggle BTN -->
+    </div>
+
+    <div class="pc lg:w-3/4 ic vn e jn tn ae de" :class="{ 'd mf jl kj jc mc se we kb mg': navigationOpen }">
+      <nav>
+        <ul class="pb go yd eo me to">
+          <li class="ka"><a href="#features" class="tk">Features</a></li>
+          <li class="ka"><a href="#monitor">What We Monitor</a></li>
+          <li class="ka"><a href="#faq">FAQ</a></li>
+          <li class="ka"><a href="#pricing">Pricing</a></li>
+          <li class="ka"><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+
+      <div class="pb ae oe ja rn">
+        <a href="https://app.propmaticly.com/users/sign_in" class="zi oi ui tk">Sign In</a>
+        <a
+          href="https://app.propmaticly.com/users/sign_up"
+          class="pb ae ce of rk _j xj yi oi  ug wg"
+          >Get Started</a
+        >
+      </div>
+    </div>
+  </div>
+</header>
+
+    <!-- ===== Header End ===== -->
+
+    <main>
+      <!-- ===== Hero Start ===== -->
+      <section class="lh gn tq mh uq re">
+        <div class="aa jd sg cn 2xl:ud-px-0">
+          <div class="pb go io wp">
+            <div class="animate_left km/2">
+<!--              <h4 class="xi vl gi ui qa">🔥 Solid is one of the best option for you.</h4>-->
+              <h1 class="xi vl ji zq vi fa">
+                Stop Paying NYC Building Violation Fines
+              </h1>
+              <p>Propmaticly instantly alerts you of complaints, violations, and upcoming inspections, helping you stay compliant and avoid costly penalties.</p>
+
+              <div class="la">
+                <div class="pb _d me">
+                  <a href="https://app.propmaticly.com/users/sign_up">
+                    <button class="pb ae ce of rk _j xj yi oi ug wg">Get Started</button>
+                  </a>
+                </div>
+
+                <p class="xi vl sa">Try for free no credit card required.</p>
+              </div>
+            </div>
+            <div class="animate_right km/2 tb sn">
+              <div class="h 2xl:-ud-mr-7.5">
+                <img src="landing_assets/images/shape-01.png" alt="shape" class="g -ud-left-11.5 i" />
+                <img src="landing_assets/images/shape-02.svg" alt="shape" class="g j k" />
+                <img src="landing_assets/images/shape-03.svg" alt="shape" class="g -ud-right-6.5 k" />
+                <div>
+                  <img class="el ij" src="landing_assets/images/hero-light.png" alt="Hero" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Funfact Start ===== -->
+      <section class="rg vo sg cn 2xl:ud-px-0">
+        <div class="aa jd ah iq h w ue yf zf _f ol pl rl jl ul">
+          <img src="landing_assets/images/shape-04.png" alt="Man" class="tb sn g -ud-top-25 -ud-left-15 ln -ud-z-1" />
+          <img src="landing_assets/images/shape-dotted-light-02.svg" alt="Dotted" class="g i l -ud-z-1 el" />
+
+          <div class="animate_top aa ei nm/5 xn/3 op/2 _a nn sg dn">
+            <h2 class="vi xi vl ji cr ra">Tired of Surprise Violations and Last-Minute Inspections?</h2>
+            <p class="zn/12 aa">Managing compliance for your NYC buildings can be a headache. Missed deadlines, unexpected violations, and complex regulations can lead to costly fines and wasted time. Propmaticly provides a simple, powerful solution to stay ahead of the curve.</p>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Funfact End ===== -->
+
+      <!-- ===== Features Start ===== -->
+      <section id="features" class="rg uo dq">
+        <div class="aa kd sg cn eq">
+          <!-- Section Title Start -->
+          <div
+            class="animate_top ei aa"
+            x-data="{ sectionSubtitle: `Stay Compliant, Save Time, and Reduce Costs With Propmaticly`, sectionTitlePara: `Propmaticly is specifically designed for the unique compliance challenges of NYC buildings. Designed for ease of use for busy building owners and property managers.`}"
+          >
+
+<h2 x-text="sectionSubtitle" class="vi ji cr xi vl nm/5 op/2 aa ra"></h2>
+<p class="aa nm/5 bo/5 qp" x-text="sectionTitlePara"></p>
+
+          </div>
+          <!-- Section Title End -->
+
+          <div class="sb wd rm do he up ta mn kp">
+            <!-- Features item Start -->
+            <div
+              class="animate_top df if jj ue mg aq qj wk bm gl jl"
+            >
+              <div class="pb ae ce ve of qc wb">
+                <svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 0 20 20" fill="white" aria-hidden="true"> <path fill-rule="evenodd" d="M2.913 2.092A1 1 0 013 2h14a1 1 0 011 1v8a1 1 0 01-1 1h-2.586l-4.293 4.293a1 1 0 01-1.414 0L5.586 12H3a1 1 0 01-1-1V3a1 1 0 01.087-.908zM6 7a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm0 3a1 1 0 011-1h4a1 1 0 110 2H7a1 1 0 01-1-1z" clip-rule="evenodd" /></svg>
+              </div>
+              <h3 class="ti ii _q xi vl ha fa">Real-Time Alerts</h3>
+              <p>Receive instant SMS notifications for new complaints and violations for your buildings. Data is synced daily with DOB, HPD, ECB, and DOHMH</p>
+            </div>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div
+                    class="animate_top df if jj ue mg aq qj wk bm gl jl"
+            >
+              <div class="pb ae ce ve of qc wb">
+                <svg xmlns="http://www.w3.org/2000/svg" height="40" fill="none" viewBox="0 0 24 24" stroke="white" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+              </div>
+              <h3 class="ti ii _q xi vl ha fa">Inspection Checklist</h3>
+              <p>View a checklist of upcoming inspections based on the attributes of your building and agency specified scheduling cycles. You receive SMS notifications in advance of inspection due dates</p>
+            </div>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div
+              class="animate_top df if jj ue mg aq qj wk bm gl jl"
+            >
+              <div class="pb ae ce ve of qc wb">
+                <svg xmlns="http://www.w3.org/2000/svg" height="40" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                </svg>
+              </div>
+              <h3 class="ti ii _q xi vl ha fa">Portfolio Management</h3>
+              <p>Easily manage all your NYC buildings in one place, with a clear overview of their compliance status on a dashboard.</p>
+            </div>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div
+              class="animate_top df if jj ue mg aq qj wk bm gl jl"
+            >
+              <div class="pb ae ce ve of qc wb">
+                <svg xmlns="http://www.w3.org/2000/svg" height="40" fill="none" viewBox="0 0 24 24" stroke="white" class="w-6 h-6"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /> </svg>
+              </div>
+              <h3 class="ti ii _q xi vl ha fa">Track New Regulations</h3>
+              <p>Local laws are constantly changing, Propmaticly stays upto date with them informing you of any changes that affect your compliance responsibilities.</p>
+            </div>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div
+              class="animate_top df if jj ue mg aq qj wk bm gl jl"
+            >
+              <div class="pb ae ce ve of qc wb">
+                <svg xmlns="http://www.w3.org/2000/svg" height="40" fill="none" viewBox="0 0 24 24" stroke="white" class="w-6 h-6"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /> </svg>              </div>
+              <h3 class="ti ii _q xi vl ha fa">Progress Tracking</h3>
+              <p>Track the internal progress of complaints, violations, and inspections. Your team can upload attachments and add comments, ensuring transparency of open item.</p>
+            </div>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div
+                    class="animate_top df if jj ue mg aq qj wk bm gl jl"
+            >
+              <div class="pb ae ce ve of qc wb">
+                <svg xmlns="http://www.w3.org/2000/svg" height="40" fill="none" viewBox="0 0 24 24" stroke="white" class="w-6 h-6 text-blue-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg></div>
+              <h3 class="ti ii _q xi vl ha fa">Contact Management</h3>
+              <p>Maintain contact information and implement role-based access control across different portfolios and buildings.</p>
+            </div>
+            <!-- Features item End -->
+          </div>
+        </div>
+      </section>
+      <!-- ===== Features End ===== -->
+
+      <!-- ===== Integrations Start ===== -->
+      <section id="monitor">
+        <div class="aa jd sg cn 2xl:ud-px-0">
+          <!-- Section Title Start -->
+          <div
+                  class="animate_top ei aa"
+                  x-data="{ sectionSubtitle: `Daily Compliance Monitoring`, sectionTitlePara: `Based on your buildings specifications we determine the compliance activities, from the list below, required for your buildings and notify you well before they are due.`}"
+          >
+
+            <h2 x-text="sectionSubtitle" class="vi ji cr xi vl nm/5 op/2 aa ra"></h2>
+            <p class="aa nm/5 bo/5 qp" x-text="sectionTitlePara"></p>
+          </div>
+          <!-- Section Title End -->
+        </div>
+
+        <div class="aa md sg cn eq h x ga kp">
+          <div class="pb _d qe ee">
+            <ul>
+              <li class="ka"><b>Backflow Prevention:</b> Annually mandated by DEP to prevent contamination of the public water supply.</li>
+              <li class="ka"><b>Bed Bugs:</b> Required upon detection, enforced by the DOHMH to maintain public health standards.</li>
+              <li class="ka"><b>Cooling Tower:</b> Regular maintenance and inspections as per NYC regulations, overseen by the DOB to prevent Legionella bacteria growth.</li>
+              <li class="ka"><b>Drinking Water Storage Tank:</b> Annual inspections mandated by DOHMH to ensure water quality and safety.</li>
+              <li class="ka"><b>Elevator Category-1:</b> Annual safety inspections required by DOB to ensure proper elevator operation.</li>
+              <li class="ka"><b>Elevator Category-5:</b> Comprehensive safety evaluations every five years, enforced by DOB for long-term elevator reliability.</li>
+              <li class="ka"><b>Elevator Periodic:</b> Annual inspections distinct from Category-1 and Category-5, mandated by DOB to maintain ongoing safety standards.</li>
+              <li class="ka"><b>Energy Audits Retro Commissioning:</b> Required every ten years for large buildings, enforced by DBSC to enhance energy efficiency.</li>
+              <li class="ka"><b>Energy Benchmarking:</b> Annual reporting mandated by DEP to monitor and improve energy and water consumption.</li>
+              <li class="ka"><b>Facade:</b> Every five years for buildings taller than six stories, enforced by DOB to ensure structural integrity and public safety.</li>
+              <li class="ka"><b>Gas Piping:</b> Regular inspections as per NYC regulations, overseen by DOB to ensure safety and compliance.</li>
+              <li class="ka"><b>Greenhouse Gas Emissions:</b> Ongoing compliance with annual reporting, enforced by DEP to meet environmental standards.</li>
+              <li class="ka"><b>Low Pressure Boiler:</b> Regular inspections mandated by DOB to ensure safe operation.</li>
+              <li class="ka"><b>High Pressure Boiler (Internal & External):</b> Conducted six months apart, required by DOB to maintain boiler safety.</li>
+              <li class="ka"><b>Parking Structure:</b> Every six years, with certifications filed with DOB to ensure structural safety.</li>
+              <li class="ka"><b>Retaining Wall:</b> Regular inspections mandated by DOB to assess structural stability and prevent failures.</li>
+              <li class="ka"><b>Sprinkler System:</b> Every five years, enforced by DOB to ensure fire safety.</li>
+              <li class="ka"><b>Standpipe System:</b> Every five years, mandated by DOB to verify operational readiness for emergency fire response.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Integrations End ===== -->
+
+
+      <!-- ===== CTA Start ===== -->
+      <section class="rg uo dq sg cn 2xl:ud-px-0 re">
+        <div
+                class="aa jd wg en kq ch lq ue yf zf _f ol pl rl jl ul">
+          <div class="pb _d um vm wm pe xm">
+            <div class="animate_left om _n/2">
+              <h2 class="xi vl ji dr vi ra vc/12">Ready to Take Control of Your Building Compliance?</h2>
+              <p>Sign up now and start tracking complaints, violations, and upcoming inspections for your buildings in less than 5 minutes!</p>
+            </div>
+            <div class="animate_right ao">
+              <div class="pb ae be sp">
+                <img src="landing_assets/images/shape-06.svg" alt="Saly" class="tb np" />
+                <a href="signup.html" class="rb ae fe ui yi wl lf ll  qg pg">
+                  Sign Up
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== CTA End ===== -->
+
+      <!-- ===== Pricing Table Start ===== -->
+      <section id="pricing" class="uh hp vq mh ep sq">
+        <div class="aa kd sg cn eq">
+          <!-- Section Title Start -->
+          <div
+                  class="animate_top ei aa"
+                  x-data="{ sectionSubtitle: `Simple Pricing`, sectionTitlePara: `Protect Your Buildings for Less Than the Cost of a Single Violation.`}"
+          >
+
+            <h2 x-text="sectionSubtitle" class="vi ji cr xi vl nm/5 op/2 aa ra"></h2>
+            <p class="aa nm/5 bo/5 qp" x-text="sectionTitlePara"></p>
+
+          </div>
+          <!-- Section Title End -->
+        </div>
+
+        <div class="aa nd sg cn eq h ga kp">
+          <div class="g -ud-bottom-15 -ud-z-1">
+            <img src="landing_assets/images/shape-dotted-light.svg" alt="Dotted" class="el" />
+          </div>
+          <div class="pb _d fo ce he up">
+            <!-- Pricing Item -->
+            <div
+                    class="animate_top qm _n/3 b h mf jl ue nj yl df hf gl mg aq"
+            >
+              <h3 class="xi vl vi ji cr da">
+                $99 <span class="oi zi xl">/month</span>
+              </h3>
+              <h4 class="xi vl ui pi bb">1-3 Buildings</h4>
+
+              <!--
+              <a href="#" class="rb ae fe _i vl dm ui qj xj">
+                Get the Plan
+                <svg
+                        class="dg tl cm qj xj"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill="" />
+                </svg>
+              </a>
+              -->
+            </div>
+
+            <!-- Pricing Item -->
+            <div
+                    class="animate_top qm _n/3 b h mf jl ue nj yl df hf gl mg aq"
+            >
+              <div
+                      class="g m -ud-right-3.5 -ud-rotate-90 bf cf of ui yi ki wi gh _g"
+              >
+                popular
+              </div>
+
+              <h3 class="xi vl vi ji cr da">
+                $199 <span class="oi zi xl">/month</span>
+              </h3>
+              <h4 class="xi vl ui pi bb">4-10 Buildings</h4>
+<!--
+              <a href="#" class="rb ae fe _i vl dm ui qj xj">
+                Get the Plan
+                <svg
+                        class="dg tl cm qj xj"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill="" />
+                </svg>
+              </a>
+              -->
+            </div>
+
+            <!-- Pricing Item -->
+            <div
+                    class="animate_top qm _n/3 b h mf jl ue nj yl df hf gl mg aq"
+            >
+              <h3 class="xi vl vi ji cr da">
+                $299 <span class="oi zi xl">/month</span>
+              </h3>
+              <h4 class="xi vl ui pi bb">11-20 Buildings</h4>
+<!--
+              <a href="#" class="rb ae fe _i vl dm ui qj xj">
+                Get the Plan
+                <svg
+                        class="dg tl cm qj xj"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill="" />
+                </svg>
+              </a>
+              -->
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Pricing Table End ===== -->
+
+      <!-- ===== FAQ Start ===== -->
+      <section id="faq" class="mh ep sq re">
+        <div class="aa ld sg cn eq h">
+          <div class="g -ud-bottom-7.5 -ud-z-1">
+            <img src="landing_assets/images/shape-dotted-light.svg" alt="Dotted" class="el" />
+            <img src="landing_assets/images/shape-dotted-light.svg" alt="Dotted" class="tb dl" />
+          </div>
+          <div class="pb _d um vm pe wp">
+            <div class="animate_left pm/5 _n/2">
+              <h2 class="h vi xi vl ji zq wa">
+                Frequently Asked
+                <span
+                        class="ob h ak bk ck hk fk lk _l before:-ud-z-1"
+                >Questions</span
+                >
+              </h2>
+            </div>
+
+            <div class="animate_right mm/5 _n/2">
+              <div class="mf jl fl gl ej ue" x-data="{selected: null}">
+                <div class="pb yd ff hf gl">
+                  <h4
+                          @click="selected !== 0 ? selected = 0 : selected = null"
+                          class="ud pb de ae ui mi xi vl eh xo pg yo"
+                  >
+                    How do you track my violations and complaints?
+                    <img src="landing_assets/images/icon-plus-light.svg" alt="plus" class="el" :class="selected == 0 ? 'tb' : 'nb'" />
+                    <img src="landing_assets/images/icon-minus-light.svg" alt="minus" class="el" :class="selected == 0 ? 'nb' : 'tb'" />
+                  </h4>
+                  <p x-show="selected == 0" class="eh xo pg yo gf hf gl">
+                    Our data is synced daily with the Department of Buildings, Department of Housing Preservation and Development, Department of Health and Mental Hygiene, and the Environmental Control Board.
+                  </p>
+                </div>
+
+                <div class="pb yd">
+                  <h4
+                          @click="selected !== 1 ? selected = 1 : selected = null"
+                          class="ud pb de ae ui mi xi vl eh xo pg yo"
+                  >
+                    How do you determine upcoming inspections?
+                    <img src="landing_assets/images/icon-plus-light.svg" alt="plus" class="el" :class="selected == 1 ? 'tb' : 'nb'" />
+                    <img src="landing_assets/images/icon-minus-light.svg" alt="minus" class="el" :class="selected == 1 ? 'nb' : 'tb'" />
+                  </h4>
+                  <p x-show="selected == 1" class="eh xo pg yo gf hf gl">
+                    We stay up to date with NYC agencies' inspection schedules. Some are based on your borough and community district, some based on fixed dates, and some based on your prior inspection dates.
+                  </p>
+                </div>
+
+                <div class="pb yd">
+                  <h4
+                          @click="selected !== 2 ? selected = 2 : selected = null"
+                          class="ud pb de ae ui mi xi vl eh xo pg yo"
+                  >
+                    How long does account setup take?
+                    <img src="landing_assets/images/icon-plus-light.svg" alt="plus" class="el" :class="selected == 2 ? 'tb' : 'nb'" />
+                    <img src="landing_assets/images/icon-minus-light.svg" alt="minus" class="el" :class="selected == 2 ? 'nb' : 'tb'" />
+                  </h4>
+                  <p x-show="selected == 2" class="eh xo pg yo gf hf gl">
+                    Setup is quick and easy and takes less than 5 minutes. First you add your buildings and then answer a few basic questions about them. That's it, it's that simple!
+                  </p>
+                </div>
+
+                <div class="pb yd ff hf gl">
+                  <h4
+                          @click="selected !== 3 ? selected = 3 : selected = null"
+                          class="ud pb de ae ui mi xi vl eh xo pg yo"
+                  >
+                    Do you offer support?
+                    <img src="landing_assets/images/icon-plus-light.svg" alt="plus" class="el" :class="selected == 3 ? 'tb' : 'nb'" />
+                    <img src="landing_assets/images/icon-minus-light.svg" alt="minus" class="el" :class="selected == 3 ? 'nb' : 'tb'" />
+                  </h4>
+                  <p x-show="selected == 3" class="eh xo pg yo gf hf gl">
+                    We certainly do! Both by phone and email.
+                  </p>
+                </div>
+
+                <div class="pb yd">
+                  <h4
+                          @click="selected !== 4 ? selected = 4 : selected = null"
+                          class="ud pb de ae ui mi xi vl eh xo pg yo"
+                  >
+                    We have a large portfolio, are there discounts?
+                    <img src="landing_assets/images/icon-plus-light.svg" alt="plus" class="el" :class="selected == 4 ? 'tb' : 'nb'" />
+                    <img src="landing_assets/images/icon-minus-light.svg" alt="minus" class="el" :class="selected == 4 ? 'nb' : 'tb'" />
+                  </h4>
+                  <p x-show="selected == 4" class="eh xo pg yo gf hf gl">
+                    Please contact us and we will take into account your requirements and portfolio size.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== FAQ End ===== -->
+
+
+      <!-- ===== Contact Start ===== -->
+      <section id="contact" class="sg cn 2xl:ud-px-0">
+        <div class="aa jd h yh ip wq wg _o nq re">
+          <div
+            class="g -ud-z-1 ue l i pc cc/3 yf zf _f ol ql sl"
+          ></div>
+          <div class="g -ud-z-1 o l pc dc/3">
+            <img src="landing_assets/images/shape-dotted-light.svg" alt="Dotted" class="el" />
+            <img src="landing_assets/images/shape-dotted-dark.svg" alt="Dotted" class="tb dl" />
+          </div>
+
+          <div class="pb _d um zd tm pe zp wm">
+            <div class="animate_top pc mm/5 bo/4 ej ue mf kl fl gl mg cq">
+              <h2 class="xi vl ji br ti za">Contact Us</h2>
+
+              <form action="https://formbold.com/s/3ddRG" method="POST">
+                <div class="pb yd eo ho he ro da">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Full name"
+                    class="pc _n/2 uf ff hf gl al yk fm _k gm zh"
+                  />
+
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email address"
+                    class="pc _n/2 uf ff hf gl al yk fm _k gm zh"
+                  />
+                </div>
+
+                <div class="pb yd eo ho he ro _a">
+                  <input
+                    type="text"
+                    name="subject"
+                    placeholder="Subject"
+                    class="pc _n/2 uf ff hf gl al yk fm _k gm zh"
+                  />
+                </div>
+
+                <div class="pb hb">
+                  <textarea
+                    placeholder="Message"
+                    name="message"
+                    rows="4"
+                    class="pc uf ff hf gl al yk fm _k gm"
+                  ></textarea>
+                </div>
+
+                <div class="pb _d sp ne _p">
+                  <button
+                    class="rb ae fe lf pk _j xj il ui yi  pg qg"
+                  >
+                    Send Message
+                    <svg class="ag" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10.4767 6.16664L6.00668 1.69664L7.18501 0.518311L13.6667 6.99998L7.18501 13.4816L6.00668 12.3033L10.4767 7.83331H0.333344V6.16664H10.4767Z" fill="" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="animate_top pc pm/5 co an xq">
+              <div>
+                <h4 class="ui xi vl mi ra">Phone</h4>
+                <p><a href="#">914-257-3566</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Contact End ===== -->
+
+    </main>
+    <!-- ===== Footer Start ===== -->
+    <footer class="mf jl gf hf gl">
+  <div class="aa jd sg cn 2xl:ud-px-0">
+    <!-- Footer Top -->
+    <div class="rg uo">
+      <div class="pb _d ho pe so">
+        <div class="animate_top wc/2 _n/4">
+          <p class="sa ma">NYC Building Compliance Software</p>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Top -->
+
+    <!-- Footer Bottom -->
+    <div
+      class="gf hf gl pb _d yd eo ae ce ho me so hh"
+    >
+      <div class="animate_top">
+        <p>&copy; 2025 Propmaticly. All rights reserved</p>
+      </div>
+    </div>
+    <!-- Footer Bottom -->
+  </div>
+</footer>
+
+    <!-- ===== Footer End ===== -->
+
+    <!-- ====== Back To Top Start ===== -->
+    <button
+  class="tb ae ce gd lc ve kj of rk f u v z"
+  @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+  @scroll.window="scrollTop = (window.pageYOffset > 50) ? true : false"
+  :class="{ 'qb' : scrollTop }"
+>
+  <svg class="ag _c ec" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z" />
+  </svg>
+</button>
+
+    <!-- ====== Back To Top End ===== -->
+  <script defer src="landing_assets/bundle.js"></script></body>
+</html>

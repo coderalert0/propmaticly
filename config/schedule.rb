@@ -1,24 +1,26 @@
 # frozen_string_literal: true
 
 # config/schedule.rb
+require File.expand_path('../config/environment', __dir__)
 
+set :bundle_command, "#{`which bundle`.chomp} exec" if Rails.env.production?
 set :output, 'log/cron.log'
-set :environment, 'development'
+set :environment, Rails.env
 
 every 1.day, at: '12:00 am' do
-  runner 'Inspections::FetchElevatorInspectionsJob.perform_later(notify: true)'
-  runner 'Inspections::FetchBedBugInspectionsJob.perform_later(notify: true)'
-  runner 'Inspections::FetchBoilerInspectionsJob.perform_later(notify: true)'
-  runner 'Inspections::FetchCoolingTowerInspectionsJob.perform_later(notify: true)'
-  runner 'Inspections::FetchFacadeInspectionsJob.perform_later(notify: true)'
+  runner 'job = Violations::FetchHpdViolationsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Inspections::FetchBedBugInspectionsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Inspections::FetchBoilerInspectionsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Inspections::FetchCoolingTowerInspectionsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Inspections::FetchFacadeInspectionsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
 
-  runner 'Complaints::FetchDobComplaintsJob.perform_later(notify: true)'
-  runner 'Complaints::FetchHpdComplaintsJob.perform_later(notify: true)'
+  runner 'job = Complaints::FetchDobComplaintsJob.perform_later(notify: true); puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Complaints::FetchHpdComplaintsJob.perform_later(notify: true); puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
 
-  runner 'Violations::FetchDobEcbViolationsJob.perform_later(notify: true)'
-  runner 'Violations::FetchDobSafetyViolationsJob.perform_later(notify: true)'
-  runner 'Violations::FetchDobViolationsJob.perform_later(notify: true)'
-  runner 'Violations::FetchHpdViolationsJob.perform_later(notify: true)'
+  runner 'job = Violations::FetchDobEcbViolationsJob.perform_later(notify: true); puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Violations::FetchDobSafetyViolationsJob.perform_later(notify: true); puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Violations::FetchDobViolationsJob.perform_later(notify: true); puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Violations::FetchHpdViolationsJob.perform_later(notify: true); puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
 
-  runner 'CreateUpcomingInspectionsJob.perform_later(notify: true)'
+  runner 'job = CreateUpcomingInspectionsJob.perform_later(notify: true); puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
 end
