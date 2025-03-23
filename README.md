@@ -198,4 +198,4 @@ bundle exec rails assets:precompile
 bundle exec rails s
 ```
 
-May need to chmod some directories. Experienced issues with public/assets
+Might need to chmod some directories. Experienced issues with public/assets

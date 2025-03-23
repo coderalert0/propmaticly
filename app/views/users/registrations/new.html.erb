@@ -5,39 +5,39 @@
     <%= render "users/shared/error_messages", resource: resource %>
 
     <div class="row mb-6">
-      <%= f.label :organization_name, class: 'col-lg-2 col-form-label' %><br />
+      <%= f.label :organization_name, class: 'col-lg-2 col-form-label required' %><br />
       <div class="col-lg-4 fv-row">
         <%= f.fields_for :organization, Organization.new do |org_fields| %>
-          <%= org_fields.text_field :name, class: 'form-control form-control-lg' %>
+          <%= org_fields.text_field :name, required: true, class: 'form-control form-control-lg' %>
         <% end %>
       </div>
     </div>
 
     <div class="row mb-6">
-      <%= f.label :first_name, class: 'col-lg-2 col-form-label' %><br />
+      <%= f.label :first_name, class: 'col-lg-2 col-form-label required' %><br />
       <div class="col-lg-4 fv-row">
-        <%= f.text_field :first_name, class: 'form-control form-control-lg' %>
+        <%= f.text_field :first_name, required: true, class: 'form-control form-control-lg' %>
       </div>
     </div>
 
     <div class="row mb-6">
-      <%= f.label :last_name, class: 'col-lg-2 col-form-label' %><br />
+      <%= f.label :last_name, class: 'col-lg-2 col-form-label required' %><br />
       <div class="col-lg-4 fv-row">
-        <%= f.text_field :last_name, class: 'form-control form-control-lg' %>
+        <%= f.text_field :last_name, required: true, class: 'form-control form-control-lg' %>
       </div>
     </div>
 
     <div class="row mb-6">
-      <%= f.label :email, class: 'col-lg-2 col-form-label' %><br />
+      <%= f.label :email, class: 'col-lg-2 col-form-label required' %><br />
       <div class="col-lg-4 fv-row">
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control form-control-lg' %>
+        <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: 'form-control form-control-lg' %>
       </div>
     </div>
 
     <div class="row mb-6">
-      <%= f.label :password, class: 'col-lg-2 col-form-label' %>
+      <%= f.label :password, class: 'col-lg-2 col-form-label required' %>
       <div class="col-lg-4 fv-row">
-        <%= f.password_field :password, autocomplete: "new-password", class: 'form-control form-control-lg' %>
+        <%= f.password_field :password, required: true, autocomplete: "new-password", class: 'form-control form-control-lg' %>
         <% if @minimum_password_length %>
           <div class="text-muted">(<%= @minimum_password_length %> characters minimum)</div>
         <% end %>
@@ -45,9 +45,9 @@
     </div>
 
     <div class="row mb-6">
-      <%= f.label :password_confirmation, class: 'col-lg-2 col-form-label' %>
+      <%= f.label :password_confirmation, class: 'col-lg-2 col-form-label required' %>
       <div class="col-lg-4 fv-row">
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control form-control-lg' %>
+        <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", class: 'form-control form-control-lg' %>
       </div>
     </div>
 

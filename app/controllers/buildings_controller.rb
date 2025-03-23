@@ -32,9 +32,11 @@ class BuildingsController < ApplicationController
 
     @building.assign_attributes(attributes)
 
+    is_new_record = @building.new_record?
+
     if @building.save
       @compliance_items_based_on_last_inspection = @building.inspection_rules.select(&:based_on_last_inspection).map(&:compliance_item)
-      flash[:success] = @building.persisted? ? t(:building_update_success) : t(:building_create_success)
+      flash[:success] = is_new_record ? t(:building_create_success) : t(:building_update_success)
     end
   rescue StandardError => e
     flash[:danger] = e.message
