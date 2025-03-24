@@ -7,7 +7,7 @@ class FetchLeadsJob < ApplicationJob
     beginning_of_year = Date.today.beginning_of_year.strftime('%Y-%m-%d')
     url = 'https://data.cityofnewyork.us/resource/6bgk-3dad.json'
     params = {
-      :$where => "issue_date > '#{beginning_of_year}' AND penality_imposed > 5000",
+      :$where => "issue_date > '#{beginning_of_year}' AND penality_imposed > 3000",
       :$limit => 10_000
     }
 

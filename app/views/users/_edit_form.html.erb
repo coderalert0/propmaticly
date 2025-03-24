@@ -32,25 +32,27 @@
     <label class="col-lg-4">SMS</label>
     <div class="col-lg-8">
       <%= f.text_field :sms, class: 'form-control', placeholder: 'SMS' %>
-      <div class="form-text">Enter only if you want to receive alerts for new complaints, violations, or upcoming inspections</div>
+      <div class="form-text">Enter if you want to be alerted of new complaints, violations, or upcoming inspections</div>
     </div>
   </div>
   <!--end::Input group-->
 
   <!--begin::Input group-->
   <div class="row mb-6 align-items-center">
-    <label class="col-lg-4">Portfolios</label>
+    <label class="col-lg-4">Permissioned Portfolios</label>
     <div class="col-lg-8">
       <%= f.select :portfolio_ids, @portfolios.pluck(:name, :id), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' } %>
+      <div class="text-muted">Permissions the user to the portfolio(s) and subscribes them to alerts</div><br />
     </div>
   </div>
   <!--end::Input group-->
 
   <!--begin::Input group-->
   <div class="row mb-6 align-items-center">
-    <label class="col-lg-4">Buildings</label>
+    <label class="col-lg-4">Permissioned Buildings</label>
     <div class="col-lg-8">
       <%= f.select :building_ids, grouped_options_for_select(@grouped_buildings, f.object.user.buildings.pluck(:id)), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' } %>
+      <div class="text-muted">Permissions the user to the building(s) and subscribes them to alerts</div><br />
     </div>
   </div>
   <!--end::Input group-->
@@ -60,6 +62,7 @@
     <label class="col-lg-4">Admin</label>
     <div class="col-lg-8">
       <%= f.check_box :admin, class: 'form-check-input' %>
+      <div class="form-text">Allows creating, editing, and deleting all portfolios and buildings regardless of permissions specified above. In order to subscribe to alerts the portfolio(s) and building(s) must be specified above</div>
     </div>
   </div>
   <!--end::Input group-->

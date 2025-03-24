@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 env :PATH, ENV['PATH']
 
 set :bundle_command, "#{`which bundle`.chomp} exec"

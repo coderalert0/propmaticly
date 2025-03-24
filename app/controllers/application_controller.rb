@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!, unless: :devise_controller?
-  before_action :change_flash_keys, if: :devise_controller?
+  before_action :change_flash_keys
   skip_before_action :verify_authenticity_token
 
   def current_organization

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rqrcode'
+
 class LeadsController < ApplicationController
   load_resource
 
@@ -16,6 +18,15 @@ class LeadsController < ApplicationController
   def generate_pdf
     @leads = Lead.all
     @leads = grouped_leads
+
+    @qr_codes = @leads.each_with_object({}) do |lead, hash|
+      sanitized_entity_name = lead.entity_name.titleize.delete('^a-zA-Z0-9 ')
+      total_penalty = ActionController::Base.helpers.number_to_currency(lead.total_penalty_imposed)
+
+      url = "https://propmaticly.com?entity_name=#{sanitized_entity_name}&total_penalty=#{total_penalty}"
+      hash[lead.entity_name] = RQRCode::QRCode.new(url)
+    end
+
     respond_to do |format|
       format.pdf do
         render pdf: 'output',

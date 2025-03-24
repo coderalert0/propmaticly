@@ -5,8 +5,8 @@ class UpcomingInspectionNotifierJob < ApplicationJob
     inspection = Inspection.find(inspection_id)
     inspection.building.users.pluck(:sms).compact.each do |user|
       ActiveRecord::Base.transaction do
-        TwilioClient.new.send_sms(user.sms,
-                                  "The #{inspection.inspection_rule.decorate.compliance_item_humanize} Inspection for #{inspection.building.name} is due on #{inspection.due_date} ")
+        SnsClient.new.send_sms(user.sms,
+                               "The #{inspection.inspection_rule.decorate.compliance_item_humanize} Inspection for #{inspection.building.name} is due on #{inspection.due_date} ")
         # ideally it should track the inspection/user pair that were notified
         inspection.update(notified: true)
       end

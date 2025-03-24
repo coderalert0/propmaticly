@@ -74,11 +74,6 @@ server {
         try_files $uri $uri/ =404;
     }
 
-    error_page 404 /404.html;
-    location = /404.html {
-        root /home/ubuntu/propmaticly/public/404.html;
-    }
-
     include /etc/nginx/snippets/ssl-propmaticly.conf;
 }
 
@@ -161,16 +156,17 @@ sudo vi /etc/systemd/system/delayed_job.service
 
 ```
 [Unit]
-Description=Delayed Job Background Worker
+Description=Delayed Job Foreground Worker
 After=network.target
 
 [Service]
 Type=simple
 User=ubuntu
+Environment="RAILS_ENV=production"
 WorkingDirectory=/home/ubuntu/propmaticly
-ExecStart=/home/ubuntu/.rbenv/shims/bundle exec bin/delayed_job start
-ExecStop=/home/ubuntu/.rbenv/shims/bundle exec bin/delayed_job stop
-Restart=always
+ExecStart=/home/ubuntu/.rbenv/shims/bundle exec rake jobs:work
+ExecStop=/home/ubuntu/.rbenv/shims/bundle exec rake jobs:stop
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

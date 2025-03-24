@@ -7,7 +7,7 @@ FactoryBot.define do
     description { 'Electrical issues in my living room' }
     category { '56' }
     inspection_date { Time.now - 2.months }
-    link { 'http://propmatically.com' }
+    link { 'http://propmaticly.com' }
     state { 0 }
     building
   end

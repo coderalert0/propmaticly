@@ -1,0 +1,14 @@
+<%= image_tag('logo.png', height: '50', alt: 'Propmaticly Logo') %>
+
+<p>Thank you for joining Propmaticly! We’re excited to have you on board.</p>
+
+<p>Please confirm your email address by clicking the button below to activate your account:</p>
+
+<%= link_to 'Confirm My Account', confirmation_url(@resource, confirmation_token: @token) %>
+
+<p>If the button above doesn’t work, please copy and paste the following link into your browser:</p>
+<p><%= confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>If you did not sign up for Propmaticly, simply ignore this email or contact our support team at <a href="mailto:info@propmaticly.com">info@propmaticly.com</a>.</p>
+
+<p>Thank you,<br>The Propmaticly Team</p>

@@ -1,24 +1,28 @@
-<h2>Change your password</h2>
+<h2>Change Your Password</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), method: :put) do |f| %>
   <%= render "confirmables/shared/error_messages", resource: resource %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
+  <div class="row mb-6">
+    <%= f.label :password, "New password", class: 'col-lg-2 col-form-label required' %><br />
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em><br />
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+    <div class="col-lg-4 fv-row">
+      <%= f.password_field :password, required: true, class: 'form-control form-control-lg' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="row mb-6">
+    <%= f.label :password_confirmation, "Confirm new password", class: 'col-lg-2 col-form-label required' %><br />
+    <div class="col-lg-4 fv-row">
+      <%= f.password_field :password_confirmation, required: true, class: 'form-control form-control-lg' %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= f.submit "Change my password" %>
+    <%= f.submit "Change my password", class: 'btn btn-success' %>
   </div>
 <% end %>
 
