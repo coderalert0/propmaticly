@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_15_011219) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_23_222313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -155,6 +155,28 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_15_011219) do
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_inspections_on_building_id"
     t.index ["inspection_rule_id"], name: "index_inspections_on_inspection_rule_id"
+  end
+
+  create_table "leads", force: :cascade do |t|
+    t.string "entity_name", null: false
+    t.string "chairman_name"
+    t.string "agent_name"
+    t.string "agent_address"
+    t.string "agent_city"
+    t.string "agent_state"
+    t.string "agent_zip_code"
+    t.string "process_name"
+    t.string "process_address", null: false
+    t.string "process_city", null: false
+    t.string "process_state"
+    t.string "process_zip_code", null: false
+    t.integer "penalty_imposed", null: false
+    t.integer "amount_paid"
+    t.integer "balance_due"
+    t.string "ecb_violation_number"
+    t.date "issue_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "organizations", force: :cascade do |t|

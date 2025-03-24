@@ -1,0 +1,78 @@
+<% @leads.each_with_index do |lead, index| %>
+  <div class="mb-4">
+    <p class="fs-6 text-dark mb-3">
+      <strong>Subject:</strong> Immediate Attention Required: Recent Violations and How to Prevent Future Penalties
+    </p>
+
+    <p class="fs-5 text-dark mb-3">
+      <strong><%= lead.entity_name %>,</strong>
+    </p>
+
+    <p class="fs-6 text-dark mb-3">
+      Our records indicate that your property has incurred violations resulting in penalties since the beginning of this year. For instance, ECB Violation Number <strong><%= lead.ecb_violation_number %></strong> resulted in a significant fine.
+    </p>
+
+    <p class="fs-6 text-dark mb-3">
+      Since the beginning of the year, you have incurred over <strong><%= number_to_currency(lead.total_penalty_imposed) %> in DOB/ECB penalties</strong>.
+    </p>
+
+    <p class="fs-6 text-dark mb-3">
+      To prevent such costly penalties in the future, we introduce <strong>Propmaticly.com</strong>, an advanced compliance management platform designed specifically for NYC property owners and managers. Propmaticly.com offers real-time alerts for complaints, violations, and upcoming inspections, ensuring you stay compliant and avoid unexpected fines.
+    </p>
+
+    <h3 class="fs-5 text-dark mb-3">Key Features of Propmaticly.com:</h3>
+    <ul class="fs-6 text-dark mb-3">
+      <li><strong>Real-Time Alerts:</strong> Receive instant SMS notifications for new complaints and violations, with data synced daily from NYC agencies.</li>
+      <li><strong>Inspection Checklist:</strong> Access a comprehensive checklist of upcoming inspections based on your building's attributes and agency schedules, with timely SMS reminders.</li>
+      <li><strong>Portfolio Management:</strong> Manage all your NYC properties in one place, with a clear dashboard overview of their compliance status.</li>
+      <li><strong>Regulation Tracking:</strong> Stay informed about changes in local laws affecting your compliance responsibilities.</li>
+      <li><strong>Progress Tracking:</strong> Monitor the resolution process of complaints, violations, and inspections, with features for uploading attachments and adding comments.</li>
+    </ul>
+
+    <h3 class="fs-5 text-dark mb-3">What We Monitor:</h3>
+    <ul class="fs-6 text-dark mb-3">
+      <li><strong>Cooling Tower:</strong> Annual inspections to prevent Legionella bacteria growth.</li>
+      <li><strong>Drinking Water Storage Tank:</strong> Annual inspections mandated by DOHMH to ensure water quality and safety.</li>
+      <li><strong>Elevator Category-1:</strong> Annual safety inspections required by DOB to ensure proper elevator operation.</li>
+      <li><strong>Elevator Category-5:</strong> Safety evaluations every five years, enforced by DOB for long-term elevator reliability.</li>
+      <li><strong>Elevator Periodic:</strong> Annual inspections, mandated by DOB to maintain safety standards.</li>
+      <li><strong>Energy Audits Retro Commissioning:</strong> Every ten years, mandated by DBSC to enhance energy efficiency.</li>
+      <li><strong>Energy Benchmarking:</strong> Annual reporting mandated by DEP to monitor energy and water consumption.</li>
+      <li><strong>Facade:</strong> Every five years, enforced by DOB to ensure structural integrity and public safety.</li>
+      <li><strong>Gas Piping:</strong> Regular inspections as per NYC regulations, overseen by DOB to ensure safety and compliance.</li>
+      <li><strong>Greenhouse Gas Emissions:</strong> Annual inspections, enforced by DEP to meet environmental standards.</li>
+      <li><strong>Low Pressure Boiler:</strong> Regular inspections mandated by DOB to ensure safe operation.</li>
+      <li><strong>High Pressure Boiler (Internal & External):</strong> Required by DOB to maintain boiler safety.</li>
+      <li><strong>Parking Structure:</strong> Inspections every six years, with certifications filed with DOB to ensure structural safety.</li>
+      <li><strong>Retaining Wall:</strong> Regular inspections mandated by DOB to assess structural stability and prevent failures.</li>
+      <li><strong>Sprinkler System:</strong> Inspections every five years, enforced by DOB to ensure fire safety.</li>
+      <li><strong>Standpipe System:</strong> Every five years, mandated by DOB to verify emergency fire response.</li>
+    </ul>
+
+    <p class="fs-6 text-dark mb-3">
+      By utilizing Propmaticly.com, you can proactively address compliance issues, maintain your property's reputation, and avoid unnecessary financial burdens.
+    </p>
+
+    <p class="fs-6 text-dark mb-3">
+      To start monitoring your buildings in less than 5 minutes, scan the QR code below.
+    </p>
+
+    <p class="fs-6 text-dark mb-3">
+      Sincerely,
+    </p>
+
+    <p class="fs-6 text-dark mb-3">
+      Propmaticly.com<br>
+      Email: <a href="mailto:info@propmaticly.com" class="text-decoration-none">info@propmaticly.com</a><br>
+      Phone: 914-257-3566
+    </p>
+
+    <p><%= wicked_pdf_image_tag asset_url('qr-code.png'), height: '200' %></p>
+
+  </div>
+
+  <%# Insert a page break after every record except the last one %>
+  <% if index < @leads.size - 1 %>
+    <div style="page-break-after: always;"></div>
+  <% end %>
+<% end %>

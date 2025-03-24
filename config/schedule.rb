@@ -1,11 +1,8 @@
 # frozen_string_literal: true
+env :PATH, ENV['PATH']
 
-# config/schedule.rb
-require File.expand_path('../config/environment', __dir__)
-
-set :bundle_command, "#{`which bundle`.chomp} exec" if Rails.env.production?
+set :bundle_command, "#{`which bundle`.chomp} exec"
 set :output, 'log/cron.log'
-set :environment, Rails.env
 
 every 1.day, at: '12:00 am' do
   runner 'job = Violations::FetchHpdViolationsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'

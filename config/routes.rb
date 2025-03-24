@@ -33,4 +33,9 @@ Rails.application.routes.draw do
   resources :inspections, only: %i[create]
   resources :attachments, only: [:destroy]
   resources :users
+  resources :leads do
+    collection do
+      get :generate_pdf
+    end
+  end
 end
