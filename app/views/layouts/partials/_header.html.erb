@@ -37,11 +37,12 @@
               Hello, <%= current_user&.first_name %>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li class="dropdown-header fw-bold">
-                <%= current_user&.first_name %> <%= current_user&.last_name %>
-              </li>
-              <li class="dropdown-item text-muted"><%= current_user&.email %></li>
-              <li><hr class="dropdown-divider"></li>
+              <% unless current_user.admin? %>
+                <li>
+                  <%= link_to 'Edit Profile', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editUserProfileModal#{current_user.id}" } %>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+            <% end %>
               <li>
                 <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" %>
               </li>
@@ -52,3 +53,5 @@
     </div>
   </div>
 </nav>
+
+<%= render('user_profiles/edit', user: current_user) if current_user && !current_user.admin? %>

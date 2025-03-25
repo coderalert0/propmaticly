@@ -8,7 +8,7 @@
   <div class="card mb-4">
     <div class="card-header border-0 pt-6">
       <div class="d-flex justify-content-end">
-        <% if can?(:create, Building) %>
+        <% if can?(:create, Building.new(portfolio_id: @portfolio.id)) %>
           <%= link_to 'Add Building', '#', class: 'btn btn-success', data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
         <% end %>
       </div>

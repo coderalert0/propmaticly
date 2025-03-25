@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   load_resource
-  before_action :validate_admin
+  before_action :validate_admin, only: %i[index destroy]
 
   def index
     @users = current_organization.users.includes(buildings: :portfolio).page(params[:page])
@@ -16,10 +16,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    ActiveRecord::Base.transaction do
-      @user.update(user_params)
+    if @user.update(user_params)
       flash[:success] = t(:user_update_success)
-      redirect_to users_path
+    else
+      flash[:danger] = @user.errors.full_messages
     end
   end
 

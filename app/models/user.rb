@@ -9,6 +9,9 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :email, :encrypted_password, presence: true
   validates :email, uniqueness: true
 
+  phony_normalize :sms, default_country_code: 'US'
+  validates_plausible_phone :sms, default_country_code: 'US', country_number: '1'
+
   # Accepts nested attributes for organizations and assignable models
   accepts_nested_attributes_for :buildings, :portfolios, :organization
 

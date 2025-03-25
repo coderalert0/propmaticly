@@ -1,4 +1,4 @@
-<div class="modal fade modal-lg" id="editUserModal<%= user.id %>" tabindex="-1" aria-hidden="true" data-controller="modal">
+<div class="modal fade modal-lg" id="editUserProfileModal<%= user.id %>" tabindex="-1" aria-hidden="true" data-controller="modal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -9,8 +9,8 @@
         <div id="error-<%= user.id %>"></div>
 
         <!--begin::Form-->
-        <%= form_for(user, remote: true) do |f| %>
-          <%= render partial: 'edit_form', locals: { f: f } %>
+        <%= form_for(user, url: user_profile_path(user), remote: true) do |f| %>
+          <%= render partial: 'user_profiles/edit_form', locals: { f: f } %>
         <% end %>
         <!--end::Form-->
       </div>

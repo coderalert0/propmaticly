@@ -113,6 +113,23 @@
                 </ul>
               </div>
             </div>
+            <!-- Comments Section -->
+            <% if complaint.audits.any? { |audit| audit.comment.present? } %>
+              <div class="row">
+                <hr>
+                <div class="col-lg-12">
+                  <h5>Comments</h5>
+                  <% complaint.audits.includes(:user).each do |audit| %>
+                    <% if audit.comment.present? %>
+                      <div>
+                        <i><%= "#{audit.user.first_name}:" %></i> <%= audit.comment %>
+                        <span class="text-muted">(<%= time_ago_in_words(audit.created_at) %> ago)</span>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>

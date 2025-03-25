@@ -248,6 +248,10 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    phony (2.22.1)
+    phony_rails (0.15.0)
+      activesupport (>= 3.0)
+      phony (>= 2.18.12)
     popper_js (2.11.8)
     pp (0.6.2)
       prettyprint
@@ -422,6 +426,7 @@ DEPENDENCIES
   jbuilder
   kaminari
   pg
+  phony_rails
   puma (~> 5.0)
   rails (~> 7.2.2)
   rqrcode

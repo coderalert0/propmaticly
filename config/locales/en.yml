@@ -75,7 +75,9 @@ en:
   portfolio_create_success: Portfolio has been added successfully! Add a building to the portfolio to monitor complaints, violations, and see upcoming inspections
   portfolio_update_success: Portfolio has been updated successfully
   portfolio_delete_success: Portfolio has been deleted successfully
+  set_admin_warning_message: Allows creating, editing, and deleting all portfolios and buildings, overriding any permissions specified above. To subscribe to alerts the portfolio(s) and building(s) must be specified above
   unauthorized_access_error: You are not authorized to access this page
+  user_profile_update_success: Your profile has been updated successfully
   user_delete_success: User has been deleted successfully
   user_update_success: User has been updated successfully
   violation_severity:

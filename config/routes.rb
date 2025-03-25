@@ -38,4 +38,5 @@ Rails.application.routes.draw do
       get :generate_pdf
     end
   end
+  resources :user_profiles, only: :update
 end

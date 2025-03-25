@@ -21,6 +21,7 @@
           <tr class="text-start text-muted fw-bold fs-7 text-uppercase">
             <th>Name</th>
             <th class="d-none d-md-table-cell">Email Address</th>
+            <th>Title</th>
             <th>SMS</th>
             <th>Portfolios</th>
             <th>Buildings</th>
@@ -34,6 +35,7 @@
             <tr>
               <td><%= user.first_name %> <%= user.last_name %></td>
               <td class="d-none d-md-table-cell"><%= user.email %></td>
+              <td><%= user.title %></td>
               <td><%= user.sms %></td>
               <td><%= user.portfolios.map(&:name).join(', ') %></td>
               <td><%= user.buildings.map(&:name).join(', ') %></td>
@@ -45,7 +47,7 @@
                     Actions
                   </button>
                   <div class="dropdown-menu">
-                    <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{user.id}" } %>
+                    <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editUserModal#{user.id}" } %>
                     <% unless current_user == user %>
                       <%= link_to 'Delete', '#', class: 'dropdown-item text-danger', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{user.id}" } %>
                     <% end %>

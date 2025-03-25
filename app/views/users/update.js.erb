@@ -1,0 +1,7 @@
+<% if flash[:success] %>
+  window.location.href = "<%= users_path %>";
+<% else %>
+  <% flash[:danger].each do |message| %>
+    document.getElementById('error-<%= @user.id %>').innerHTML += "<div class='alert alert-primary alert-dismissible'><%= j(message) %></div>";
+  <% end %>
+<% end %>

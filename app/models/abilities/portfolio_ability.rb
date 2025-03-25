@@ -3,8 +3,8 @@
 module Abilities
   class PortfolioAbility < ModelAbility
     def user(user)
-      user_building_ids = user.building_ids | user.portfolios&.flat_map(&:building_ids)
-      can %i[read], Portfolio, buildings: { id: user_building_ids }
+      can %i[read], Portfolio, buildings: { id: user.building_ids }
+      can %i[read], Portfolio, id: user.portfolio_ids
     end
 
     def admin(user)

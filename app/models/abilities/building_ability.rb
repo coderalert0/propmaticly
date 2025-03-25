@@ -5,7 +5,10 @@ module Abilities
     def user(user)
       user_building_ids = user.building_ids | user.portfolios&.flat_map(&:building_ids)
 
-      can :create, Building, portfolio_id: user.portfolio_ids
+      can :create, Building do |building|
+        user.portfolio_ids.include?(building.portfolio_id)
+      end
+
       can %i[read update], Building, id: user_building_ids
     end
 
