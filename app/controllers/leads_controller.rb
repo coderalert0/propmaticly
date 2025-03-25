@@ -1,23 +1,25 @@
 # frozen_string_literal: true
 
 require 'rqrcode'
+require 'amatch'
 
 class LeadsController < ApplicationController
   load_resource
 
   def index
     if params[:search].present?
-      search = "%#{params[:search].strip}%"
-      @leads = @leads.where('entity_name LIKE ?', search)
+      search = "%#{params[:search].strip.downcase}%"
+      @leads = @leads.where('LOWER(entity_name) LIKE ?', search)
     end
 
-    @leads = grouped_leads
-    @leads = @leads.order(total_penalty_imposed: :desc).page(params[:page]).per(20)
+    @leads = fuzzy_grouped_leads
+    @leads = @leads.sort_by { |lead| -lead.total_penalty_imposed }
+    @leads = Kaminari.paginate_array(@leads).page(params[:page]).per(20)
   end
 
   def generate_pdf
     @leads = Lead.all
-    @leads = grouped_leads
+    @leads = fuzzy_grouped_leads
 
     @qr_codes = @leads.each_with_object({}) do |lead, hash|
       sanitized_entity_name = lead.entity_name.titleize.delete('^a-zA-Z0-9 ')
@@ -31,32 +33,60 @@ class LeadsController < ApplicationController
       format.pdf do
         render pdf: 'output',
                template: 'leads/pdf',
-               formats: [:html],  # instruct Rails to use the HTML template
-               layout: 'pdf'      # if you're using a PDF-specific layout
+               formats: [:html],
+               layout: 'pdf'
       end
     end
   end
 
-  def grouped_leads
-    @leads = @leads.group(:entity_name)
-                   .select(
-                     'entity_name,
-MAX(chairman_name) AS chairman_name,
-MAX(process_name) AS process_name,
-                      MAX(process_address) AS process_address,
-                      MAX(process_city) AS process_city,
-                      MAX(process_state) AS process_state,
-                      MAX(process_zip_code) AS process_zip_code,
-MAX(agent_name) AS agent_name,
-                      MAX(agent_address) AS agent_address,
-                      MAX(agent_city) AS agent_city,
-                      MAX(agent_state) AS agent_state,
-                      MAX(agent_zip_code) AS agent_zip_code,
-                      MAX(ecb_violation_number) AS ecb_violation_number,
-                      MAX(issue_date) AS issue_date,
-                      SUM(penalty_imposed) AS total_penalty_imposed,
-                      SUM(amount_paid) AS total_amount_paid,
-                      SUM(balance_due) AS total_balance_due'
-                   )
+  private
+
+  def fuzzy_grouped_leads
+    leads = @leads.to_a
+    grouped = {}
+
+    leads.each do |lead|
+      match_found = false
+      grouped.each do |key, group|
+        next unless fuzzy_match(key, lead.entity_name)
+
+        group << lead
+        match_found = true
+        break
+      end
+
+      grouped[lead.entity_name] = [lead] unless match_found
+    end
+
+    grouped.map do |entity_name, group|
+      aggregate_lead_data(entity_name, group)
+    end
+  end
+
+  def fuzzy_match(str1, str2, threshold = 0.9)
+    matcher = Amatch::JaroWinkler.new(str1)
+    matcher.match(str2) >= threshold
+  end
+
+  def aggregate_lead_data(entity_name, leads)
+    OpenStruct.new(
+      entity_name: entity_name,
+      chairman_name: leads.map(&:chairman_name).compact.first,
+      process_name: leads.map(&:process_name).compact.first,
+      process_address: leads.map(&:process_address).compact.first,
+      process_city: leads.map(&:process_city).compact.first,
+      process_state: leads.map(&:process_state).compact.first,
+      process_zip_code: leads.map(&:process_zip_code).compact.first,
+      agent_name: leads.map(&:agent_name).compact.first,
+      agent_address: leads.map(&:agent_address).compact.first,
+      agent_city: leads.map(&:agent_city).compact.first,
+      agent_state: leads.map(&:agent_state).compact.first,
+      agent_zip_code: leads.map(&:agent_zip_code).compact.first,
+      ecb_violation_number: leads.map(&:ecb_violation_number).compact.first,
+      issue_date: leads.map(&:issue_date).compact.first,
+      total_penalty_imposed: leads.sum(&:penalty_imposed),
+      total_amount_paid: leads.sum(&:amount_paid),
+      total_balance_due: leads.sum(&:balance_due)
+    )
   end
 end

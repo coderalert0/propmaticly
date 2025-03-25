@@ -176,10 +176,10 @@
                     </button>
                     <div class="dropdown-menu">
                       <% if can?(:edit, portfolio) %>
-                        <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{portfolio.id}" } %>
+                        <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editPortfolioModal-#{portfolio.id}" } %>
                       <% end %>
                       <% if can?(:destroy, portfolio) && portfolio.buildings.blank? %>
-                        <%= link_to 'Delete', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{portfolio.id}" } %>
+                        <%= link_to 'Delete', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#deletePortfolioModal-#{portfolio.id}" } %>
                       <% end %>
                     </div>
                   </div>

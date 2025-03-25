@@ -47,9 +47,9 @@
                     Actions
                   </button>
                   <div class="dropdown-menu">
-                    <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editUserModal#{user.id}" } %>
+                    <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editUserModal-#{user.id}" } %>
                     <% unless current_user == user %>
-                      <%= link_to 'Delete', '#', class: 'dropdown-item text-danger', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{user.id}" } %>
+                      <%= link_to 'Delete', '#', class: 'dropdown-item text-danger', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteUserModal-#{user.id}" } %>
                     <% end %>
                   </div>
                 </div>

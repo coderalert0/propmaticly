@@ -48,6 +48,7 @@ gem 'sassc-rails'
 # gem "image_processing", "~> 1.2"
 
 gem 'active_storage_validations'
+gem 'amatch'
 gem 'audited'
 gem 'aws-sdk-sns'
 gem 'bootstrap'

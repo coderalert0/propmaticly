@@ -48,7 +48,7 @@
                   </button>
                   <ul class="dropdown-menu">
                     <% if can?(:read, inspection) %>
-                      <li><%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %></li>
+                      <li><%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal-#{inspection.id}" } %></li>
                     <% end %>
                   </ul>
                 </div>
@@ -69,7 +69,7 @@
 
   <!-- Modals for Inspection Details -->
   <% @inspections.each do |inspection| %>
-    <div class="modal fade" id="inspectionModal<%= inspection.id %>" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="inspectionModal-<%= inspection.id %>" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">

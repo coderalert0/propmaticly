@@ -63,10 +63,10 @@
                   </button>
                   <div class="dropdown-menu">
                     <% if can?(:read, violation.object) %>
-                      <%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#violationModal#{violation.id}" } %>
+                      <%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#violationModal-#{violation.id}" } %>
                     <% end %>
                     <% if can?(:edit, violation.object) %>
-                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{violation.id}" } %>
+                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editViolationModal-#{violation.id}" } %>
                     <% end %>
                   </div>
                 </div>
@@ -85,7 +85,7 @@
   </div>
   <!-- Violation Modals -->
   <% @violations.each do |violation| %>
-    <div class="modal fade" id="violationModal<%= violation.id %>" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="violationModal-<%= violation.id %>" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -111,7 +111,7 @@
                     <li class="list-group-item">
                       <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
                       <% if can?(:destroy, attachment) %>
-                        <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
+                        <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteAttachmentModal-#{attachment.id}" } do %>
                           <i class="bi bi-trash text-danger"></i>
                         <% end %>
                       <% end %>

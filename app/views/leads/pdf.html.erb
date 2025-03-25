@@ -1,16 +1,13 @@
 <% @leads.each_with_index do |lead, index| %>
   <div class="mb-4">
-    <p class="fs-6 text-dark mb-3">
-      <strong>Subject:</strong> Immediate Attention Required: Recent Violations and How to Prevent Future Penalties
-    </p>
-
-    <br>
+    <br><br><br><br>
 
     <p class="fs-5 text-dark mb-3">
+      <strong>Subject:</strong> Immediate Attention Required: Recent Violations and How to Prevent Future Penalties<br>
       <strong>Re: NYC DOB/ECB Violation No: <%= lead.ecb_violation_number %></strong>
     </p>
 
-    <br><br><br><br><br><br>
+    <br><br><br><br><br>
 
     <p class="fs-5 text-dark mb-3">
       <strong><%= lead.entity_name %></strong><br>
@@ -19,9 +16,7 @@
       <%= lead.process_city %> <%= lead.process_state %><br>
       <%= lead.process_zip_code %>
     </p>
-
-    <br><br>
-
+    <br>
     <p class="fs-6 text-dark mb-3">
       Our records indicate that your property has incurred violations resulting in penalties since the beginning of this year. For instance, ECB Violation Number <strong><%= lead.ecb_violation_number %></strong> resulted in a significant fine.
     </p>
@@ -53,7 +48,6 @@
       <li><strong>Gas Piping:</strong> Regular inspections as per NYC regulations, overseen by DOB to ensure safety and compliance.</li>
       <li><strong>Greenhouse Gas Emissions:</strong> Annual inspections, enforced by DEP to meet environmental standards.</li>
       <li><strong>Boiler:</strong>Regular inspections mandated by DOB to ensure safe operation.</li>
-      <li><strong>Parking Structure:</strong> Inspections every six years, with certifications filed with DOB to ensure structural safety.</li>
       <li><strong>Retaining Wall:</strong> Regular inspections mandated by DOB to assess structural stability and prevent failures.</li>
       <li><strong>Sprinkler System:</strong> Inspections every five years, enforced by DOB to ensure fire safety.</li>
       <li><strong>Standpipe System:</strong> Every five years, mandated by DOB to verify emergency fire response.</li>
@@ -62,9 +56,6 @@
     <p class="fs-6 text-dark mb-3">
       By utilizing Propmaticly.com, you can proactively address compliance issues, maintain your property's reputation, and avoid unnecessary financial burdens.
       To start monitoring your buildings in less than 5 minutes, scan the QR code below.
-    </p>
-    <p class="fs-6 text-dark mb-3">
-      Sincerely,
     </p>
 
     <p class="fs-6 text-dark mb-3">

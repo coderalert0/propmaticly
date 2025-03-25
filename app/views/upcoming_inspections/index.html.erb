@@ -60,10 +60,10 @@
                   <button class="btn btn-sm btn-light dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
                   <div class="dropdown-menu">
                     <% if can?(:read, inspection.object) %>
-                      <%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal#{inspection.id}" } %>
+                      <%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#upcomingInspectionModal-#{inspection.id}" } %>
                     <% end %>
                     <% if can?(:edit, inspection.object) %>
-                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{inspection.id}" } %>
+                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editUpcomingInspectionModal-#{inspection.id}" } %>
                     <% end %>
                   </div>
                 </div>
@@ -82,7 +82,7 @@
   </div>
 
   <% @inspections.each do |inspection| %>
-    <div class="modal fade" id="inspectionModal<%= inspection.id %>" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="upcomingInspectionModal-<%= inspection.id %>" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -112,7 +112,7 @@
                     <li>
                       <%= link_to attachment.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), target: '_blank' %>
                       <% if can?(:destroy, attachment) %>
-                        <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{attachment.id}" } do %>
+                        <%= link_to '#', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteAttachmentModal-#{attachment.id}" } do %>
                           <i class="bi bi-trash"></i>
                         <% end %>
                       <% end %>

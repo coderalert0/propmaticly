@@ -60,10 +60,10 @@
                   <button class="btn btn-sm btn-light dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
                   <div class="dropdown-menu">
                     <% if can?(:read, complaint.object) %>
-                      <%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#complaintModal#{complaint.id}" } %>
+                      <%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#complaintModal-#{complaint.id}" } %>
                     <% end %>
                     <% if can?(:edit, complaint.object) %>
-                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{complaint.id}" } %>
+                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editComplaintModal-#{complaint.id}" } %>
                     <% end %>
                   </div>
                 </div>
@@ -82,7 +82,7 @@
   </div>
 
   <% @complaints.each do |complaint| %>
-    <div class="modal fade" id="complaintModal<%= complaint.id %>" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="complaintModal-<%= complaint.id %>" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">

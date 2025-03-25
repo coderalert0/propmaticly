@@ -48,12 +48,12 @@
                     Actions
                   </button>
                   <div class="dropdown-menu">
-                    <%= link_to 'View Contacts', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#contactsModal#{building.id}" } %>
+                    <%= link_to 'View Contacts', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#contactsModal-#{building.id}" } %>
                     <% if can?(:edit, building.object) %>
-                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editModal#{building.id}" } %>
+                      <%= link_to 'Edit', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editBuildingModal-#{building.id}" } %>
                     <% end %>
                     <% if can?(:destroy, building.object) && building.complaints.blank? && building.violations.blank? && building.inspections.blank? %>
-                      <%= link_to 'Delete', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteModal#{building.id}" } %>
+                      <%= link_to 'Delete', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#deleteBuildingModal-#{building.id}" } %>
                     <% end %>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
 
   <!-- Modals for Contacts -->
   <% @buildings.each do |building| %>
-    <div class="modal fade" id="contactsModal<%= building.id %>" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="contactsModal-<%= building.id %>" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">

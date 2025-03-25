@@ -39,7 +39,7 @@
             <ul class="dropdown-menu dropdown-menu-end">
               <% unless current_user.admin? %>
                 <li>
-                  <%= link_to 'Edit Profile', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editUserProfileModal#{current_user.id}" } %>
+                  <%= link_to 'Edit Profile', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#editUserProfileModal-#{current_user.id}" } %>
                 </li>
                 <li><hr class="dropdown-divider"></li>
             <% end %>
