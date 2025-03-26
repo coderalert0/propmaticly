@@ -188,7 +188,7 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-c
 
 #### Start server
 ```
-scp -i ~propmaticly/config/master.key ubuntu@ec2-3-143-142-188.us-east-2.compute.amazonaws.com:/home/ubuntu/propmaticly/config/
+scp -i [key.pem] ~propmaticly/config/master.key ubuntu@ec2-3-143-142-188.us-east-2.compute.amazonaws.com:/home/ubuntu/propmaticly/config/
 whenever --update-crontab
 bundle exec rails assets:precompile
 bundle exec rails s

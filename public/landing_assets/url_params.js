@@ -32,3 +32,43 @@ if (params.total_penalty) {
 if (params.entity_name && params.total_penalty) {
     document.getElementById('penalty-info').style.display = 'block';
 }
+
+(function() {
+    // Ensure the DOM is fully loaded
+    if (document.readyState !== "loading") {
+        appendParams();
+    } else {
+        document.addEventListener("DOMContentLoaded", appendParams);
+    }
+
+    function appendParams() {
+        // Parse the URL parameters
+        const queryParams = new URLSearchParams(window.location.search);
+        const params = [];
+
+        if (queryParams.has('entity_name')) {
+            params.push(`entity_name=${encodeURIComponent(queryParams.get('entity_name'))}`);
+        }
+
+        if (queryParams.has('referral')) {
+            params.push(`referral=${encodeURIComponent(queryParams.get('referral'))}`);
+        }
+
+        // Only proceed if there are parameters to append
+        if (params.length > 0) {
+            const queryString = '?' + params.join('&');
+            // Select all elements with the class 'signup-link'
+            const signupLinks = document.querySelectorAll('.signup-link');
+
+            signupLinks.forEach(link => {
+                // Check if the link already has query parameters
+                if (link.href.includes('?')) {
+                    // Append additional parameters with an ampersand
+                    link.href += '&' + params.join('&');
+                } else {
+                    link.href += queryString;
+                }
+            });
+        }
+    }
+})();

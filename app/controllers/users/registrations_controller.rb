@@ -6,11 +6,15 @@ module Users
     # before_action :configure_account_update_params, only: [:update]
 
     # GET /resource/sign_up
-    # def new
+    def new
+      # in future will only save the referral value, QR codes will include referral, entity_name, and total_penalty going forward
+      @referral = params[:entity_name].present? ? 'letter' : params[:referral]
+      super
+    end
+
+    # def create
     #   super
     # end
-
-    # POST /resource
 
     # GET /resource/edit
     # def edit
@@ -41,7 +45,8 @@ module Users
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
       devise_parameter_sanitizer.permit(:sign_up,
-                                        keys: [:first_name, :last_name, :admin, { organization_attributes: [:name] }])
+                                        keys: [:first_name, :last_name, :admin, :referral,
+                                               { organization_attributes: [:name] }])
     end
 
     # If you have extra params to permit, append them to the sanitizer.
