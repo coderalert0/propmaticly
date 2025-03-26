@@ -136,7 +136,7 @@ After=network.target
 [Service]
 Environment="RAILS_ENV=production"
 User=ubuntu
-WorkingDirectory=/home/ubuntu/propmaticly
+WorkingDirectory=/home/ubuntu/propmaticly/current
 ExecStart=/home/ubuntu/.rbenv/shims/bundle exec puma -C config/puma.rb
 Restart=always
 
