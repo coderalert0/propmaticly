@@ -163,7 +163,7 @@ After=network.target
 Type=simple
 User=ubuntu
 Environment="RAILS_ENV=production"
-WorkingDirectory=/home/ubuntu/propmaticly
+WorkingDirectory=/home/ubuntu/propmaticly/current
 ExecStart=/home/ubuntu/.rbenv/shims/bundle exec rake jobs:work
 ExecStop=/home/ubuntu/.rbenv/shims/bundle exec rake jobs:stop
 Restart=on-failure

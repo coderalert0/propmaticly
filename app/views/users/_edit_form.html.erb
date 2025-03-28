@@ -1,77 +1,81 @@
 <!--begin::Card body-->
 <div class="card-body">
-  <!--begin::Input group-->
-  <div class="row mb-6 align-items-center">
-    <label class="col-lg-4 required">First Name</label>
-    <div class="col-lg-8">
-      <%= f.text_field :first_name, required: true, class: 'form-control', placeholder: 'First Name' %>
+  <div class="row">
+    <!-- First Row: First Name and Permissioned Portfolios -->
+    <div class="col-lg-6">
+      <!-- First Name -->
+      <div class="mb-3">
+        <label class="form-label required">First Name</label>
+        <%= f.text_field :first_name, required: true, class: 'form-control', placeholder: 'First Name' %>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <!-- Permissioned Portfolios -->
+      <div class="mb-3">
+        <label class="form-label">Permissioned Portfolios</label>
+        <%= f.select :portfolio_ids, @portfolios.pluck(:name, :id), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' } %>
+        <div class="text-muted">Permissions the user to the portfolio(s) and subscribes them to alerts</div>
+      </div>
     </div>
   </div>
-  <!--end::Input group-->
 
-  <!--begin::Input group-->
-  <div class="row mb-6 align-items-center">
-    <label class="col-lg-4 required">Last Name</label>
-    <div class="col-lg-8">
-      <%= f.text_field :last_name, required: true, class: 'form-control', placeholder: 'Last Name' %>
+  <div class="row">
+    <!-- Second Row: Last Name and Permissioned Buildings -->
+    <div class="col-lg-6">
+      <!-- Last Name -->
+      <div class="mb-3">
+        <label class="form-label required">Last Name</label>
+        <%= f.text_field :last_name, required: true, class: 'form-control', placeholder: 'Last Name' %>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <!-- Permissioned Buildings -->
+      <div class="mb-3">
+        <label class="form-label">Permissioned Buildings</label>
+        <%= f.select :building_ids, grouped_options_for_select(@grouped_buildings, f.object.user.buildings.pluck(:id)), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' } %>
+        <div class="text-muted">Permissions the user to the building(s) and subscribes them to alerts</div>
+      </div>
     </div>
   </div>
-  <!--end::Input group-->
 
-  <!--begin::Input group-->
-  <div class="row mb-6 align-items-center">
-    <label class="col-lg-4">Title</label>
-    <div class="col-lg-8">
-      <%= f.text_field :title, class: 'form-control' %>
+  <div class="row">
+    <!-- Third Row: Title and Admin Checkbox -->
+    <div class="col-lg-6">
+      <!-- Title -->
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <%= f.text_field :title, class: 'form-control', placeholder: 'Title' %>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <!-- Admin Checkbox -->
+      <div class="mb-3">
+        <label class="form-label">Admin</label>
+        <div class="form-check">
+          <%= f.check_box :admin, class: 'form-check-input' %>
+        </div>
+        <div class="form-text"><%= t(:set_admin_warning_message) %></div>
+      </div>
     </div>
   </div>
-  <!--end::Input group-->
 
-  <!--begin::Input group-->
-  <div class="row mb-6 align-items-center">
-    <label class="col-lg-4">SMS</label>
-    <div class="col-lg-8">
-      <%= f.text_field :sms, class: 'form-control', placeholder: 'SMS' %>
-      <div class="form-text">Enter if you want to be alerted of new complaints, violations, or upcoming inspections</div>
+  <div class="row">
+    <!-- Fourth Row: SMS -->
+    <div class="col-lg-6">
+      <!-- SMS -->
+      <div class="mb-3">
+        <label class="form-label">SMS</label>
+        <%= f.text_field :sms, class: 'form-control', placeholder: 'SMS' %>
+        <div class="form-text"><%= t(:opt_in_message, link: link_to('Privacy Policy', 'https://propmaticly.com/privacy.html', target: '_blank')).html_safe %></div>
+      </div>
     </div>
   </div>
-  <!--end::Input group-->
-
-  <!--begin::Input group-->
-  <div class="row mb-6 align-items-center">
-    <label class="col-lg-4">Permissioned Portfolios</label>
-    <div class="col-lg-8">
-      <%= f.select :portfolio_ids, @portfolios.pluck(:name, :id), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' } %>
-      <div class="text-muted">Permissions the user to the portfolio(s) and subscribes them to alerts</div><br />
-    </div>
-  </div>
-  <!--end::Input group-->
-
-  <!--begin::Input group-->
-  <div class="row mb-6 align-items-center">
-    <label class="col-lg-4">Permissioned Buildings</label>
-    <div class="col-lg-8">
-      <%= f.select :building_ids, grouped_options_for_select(@grouped_buildings, f.object.user.buildings.pluck(:id)), {}, { multiple: true, data: { controller: 'slim' }, class: 'form-select' } %>
-      <div class="text-muted">Permissions the user to the building(s) and subscribes them to alerts</div><br />
-    </div>
-  </div>
-  <!--end::Input group-->
-
-  <!--begin::Input group-->
-  <div class="row mb-6 align-items-center">
-    <label class="col-lg-4">Admin</label>
-    <div class="col-lg-8">
-      <%= f.check_box :admin, class: 'form-check-input' %>
-      <div class="form-text"><%= t(:set_admin_warning_message) %></div>
-    </div>
-  </div>
-  <!--end::Input group-->
 </div>
 <!--end::Card body-->
 
 <!--begin::Actions-->
 <div class="card-footer d-flex justify-content-end py-6 px-9">
-  <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light btn-active-light-light me-2' %>
+  <%= link_to 'Cancel', '#', data: { controller: 'modal', action: 'modal#close' }, class: 'btn btn-light me-2' %>
   <%= f.submit 'Save', class: 'btn btn-success', id: 'kt_account_profile_details_submit' %>
 </div>
 <!--end::Actions-->

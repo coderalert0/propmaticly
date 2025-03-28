@@ -19,4 +19,13 @@ class InspectionDecorator < Draper::Decorator
   def self.states_select
     [[]].concat(I18n.backend.send(:translations)[:en][:inspection_state].invert.to_a)
   end
+
+  def data_value(attribute)
+    value = data[attribute.to_s]
+    if value && %w[date submitted_on].any? { attribute.to_s.include?(_1) }
+      Date.parse(value)&.strftime('%D')
+    else
+      value
+    end
+  end
 end

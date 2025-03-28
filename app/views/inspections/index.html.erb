@@ -39,7 +39,7 @@
           <% @inspections.each do |inspection| %>
             <tr>
               <% @inspection_rule.headers.each do |attribute| %>
-                <td><%= inspection.data[attribute.to_s] %></td>
+                <td><%= inspection.data_value(attribute) %></td>
               <% end %>
               <td class="d-none d-md-table-cell">
                 <div class="dropdown">

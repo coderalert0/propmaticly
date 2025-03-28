@@ -72,6 +72,7 @@ en:
     without this information we can not determine future inspection dates
   "no": "No"
   no_permission: You do not have permission to access this page.
+  opt_in_message: By entering you consent to receive alerts from Propmaticly. Message frequency varies based on complaints or violations. Reply STOP to opt-out of future messaging. Reply HELP for more information. Message & data rates may apply. %{link}.
   portfolio_create_success: Portfolio has been added successfully! Add a building to the portfolio to monitor complaints, violations, and see upcoming inspections
   portfolio_update_success: Portfolio has been updated successfully
   portfolio_delete_success: Portfolio has been deleted successfully

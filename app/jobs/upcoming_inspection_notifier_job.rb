@@ -3,11 +3,20 @@
 class UpcomingInspectionNotifierJob < ApplicationJob
   def perform(inspection_id)
     inspection = Inspection.find(inspection_id)
-    inspection.building.users.pluck(:sms).compact.each do |user|
+    building = inspection.building
+
+    building.users.each do |user|
+      if user.sms.present?
+        ActiveRecord::Base.transaction do
+          SnsClient.new.send_sms(user.sms,
+                                 "The #{inspection.inspection_rule.decorate.compliance_item_humanize} Inspection for #{inspection.building.name} is due on #{inspection.due_date} ")
+          # ideally it should track the inspection/user pair that were notified
+          inspection.update(notified: true)
+        end
+      end
+
       ActiveRecord::Base.transaction do
-        SnsClient.new.send_sms(user.sms,
-                               "The #{inspection.inspection_rule.decorate.compliance_item_humanize} Inspection for #{inspection.building.name} is due on #{inspection.due_date} ")
-        # ideally it should track the inspection/user pair that were notified
+        UpcomingInspectionEmailJob.perform_later(inspection_id, user.email)
         inspection.update(notified: true)
       end
     end

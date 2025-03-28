@@ -25,13 +25,12 @@ module InspectionRules
       annual_property_registration: 15,
       parking_structure: 16,
       gas_piping: 17,
-      energy_efficiency_ll_87: 18,
-      energy_benchmarking: 19,
-      energy_efficiency_ll_133: 20,
-      drinking_water_storage_tank: 21,
-      greenhouse_gas_emissions: 22,
-      retaining_wall: 23,
-      energy_audits_retro_commissioning: 24
+      energy_benchmarking: 18,
+      drinking_water_storage_tank: 19,
+      greenhouse_gas_emissions: 20,
+      retaining_wall: 21,
+      energy_audits_retro_commissioning: 22,
+      energy_efficiency_rating_display: 23
     }
 
     enum :department, {

@@ -1,0 +1,7 @@
+<p>The <%= @inspection.inspection_rule.decorate.compliance_item_humanize %> inspection for <%= @inspection.building.name %> is due on <%= @inspection.due_date&.strftime("%D") %>.</p>
+
+<p>Please file the inspection prior to the due date to avoid penalties</p>
+
+<p><%= link_to 'Click here to see upcoming inspections', building_upcoming_inspections_url(@inspection.building) %></p>
+
+<p>Thank you,<br>The Propmaticly Team</p>

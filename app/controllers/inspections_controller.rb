@@ -17,6 +17,7 @@ class InspectionsController < ApplicationController
     end
 
     @inspections = @inspections.order(filing_date: :desc).page(params[:page])
+    @inspections = PaginationDecorator.decorate(@inspections)
     @inspection_rule = @inspection_rule.decorate
   end
 
