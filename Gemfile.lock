@@ -190,8 +190,6 @@ GEM
       ruby2_keywords
     drb (2.2.1)
     erubi (1.13.1)
-    ethon (0.16.0)
-      ffi (>= 1.15.0)
     execjs (2.10.0)
     factory_bot (6.5.1)
       activesupport (>= 6.1.0)
@@ -405,8 +403,6 @@ GEM
     tins (1.38.0)
       bigdecimal
       sync
-    typhoeus (1.4.1)
-      ethon (>= 0.9.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.1.4)
@@ -414,10 +410,6 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
-    usps (0.1.3)
-      builder (>= 2.1.2)
-      nokogiri (>= 1.4.1)
-      typhoeus (>= 0.1.18)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -488,7 +480,6 @@ DEPENDENCIES
   sprockets-rails
   stimulus-rails
   tzinfo-data
-  usps
   web-console
   webdrivers
   whenever

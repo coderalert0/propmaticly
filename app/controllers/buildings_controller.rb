@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'usps'
-
 class BuildingsController < ApplicationController
   load_and_authorize_resource
   load_and_authorize_resource :portfolio
@@ -12,19 +10,22 @@ class BuildingsController < ApplicationController
     address = AddressHelper.normalize(
       number: building_params[:number].strip,
       street: building_params[:street].strip,
+      state: 'NY',
       zip5: building_params[:zip5].strip
     )
 
-    number, street = address.address1.split(' ', 2)
-    building_details = BuildingHelper.get_building_details(number, street, address.zip5)
+    number, street = address['streetAddress'].split(' ', 2)
+    zip_code = address['ZIPCode']
+
+    building_details = BuildingHelper.get_building_details(number, street, zip_code)
 
     attributes = {
       name: building_params[:name],
       number: number,
       street: street,
-      city: address.city,
-      state: address.state,
-      zip5: address.zip5,
+      city: address['city'],
+      state: address['state'],
+      zip5: address['ZIPCode'],
       numerical_properties: building_params[:numerical_properties],
       has_properties: building_params[:has_properties],
       portfolio_id: building_params[:portfolio_id]
