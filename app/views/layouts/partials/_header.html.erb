@@ -26,6 +26,11 @@
               <%= link_to "Users", users_path, class: "me-4" %>
             </li>
           <% end %>
+          <% if can?(:manage, Lead) %>
+            <li class="nav-item h5">
+              <%= link_to "Leads", leads_path, class: "me-4" %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
 

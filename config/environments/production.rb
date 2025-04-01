@@ -69,7 +69,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.logger = Rails.logger
 
-  config.action_mailer.default_url_options = { host: 'app.propmaticly.com' }
+  config.action_mailer.default_url_options = { host: 'app.propmaticly.com', protocol: 'https' }
   config.action_mailer.default_options = { from: 'Propmaticly <info@propmaticly.com>' }
 
   config.action_mailer.delivery_method = :smtp

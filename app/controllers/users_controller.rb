@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  load_resource
+  load_and_authorize_resource
   before_action :validate_admin, only: %i[index destroy]
 
   def index
-    @users = current_organization.users.includes(buildings: :portfolio).page(params[:page])
+    @users = @users.includes(buildings: :portfolio).page(params[:page])
     @users = PaginationDecorator.decorate(@users)
     @portfolios = current_organization.portfolios.order('LOWER(name)')
     @grouped_buildings = current_organization.buildings.includes(:portfolio).group_by(&:portfolio).transform_keys(&:name).transform_values do |buildings|

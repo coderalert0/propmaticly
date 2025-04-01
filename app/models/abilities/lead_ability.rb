@@ -2,8 +2,8 @@
 
 module Abilities
   class LeadAbility < ModelAbility
-    def admin(_user)
-      can :read, Lead
+    def root(_user)
+      can :manage, Lead
     end
   end
 end

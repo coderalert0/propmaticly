@@ -4,7 +4,7 @@ require 'rqrcode'
 require 'amatch'
 
 class LeadsController < ApplicationController
-  load_resource
+  load_and_authorize_resource
 
   def index
     if params[:search].present?

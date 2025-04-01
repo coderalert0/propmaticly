@@ -8,10 +8,10 @@ class NewComplaintViolationNotifierJob < ApplicationJob
     building.users.each do |user|
       if user.sms.present?
         SnsClient.new.send_sms(user.sms,
-                               "A new #{resource_type.demodulize.titleize} was filed for #{resource.building.name}, click link for details: ")
+                               "Propmaticly: A new #{resource_type.demodulize.titleize} was filed for #{resource.building.name}, login for details")
       end
 
-      NewComplaintViolationEmailJob.perform_later(resource_type, resource_id, user.id)
+      Emails::NewComplaintViolationEmailJob.perform_later(resource_type, resource_id, user.email)
     end
   rescue StandardError => e
     Rails.logger.error "Failed to send new complaint/violation notification for id: #{resource.id}, type: #{resource_type}, error: #{e.message}"

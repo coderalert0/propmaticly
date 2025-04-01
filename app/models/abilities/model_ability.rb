@@ -7,15 +7,13 @@ module Abilities
     def initialize(user)
       can :read, InspectionRules::InspectionRule
 
-      if user.admin?
-        admin(user)
-      else
-        self.user(user)
-      end
+      admin(user) if user.admin?
+      root(user) if user.root?
+      self.user(user) unless user.admin? || user.root?
     end
 
     def admin(user); end
-
+    def root(user); end
     def user(user); end
   end
 end

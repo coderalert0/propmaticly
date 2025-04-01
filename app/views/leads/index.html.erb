@@ -15,6 +15,10 @@
           </div>
         <% end %>
       </div>
+
+      <% if can?(:manage, Lead) %>
+        <%= link_to 'Generate PDF', generate_pdf_leads_path(format: :pdf), class: 'btn btn-success' %>
+      <% end %>
     </div>
 
     <div class="card-body">
