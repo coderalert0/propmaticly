@@ -1,6 +1,6 @@
-A new <%= @resource.class.name.demodulize.titleize %> for <%= @resource.building.name %> was filed. %>.
+A new <%= @resource.class.name.demodulize.titleize %> # <%= @resource_id %> for <%= @resource.building.name %> was filed. %>.
 
-<%= link_to 'Log in to view details', root_url %>
+<%= link_to 'Log in to view details', @url %>
 
 Thank you,
 The Propmaticly Team

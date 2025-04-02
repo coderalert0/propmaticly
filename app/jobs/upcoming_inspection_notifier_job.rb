@@ -8,8 +8,8 @@ class UpcomingInspectionNotifierJob < ApplicationJob
     building.users.each do |user|
       if user.sms.present?
         ActiveRecord::Base.transaction do
-          SnsClient.new.send_sms(user.sms,
-                                 "Propmaticly: The #{inspection.inspection_rule.decorate.compliance_item_humanize} Inspection for #{building.name} is due on #{inspection.due_date&.strftime('%D')}, login for details")
+          SmsJob.perform_later(user.sms,
+                               "Propmaticly: The #{inspection.inspection_rule.decorate.compliance_item_humanize} Inspection for #{building.name} is due on #{inspection.due_date&.strftime('%D')}, login for details")
           # ideally it should track the inspection/user pair that were notified
           inspection.update(notified: true)
         end

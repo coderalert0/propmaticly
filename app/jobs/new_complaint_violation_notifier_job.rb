@@ -7,8 +7,8 @@ class NewComplaintViolationNotifierJob < ApplicationJob
 
     building.users.each do |user|
       if user.sms.present?
-        SnsClient.new.send_sms(user.sms,
-                               "Propmaticly: A new #{resource_type.demodulize.titleize} was filed for #{resource.building.name}, login for details")
+        SmsJob.perform_later(user.sms,
+                             "Propmaticly: A new #{resource_type.demodulize.titleize} was filed for #{resource.building.name}, login for details")
       end
 
       Emails::NewComplaintViolationEmailJob.perform_later(resource_type, resource_id, user.email)

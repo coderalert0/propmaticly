@@ -12,5 +12,7 @@ class SnsClient
                       phone_number: to, # Include country code
                       message: body
                     })
+  rescue StandardError => e
+    Rails.logger.error("SNS Failed to send SMS to #{to}: #{e.class} - #{e.message}")
   end
 end
