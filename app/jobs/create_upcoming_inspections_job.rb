@@ -27,7 +27,7 @@ class CreateUpcomingInspectionsJob < ApplicationJob
   private
 
   def trigger_upcoming_inspection_notifier
-    return unless @notify && (@inspection.due_date <= Date.today >> 1) && !@inspection.notified
+    return unless @notify && (@inspection.due_date <= Date.today >> 1)
 
     UpcomingInspectionNotifierJob.perform_later(@inspection.id)
   end

@@ -6,18 +6,16 @@ class UpcomingInspectionNotifierJob < ApplicationJob
     building = inspection.building
 
     building.users.each do |user|
-      if user.sms.present?
-        ActiveRecord::Base.transaction do
-          SmsJob.perform_later(user.sms,
-                               "Propmaticly: The #{inspection.inspection_rule.decorate.compliance_item_humanize} Inspection for #{building.name} is due on #{inspection.due_date&.strftime('%D')}, login for details")
-          # ideally it should track the inspection/user pair that were notified
-          inspection.update(notified: true)
-        end
-      end
+      next if Notification.exists?(user: user, notifiable: inspection)
 
       ActiveRecord::Base.transaction do
+        if user.sms.present?
+          SmsJob.perform_later(user.sms,
+                               "Propmaticly: The #{inspection.inspection_rule.decorate.compliance_item_humanize} Inspection for #{building.name} is due on #{inspection.due_date&.strftime('%D')}, login for details")
+        end
+
         Emails::UpcomingInspectionEmailJob.perform_later(inspection_id, user.email)
-        inspection.update(notified: true)
+        Notification.create!(user: user, notifiable: inspection)
       end
     end
   rescue StandardError => e

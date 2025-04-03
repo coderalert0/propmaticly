@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :asset_contacts, dependent: :destroy
   has_many :buildings, through: :asset_contacts, source: :assignable, source_type: 'Building'
   has_many :portfolios, through: :asset_contacts, source: :assignable, source_type: 'Portfolio'
+  has_many :notifications, dependent: :destroy
 
   validates :first_name, :last_name, :email, :encrypted_password, presence: true
   validates :email, uniqueness: true

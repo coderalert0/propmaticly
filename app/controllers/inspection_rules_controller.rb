@@ -4,8 +4,14 @@ class InspectionRulesController < ApplicationController
   load_and_authorize_resource :building
 
   def index
-    compliance_items = %w[standpipe_system sprinkler_system backflow_prevention]
-    @missing_inspections = InspectionRules::InspectionRule.where(compliance_item: compliance_items).where.missing(:inspections).pluck(:compliance_item)
+    compliance_items = %w[standpipe_system sprinkler_system backflow_prevention drinking_water_storage_tank
+                          cooling_tower]
+    @missing_inspections = InspectionRules::InspectionRule
+                           .where(id: @building.inspection_rules.map(&:id))
+                           .where(compliance_item: compliance_items)
+                           .where.not(id: Inspection.where(building_id: @building.id).select(:inspection_rule_id))
+                           .pluck(:compliance_item)
+
     @missing_inspections = @missing_inspections.map(&:titleize).to_sentence
 
     @inspection_rules = @building.inspection_rules.sort_by(&:compliance_item)

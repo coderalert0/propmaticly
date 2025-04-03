@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_01_034838) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_03_030746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -125,6 +125,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_01_034838) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "inspection_notifications", force: :cascade do |t|
+    t.bigint "inspection_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inspection_id", "user_id"], name: "index_inspection_notifications_on_inspection_id_and_user_id", unique: true
+    t.index ["inspection_id"], name: "index_inspection_notifications_on_inspection_id"
+    t.index ["user_id"], name: "index_inspection_notifications_on_user_id"
   end
 
   create_table "inspection_rules", force: :cascade do |t|
@@ -254,6 +264,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_01_034838) do
   add_foreign_key "asset_contacts", "users"
   add_foreign_key "buildings", "portfolios"
   add_foreign_key "complaints", "buildings"
+  add_foreign_key "inspection_notifications", "inspections"
+  add_foreign_key "inspection_notifications", "users"
   add_foreign_key "inspections", "buildings"
   add_foreign_key "inspections", "inspection_rules"
   add_foreign_key "portfolios", "organizations"

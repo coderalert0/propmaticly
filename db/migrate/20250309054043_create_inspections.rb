@@ -6,7 +6,6 @@ class CreateInspections < ActiveRecord::Migration[7.0]
       t.date :filing_date
       t.date :due_date
       t.integer :state, default: 0
-      t.boolean :notified
       t.references :building, foreign_key: true, null: false
       t.references :inspection_rule, foreign_key: true, null: false
       t.timestamps

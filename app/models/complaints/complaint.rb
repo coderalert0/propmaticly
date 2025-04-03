@@ -6,6 +6,7 @@ module Complaints
 
     belongs_to :building
     has_many_attached :attachments, dependent: :destroy
+    has_many :notifications, as: :notifiable, dependent: :destroy
 
     audited
 

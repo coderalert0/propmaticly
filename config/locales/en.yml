@@ -66,9 +66,10 @@ en:
   inspection_update_success: Inspection has been updated successfully
   invalid_state_error: Please enter a valid zip code
   last_inspection_input_message:
-    Please enter the last inspection dates for <strong>%{compliance_items}</strong>.
+    Please enter the last inspection dates for <strong>%{compliance_items}</strong>.<br/>
     Click on the respective compliance item below and then click the Add Inspection button.<br/>
-    Future inspection due dates for <strong>%{compliance_items}</strong> are based on the last inspection dates,
+    For new devices without a prior inspection, enter the installation date for "Last Inspection Date".<br/>
+    Future inspection due dates are based on either the last inspection dates or installation dates,
     without this information we can not determine future inspection dates
   "no": "No"
   no_permission: You do not have permission to access this page.

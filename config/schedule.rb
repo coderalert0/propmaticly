@@ -11,6 +11,8 @@ every 1.day, at: '12:00 am' do
   runner 'job = Inspections::FetchBoilerInspectionsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
   runner 'job = Inspections::FetchCoolingTowerInspectionsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
   runner 'job = Inspections::FetchFacadeInspectionsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Inspections::FetchElevatorInspectionsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
+  runner 'job = Inspections::FetchDrinkingTankInspectionsJob.perform_later; puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
 
   runner 'job = Complaints::FetchDobComplaintsJob.perform_later(notify: true); puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
   runner 'job = Complaints::FetchHpdComplaintsJob.perform_later(notify: true); puts "Enqueued #{job.class} (Job ID: #{job.job_id}) to DelayedJob(default)"'
