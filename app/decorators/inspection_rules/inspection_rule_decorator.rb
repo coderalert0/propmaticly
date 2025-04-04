@@ -9,8 +9,10 @@ module InspectionRules
                       re_infested_dwelling_unit filing_date],
       'low_pressure_boiler' => %i[boiler_id report_type boiler_make boiler_model pressure_type inspection_type
                                   inspection_date defects_exist report_status],
-      'high_pressure_boiler' => %i[boiler_id report_type boiler_make boiler_model pressure_type inspection_type
-                                   inspection_date defects_exist report_status],
+      'high_pressure_boiler_internal' => %i[boiler_id report_type boiler_make boiler_model pressure_type inspection_type
+                                            inspection_date defects_exist report_status],
+      'high_pressure_boiler_external' => %i[boiler_id report_type boiler_make boiler_model pressure_type inspection_type
+                                            inspection_date defects_exist report_status],
       'cooling_tower' => %i[system_id status active_equip inspection_type inspection_date violation_code violation_type
                             law_section],
       'elevator_cat_1' => %i[device_number device_type device_status equipment_type periodic_report_year
@@ -43,18 +45,30 @@ module InspectionRules
     end
 
     def header_html
-      header_cells = headers.map do |attribute|
-        "<th>#{attribute.to_s.humanize}</th>"
-      end.join.html_safe
+      if headers.present?
+        header_cells = headers.map do |attribute|
+          "<th>#{attribute.to_s.humanize}</th>"
+        end.join.html_safe
 
-      <<~HTML.html_safe
-        <thead>
-          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-            #{header_cells}
-            <th></th>
-          </tr>
-        </thead>
-      HTML
+        <<~HTML.html_safe
+          <thead>
+            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+              #{header_cells}
+              <th></th>
+            </tr>
+          </thead>
+        HTML
+      else
+        <<~HTML.html_safe
+          <thead>
+            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+              <th>Device ID</th>
+              <th>Filing Date</th>
+              <th></th>
+            </tr>
+          </thead>
+        HTML
+      end
     end
 
     def compliance_item_humanize

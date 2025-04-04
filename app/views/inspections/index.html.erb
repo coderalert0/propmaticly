@@ -1,12 +1,7 @@
 <div>
   <!-- Page Header -->
   <div class="py-lg-8">
-    <h2><%= @building&.name %>: Synced <%= @inspection_rule&.compliance_item_humanize %> Inspections (<%= @inspections.try(:total_count) %>)</h2>
-  </div>
-
-  <!-- Alert for External Inspections -->
-  <div class="alert alert-primary alert-dismissible">
-    <%= t(:external_inspections_message, compliance_item: @inspection_rule.compliance_item_humanize, link: link_to(t(:click_to_view_internal_inspections_message), building_upcoming_inspections_path(@building))).html_safe %>
+    <h2><%= @building&.name %>: Past <%= @inspection_rule&.compliance_item_humanize %> Inspections (<%= @inspections.try(:total_count) %>)</h2>
   </div>
 
   <!-- Inspection Search & Add Button -->
@@ -25,32 +20,40 @@
         <% end %>
       </div>
 
-      <% if can?(:create, Inspection) && @inspection_rule.based_on_last_inspection? %>
+      <% if can?(:create, Inspection.new(inspection_rule_id: @inspection_rule.id)) %>
         <%= link_to 'Add Inspection', '#', class: 'btn btn-success' , data: { controller: 'modal', action: 'modal#open', bs_target: "#newModal" } %>
       <% end %>
     </div>
 
     <!-- Inspections Table -->
     <div class="card-body">
-      <div class="table-responsive">
+      <div>
         <table class="table align-middle table-row-dashed gy-3">
           <%= @inspection_rule.header_html %>
           <tbody>
           <% @inspections.each do |inspection| %>
             <tr>
-              <% @inspection_rule.headers.each do |attribute| %>
-                <td><%= inspection.data_value(attribute) %></td>
-              <% end %>
+              <% if inspection.data.present? %>
+                <% @inspection_rule.headers.each do |attribute| %>
+                  <td><%= inspection.data_value(attribute) %></td>
+                <% end %>
+              <% else %>
+                <td><%= inspection.device_id %></td>
+                <% (@inspection_rule.headers.size - 2).times do %>
+                  <td></td>
+                <% end %>
+                <td><%= inspection.filing_date&.strftime('%D') %></td>
+            <% end %>
               <td class="d-none d-md-table-cell">
                 <div class="dropdown">
                   <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Actions
                   </button>
-                  <ul class="dropdown-menu">
-                    <% if can?(:read, inspection) %>
+                  <div class="dropdown-menu">
+                    <% if can?(:read, inspection.object) %>
                       <li><%= link_to 'View Details', '#', class: 'dropdown-item', data: { controller: 'modal', action: 'modal#open', bs_target: "#inspectionModal-#{inspection.id}" } %></li>
                     <% end %>
-                  </ul>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -78,11 +81,18 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <% inspection.data.keys.sort.each_slice(10) do |chunk| %>
+              <% if inspection.data.present? %>
+                <% inspection.data.keys.sort.each_slice(10) do |chunk| %>
+                  <div class="col-md-6">
+                    <% chunk.each do |key| %>
+                      <p><strong><%= key.titleize %>: </strong><%= inspection.data[key] %></p>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% else %>
                 <div class="col-md-6">
-                  <% chunk.each do |key| %>
-                    <p><strong><%= key.titleize %>: </strong><%= inspection.data[key] %></p>
-                  <% end %>
+                  <p><strong>Device ID: </strong><%= inspection.device_id %></p>
+                  <p><strong>Filing Date: </strong><%= inspection.filing_date&.strftime('%D') %></p>
                 </div>
               <% end %>
             </div>

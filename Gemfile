@@ -62,7 +62,7 @@ gem 'kaminari'
 gem 'pg'
 gem 'phony_rails'
 gem 'rqrcode'
-gem 'whenever'
+gem 'whenever', require: false
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 

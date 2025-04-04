@@ -5,7 +5,9 @@ class UpcomingInspectionsController < ApplicationController
   load_and_authorize_resource class: 'Inspection', instance_name: :inspection
 
   def index
-    @inspections = @building.inspections.includes(:attachments_attachments, :inspection_rule, :audits).internal
+    @inspections = @building.inspections.includes(:attachments_attachments, :inspection_rule,
+                                                  :audits).incomplete
+
     @inspections = @inspections.send(params[:state]) if params[:state].present?
 
     if params[:search].present?
@@ -15,7 +17,7 @@ class UpcomingInspectionsController < ApplicationController
                                  .where('inspection_rules.description::text ILIKE :search OR inspection_rules.compliance_item::text ILIKE :search', search: search_term)
     end
 
-    @inspections = @inspections.order(:due_date).page(params[:page])
+    @inspections = @inspections.order(due_date: :asc, id: :asc).page(params[:page])
     @inspections = PaginationDecorator.decorate(@inspections)
   end
 

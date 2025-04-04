@@ -14,8 +14,10 @@ class CreateUpcomingInspectionsJob < ApplicationJob
         next_inspection.each do |device_id, next_inspection_date|
           next unless next_inspection_date && next_inspection_date <= end_date
 
+          device_key = rule.device_identifier&.split("->>'")&.last&.delete_suffix("'")
+          data = device_key.present? ? { device_key => device_id } : {}
           @inspection = building.inspections.find_or_create_by(device_id: device_id, inspection_rule: rule,
-                                                               due_date: next_inspection_date)
+                                                               due_date: next_inspection_date, data: data)
           trigger_upcoming_inspection_notifier
         end
       rescue StandardError => e

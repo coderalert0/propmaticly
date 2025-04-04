@@ -12,7 +12,7 @@ class ViolationsController < ApplicationController
       search = "%#{params[:search].strip}%"
       @violations = @violations.where('violation_id LIKE ? OR description LIKE ?', search, search)
     end
-    @violations = @violations.order(issue_date: :desc).page(params[:page])
+    @violations = @violations.order(issue_date: :desc, id: :asc).page(params[:page])
     @violations = PaginationDecorator.decorate(@violations)
   end
 

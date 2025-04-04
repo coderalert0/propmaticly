@@ -10,11 +10,10 @@ class Inspection < ApplicationRecord
 
   audited
 
-  scope :external, -> { where.not(data: {}) }
-  scope :internal, -> { where(data: {}) }
   scope :open, -> { where(state: :open) }
   scope :overdue, -> { where('due_date <= ?', Date.today) }
-  scope :completed, -> { where.not(filing_date: nil) }
+  scope :complete, -> { where.not(filing_date: nil) }
+  scope :incomplete, -> { where(filing_date: nil) }
 
   validates :inspection_rule_id, :building_id, presence: true
 

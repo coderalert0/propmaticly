@@ -14,7 +14,7 @@ class ComplaintsController < ApplicationController
       @complaints = @complaints.where('complaint_id LIKE ? OR problem_id LIKE ? OR description LIKE ?', search, search,
                                       search)
     end
-    @complaints = @complaints.order(filed_date: :desc).page(params[:page])
+    @complaints = @complaints.order(filed_date: :desc, id: :asc).page(params[:page])
     @complaints = PaginationDecorator.decorate(@complaints)
   end
 

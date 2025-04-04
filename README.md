@@ -51,7 +51,7 @@ rake db:seed
 
 #### Setup Nginx
 ```
-sudo vi /etc/nginx/sites-available/propmaticly
+sudo vi /etc/nginx/sites-available/propmaticaly
 ```
 
 ```
@@ -60,6 +60,7 @@ server {
     return 301 https://$host$request_uri;
 }
 
+# Shared SSL settings (you will create this file)
 include /etc/nginx/snippets/ssl-propmaticly.conf;
 
 # Landing page (propmaticly.com)
@@ -67,7 +68,7 @@ server {
     listen 443 ssl;
     server_name propmaticly.com www.propmaticly.com;
 
-    root /home/ubuntu/propmaticly/public/;
+    root /home/ubuntu/propmaticly/current/public/;
     index index.html;
 
     location / {
@@ -90,7 +91,7 @@ server {
     }
 
     location ~ ^/assets/ {
-        root /home/ubuntu/propmaticly/public;
+        root /home/ubuntu/propmaticly/current/public;
         expires max;
         add_header Cache-Control public;
     }
@@ -99,6 +100,38 @@ server {
     error_page 404 /404.html;
 
     include /etc/nginx/snippets/ssl-propmaticly.conf;
+}
+
+server {
+    listen 80;
+    server_name blog.propmaticly.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name blog.propmaticly.com;
+
+    root /var/www/html/wordpress;
+    index index.php index.html index.htm;
+
+    ssl_certificate /etc/letsencrypt/live/blog.propmaticly.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/blog.propmaticly.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
 }
 ```
 
@@ -186,9 +219,45 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 ```
 
+#### file.config should look like
+It resides in either
+```
+/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+/etc/amazon-cloudwatch-agent/amazon-cloudwatch-agent.json
+```
+
+```
+{
+    "agent": {
+        "run_as_user": "cwagent",
+        "debug": true
+    },
+    "logs": {
+        "logs_collected": {
+            "files": {
+                "collect_list": [
+                    {
+                        "file_path": "/home/ubuntu/propmaticly/current/log/production.log",
+                        "log_group_class": "STANDARD",
+                        "log_group_name": "production.log",
+			"retention_in_days": 90
+                    },
+                    {
+                        "file_path": "/home/ubuntu/propmaticly/current/log/cron.log",
+                        "log_group_class": "STANDARD",
+                        "log_group_name": "cron.log",
+			"retention_in_days": 90
+                    }
+                ]
+            }
+        }
+    }
+}
+```
+
 #### Start server
 ```
-scp -i [key.pem] ~propmaticly/config/master.key ubuntu@ec2-3-143-142-188.us-east-2.compute.amazonaws.com:/home/ubuntu/propmaticly/config/
+scp -i [key.pem] ~propmaticly/config/master.key ubuntu@ec2-3-143-142-188.us-east-2.compute.amazonaws.com:/home/ubuntu/propmaticly/current/config/
 whenever --update-crontab
 bundle exec rails assets:precompile
 bundle exec rails s

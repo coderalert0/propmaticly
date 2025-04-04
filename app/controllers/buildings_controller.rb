@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class BuildingsController < ApplicationController
-  load_and_authorize_resource
   load_and_authorize_resource :portfolio
+  load_and_authorize_resource :building, through: :portfolio, only: :index
+  load_and_authorize_resource :building, except: :index
 
   def save_building
     @building = Building.find_or_initialize_by(id: params[:id])
@@ -47,7 +48,7 @@ class BuildingsController < ApplicationController
   alias update save_building
 
   def index
-    @buildings = @portfolio.buildings.includes(:complaints, :violations, :inspections).order(:name).page(params[:page])
+    @buildings = @buildings.includes(:complaints, :violations, :inspections).order(:name, id: :asc).page(params[:page])
     @buildings = PaginationDecorator.decorate(@buildings)
   end
 

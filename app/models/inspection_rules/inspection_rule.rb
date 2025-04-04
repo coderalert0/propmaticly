@@ -66,6 +66,10 @@ module InspectionRules
       end
     end
 
+    def device_identifier
+      DEVICE_IDENTIFIER[compliance_item.to_sym]
+    end
+
     private
 
     def calculate_fixed_due_date
@@ -77,9 +81,9 @@ module InspectionRules
         due_date += frequency_in_months.months while due_date < @current_date
       end
 
-      if DEVICE_IDENTIFIER[compliance_item.to_sym]
-        latest_filing_dates = Inspection.completed.where(inspection_rule_id: id,
-                                                         building: @building).group(DEVICE_IDENTIFIER[compliance_item.to_sym]).maximum(:filing_date)
+      if device_identifier
+        latest_filing_dates = Inspection.complete.where(inspection_rule_id: id,
+                                                        building: @building).group("UPPER(#{device_identifier})").maximum(:filing_date)
         latest_filing_dates.transform_values do |filing_date|
           based_on_last_inspection? ? filing_date + frequency_in_months.months : due_date
         end
